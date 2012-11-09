@@ -13,7 +13,6 @@
 		1507578815C98EA500FB2F71 /* CAStreamBasicDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46515C85DF8009DE0E5 /* CAStreamBasicDescription.h */; };
 		1507578915C98EA500FB2F71 /* CAXException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46715C85DF8009DE0E5 /* CAXException.h */; };
 		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
-		150C576B164C20EB0033AEC3 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 150C5768164C20EB0033AEC3 /* README */; };
 		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		155D4F8515D604BB00CF45FD /* Logging.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D4F8415D5FDA800CF45FD /* Logging.h */; };
@@ -86,7 +85,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		150C5768164C20EB0033AEC3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
 		1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
 		153ED1EF164D503A00CA3400 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -94,6 +92,7 @@
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCMessage.h; sourceTree = "<group>"; };
 		157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNFCMessage.m; sourceTree = "<group>"; };
+		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		15C4B2CC15C832E0009DE0E5 /* libFloJack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFloJack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15C4B2CF15C832E0009DE0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJack-Prefix.pch"; sourceTree = "<group>"; };
@@ -208,7 +207,7 @@
 				15C4B2CE15C832E0009DE0E5 /* Frameworks */,
 				15C4B2CD15C832E0009DE0E5 /* Products */,
 				153ED1EF164D503A00CA3400 /* LICENSE */,
-				150C5768164C20EB0033AEC3 /* README */,
+				15B62D01164D6A7F002B04AD /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -368,7 +367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C4B2EB15C832E0009DE0E5 /* InfoPlist.strings in Resources */,
-				150C576B164C20EB0033AEC3 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
