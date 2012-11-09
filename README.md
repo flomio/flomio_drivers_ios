@@ -17,7 +17,7 @@ Choose one of the following options:
 Import ``"FJNFCAdapter.h"``
 
 Framework Dependencies
-``````````````````````
+----------------
 Your app must be linked against the following frameworks
 
 - AudioToolbox.framework
