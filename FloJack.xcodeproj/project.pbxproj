@@ -15,6 +15,23 @@
 		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
 		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
+		1559F29016517FF100B43633 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
+		1559F29116517FF100B43633 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
+		1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1559F26E16517F8C00B43633 /* CoreGraphics.framework */; };
+		1559F29816517FF100B43633 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1559F29616517FF100B43633 /* InfoPlist.strings */; };
+		1559F29A16517FF100B43633 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1559F29916517FF100B43633 /* main.m */; };
+		1559F29E16517FF100B43633 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1559F29D16517FF100B43633 /* AppDelegate.m */; };
+		1559F2A016517FF100B43633 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1559F29F16517FF100B43633 /* Default.png */; };
+		1559F2A216517FF100B43633 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1559F2A116517FF100B43633 /* Default@2x.png */; };
+		1559F2A416517FF100B43633 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1559F2A316517FF100B43633 /* Default-568h@2x.png */; };
+		1559F2A716517FF100B43633 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1559F2A616517FF100B43633 /* ViewController.mm */; };
+		1559F2AA16517FF100B43633 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1559F2A816517FF100B43633 /* ViewController_iPhone.xib */; };
+		1559F2B21651811300B43633 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1559F2B11651811300B43633 /* ViewController_iPad.xib */; };
+		1559F2B31651881400B43633 /* libFloJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CC15C832E0009DE0E5 /* libFloJack.a */; };
+		1559F2B41651889400B43633 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */; };
+		1559F2B51651889B00B43633 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
+		1559F2B6165188A400B43633 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */; };
+		1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
 		155D4F8515D604BB00CF45FD /* Logging.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D4F8415D5FDA800CF45FD /* Logging.h */; };
 		155D4F8715D7044B00CF45FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
 		155E70CE15C865910025136D /* FJNFCTag.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */; };
@@ -88,6 +105,22 @@
 		15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
 		1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
 		153ED1EF164D503A00CA3400 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1559F26E16517F8C00B43633 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1559F27016517F8C00B43633 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1559F28E16517FF100B43633 /* FloJackExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloJackExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1559F29516517FF100B43633 /* FloJackExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FloJackExample-Info.plist"; sourceTree = "<group>"; };
+		1559F29716517FF100B43633 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1559F29916517FF100B43633 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1559F29B16517FF100B43633 /* FloJackExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJackExample-Prefix.pch"; sourceTree = "<group>"; };
+		1559F29C16517FF100B43633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1559F29D16517FF100B43633 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1559F29F16517FF100B43633 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1559F2A116517FF100B43633 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1559F2A316517FF100B43633 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1559F2A516517FF100B43633 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1559F2A616517FF100B43633 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		1559F2A916517FF100B43633 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		1559F2B11651811300B43633 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
 		155D4F8415D5FDA800CF45FD /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCMessage.h; sourceTree = "<group>"; };
@@ -130,6 +163,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1559F28B16517FF100B43633 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */,
+				1559F2B6165188A400B43633 /* MobileCoreServices.framework in Frameworks */,
+				1559F2B51651889B00B43633 /* CoreAudio.framework in Frameworks */,
+				1559F2B41651889400B43633 /* AudioToolbox.framework in Frameworks */,
+				1559F2B31651881400B43633 /* libFloJack.a in Frameworks */,
+				1559F29016517FF100B43633 /* UIKit.framework in Frameworks */,
+				1559F29116517FF100B43633 /* Foundation.framework in Frameworks */,
+				1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15C4B2C915C832DF009DE0E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,6 +206,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1559F29316517FF100B43633 /* FloJackExample */ = {
+			isa = PBXGroup;
+			children = (
+				1559F29C16517FF100B43633 /* AppDelegate.h */,
+				1559F29D16517FF100B43633 /* AppDelegate.m */,
+				1559F2A516517FF100B43633 /* ViewController.h */,
+				1559F2A616517FF100B43633 /* ViewController.mm */,
+				1559F2A816517FF100B43633 /* ViewController_iPhone.xib */,
+				1559F2B11651811300B43633 /* ViewController_iPad.xib */,
+				1559F29416517FF100B43633 /* Supporting Files */,
+			);
+			path = FloJackExample;
+			sourceTree = "<group>";
+		};
+		1559F29416517FF100B43633 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1559F29516517FF100B43633 /* FloJackExample-Info.plist */,
+				1559F29616517FF100B43633 /* InfoPlist.strings */,
+				1559F29916517FF100B43633 /* main.m */,
+				1559F29B16517FF100B43633 /* FloJackExample-Prefix.pch */,
+				1559F29F16517FF100B43633 /* Default.png */,
+				1559F2A116517FF100B43633 /* Default@2x.png */,
+				1559F2A316517FF100B43633 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		155D4F6E15D48F4900CF45FD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +278,7 @@
 		15C4B2C115C832DF009DE0E5 = {
 			isa = PBXGroup;
 			children = (
+				1559F29316517FF100B43633 /* FloJackExample */,
 				15C4B2D115C832E0009DE0E5 /* FloJack */,
 				15C4B2E615C832E0009DE0E5 /* Tests */,
 				15C4B2CE15C832E0009DE0E5 /* Frameworks */,
@@ -216,6 +293,7 @@
 			children = (
 				15C4B2CC15C832E0009DE0E5 /* libFloJack.a */,
 				15C4B2DD15C832E0009DE0E5 /* FloJackTests.octest */,
+				1559F28E16517FF100B43633 /* FloJackExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +308,8 @@
 				15C4B2CF15C832E0009DE0E5 /* Foundation.framework */,
 				15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */,
 				15C4B2E015C832E0009DE0E5 /* UIKit.framework */,
+				1559F26E16517F8C00B43633 /* CoreGraphics.framework */,
+				1559F27016517F8C00B43633 /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -298,6 +378,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1559F28D16517FF100B43633 /* FloJackExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloJackExample" */;
+			buildPhases = (
+				1559F28A16517FF100B43633 /* Sources */,
+				1559F28B16517FF100B43633 /* Frameworks */,
+				1559F28C16517FF100B43633 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FloJackExample;
+			productName = FloJackExample;
+			productReference = 1559F28E16517FF100B43633 /* FloJackExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		15C4B2CB15C832DF009DE0E5 /* FloJack */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 15C4B2F115C832E0009DE0E5 /* Build configuration list for PBXNativeTarget "FloJack" */;
@@ -357,11 +454,25 @@
 			targets = (
 				15C4B2CB15C832DF009DE0E5 /* FloJack */,
 				15C4B2DC15C832E0009DE0E5 /* FloJackTests */,
+				1559F28D16517FF100B43633 /* FloJackExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1559F28C16517FF100B43633 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1559F29816517FF100B43633 /* InfoPlist.strings in Resources */,
+				1559F2A016517FF100B43633 /* Default.png in Resources */,
+				1559F2A216517FF100B43633 /* Default@2x.png in Resources */,
+				1559F2A416517FF100B43633 /* Default-568h@2x.png in Resources */,
+				1559F2AA16517FF100B43633 /* ViewController_iPhone.xib in Resources */,
+				1559F2B21651811300B43633 /* ViewController_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15C4B2DA15C832E0009DE0E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -389,6 +500,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1559F28A16517FF100B43633 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1559F29A16517FF100B43633 /* main.m in Sources */,
+				1559F29E16517FF100B43633 /* AppDelegate.m in Sources */,
+				1559F2A716517FF100B43633 /* ViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15C4B2C815C832DF009DE0E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,6 +550,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1559F29616517FF100B43633 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1559F29716517FF100B43633 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1559F2A816517FF100B43633 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1559F2A916517FF100B43633 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
 		15C4B2E915C832E0009DE0E5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -440,6 +577,45 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1559F2AF16517FF100B43633 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
+				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1559F2B016517FF100B43633 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
+				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		15C4B2EF15C832E0009DE0E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -451,6 +627,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -484,6 +661,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -606,6 +784,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloJackExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1559F2AF16517FF100B43633 /* Debug */,
+				1559F2B016517FF100B43633 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		15C4B2C615C832DF009DE0E5 /* Build configuration list for PBXProject "FloJack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

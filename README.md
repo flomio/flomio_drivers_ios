@@ -1,7 +1,10 @@
 FloJack Objective-C NFC Client Library (alpha)
 ================================================
 
-A client library for use with the FloJack NFC reader. 
+A client library for use with the FloJack NFC reader.
+
+Please help us make this a reality and contribute to our Kickstarter campaign: 
+http://www.kickstarter.com/projects/flomio/flojack-nfc-for-ipad-and-iphone/ 
 
 
 Installing
@@ -26,9 +29,41 @@ Your app must be linked against the following frameworks
 - QuartzCore.framework
 
 
+API
+---
+The classes you care about
+
+``FJNFCAdapterDelegate``
+
+Implement these guys:
+  
+    @protocol SRWebSocketDelegate <NSObject>
+
+    @required
+    
+    - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag;
+    - (BOOL)nfcAdapter:(id)sender shouldWriteTagwithData:(NSData *)theData;
+    - (BOOL)nfcAdapter:(id)sender shouldSendMessage:(NSData *)theMessage;
+
+    @optional
+
+    - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber;
+    - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber;
+    - (void)nfcAdapterDidDetectFloJackConnected:(FJNFCAdapter *)nfcAdapter;
+    - (void)nfcAdapterDidDetectFloJackDisconnected:(FJNFCAdapter *)nfcAdapter;
+
+    @end
+
+
+Example
+---------------
+See FloJackExample target app included in this project.
+
+
 TODO
 ---------------
-This library is functional but actively under development. Much will be changing. 
+This library is actively under development, much will be changing.
+ 
 - Finish implementing NDEF read/write 
 - Begin implementing LLCP arhcitecture
 - Begin implementing SNEP atop LLCP
