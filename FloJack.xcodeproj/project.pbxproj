@@ -38,6 +38,8 @@
 		155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
 		157C812E15DBFF2C00760BF2 /* FJNFCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */; };
 		157C812F15DBFFEB00760BF2 /* FJNFCMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */; };
+		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
+		15B046FA165323CE000FF892 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15B046F9165323CE000FF892 /* scan_sound.mp3 */; };
 		15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
 		15B48C04164D65E800043A4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */; };
 		15B48C06164D663800043A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
@@ -125,6 +127,8 @@
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCMessage.h; sourceTree = "<group>"; };
 		157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNFCMessage.m; sourceTree = "<group>"; };
+		15B046F6165322C3000FF892 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		15B046F9165323CE000FF892 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
 		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		15C4B2CC15C832E0009DE0E5 /* libFloJack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFloJack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15C4B2CF15C832E0009DE0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -167,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */,
 				1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */,
 				1559F2B6165188A400B43633 /* MobileCoreServices.framework in Frameworks */,
 				1559F2B51651889B00B43633 /* CoreAudio.framework in Frameworks */,
@@ -301,6 +306,7 @@
 		15C4B2CE15C832E0009DE0E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15B046F6165322C3000FF892 /* AVFoundation.framework */,
 				15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */,
 				15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */,
 				15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */,
@@ -326,6 +332,7 @@
 		15C4B2D215C832E0009DE0E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				15B046F9165323CE000FF892 /* scan_sound.mp3 */,
 				15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -470,6 +477,7 @@
 				1559F2A416517FF100B43633 /* Default-568h@2x.png in Resources */,
 				1559F2AA16517FF100B43633 /* ViewController_iPhone.xib in Resources */,
 				1559F2B21651811300B43633 /* ViewController_iPad.xib in Resources */,
+				15B046FA165323CE000FF892 /* scan_sound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,6 +799,7 @@
 				1559F2B016517FF100B43633 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15C4B2C615C832DF009DE0E5 /* Build configuration list for PBXProject "FloJack" */ = {
 			isa = XCConfigurationList;

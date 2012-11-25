@@ -13,7 +13,9 @@
 @end
 
 @implementation ViewController {
-    FJNFCAdapter *_nfcAdapter;
+    AVAudioPlayer   *_audioPlayer;
+    FJNFCAdapter    *_nfcAdapter;
+    
 }
 
 @synthesize textView;
@@ -42,7 +44,7 @@
 }
 
 - (IBAction)buttonWasPressed:(id)sender {
-    switch (((UIButton *)sender).tag){
+    switch (((UIButton *)sender).tag) {
         // LEFT COLUMN
         case 0:
             [_nfcAdapter sendMessageToHost:(UInt8 *)protocol_14443A_msg];
@@ -123,13 +125,69 @@
     }
 }
 
-#pragma mark - NFC Adapter Protocol
+// This forces audio through speaker even when the accessory is plugged in.
+-(void)playSound:(NSString *)soundFileName
+{
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource : soundFileName ofType :@"mp3"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath : path])
+    {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        
+        UInt32 allowMixing = true;
+        AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+        
+        UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+        AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+        
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        
+        NSURL *url = [NSURL fileURLWithPath:path];
+        
+        NSError *error;
+        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        _audioPlayer.numberOfLoops = 0;
+        [_audioPlayer prepareToPlay];
+        _audioPlayer.delegate = self;
+        
+        if (_audioPlayer != nil)
+        {
+            [_audioPlayer play];
+        }
+        
+        [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    }
+    else
+    {
+        NSLog(@"error, file not found: %@", path);
+    }
+}
+
+#pragma mark - AVAudioPlayer Delegate
+
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    UInt32 allowMixing = true;
+    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+    
+    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
+    AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+}
+
+#pragma mark - FJNFCAdapter Delegate
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
     
     NSLog(@"Tag uid: %@", [[theNfcTag uid] fj_asHexString]);
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self playSound:@"scan_sound.mp3"];
+        
         textView.text = [NSString stringWithFormat:@"%@ - %@",textView.text, [[theNfcTag uid] fj_asHexString]];
     });
 }

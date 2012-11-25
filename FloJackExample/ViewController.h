@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "FJNFCAdapter.h"
 
 #import "NSData+FJStringDisplay.h"
 
-@interface ViewController : UIViewController <FJNFCAdapterDelegate>
+@interface ViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate>
 
 @property (retain, nonatomic) IBOutlet UITextView *textView;
 
