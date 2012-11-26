@@ -285,7 +285,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                 bitNum += 1;
 							}
                             else {
-                                LogTrace(@" ++ good parity %ld, UartByte 0x%x\n", sample, uartByte);
+                                LogTrace(@" ++ UartByte: 0x%x\n", uartByte);
+                                LogTrace(@" +++ good parity: %ld \n", sample);
 								parityGood = true;
                                 bitNum += 1;                                
 							}							
@@ -294,7 +295,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 							// Sample is stop bit
 							if (sample == 1) {
 								// Valid byte
-                                LogTrace(@" ++ StopBit: %ld UartByte 0x%x\n", sample, uartByte);
+                                LogTrace(@" +++ stop bit: %ld \n", sample);
 							}
                             else {
 								// Invalid byte			
@@ -678,7 +679,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     }
     else if (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT) {
         // sweet! timeout has passed, let's get cranking on this valid message
-        LogTrace(@" +++ Message Valid: valid byte is part ofa new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
+        LogTrace(@" ++ Message Valid: valid byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
         
         // TODO: Add NACK here?
         
