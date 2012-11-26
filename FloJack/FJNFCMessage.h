@@ -10,7 +10,7 @@
 
 // Message Length Boundaries
 #define MIN_MESSAGE_LENGTH                       3   //todo change to 4
-#define MAX_MESSAGE_LENGTH                       20
+#define MAX_MESSAGE_LENGTH                       255
 
 #define CORRECT_CRC_VALUE                        0   
 
@@ -102,23 +102,21 @@ static const UInt8 ti_host_command_led_on_msg[] =       {0x0B,0x09,0x06,0x06,0x0
 
 static const UInt8 ti_host_command_led_off_msg[] =      {0x0B,0x09,0x06,0x06,0x00,0x03,0x04,0xF4,0xF1};
 
-//Register write
-static const UInt8 test_register_write_msg[] =          {0x0B, 0x0F ,0x06, 0x0C, 0x00, 0x03, 0x04, 0x10, 0x00, 0x21, 0x01, 0x09, 0x00, 0x00, 0x30};
+static const UInt8 op_mode_uid_only[] =                 {0x0E,0x05,0x00,0x01,0x0A};
 
-//AGC toggle
-static const UInt8 test_agc_toggle_msg[] =              {0x0B, 0x0C ,0x06, 0x09, 0x00, 0x03, 0x04, 0xF0, 0x00, 0x00, 0x00, 0xFF};
+static const UInt8 op_mode_uid_only_no_redundancy[] =   {0x0E,0x05,0x00,0x00,0x0B};
 
-//AM/PM toggle
-static const UInt8 test_am_pm_toggle_msg[] =            {0x0B, 0x0C ,0x06, 0x09, 0x00, 0x03, 0x04, 0xF1, 0xFF, 0x00, 0x00, 0x01};
+static const UInt8 op_mode_read_only[] =                {0x0E,0x04,0x01,0x0B};
 
-//14443A Request
-static const UInt8 test_14443a_request_msg[] =          {0x0B, 0x0C ,0x06, 0x09, 0x00, 0x03, 0x04, 0xA0, 0x00, 0x00, 0x00, 0xAF};
+static const UInt8 op_mode_write_only[] =               {0x0E,0x05,0x02,0x01,0x08};
 
-//14443A Select tag
-static const UInt8 test_14443a_select_tag_msg[] =       {0x0B, 0x14 ,0x06, 0x11, 0x00, 0x03, 0x04, 0xA2, 0x04, 0x40, 0x72, 0xBE, 0xDA, 0x98, 0x26, 0x80, 0xE4, 0x00, 0x00, 0x25};
+static const UInt8 op_mode_write_only_no_override[] =   {0x0E,0x05,0x02,0x00,0x09};
 
-//read first 4 blocks
-static const UInt8 test_read_first_4_blocks_msg[] =     {0x0B, 0x0D ,0x06, 0x0A, 0x00, 0x03, 0x04, 0x72, 0x30, 0x00, 0x00, 0x00, 0x4F};
+static const UInt8 op_mode_read_write[] =               {0x0E,0x04,0x03,0x09};
+
+
+
+
 
 
 //Flomio Accessory-Client Message Opcodes
@@ -136,7 +134,9 @@ typedef enum
     FLOMIO_LED_CONTROL_OP,
     FLOMIO_TI_HOST_COMMAND_OP,
     FLOMIO_COMMUNICATION_CONFIG_OP,
-    FLOMIO_PING_OP
+    FLOMIO_PING_OP,
+    FLOMIO_OPERATION_MODE_OP,
+    FLOMIO_BLOCK_READ_WRITE_OP
 } flomio_opcode_t;
 
 //Flomio Status Sub-Opcode
@@ -227,6 +227,23 @@ typedef enum
     FLOMIO_PING = 0,
     FLOMIO_PONG
 } flomio_ping_pong_t;
+
+//Operation Mode Sub-Opcodes
+typedef enum
+{
+    FLOMIO_UID_ONLY = 0,
+    FLOMIO_READ_ONLY,
+    FLOMIO_WRITE_ONLY,
+    FLOMIO_READ_WRITE
+} flomio_operation_modes_t;
+
+//Block Read/Write Sub-Opcodes
+typedef enum 
+{
+    FLOMIO_READ_BLOCK = 0,
+    FLOMIO_WRITE_BLOCK,
+    FLOMIO_WRITE_CONTINUOUS
+} flomio_block_read_write_t;
 
 
 

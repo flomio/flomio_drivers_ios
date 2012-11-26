@@ -152,7 +152,7 @@
                         [self resendLastMessageSent];
                         break;
                     case FLOMIO_ACK_GOOD:
-                        LogInfo(@" FLOMIO_ACK_GOOD ");
+                        LogInfo(@"FLOMIO_ACK_GOOD ");
                         break;
                     case FLOMIO_DISABLE:
                         break;
@@ -194,6 +194,27 @@
                     [_delegate nfcAdapter:self didScanTag:tag];
                 }
 
+                break;
+            case FLOMIO_BLOCK_READ_WRITE_OP:
+                switch (flojackMessageSubOpcode) {
+                    case FLOMIO_READ_BLOCK:
+                        LogInfo(@"FLOMIO_READ_BLOCK ");
+                        LogInfo(@"%@", [message fj_asHexString] );
+                        
+                        // TODO
+                        // NSArray *ndefRecords = [FJNDEFRecord parseData:message andIgnoreMbMe:FALSE];
+                        // LogInfo(@"ndef records: %d", [ndefRecords count]);
+
+                        break;
+                    case FLOMIO_WRITE_BLOCK:
+                        LogInfo(@"FLOMIO_WRITE_BLOCK ");
+                        break;
+                    case FLOMIO_WRITE_CONTINUOUS:
+                        LogInfo(@"FLOMIO_WRITE_CONTINUOUS ");
+                        break;
+                    default:
+                        break;
+                }
                 break;
 //            case FLOMIO_LED_CONTROL_OP:   //not currently supported
 //            default:
@@ -346,6 +367,15 @@
     [self sendMessageToHost:(UInt8*)ti_host_command_led_off_msg];
 }
 
+- (void)operationModeUID {
+    [self sendMessageToHost:(UInt8 *)op_mode_uid_only];
+}
+
+- (void)operationModeReadOnly {
+    [self sendMessageToHost:(UInt8 *)op_mode_read_only];
+}
+
+
 // Check if FloJack NFC reader is plugged in
 - (BOOL) isFloJackPluggedIn {
     return [_nfcService isHeadsetPluggedIn];
@@ -359,7 +389,7 @@
  */
 - (void)resendLastMessageSent {
     //TODO re-implement this with NSDATA
-    [_nfcService sendMutableArrayMessageToHost:_lastMessageSent];
+    //[_nfcService sendMutableArrayMessageToHost:_lastMessageSent];
 }
 
 /**
@@ -378,6 +408,7 @@
 }
 
 - (void)sendMessageToHost:(UInt8[])message  {
+    // TODO, reimplement this with NSData 
     [self setLastMessageSent:message];
     [_nfcService sendMessageToHost:message];
 }

@@ -14,6 +14,7 @@
 		1507578915C98EA500FB2F71 /* CAXException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46715C85DF8009DE0E5 /* CAXException.h */; };
 		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
 		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
+		150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2F00116288A50008FD352 /* FJNDEFRecord.h */; };
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		1559F29016517FF100B43633 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
 		1559F29116517FF100B43633 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
@@ -85,6 +86,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */,
 				150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */,
 				15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */,
 				157C812F15DBFFEB00760BF2 /* FJNFCMessage.h in CopyFiles */,

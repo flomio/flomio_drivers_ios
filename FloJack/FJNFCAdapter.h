@@ -8,6 +8,7 @@
 
 #import <AudioToolbox/AudioServices.h>
 #import <Foundation/Foundation.h>
+#import "FJNDEFRecord.h"
 #import "FJNFCMessage.h"
 #import "FJNFCService.h"
 #import "FJNFCTag.h"
@@ -49,6 +50,8 @@
 - (void)setStandaloneModeKeepAliveTimeInfinite;
 - (void)turnLedOn;
 - (void)turnLedOff;
+- (void)operationModeUID;
+- (void)operationModeReadOnly;
 
 @end
 
