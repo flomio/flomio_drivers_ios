@@ -13,7 +13,7 @@
 @implementation FJNFCAdapter {
     id <FJNFCAdapterDelegate>       _delegate;
     FJNFCService                    *_nfcService;
-    NSMutableArray                  *_lastMessageSent;
+    NSMutableData                   *_lastMessageSent;
 }
 
 @synthesize delegate = _delegate;
@@ -24,7 +24,7 @@
         _nfcService = [[FJNFCService alloc] init];
         [_nfcService setDelegate:self];
         
-        _lastMessageSent = [[NSMutableArray alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
+        _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
         
     }      
     return self;    
@@ -201,19 +201,25 @@
                         LogInfo(@"FLOMIO_READ_BLOCK ");
                         LogInfo(@"%@", [message fj_asHexString] );
                         
-                        // TODO
-                        // NSArray *ndefRecords = [FJNDEFRecord parseData:message andIgnoreMbMe:FALSE];
-                        // LogInfo(@"ndef records: %d", [ndefRecords count]);
+                        NSData *messageData = [self getDataFromBlockReadMessage:message];
+                        
+                        
+                        LogInfo(@"messageData: /n %@", [messageData fj_asHexString]);
+                        
+                        // TODO, need to extract data from
+                        // need to update getDataFromMessage][ to support this new format
+                        NSArray *ndefRecords = [FJNDEFRecord parseData:messageData andIgnoreMbMe:FALSE];
+                        LogInfo(@"ndef records: %d", [ndefRecords count]);
 
                         break;
-                    case FLOMIO_WRITE_BLOCK:
-                        LogInfo(@"FLOMIO_WRITE_BLOCK ");
-                        break;
-                    case FLOMIO_WRITE_CONTINUOUS:
-                        LogInfo(@"FLOMIO_WRITE_CONTINUOUS ");
-                        break;
-                    default:
-                        break;
+//                    case FLOMIO_WRITE_BLOCK:
+//                        LogInfo(@"FLOMIO_WRITE_BLOCK ");
+//                        break;
+//                    case FLOMIO_WRITE_CONTINUOUS:
+//                        LogInfo(@"FLOMIO_WRITE_CONTINUOUS ");
+//                        break;
+//                    default:
+//                        break;
                 }
                 break;
 //            case FLOMIO_LED_CONTROL_OP:   //not currently supported
@@ -241,6 +247,34 @@
         return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_LENGTH_POSITION + 1),
                                                                                   message.length - (FLOJACK_MESSAGE_LENGTH_POSITION + 2))]];
     }
+}
+
+/**
+ Extract the data section from the FloJack block RW messages. Removes header and crc.
+ 
+ @param     message                 Accessory message
+ 
+ @return    NSData
+ */
+- (NSData *)getDataFromBlockReadMessage:(NSData *)message {
+    
+    // TODO: uncomment when we begin receiving all pages rather than just data pages
+//    int bytesPerPage = 4;
+//    int dataPageBegin = 5;
+//    int dataPagesCount = 12;
+//    int dataBytesBegin = dataPageBegin * bytesPerPage;
+//    int dataBytesCount = dataPagesCount * bytesPerPage;
+    
+    LogInfo(@"%@", [message fj_asHexString] );
+    
+    
+    // TODO determine what purpose these extra bytes serve
+    int dataOffset = 2;
+    
+    int dataLength = 0;
+    [message getBytes:&dataLength range:NSMakeRange(4, 1)];
+
+    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS + dataOffset), dataLength)]];
 }
 
 // Turn off 14443A Protocol
@@ -388,8 +422,12 @@
  @return void
  */
 - (void)resendLastMessageSent {
-    //TODO re-implement this with NSDATA
-    //[_nfcService sendMutableArrayMessageToHost:_lastMessageSent];
+    unsigned char *message = (unsigned char *)[_lastMessageSent bytes];
+    UInt8 messageLength = 0;
+    [_lastMessageSent getBytes:&messageLength
+                              range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
+                                                FLOJACK_MESSAGE_LENGTH_POSITION)];
+    [_nfcService sendMessageToHost:message withLength:messageLength];
 }
 
 /**
@@ -399,12 +437,10 @@
  @return void
  */
 - (void)setLastMessageSent:(UInt8[])message {
-    [_lastMessageSent removeAllObjects];    
-    UInt8 byte = nil;
-    for (int i=0; i < message[FLOJACK_MESSAGE_LENGTH_POSITION]; i++) {
-        byte = message[i];
-        [_lastMessageSent addObject: [[NSNumber alloc] initWithChar:byte]];
-    }
+    int messageLength = message[FLOJACK_MESSAGE_LENGTH_POSITION];
+    [_lastMessageSent setLength:messageLength];
+    [_lastMessageSent replaceBytesInRange:NSMakeRange(0, messageLength)
+                                withBytes:message];
 }
 
 - (void)sendMessageToHost:(UInt8[])message  {

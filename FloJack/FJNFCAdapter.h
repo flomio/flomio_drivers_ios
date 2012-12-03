@@ -9,7 +9,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Foundation/Foundation.h>
 #import "FJNDEFRecord.h"
-#import "FJNFCMessage.h"
+#import "FJMessage.h"
 #import "FJNFCService.h"
 #import "FJNFCTag.h"
 #import "Logging.h"

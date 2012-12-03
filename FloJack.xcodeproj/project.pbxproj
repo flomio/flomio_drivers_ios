@@ -37,8 +37,8 @@
 		155D4F8715D7044B00CF45FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
 		155E70CE15C865910025136D /* FJNFCTag.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */; };
 		155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
-		157C812E15DBFF2C00760BF2 /* FJNFCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */; };
-		157C812F15DBFFEB00760BF2 /* FJNFCMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */; };
+		157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
+		157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJMessage.h */; };
 		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
 		15B046FA165323CE000FF892 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15B046F9165323CE000FF892 /* scan_sound.mp3 */; };
 		15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
@@ -89,7 +89,7 @@
 				150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */,
 				150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */,
 				15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */,
-				157C812F15DBFFEB00760BF2 /* FJNFCMessage.h in CopyFiles */,
+				157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */,
 				15E188ED15DAC9EF00AC0F72 /* FJNFCService.h in CopyFiles */,
 				155D4F8515D604BB00CF45FD /* Logging.h in CopyFiles */,
 				1507578515C98EA500FB2F71 /* CADebugMacros.h in CopyFiles */,
@@ -127,8 +127,8 @@
 		1559F2B11651811300B43633 /* ViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad.xib; sourceTree = "<group>"; };
 		155D4F8415D5FDA800CF45FD /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCMessage.h; sourceTree = "<group>"; };
-		157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNFCMessage.m; sourceTree = "<group>"; };
+		157C812C15DBFF2C00760BF2 /* FJMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJMessage.h; sourceTree = "<group>"; };
+		157C812D15DBFF2C00760BF2 /* FJMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJMessage.m; sourceTree = "<group>"; };
 		15B046F6165322C3000FF892 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		15B046F9165323CE000FF892 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
 		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -245,18 +245,18 @@
 			isa = PBXGroup;
 			children = (
 				155D4F7115D492D900CF45FD /* Lib */,
+				157C812C15DBFF2C00760BF2 /* FJMessage.h */,
+				157C812D15DBFF2C00760BF2 /* FJMessage.m */,
 				15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */,
 				15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */,
-				15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */,
-				15C4B30A15C83482009DE0E5 /* FJNFCAdapter.m */,
-				157C812C15DBFF2C00760BF2 /* FJNFCMessage.h */,
-				157C812D15DBFF2C00760BF2 /* FJNFCMessage.m */,
-				15E188E915DAC9E000AC0F72 /* FJNFCService.h */,
-				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
 				15F2EFFC16288072008FD352 /* FJNDEFMessage.h */,
 				15F2EFFD16288072008FD352 /* FJNDEFMessage.m */,
 				15F2F00116288A50008FD352 /* FJNDEFRecord.h */,
 				15F2F00216288A50008FD352 /* FJNDEFRecord.m */,
+				15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */,
+				15C4B30A15C83482009DE0E5 /* FJNFCAdapter.m */,
+				15E188E915DAC9E000AC0F72 /* FJNFCService.h */,
+				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
 				15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */,
 				1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */,
 			);
@@ -532,7 +532,7 @@
 				15C4B46A15C85DF8009DE0E5 /* CAStreamBasicDescription.mm in Sources */,
 				15C4B46B15C85DF8009DE0E5 /* CAXException.cpp in Sources */,
 				15E188EB15DAC9E000AC0F72 /* FJNFCService.mm in Sources */,
-				157C812E15DBFF2C00760BF2 /* FJNFCMessage.m in Sources */,
+				157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */,
 				15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */,
 				15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */,
 				1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */,

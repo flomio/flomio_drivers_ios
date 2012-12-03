@@ -16,7 +16,7 @@
 #import "aurio_helper.h"
 #import "CAStreamBasicDescription.h"
 #import "CAXException.h"
-#import "FJNFCMessage.h"
+#import "FJMessage.h"
 #import "Logging.h"
 
 @protocol FJNFCServiceDelegate;

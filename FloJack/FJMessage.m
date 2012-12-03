@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import "FJNFCMessage.h"
+#import "FJMessage.h"
 
-@implementation FJNFCMessage
+@implementation FJMessage
 
 
 // Message Attributes
@@ -21,7 +21,7 @@ UInt8 crc;
 //      Currently this object doesn't do anything. Just a stub. Need to determine
 //      what kind of support to offer each of these opcodes.
 //      Eventually this object should come to be an OOB representation of all possible opcodes.
--(void) init:(NSArray*)message; {
+-(void) init:(NSArray *)message; {
     
     //check opcode
     switch ([[message objectAtIndex:FLOJACK_MESSAGE_OPCODE_POSITION] intValue]) {

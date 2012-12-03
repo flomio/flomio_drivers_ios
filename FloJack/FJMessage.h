@@ -1,5 +1,5 @@
 //
-//  FJNFCMessage.h
+//  FJMessage.h
 //  FloJack
 //
 //  Created by John Bullard on 9/21/12.
@@ -19,6 +19,9 @@
 #define FLOJACK_MESSAGE_LENGTH_POSITION          1
 #define FLOJACK_MESSAGE_SUB_OPCODE_POSITION      2
 #define FLOJACK_MESSAGE_ENABLE_POSITION          3
+
+#define FJ_BLOCK_RW_MSG_DATA_LENGTH_POS          4
+#define FJ_BLOCK_RW_MSG_DATA_POS                 5
 
 #define FLOJACK_MESSAGE_OPCODE_LENGTH            1
 #define FLOJACK_MESSAGE_LENGTH_LENGTH            1
@@ -248,6 +251,15 @@ typedef enum
 
 
 
-@interface FJNFCMessage : NSObject
+@interface FJMessage : NSObject
+
+@property (nonatomic, assign) NSData *opcode;
+@property (nonatomic, assign) NSData *length;
+@property (nonatomic, assign) NSData *subOpcode;
+@property (nonatomic, assign) NSData *subOpcode2;
+@property (nonatomic, assign) NSData *offset;
+@property (nonatomic, assign) NSData *data;
+@property (nonatomic, assign) NSData *crc;
+
 
 @end
