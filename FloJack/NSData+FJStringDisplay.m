@@ -13,6 +13,19 @@
 - (NSString *)fj_asHexString;
 {
     NSMutableString *result = [NSMutableString string];
+    [result appendFormat:@"0x"];
+    
+    const unsigned char *bytes = (const unsigned char*) [self bytes];
+    for (int i = 0; i < [self length]; i++)
+    {
+        [result appendFormat:@"%02hhx", (unsigned char) bytes[i]];
+    }
+    return result;
+}
+
+- (NSString *)fj_asHexStringWithSpace;
+{
+    NSMutableString *result = [NSMutableString string];
     const unsigned char *bytes = (const unsigned char*) [self bytes];
     for (int i = 0; i < [self length]; i++)
     {

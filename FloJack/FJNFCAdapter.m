@@ -59,24 +59,23 @@
                         break;
                     case FLOMIO_STATUS_HW_REV: {
                         LogInfo(@"FLOMIO_STATUS_HW_REV ");
-                        //TODO re-implement this with NSDATA
-//                        NSArray* messageData = [self getDataFromMessage:message withSubOpcode:true];
-//                        NSString* hardwareVersion = [NSString stringWithFormat:@"%@.%@", [messageData objectAtIndex:0], [messageData objectAtIndex:1]];
-//                        
-//                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
-//                            [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
-//                        }
+                        NSData *messageData = [self getDataFromMessage:message withSubOpcode:true];
+                        NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                        
+                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
+                            [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
+                        }
                     }
                         break;
                     case FLOMIO_STATUS_SW_REV: {
                         LogInfo(@"FLOMIO_STATUS_SW_REV ");
                         //TODO re-implement this with NSDATA
-//                        NSArray* messageData = [self getDataFromMessage:message withSubOpcode:true];
-//                        NSString* firmwareVersion = [NSString stringWithFormat:@"%@.%@", [messageData objectAtIndex:0], [message objectAtIndex:1]];
+                        NSData *messageData = [self getDataFromMessage:message withSubOpcode:true];
+                        NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
                         
-//                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
-//                            [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
-//                        }
+                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
+                            [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
+                        }
                     }
                         break;
                     case FLOMIO_STATUS_BATTERY:    //not currently supported
