@@ -20,6 +20,7 @@
 #define FLOJACK_MESSAGE_SUB_OPCODE_POSITION      2
 #define FLOJACK_MESSAGE_ENABLE_POSITION          3
 
+#define FJ_TAG_UID_DATA_POS                      3
 #define FJ_BLOCK_RW_MSG_DATA_LENGTH_POS          4
 #define FJ_BLOCK_RW_MSG_DATA_POS                 5
 
@@ -27,7 +28,9 @@
 #define FLOJACK_MESSAGE_LENGTH_LENGTH            1
 #define FLOJACK_MESSAGE_SUB_OPCODE_LENGTH        1
 #define FLOJACK_MESSAGE_ENABLE_LENGTH            1
+#define FLOJACK_MESSAGE_CRC_LENGTH               1
 
+#define FJ_TAG_UID_DATA_LEN                      10
 #define FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN          1
 #define FJ_BLOCK_RW_MSG_DATA_LEN                 1
 
@@ -122,10 +125,6 @@ static const UInt8 op_mode_write_only[] =               {0x0E,0x05,0x02,0x01,0x0
 static const UInt8 op_mode_write_only_no_override[] =   {0x0E,0x05,0x02,0x00,0x09};
 
 static const UInt8 op_mode_read_write[] =               {0x0E,0x04,0x03,0x09};
-
-
-
-
 
 
 //Flomio Accessory-Client Message Opcodes
@@ -259,13 +258,23 @@ typedef enum
 
 @interface FJMessage : NSObject
 
-@property (nonatomic, assign) NSData *opcode;
-@property (nonatomic, assign) NSData *length;
-@property (nonatomic, assign) NSData *subOpcode;
-@property (nonatomic, assign) NSData *subOpcode2;
-@property (nonatomic, assign) NSData *offset;
-@property (nonatomic, assign) NSData *data;
-@property (nonatomic, assign) NSData *crc;
+@property (nonatomic, assign) NSData    *message;
+@property (nonatomic, assign) UInt8     opcode;
+@property (nonatomic, assign) UInt8     length;
+@property (nonatomic, assign) UInt8     subOpcode;
+@property (nonatomic, assign) BOOL      enable;
+@property (nonatomic, assign) NSData    *offset;
+@property (nonatomic, assign) NSData    *data;
+@property (nonatomic, assign) NSData    *crc;
 
+@property (nonatomic, assign) NSString *name;
+
+
+- (id)init; 
+- (id)initWithBytes:(UInt8 *)theBytes;
+- (id)initWithData:(NSData *)theData;
+
+
++ (UInt8)getMessageSubOpcode:(NSData *)theMessage;
 
 @end

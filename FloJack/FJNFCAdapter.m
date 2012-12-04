@@ -37,18 +37,25 @@
 
 -(void) parseMessage:(NSData *)message;
 {
-    // TODO
+
 //    LogInfo(@"parseMessage: %@", [message fj_asHexString]);
 
-    UInt8 flojackMessageOpcode = 0;
-    [message getBytes:&flojackMessageOpcode range:NSMakeRange(FLOJACK_MESSAGE_OPCODE_POSITION,
-                                                              FLOJACK_MESSAGE_OPCODE_LENGTH)];
-    UInt8 flojackMessageSubOpcode = 0;
-    [message getBytes:&flojackMessageSubOpcode range:NSMakeRange(FLOJACK_MESSAGE_SUB_OPCODE_POSITION,
-                                                                 FLOJACK_MESSAGE_SUB_OPCODE_LENGTH)];
-    UInt8 flojackMessageEnable = 0;
-    [message getBytes:&flojackMessageEnable range:NSMakeRange(FLOJACK_MESSAGE_ENABLE_POSITION,
-                                                                 FLOJACK_MESSAGE_ENABLE_LENGTH)];
+//    UInt8 flojackMessageOpcode = 0;
+//    [message getBytes:&flojackMessageOpcode range:NSMakeRange(FLOJACK_MESSAGE_OPCODE_POSITION,
+//                                                              FLOJACK_MESSAGE_OPCODE_LENGTH)];
+//    UInt8 flojackMessageSubOpcode = 0;
+//    [message getBytes:&flojackMessageSubOpcode range:NSMakeRange(FLOJACK_MESSAGE_SUB_OPCODE_POSITION,
+//                                                                 FLOJACK_MESSAGE_SUB_OPCODE_LENGTH)];
+//    UInt8 flojackMessageEnable = 0;
+//    [message getBytes:&flojackMessageEnable range:NSMakeRange(FLOJACK_MESSAGE_ENABLE_POSITION,
+//                                                                 FLOJACK_MESSAGE_ENABLE_LENGTH)];
+    
+        FJMessage *messyTest = [[FJMessage alloc] initWithData:message];
+        UInt8 flojackMessageOpcode = messyTest.opcode;
+        UInt8 flojackMessageSubOpcode = messyTest.subOpcode;
+        UInt8 flojackMessageEnable = messyTest.enable;
+        NSData *messageData = [messyTest.data copy];
+    
     
         //check opcode
         switch (flojackMessageOpcode) {
@@ -59,7 +66,6 @@
                         break;
                     case FLOMIO_STATUS_HW_REV: {
                         LogInfo(@"FLOMIO_STATUS_HW_REV ");
-                        NSData *messageData = [self getDataFromMessage:message withSubOpcode:true];
                         NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
                         
                         if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
@@ -69,8 +75,6 @@
                         break;
                     case FLOMIO_STATUS_SW_REV: {
                         LogInfo(@"FLOMIO_STATUS_SW_REV ");
-                        //TODO re-implement this with NSDATA
-                        NSData *messageData = [self getDataFromMessage:message withSubOpcode:true];
                         NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
                         
                         if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
@@ -187,9 +191,7 @@
                 
                 // Dispatch a message to the delegate selector
                 if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                    NSData *data = [self getDataFromMessage:message withSubOpcode:true];
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:data];
-                    
+                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:messageData];
                     [_delegate nfcAdapter:self didScanTag:tag];
                 }
 
@@ -198,8 +200,6 @@
                 switch (flojackMessageSubOpcode) {
                     case FLOMIO_READ_BLOCK:
                         LogInfo(@"FLOMIO_READ_BLOCK ");
-                        
-                        NSData *messageData = [self getDataFromBlockReadMessage:message];
                         LogInfo(@"%@", [messageData fj_asHexString]);
                         
                         UInt8 dataByteZero = 0;
@@ -227,6 +227,8 @@
 //                //not currently supported
 //                break;
         }
+    
+    
 }
 
 /**
@@ -237,17 +239,17 @@
  
  @return    NSData
  */
-- (NSData *)getDataFromMessage:(NSData *)message withSubOpcode:(BOOL)messageHasSubOpcode {
-    if (messageHasSubOpcode) {
-        // Pop opcode, length, sub-opcode and remove CRC from end. 
-        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                                                  message.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2))]];
-    } else {
-        // Pop opcode, length, and remove CRC from end.
-        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_LENGTH_POSITION + 1),
-                                                                                  message.length - (FLOJACK_MESSAGE_LENGTH_POSITION + 2))]];
-    }
-}
+//- (NSData *)getDataFromMessage:(NSData *)message withSubOpcode:(BOOL)messageHasSubOpcode {
+//    if (messageHasSubOpcode) {
+//        // Pop opcode, length, sub-opcode and remove CRC from end. 
+//        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
+//                                                                                  message.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2))]];
+//    } else {
+//        // Pop opcode, length, and remove CRC from end.
+//        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_LENGTH_POSITION + 1),
+//                                                                                  message.length - (FLOJACK_MESSAGE_LENGTH_POSITION + 2))]];
+//    }
+//}
 
 /**
  Extract the data section from the FloJack block RW messages. Removes header and crc.
@@ -256,22 +258,22 @@
  
  @return    NSData
  */
-- (NSData *)getDataFromBlockReadMessage:(NSData *)message {
-    
-    // TODO: uncomment when we begin receiving all pages rather than just data pages
-//    int bytesPerPage = 4;
-//    int dataPageBegin = 5;
-//    int dataPagesCount = 12;
-//    int dataBytesBegin = dataPageBegin * bytesPerPage;
-//    int dataBytesCount = dataPagesCount * bytesPerPage;
-    
-    LogInfo(@"%@", [message fj_asHexStringWithSpace] );
-    
-    int dataLength = 0;
-    [message getBytes:&dataLength range:NSMakeRange(FJ_BLOCK_RW_MSG_DATA_LENGTH_POS,
-                                                    FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
-    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength)]];
-}
+//- (NSData *)getDataFromBlockReadMessage:(NSData *)message {
+//    
+//    // TODO: uncomment when we begin receiving all pages rather than just data pages
+////    int bytesPerPage = 4;
+////    int dataPageBegin = 5;
+////    int dataPagesCount = 12;
+////    int dataBytesBegin = dataPageBegin * bytesPerPage;
+////    int dataBytesCount = dataPagesCount * bytesPerPage;
+//    
+//    LogInfo(@"%@", [message fj_asHexStringWithSpace] );
+//    
+//    int dataLength = 0;
+//    [message getBytes:&dataLength range:NSMakeRange(FJ_BLOCK_RW_MSG_DATA_LENGTH_POS,
+//                                                    FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
+//    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength)]];
+//}
 
 // Turn off 14443A Protocol
 - (void)disable14443AProtocol {
