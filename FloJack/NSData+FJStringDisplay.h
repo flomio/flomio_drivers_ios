@@ -11,5 +11,6 @@
 @interface NSData (FJStringDisplay)
 
 - (NSString *)fj_asHexString;
+- (NSString *)fj_asHexStringWithSpace;
 
 @end

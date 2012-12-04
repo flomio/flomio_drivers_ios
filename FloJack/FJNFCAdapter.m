@@ -198,18 +198,19 @@
                 switch (flojackMessageSubOpcode) {
                     case FLOMIO_READ_BLOCK:
                         LogInfo(@"FLOMIO_READ_BLOCK ");
-                        LogInfo(@"%@", [message fj_asHexString] );
                         
                         NSData *messageData = [self getDataFromBlockReadMessage:message];
+                        LogInfo(@"%@", [messageData fj_asHexString]);
                         
+                        UInt8 dataByteZero = 0;
+                        [messageData getBytes:&dataByteZero length:1];
                         
-                        LogInfo(@"messageData: /n %@", [messageData fj_asHexString]);
-                        
-                        // TODO, need to extract data from
-                        // need to update getDataFromMessage][ to support this new format
-                        NSArray *ndefRecords = [FJNDEFRecord parseData:messageData andIgnoreMbMe:FALSE];
-                        LogInfo(@"ndef records: %d", [ndefRecords count]);
-
+                        if (dataByteZero == NDEF_MESSAGE_HEADER) {
+                            NSRange ndefRecordByteRange = NSMakeRange(2, (messageData.length - 3));
+                            NSArray *ndefRecords = [FJNDEFRecord parseData:[messageData subdataWithRange:ndefRecordByteRange]
+                                                             andIgnoreMbMe:FALSE];
+                            LogInfo(@"ndef records: %d", [ndefRecords count]);                            
+                        }
                         break;
 //                    case FLOMIO_WRITE_BLOCK:
 //                        LogInfo(@"FLOMIO_WRITE_BLOCK ");
@@ -264,16 +265,12 @@
 //    int dataBytesBegin = dataPageBegin * bytesPerPage;
 //    int dataBytesCount = dataPagesCount * bytesPerPage;
     
-    LogInfo(@"%@", [message fj_asHexString] );
-    
-    
-    // TODO determine what purpose these extra bytes serve
-    int dataOffset = 2;
+    LogInfo(@"%@", [message fj_asHexStringWithSpace] );
     
     int dataLength = 0;
-    [message getBytes:&dataLength range:NSMakeRange(4, 1)];
-
-    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS + dataOffset), dataLength)]];
+    [message getBytes:&dataLength range:NSMakeRange(FJ_BLOCK_RW_MSG_DATA_LENGTH_POS,
+                                                    FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
+    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength)]];
 }
 
 // Turn off 14443A Protocol

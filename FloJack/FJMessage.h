@@ -28,9 +28,15 @@
 #define FLOJACK_MESSAGE_SUB_OPCODE_LENGTH        1
 #define FLOJACK_MESSAGE_ENABLE_LENGTH            1
 
+#define FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN          1
+#define FJ_BLOCK_RW_MSG_DATA_LEN                 1
+
 // Message Enable/Disable values
 #define FLOMIO_DISABLE                           0
 #define FLOMIO_ENABLE                            1
+
+// Tag Formatting
+#define NDEF_MESSAGE_HEADER                      0x03
 
 // FloJack protocol messages {opcode, length, data[] }
 static const UInt8 ack_disable_msg[] =                  {0x06,0x04,0x00,0x02};
