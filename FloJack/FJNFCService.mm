@@ -96,11 +96,11 @@ void floJackAudioSessionInterruptionListener(void   *inClientData,
 	if (inInterruption == kAudioSessionEndInterruption) {
 		// make sure we are again the active session
 		AudioSessionSetActive(true);
-		AudioOutputUnitStart(nfcService->_remoteIOUnit);
+		OSStatus status = AudioOutputUnitStart(nfcService->_remoteIOUnit);
 	}
 	
 	if (inInterruption == kAudioSessionBeginInterruption) {
-		AudioOutputUnitStop(nfcService->_remoteIOUnit);
+        AudioOutputUnitStop(nfcService->_remoteIOUnit);
     }
 }
 
@@ -472,12 +472,19 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	
 	try {
         
+        float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
+        NSLog(@"Volume Level: %g", volumeLevel);
+        
         // Logic high/low varies based on host device
         _logicOne = [self getLogicOneValueBasedOnDevice];
         _logicZero = [self getLogicZeroValueBasedOnDevice];
+        
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, self), "couldn't initialize audio session");
+
 		
 		// Initialize and configure the audio session
-		XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, self), "couldn't initialize audio session");
 		XThrowIfError(AudioSessionSetActive(true), "couldn't set audio session active\n");
 		
 		UInt32 audioCategory = kAudioSessionCategory_PlayAndRecord;
@@ -501,6 +508,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		
 		size = sizeof(_remoteIOOutputFormat);
 		XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &_remoteIOOutputFormat, &size), "couldn't get the remote I/O unit's output client format");
+            
+            // Perform other setup here...
+        });
 	}
 	catch (CAXException &e) {
 		char buf[256];
@@ -855,11 +865,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return void    
  */
 - (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected {
-    if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
-        dispatch_async(_backgroundQueue, ^(void) {
-            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
-        });
-    }
+        if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
+            dispatch_async(_backgroundQueue, ^(void) {
+                [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
+            });
+        }
 }
 
 
