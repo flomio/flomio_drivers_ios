@@ -13,12 +13,14 @@
 @end
 
 @implementation ViewController {
-    AVAudioPlayer   *_audioPlayer;
-    FJNFCAdapter    *_nfcAdapter;
+    AVAudioPlayer       *_audioPlayer;
+    FJNFCAdapter        *_nfcAdapter;
+    dispatch_queue_t    _backgroundQueue;
     
 }
 
-@synthesize textView;
+@synthesize outputTextView = _outputTextView;
+@synthesize loggingTextView = _loggingTextView;
 
 #pragma mark - UI View Controller
 
@@ -29,11 +31,45 @@
     
     _nfcAdapter = [[FJNFCAdapter alloc] init];
     [_nfcAdapter setDelegate:self];
+    
+    // Poll logging file for changes (TODO: move this to event based model)
+    _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
+    dispatch_async(_backgroundQueue, ^(void) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"console.log"];
+        NSString *logContent = nil;
+        
+        while(true) {
+            [NSThread sleepForTimeInterval:1.000];
+            
+            if (logContent.length > (100 * 20)) {
+                // clear log after ~20 entries (~5 commands)
+                NSFileHandle *file;
+                file = [NSFileHandle fileHandleForUpdatingAtPath:logPath];
+                if (file == nil)
+                    NSLog(@"Failed to open file");
+                
+                [file truncateFileAtOffset: 0];
+                [file closeFile];                
+            }
+            
+             logContent = [NSString stringWithContentsOfFile:logPath
+                                                             encoding:NSUTF8StringEncoding
+                                                                error:NULL];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _loggingTextView.text = [NSString stringWithFormat:@"%@", logContent];
+            });
+        }
+        
+    });
 }
 
 - (void)viewDidUnload
 {
-    [self setTextView:nil];
+    //[self outputTextView:nil];
+    //[self loggingTextView:nil];
     [super viewDidUnload];
 }
 
@@ -46,8 +82,9 @@
 - (IBAction)buttonWasPressed:(id)sender {
     switch (((UIButton *)sender).tag) {
         // LEFT COLUMN
-        case 0:
+        case 0:  {
             [_nfcAdapter sendMessageToHost:(UInt8 *)protocol_14443A_msg];
+        }
             break;
         case 1:
             [_nfcAdapter sendMessageToHost:(UInt8 *)protocol_14443A_off_msg];
@@ -122,6 +159,15 @@
         case 23:
             [_nfcAdapter sendMessageToHost:(UInt8 *)ti_host_command_led_off_msg];
             break;
+            
+        // OPERATION MODE
+        case 24:
+            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_uid_only];
+            break;
+        case 25:
+            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_only];
+            break;
+            
     }
 }
 
@@ -186,22 +232,36 @@
     NSLog(@"Tag uid: %@", [[theNfcTag uid] fj_asHexString]);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self playSound:@"scan_sound.mp3"];
+        // TODO this sends config message repeatedly which puts flojack in a bad state
+       // [self playSound:@"scan_sound"];
         
-        textView.text = [NSString stringWithFormat:@"%@ - %@",textView.text, [[theNfcTag uid] fj_asHexString]];
+        
+        // Create a new alert object and set initial values.
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Found" 
+                                                        message:[NSString stringWithFormat:@"We found the following tag: %@",[[theNfcTag uid] fj_asHexString]]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        // Display the alert to the user
+        [alert show];
+        
+        NSString *textUpdate = [NSString stringWithFormat:@"--Tag Found-- \nUID: %@ \nData: %@", [[theNfcTag uid] fj_asHexString],
+                                                                               [[theNfcTag data] fj_asHexString]];
+        
+        _outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",_outputTextView.text, textUpdate];
     });
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {
     dispatch_async(dispatch_get_main_queue(), ^{
-        textView.text = [NSString stringWithFormat:@"%@ - Firmware v%@", textView.text, theVersionNumber];
+        _outputTextView.text = [NSString stringWithFormat:@"%@ - Firmware v%@", _outputTextView.text, theVersionNumber];
     });
     
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber; {
     dispatch_async(dispatch_get_main_queue(), ^{
-        textView.text = [NSString stringWithFormat:@"%@ - Hardware v%@", textView.text, theVersionNumber];
+        _outputTextView.text = [NSString stringWithFormat:@"%@ - Hardware v%@", _outputTextView.text, theVersionNumber];
     });
 }
 

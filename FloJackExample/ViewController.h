@@ -6,15 +6,17 @@
 //  Copyright (c) 2012 John Bullard. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import "FJNFCAdapter.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <dispatch/dispatch.h>
+#import <UIKit/UIKit.h>
+#import "FJNFCAdapter.h"
 #import "NSData+FJStringDisplay.h"
 
 @interface ViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate>
 
-@property (retain, nonatomic) IBOutlet UITextView *textView;
+@property (retain, nonatomic) IBOutlet UITextView *outputTextView;
+@property (retain, nonatomic) IBOutlet UITextView *loggingTextView;
 
 - (IBAction)buttonWasPressed:(id)sender;
 

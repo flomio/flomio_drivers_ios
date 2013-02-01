@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
+#import "ViewController.h"
 
 @class ViewController;
 

@@ -39,11 +39,12 @@
 		155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
 		157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
 		157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJMessage.h */; };
+		158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 158EEF9E16B9E50500574748 /* scan_sound.mp3 */; };
 		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
-		15B046FA165323CE000FF892 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15B046F9165323CE000FF892 /* scan_sound.mp3 */; };
 		15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
 		15B48C04164D65E800043A4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */; };
 		15B48C06164D663800043A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
+		15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C41DD31677B57100D98A8D /* MediaPlayer.framework */; };
 		15C4B2D015C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		15C4B2DF15C832E0009DE0E5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */; };
 		15C4B2E115C832E0009DE0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
@@ -129,9 +130,11 @@
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		157C812C15DBFF2C00760BF2 /* FJMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJMessage.h; sourceTree = "<group>"; };
 		157C812D15DBFF2C00760BF2 /* FJMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJMessage.m; sourceTree = "<group>"; };
+		158EEF9E16B9E50500574748 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scan_sound.mp3; path = FloJackExample/scan_sound.mp3; sourceTree = SOURCE_ROOT; };
 		15B046F6165322C3000FF892 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		15B046F9165323CE000FF892 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
 		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		15C41DD31677B57100D98A8D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		15C4B2CC15C832E0009DE0E5 /* libFloJack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFloJack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15C4B2CF15C832E0009DE0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJack-Prefix.pch"; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */,
 				15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */,
 				1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */,
 				1559F2B6165188A400B43633 /* MobileCoreServices.framework in Frameworks */,
@@ -230,6 +234,7 @@
 		1559F29416517FF100B43633 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				15D3F67E16B73116006D2A68 /* Sounds */,
 				1559F29516517FF100B43633 /* FloJackExample-Info.plist */,
 				1559F29616517FF100B43633 /* InfoPlist.strings */,
 				1559F29916517FF100B43633 /* main.m */,
@@ -308,6 +313,7 @@
 		15C4B2CE15C832E0009DE0E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15C41DD31677B57100D98A8D /* MediaPlayer.framework */,
 				15B046F6165322C3000FF892 /* AVFoundation.framework */,
 				15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */,
 				15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */,
@@ -382,6 +388,15 @@
 				15C4B46715C85DF8009DE0E5 /* CAXException.h */,
 			);
 			path = PublicUtility;
+			sourceTree = "<group>";
+		};
+		15D3F67E16B73116006D2A68 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				158EEF9E16B9E50500574748 /* scan_sound.mp3 */,
+			);
+			name = Sounds;
+			path = ../../flomio_client/mobile/ios/FlomioDemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -479,7 +494,7 @@
 				1559F2A416517FF100B43633 /* Default-568h@2x.png in Resources */,
 				1559F2AA16517FF100B43633 /* ViewController_iPhone.xib in Resources */,
 				1559F2B21651811300B43633 /* ViewController_iPad.xib in Resources */,
-				15B046FA165323CE000FF892 /* scan_sound.mp3 in Resources */,
+				158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,7 +615,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -619,7 +634,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

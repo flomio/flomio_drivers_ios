@@ -8,12 +8,12 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self redirectConsoleLogToDocumentFolder];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -23,6 +23,13 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    // Capture volume change notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(volumeChanged:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
+    
     return YES;
 }
 
@@ -51,6 +58,37 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)volumeChanged:(NSNotification *)notification
+{
+    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
+    NSLog(@"volume: %g", volume);
+}
+
+- (void) redirectConsoleLogToDocumentFolder
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"console.log"];
+    
+    //clear contents of file
+    NSFileHandle *file;
+    
+    file = [NSFileHandle fileHandleForUpdatingAtPath:logPath];
+    
+    if (file == nil)
+        NSLog(@"Failed to open file");
+    
+    [file truncateFileAtOffset: 0];
+    
+    [file closeFile];
+    
+    
+    freopen([logPath fileSystemRepresentation],"a+",stderr);
 }
 
 @end
