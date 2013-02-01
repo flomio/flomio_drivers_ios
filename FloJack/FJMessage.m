@@ -217,8 +217,8 @@
                     break;
                 case FLOMIO_TAG_UID_OP: {
                     _name = @"FLOMIO_TAG_UID_OP";
-                    
-                    NSRange dataRange = NSMakeRange(FJ_TAG_UID_DATA_POS, FJ_TAG_UID_DATA_LEN);
+                                        
+                    NSRange dataRange = NSMakeRange(FJ_TAG_UID_DATA_POS, (theData.length - 4));
                     _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];                    
                     break;
                 }
@@ -277,7 +277,7 @@
             flojackMessageOpcode == FLOMIO_PROTO_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_POLLING_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_POLLING_RATE_OP ||
-            //flojackMessageOpcode == FLOMIO_TAG_UID_OP ||
+            flojackMessageOpcode == FLOMIO_TAG_UID_OP ||
             flojackMessageOpcode == FLOMIO_ACK_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_STANDALONE_OP ||
             //flojackMessageOpcode == FLOMIO_STANDALONE_TIMEOUT_OP ||

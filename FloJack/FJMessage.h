@@ -10,7 +10,7 @@
 
 // Message Length Boundaries
 #define MIN_MESSAGE_LENGTH                       3   //todo change to 4
-#define MAX_MESSAGE_LENGTH                       255
+#define MAX_MESSAGE_LENGTH                       160
 
 #define CORRECT_CRC_VALUE                        0   
 
@@ -30,7 +30,6 @@
 #define FLOJACK_MESSAGE_ENABLE_LENGTH            1
 #define FLOJACK_MESSAGE_CRC_LENGTH               1
 
-#define FJ_TAG_UID_DATA_LEN                      10
 #define FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN          1
 #define FJ_BLOCK_RW_MSG_DATA_LEN                 1
 
@@ -146,6 +145,14 @@ typedef enum
     FLOMIO_OPERATION_MODE_OP,
     FLOMIO_BLOCK_READ_WRITE_OP
 } flomio_opcode_t;
+
+// FLOMIO_TAG_UID_OP sub opcode indicating UID length
+typedef enum
+{
+    FLOMIO_UID_LEN_FOUR = 0,	// Three byte UID
+    FLOMIO_UID_LEN_SEVEN,		// Seven byte UID
+    FLOMIO_UID_LEN_TEN			// Ten byte UID
+} flomio_uid_types_t;
 
 //Flomio Status Sub-Opcode
 typedef enum

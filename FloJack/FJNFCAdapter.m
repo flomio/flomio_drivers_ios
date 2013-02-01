@@ -186,16 +186,41 @@
                             break;
                     }
                 break;
-            case FLOMIO_TAG_UID_OP:       //not supported by Accessory
-                LogInfo(@"(FLOMIO_TAG_UID_OP) Tag UUID Received ");
+            case FLOMIO_TAG_UID_OP: {
+                LogInfo(@"(FLOMIO_TAG_UID_OP) Tag UID Received %@", [message fj_asHexString]);
+                int tagUidLen = 0;
+                int tagDataLen = 0;
+                switch (flojackMessageSubOpcode) {
+                    case FLOMIO_UID_LEN_FOUR:
+                        tagUidLen = 4;
+                        break;
+                    case FLOMIO_UID_LEN_SEVEN:
+                        tagUidLen = 7;
+                        break;
+                    case FLOMIO_UID_LEN_TEN:
+                        tagUidLen = 10;
+                        break;
+                    default:
+                        tagUidLen = 7;
+                        break;
+                }
                 
-                // Dispatch a message to the delegate selector
+                NSRange tagUidRange = NSMakeRange(0, tagUidLen);                
+                NSData *tagUid = [[NSData alloc] initWithData:[messyTest.data subdataWithRange:tagUidRange]];
+                
+                tagDataLen = messyTest.length - tagUidLen - 4;
+                NSData *tagData = nil;                
+                if (tagDataLen > 0) {
+                    NSRange tagDataRange = NSMakeRange(tagUidLen, tagDataLen);
+                    tagData = [[NSData alloc] initWithData:[messyTest.data subdataWithRange:tagDataRange]];                    
+                }
+                
                 if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:messageData];
+                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:tagData];
                     [_delegate nfcAdapter:self didScanTag:tag];
                 }
-
                 break;
+            }
             case FLOMIO_BLOCK_READ_WRITE_OP:
                 switch (flojackMessageSubOpcode) {
                     case FLOMIO_READ_BLOCK:

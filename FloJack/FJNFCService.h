@@ -9,6 +9,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <dispatch/dispatch.h>
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <UIKit/UIKit.h>
 #import <QuartzCore/CAAnimation.h>
 #import <sys/utsname.h>
