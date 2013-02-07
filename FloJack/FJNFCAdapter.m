@@ -225,84 +225,12 @@
                 }                
                 break;
             }
-            case FLOMIO_BLOCK_READ_WRITE_OP:
-                switch (flojackMessageSubOpcode) {
-                    case FLOMIO_READ_BLOCK:
-                        LogInfo(@"FLOMIO_READ_BLOCK ");
-                        LogInfo(@"%@", [messageData fj_asHexString]);
-                        
-                        UInt8 dataByteZero = 0;
-                        [messageData getBytes:&dataByteZero length:1];
-                        
-                        if (dataByteZero == NDEF_MESSAGE_HEADER) {
-                            NSRange ndefRecordByteRange = NSMakeRange(2, (messageData.length - 3));
-                            NSArray *ndefRecords = [FJNDEFRecord parseData:[messageData subdataWithRange:ndefRecordByteRange]
-                                                             andIgnoreMbMe:FALSE];
-                            LogInfo(@"ndef records: %d", [ndefRecords count]);                            
-                        }
-                        break;
-//                    case FLOMIO_WRITE_BLOCK:
-//                        LogInfo(@"FLOMIO_WRITE_BLOCK ");
-//                        break;
-//                    case FLOMIO_WRITE_CONTINUOUS:
-//                        LogInfo(@"FLOMIO_WRITE_CONTINUOUS ");
-//                        break;
-//                    default:
-//                        break;
-                }
-                break;
 //            case FLOMIO_LED_CONTROL_OP:   //not currently supported
 //            default:
 //                //not currently supported
 //                break;
-        }
-    
-    
+        }    
 }
-
-/**
- Extract the data section from the FloJack message [2,n-1]. Removes the opcode, length, and CRC bytes
- 
- @param     message                 Accessory message
- @param     messageHasSubOpcode     Where data begins
- 
- @return    NSData
- */
-//- (NSData *)getDataFromMessage:(NSData *)message withSubOpcode:(BOOL)messageHasSubOpcode {
-//    if (messageHasSubOpcode) {
-//        // Pop opcode, length, sub-opcode and remove CRC from end. 
-//        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-//                                                                                  message.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2))]];
-//    } else {
-//        // Pop opcode, length, and remove CRC from end.
-//        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_LENGTH_POSITION + 1),
-//                                                                                  message.length - (FLOJACK_MESSAGE_LENGTH_POSITION + 2))]];
-//    }
-//}
-
-/**
- Extract the data section from the FloJack block RW messages. Removes header and crc.
- 
- @param     message                 Accessory message
- 
- @return    NSData
- */
-//- (NSData *)getDataFromBlockReadMessage:(NSData *)message {
-//    
-//    // TODO: uncomment when we begin receiving all pages rather than just data pages
-////    int bytesPerPage = 4;
-////    int dataPageBegin = 5;
-////    int dataPagesCount = 12;
-////    int dataBytesBegin = dataPageBegin * bytesPerPage;
-////    int dataBytesCount = dataPagesCount * bytesPerPage;
-//    
-//    LogInfo(@"%@", [message fj_asHexStringWithSpace] );
-//    
-//    int dataLength = 0;
-//    [message getBytes:&dataLength range:NSMakeRange(FJ_BLOCK_RW_MSG_DATA_LENGTH_POS,
-//                                                    FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
-//    return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength)]];
-//}
 
 // Turn off 14443A Protocol
 - (void)disable14443AProtocol {
