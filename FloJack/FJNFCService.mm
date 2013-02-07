@@ -123,6 +123,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
     
     FJNFCService *self = (FJNFCService *)inClientData;
     
+    
     if (inID == kAudioSessionProperty_AudioRouteChange) {
 		try {
             // if there was a route change, we need to dispose the current rio unit and create a new one
@@ -131,25 +132,16 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 			
 			UInt32 size = sizeof(self->_hwSampleRate);
 			XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &self->_hwSampleRate), "couldn't get new sample rate");
-			
 			XThrowIfError(AudioOutputUnitStart(self->_remoteIOUnit), "couldn't start unit");
-			
-			// we need to rescale the sonogram view's color thresholds for different input
-			CFStringRef newRoute;
-			size = sizeof(CFStringRef);
-			XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &size, &newRoute), "couldn't get new audio route");
-			if (newRoute) {	
-				CFShow(newRoute);                
-			}
-          
-            // Set interbyte delay based on iOS device type
-            if ([self isHeadsetPluggedInWithRoute:newRoute]) {
+            
+            // send interbyte delay config message if FloJack reconnected
+            NSString *currentRoute = [(NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
+            if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
                 [self sendFloJackConnectedStatusToDelegate:true];
             }
             else {
                 [self sendFloJackConnectedStatusToDelegate:false];
             }
-
 		}
         catch (CAXException e) {
 			char buf[256];
@@ -810,23 +802,17 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return boolean    Indicates if the FloJack is connected
  */
 - (BOOL)isHeadsetPluggedIn {
-    UInt32 routeSize = sizeof(CFStringRef);
-    CFStringRef route;
-    
-    OSStatus error = AudioSessionGetProperty (kAudioSessionProperty_AudioRouteDescription,
+    UInt32 routeSize = sizeof(CFDictionaryRef);
+    CFDictionaryRef reouteChange;
+    OSStatus error = AudioSessionGetProperty (kAudioSessionProperty_AudioRouteChange,
                                               &routeSize,
-                                              &route);
+                                              &reouteChange);
     
-    if (!error && (route != NULL)) {
-        
-        NSString* routeStr = (NSString*)route;
-        
-        NSRange headphoneRange = [routeStr rangeOfString : @"HeadsetInOut"];
-        
-        if (headphoneRange.location != NSNotFound) return YES;
-        
-    }
-    
+    if (!error && (reouteChange != NULL)) {
+        NSDictionary *audioRouteChangeDict = (NSDictionary *)reouteChange;
+        NSString *currentRoute = [audioRouteChangeDict objectForKey:@"OutputDeviceDidChange_NewRoute"];
+        return [self isHeadsetPluggedInWithRoute:currentRoute];
+    }    
     return NO;
 }
 
@@ -834,26 +820,17 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  isHeadsetPluggedInWithRoute()
  Check if a headset (3-conductor plug) is plugged in
  
- @param route        CFStringRef indicating the route
+ @param currentRoute         NSString the new audio route
  
  @return boolean    Indicates if the FloJack is connected
  */
-- (BOOL)isHeadsetPluggedInWithRoute:(CFStringRef)route {
-    
-    if (route != NULL) {
-        NSString* routeStr = (NSString*)route;
-        
-        NSRange headphoneRange = [routeStr rangeOfString : @"HeadsetInOut"];
-        
-        if (headphoneRange.location != NSNotFound) return YES;   
+- (BOOL)isHeadsetPluggedInWithRoute:(NSString *)currentRoute {
+    if (currentRoute != nil) {
+        if ([currentRoute isEqualToString:@"HeadsetInOut"]) {
+            return true;
+        }
     }
-    
-    // Tell the adapter
-//    dispatch_async(_backgroundQueue, ^(void) {
-//        [_delegate receive:arrayCopy];
-//    });
-    
-    return NO;
+    return false;
 }
 
 /**
