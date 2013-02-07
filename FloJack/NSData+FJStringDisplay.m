@@ -34,5 +34,13 @@
     return result;
 }
 
+- (NSString *)fj_asASCIIStringEncoded;
+{
+    return [[NSString alloc] initWithData:self encoding:NSASCIIStringEncoding];
+}
+
+
+
+
 
 @end

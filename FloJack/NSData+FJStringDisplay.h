@@ -12,5 +12,6 @@
 
 - (NSString *)fj_asHexString;
 - (NSString *)fj_asHexStringWithSpace;
+- (NSString *)fj_asASCIIStringEncoded;
 
 @end

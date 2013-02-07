@@ -165,7 +165,7 @@
             [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_uid_only];
             break;
         case 25:
-            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_only];
+            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
             break;
             
     }
@@ -243,12 +243,25 @@
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
         // Display the alert to the user
-        [alert show];
         
-        NSString *textUpdate = [NSString stringWithFormat:@"--Tag Found-- \nUID: %@ \nData: %@", [[theNfcTag uid] fj_asHexString],
-                                                                               [[theNfcTag data] fj_asHexString]];
+        NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nData: %@", [[theNfcTag uid] fj_asHexString],
+                                [[theNfcTag data] fj_asHexString]];
+        
+        if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {
+            for (FJNDEFRecord *ndefRecord in theNfcTag.ndefMessage.ndefRecords) {
+                [textUpdate appendString:@"\n\nNDEF Record Found"];
+                [textUpdate appendString:[NSString stringWithFormat:@"\nTNF: %d",ndefRecord.tnf]];
+                [textUpdate appendString:[NSString stringWithFormat:@"\nType: %@",[ndefRecord.type fj_asHexString]]];
+                [textUpdate appendString:[NSString stringWithFormat:@"\nPayload: %@ (%@)",[ndefRecord.payload fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]]];
+
+                NSLog(@"TNF: %d Type: %@ Payload: %@", ndefRecord.tnf, [ndefRecord.type fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]);
+            }
+            
+        }        
         
         _outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",_outputTextView.text, textUpdate];
+        
+        [alert show];
     });
 }
 
