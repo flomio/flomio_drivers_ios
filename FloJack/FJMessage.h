@@ -10,7 +10,7 @@
 
 // Message Length Boundaries
 #define MIN_MESSAGE_LENGTH                       3   //todo change to 4
-#define MAX_MESSAGE_LENGTH                       160
+#define MAX_MESSAGE_LENGTH                       256
 
 #define CORRECT_CRC_VALUE                        0   
 
@@ -117,7 +117,7 @@ static const UInt8 op_mode_uid_only[] =                 {0x0E,0x05,0x00,0x01,0x0
 
 static const UInt8 op_mode_uid_only_no_redundancy[] =   {0x0E,0x05,0x00,0x00,0x0B};
 
-static const UInt8 op_mode_read_only[] =                {0x0E,0x04,0x01,0x0B};
+static const UInt8 op_mode_read_memory_only[] =                {0x0E,0x04,0x01,0x0B};
 
 static const UInt8 op_mode_write_only[] =               {0x0E,0x05,0x02,0x01,0x08};
 
@@ -148,11 +148,12 @@ typedef enum
 
 // FLOMIO_TAG_UID_OP sub opcode indicating UID length
 typedef enum
-{
-    FLOMIO_UID_LEN_FOUR = 0,	// Three byte UID
-    FLOMIO_UID_LEN_SEVEN,		// Seven byte UID
-    FLOMIO_UID_LEN_TEN			// Ten byte UID
-} flomio_uid_types_t;
+{    
+    FLOMIO_UID_ONLY = 0,                // UID only. Length varies
+    FLOMIO_ALL_MEM_UID_LEN_FOUR,		// All memory including four byte UID
+    FLOMIO_ALL_MEM_UID_LEN_SEVEN,		// All memory including seven byte UID
+    FLOMIO_ALL_MEM_UID_LEN_TEN,			// All memory including ten byte UID
+} flomio_tag_uid_opcodes_t;
 
 //Flomio Status Sub-Opcode
 typedef enum
@@ -246,8 +247,8 @@ typedef enum
 //Operation Mode Sub-Opcodes
 typedef enum
 {
-    FLOMIO_UID_ONLY = 0,
-    FLOMIO_READ_ONLY,
+    FLOMIO_READ_UID = 0,
+    FLOMIO_READ_ALL_MEMORY,
     FLOMIO_WRITE_ONLY,
     FLOMIO_READ_WRITE
 } flomio_operation_modes_t;

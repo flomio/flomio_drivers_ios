@@ -53,6 +53,9 @@
 - (void)operationModeUID;
 - (void)operationModeReadOnly;
 
+
+- (void)writeTagWithData:(NSData *)theData;
+
 @end
 
 #pragma mark - NFC Adapter Protocol
@@ -60,6 +63,7 @@
 @protocol FJNFCAdapterDelegate<NSObject>
  @required
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag;
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTag:(FJNFCTag *)theNfcTag andStatusWas:(NSInteger *)errorCode;
   - (BOOL)nfcAdapter:(id)sender shouldWriteTagwithData:(NSData *)theData;
   - (BOOL)nfcAdapter:(id)sender shouldSendMessage:(NSData *)theMessage;
 
