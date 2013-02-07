@@ -12,11 +12,7 @@
 
 
 @implementation FJNDEFRecord {
-    short       tnf_;
     char        flags_;
-    NSData      *type_;
-    NSData      *id_;
-    NSData      *payload_;
     
     // NFC Forum "URI Record Type Definition"
     //
@@ -24,6 +20,11 @@
     // per section 3.2.2 of the NFC Forum URI Record Type Definition document.
     NSArray     *tUriPrefixMap;
 }
+
+@synthesize tnf = _tnf;
+@synthesize type = _type;
+@synthesize theId = _theId;
+@synthesize payload = _payload;
 
 //typedef enum: short {
 //    
@@ -190,11 +191,11 @@ static const UInt8 kEmptyByteArray[] = {0x00};
             flag |= kFlagIL;
         }
         
-        tnf_ = tnf;
+        _tnf = tnf;
         flags_ = flag;
-        type_ = [[NSData alloc] initWithData:type];
-        id_ = [[NSData alloc] initWithData:theId];
-        payload_ = [[NSData alloc] initWithData:payload];
+        _type = [[NSData alloc] initWithData:type];
+        _theId = [[NSData alloc] initWithData:theId];
+        _payload = [[NSData alloc] initWithData:payload];
         
         tUriPrefixMap = [NSArray arrayWithObjects:@"", // 0x00
                          @"http://www.", // 0x01
@@ -237,29 +238,29 @@ static const UInt8 kEmptyByteArray[] = {0x00};
 }
 
 - (NSData *)asByteBuffer; {
-    int capacity = 1 + type_.length + id_.length + payload_.length;
+    int capacity = 1 + _type.length + _theId.length + _payload.length;
     NSMutableData *data = [[NSMutableData alloc] initWithCapacity:capacity];
     
     /* Add TNF back into flag byte */
-    char flag = flags_|tnf_;
+    char flag = flags_|_tnf;
     
     /* Determine if it is a short record */
     BOOL sr = false;
-    if(payload_.length < 0xFF) {
+    if(_payload.length < 0xFF) {
         flag |= kFlagSR;
         sr = true;
     }
     
     /* Determine if an id is present */
     BOOL il = false;
-    if(id_.length != 0) {
+    if(_theId.length != 0) {
         flag |= kFlagIL;
         il = true;
     }
     
     [data appendBytes:&flag length:1];
     
-    char typeLength = (char) [type_ length];
+    char typeLength = (char) [_type length];
     [data appendBytes:&typeLength length:1];
     
     

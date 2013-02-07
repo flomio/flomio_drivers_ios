@@ -43,4 +43,11 @@
 + (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe;
 
 
+
+@property(nonatomic, readonly) short tnf;
+@property(nonatomic, readonly) NSData *type;
+@property(nonatomic, readonly) NSData *theId;
+@property(nonatomic, readonly) NSData *payload;
+
+
 @end
