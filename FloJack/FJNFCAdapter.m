@@ -186,8 +186,8 @@
                             break;
                     }
                 break;
-            case FLOMIO_TAG_UID_OP: {
-                LogInfo(@"(FLOMIO_TAG_UID_OP) Tag UID Received %@", [message fj_asHexString]);
+            case FLOMIO_TAG_READ_OP: {
+                LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
 
                 if (flojackMessageSubOpcode == FLOMIO_UID_ONLY) {
                     // Tag UID Only
@@ -225,10 +225,13 @@
                 }                
                 break;
             }
-//            case FLOMIO_LED_CONTROL_OP:   //not currently supported
-//            default:
-//                //not currently supported
-//                break;
+            case FLOMIO_TAG_WRITE_OP: {
+                LogInfo(@"%@", messyTest.name);
+                if ([_delegate respondsToSelector:@selector(nfcAdapter: didWriteTagAndStatusWas:)]) {
+                    NSInteger writeStatus = messyTest.subOpcode;
+                    [_delegate nfcAdapter:self didWriteTagAndStatusWas:writeStatus];
+                }
+            }
         }    
 }
 
@@ -362,6 +365,20 @@
 
 - (void)operationModeReadOnly {
     [self sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
+}
+
+- (void)operationModeWriteDataTest {
+    // Touch-a-tag read only NFC tag
+    // 1 NDEF Record (URI): http://www.ttag.be/m/04FAC9193E2580
+    // TNF_WELL_KNOWN = 0x01;
+    // RTD_URI = {0x55};   // "U"    
+//    UInt8 bytes[] = {0x0E, 33, 0x02, -47, 1, 25, 85, 1, 116, 116, 97, 103, 46, 98, 101, 47, 109,
+//        47, 48, 52, 70, 65, 67, 57, 49, 57, 51, 69, 50, 53, 56, 48, 0x00};
+//    int bytesLength = 33;
+    
+    //
+    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x04, FLOMIO_OP_MODE_WRITE_PREVIOUS, 0x09};
+    [self sendMessageToHost:(UInt8 *)bytes];
 }
 
 

@@ -167,7 +167,9 @@
         case 25:
             [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
             break;
-            
+        case 26:
+            [_nfcAdapter operationModeWriteDataTest];
+            break;
     }
 }
 
@@ -208,6 +210,12 @@
     {
         NSLog(@"error, file not found: %@", path);
     }
+}
+
+- (void)volumeChanged:(NSNotification *)notification
+{
+    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
+    NSLog(@"volume: %g", volume);
 }
 
 #pragma mark - AVAudioPlayer Delegate
@@ -261,6 +269,22 @@
         
         _outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",_outputTextView.text, textUpdate];
         
+        [alert show];
+    });
+}
+
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)errorCode {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // TODO this sends config message repeatedly which puts flojack in a bad state
+        // [self playSound:@"scan_sound"];
+        
+        
+        // Create a new alert object and set initial values.
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Write Status"
+                                                        message:[NSString stringWithFormat:@"Tag Write Satus: %d", errorCode]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
         [alert show];
     });
 }

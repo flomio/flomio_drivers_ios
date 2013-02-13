@@ -215,8 +215,8 @@
                             break;
                     }
                     break;
-                case FLOMIO_TAG_UID_OP: {
-                    _name = @"FLOMIO_TAG_UID_OP";
+                case FLOMIO_TAG_READ_OP: {
+                    _name = @"FLOMIO_TAG_READ_OP";
                                         
                     NSRange dataRange = NSMakeRange(FJ_TAG_UID_DATA_POS, (theData.length - 4));
                     _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];                    
@@ -232,6 +232,21 @@
                                                                             FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
                             NSRange dataRange = NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength);
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
+                            break;
+                    }
+                    break;
+                case FLOMIO_TAG_WRITE_OP:
+                    switch (_subOpcode) {
+                        case FLOMIO_TAG_WRITE_STATUS_SUCCEEDED:
+                            _name = @"FLOMIO_TAG_WRITE_OP Succeeded";
+                        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_UNSUPPORTED:
+                            _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag Unsupported";
+                        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_READ_ONLY:
+                            _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag R/O";
+                        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_ENOUGH_MEM:
+                            _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag Too Small";
+                        case FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN:
+                            _name = @"FLOMIO_TAG_WRITE_OP Fail";
                             break;
                     }
                     break;
@@ -277,7 +292,7 @@
             flojackMessageOpcode == FLOMIO_PROTO_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_POLLING_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_POLLING_RATE_OP ||
-            flojackMessageOpcode == FLOMIO_TAG_UID_OP ||
+            flojackMessageOpcode == FLOMIO_TAG_READ_OP ||
             flojackMessageOpcode == FLOMIO_ACK_ENABLE_OP ||
             //flojackMessageOpcode == FLOMIO_STANDALONE_OP ||
             //flojackMessageOpcode == FLOMIO_STANDALONE_TIMEOUT_OP ||
@@ -287,7 +302,8 @@
             flojackMessageOpcode == FLOMIO_COMMUNICATION_CONFIG_OP ||
             flojackMessageOpcode == FLOMIO_PING_OP ||
             flojackMessageOpcode == FLOMIO_OPERATION_MODE_OP ||
-            flojackMessageOpcode == FLOMIO_BLOCK_READ_WRITE_OP)
+            flojackMessageOpcode == FLOMIO_BLOCK_READ_WRITE_OP ||
+            flojackMessageOpcode == FLOMIO_TAG_WRITE_OP)
     {
         UInt8 flojackMessageSubOpcode = 0;
         [theMessage getBytes:&flojackMessageSubOpcode range:NSMakeRange(FLOJACK_MESSAGE_SUB_OPCODE_POSITION,

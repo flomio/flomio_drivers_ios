@@ -117,7 +117,7 @@ static const UInt8 op_mode_uid_only[] =                 {0x0E,0x05,0x00,0x01,0x0
 
 static const UInt8 op_mode_uid_only_no_redundancy[] =   {0x0E,0x05,0x00,0x00,0x0B};
 
-static const UInt8 op_mode_read_memory_only[] =                {0x0E,0x04,0x01,0x0B};
+static const UInt8 op_mode_read_memory_only[] =         {0x0E,0x04,0x01,0x0B};
 
 static const UInt8 op_mode_write_only[] =               {0x0E,0x05,0x02,0x01,0x08};
 
@@ -129,24 +129,25 @@ static const UInt8 op_mode_read_write[] =               {0x0E,0x04,0x03,0x09};
 //Flomio Accessory-Client Message Opcodes
 typedef enum
 {
-    FLOMIO_STATUS_OP = 1,
-    FLOMIO_PROTO_ENABLE_OP,
-    FLOMIO_POLLING_ENABLE_OP,
-    FLOMIO_POLLING_RATE_OP,
-    FLOMIO_TAG_UID_OP,
-    FLOMIO_ACK_ENABLE_OP,
-    FLOMIO_STANDALONE_OP,
-    FLOMIO_STANDALONE_TIMEOUT_OP,
-    FLOMIO_DUMP_LOG_OP,
-    FLOMIO_LED_CONTROL_OP,
-    FLOMIO_TI_HOST_COMMAND_OP,
-    FLOMIO_COMMUNICATION_CONFIG_OP,
-    FLOMIO_PING_OP,
-    FLOMIO_OPERATION_MODE_OP,
-    FLOMIO_BLOCK_READ_WRITE_OP
+    FLOMIO_STATUS_OP = 1,               // 1
+    FLOMIO_PROTO_ENABLE_OP,             // 2
+    FLOMIO_POLLING_ENABLE_OP,           // 3
+    FLOMIO_POLLING_RATE_OP,             // 4
+    FLOMIO_TAG_READ_OP,                 // 5
+    FLOMIO_ACK_ENABLE_OP,               // 6
+    FLOMIO_STANDALONE_OP,               // 7
+    FLOMIO_STANDALONE_TIMEOUT_OP,       // 8
+    FLOMIO_DUMP_LOG_OP,                 // 9
+    FLOMIO_LED_CONTROL_OP,              // 10
+    FLOMIO_TI_HOST_COMMAND_OP,          // 11
+    FLOMIO_COMMUNICATION_CONFIG_OP,     // 12
+    FLOMIO_PING_OP,                     // 13
+    FLOMIO_OPERATION_MODE_OP,           // 14
+    FLOMIO_BLOCK_READ_WRITE_OP,         // 15
+    FLOMIO_TAG_WRITE_OP,				// 16
 } flomio_opcode_t;
 
-// FLOMIO_TAG_UID_OP sub opcode indicating UID length
+// FLOMIO_TAG_READ_OP sub opcode indicating UID length
 typedef enum
 {    
     FLOMIO_UID_ONLY = 0,                // UID only. Length varies
@@ -247,10 +248,10 @@ typedef enum
 //Operation Mode Sub-Opcodes
 typedef enum
 {
-    FLOMIO_READ_UID = 0,
-    FLOMIO_READ_ALL_MEMORY,
-    FLOMIO_WRITE_ONLY,
-    FLOMIO_READ_WRITE
+    FLOMIO_OP_MODE_READ_UID = 0,        // Send host UID only
+    FLOMIO_OP_MODE_READ_ALL_MEMORY,     // Send host ALL BLOCKS (UID, OTP, CC, TLV, DATA, etc)
+    FLOMIO_OP_MODE_WRITE_CURRENT,       // Write data to tag
+    FLOMIO_OP_MODE_WRITE_PREVIOUS       // Send UID. Wait for read or write command
 } flomio_operation_modes_t;
 
 //Block Read/Write Sub-Opcodes
@@ -260,6 +261,16 @@ typedef enum
     FLOMIO_WRITE_BLOCK,
     FLOMIO_WRITE_CONTINUOUS
 } flomio_block_read_write_t;
+
+// FLOMIO_TAG_WRITE_OP subopcodes
+typedef enum
+{
+	FLOMIO_TAG_WRITE_STATUS_SUCCEEDED,
+	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_UNSUPPORTED,
+	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_READ_ONLY,
+	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_ENOUGH_MEM,
+	FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN = 0xFF
+} flomio_tag_write_status_opcodes_t;
 
 
 

@@ -23,6 +23,8 @@
 - (id)init;
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
 - (void)sendMessageToHost:(UInt8[])message;
+- (void)writeTagWithPreviousNdefMessage;
+- (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 
 // how many of these do we want to expose?
 - (void)disable14443AProtocol;
@@ -52,10 +54,7 @@
 - (void)turnLedOff;
 - (void)operationModeUID;
 - (void)operationModeReadOnly;
-
-
-- (void)writeTagWithData:(NSData *)theData;
-
+- (void)operationModeWriteDataTest;
 @end
 
 #pragma mark - NFC Adapter Protocol
@@ -63,14 +62,10 @@
 @protocol FJNFCAdapterDelegate<NSObject>
  @required
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag;
-  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTag:(FJNFCTag *)theNfcTag andStatusWas:(NSInteger *)errorCode;
-  - (BOOL)nfcAdapter:(id)sender shouldWriteTagwithData:(NSData *)theData;
-  - (BOOL)nfcAdapter:(id)sender shouldSendMessage:(NSData *)theMessage;
-
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)errorCode;
  @optional
-  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber;
-  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber;
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber;
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapterDidDetectFloJackConnected:(FJNFCAdapter *)nfcAdapter;
   - (void)nfcAdapterDidDetectFloJackDisconnected:(FJNFCAdapter *)nfcAdapter;
-
 @end
