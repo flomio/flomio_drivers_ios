@@ -25,7 +25,7 @@
     [self.window makeKeyAndVisible];
     
     // Capture volume change notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
+    [[NSNotificationCenter defaultCenter] addObserver:self.viewController
                                              selector:@selector(volumeChanged:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
@@ -61,11 +61,7 @@
 }
 
 
-- (void)volumeChanged:(NSNotification *)notification
-{
-    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-    NSLog(@"volume: %g", volume);
-}
+
 
 - (void) redirectConsoleLogToDocumentFolder
 {

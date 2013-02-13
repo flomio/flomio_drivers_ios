@@ -465,6 +465,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	try {
         
         float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
+        //[[MPMusicPlayerController applicationMusicPlayer] setVolume:1.0];
         NSLog(@"Volume Level: %g", volumeLevel);
         
         // Logic high/low varies based on host device
