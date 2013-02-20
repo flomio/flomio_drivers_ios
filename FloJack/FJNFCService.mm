@@ -692,40 +692,32 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     if (not parityGood) {
         // last byte was corrupted, dump this entire message
         LogTrace(@" --- Parity Bad: dumping message.");
-        [self markCurrentMessageCorruptAtTime:timestamp];
+        [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         return;
     }
     else if (not _messageValid and not (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT)) {
         // byte is ok but we're still receiving a corrupt message, dump it.
         LogTrace(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
-        [self markCurrentMessageCorruptAtTime:timestamp];
+        [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         return;
     }
-    else if (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT) {
+    else if (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT) {       
         // sweet! timeout has passed, let's get cranking on this valid message
-        LogTrace(@" ++ Message Valid: valid byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
+        if (_messageReceiveBuffer.length > 0) {
+            //TODO : plumb this issue up to delegate
+            LogError(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
+        }
         
-        // TODO: Add NACK here?
-        
+        LogTrace(@" ++ Message Valid: byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
         [self markCurrentMessageValidAtTime:timestamp];
-        
-        [_messageReceiveBuffer resetBytesInRange:NSMakeRange(0, [_messageReceiveBuffer length])];
-        
-        _messageLength  = MAX_MESSAGE_LENGTH;
-        _messageCRC = 0;
+        [self clearMessageBuffer];
     }
 
-    
     /*
-     *  BUFFER BUILDER (todo: maybe refactor this into a new function?)
+     *  BUFFER BUILDER
      */
-    
-    // Add newest data value to the message buffer
-    [_messageReceiveBuffer appendBytes:&byte length:1];
-    
     [self markCurrentMessageValidAtTime:timestamp];
-    
-    //update crc check by doing an XOR (exclusive OR)
+    [_messageReceiveBuffer appendBytes:&byte length:1];
     _messageCRC ^= byte;
     
     // Have we received the message length yet ?
@@ -735,62 +727,57 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                       range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
                                                         FLOJACK_MESSAGE_LENGTH_POSITION)];
         _messageLength = length;
-        
         if (_messageLength < MIN_MESSAGE_LENGTH || _messageLength > MAX_MESSAGE_LENGTH)
         {
-            //invalid length, something probably went wrong, throw out message
-            [self markCurrentMessageCorruptAtTime:timestamp];
+            LogError(@"Invalid message length, ingoring current message.");
+            [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         }
     }
     
     // Is the message complete?
     if (_messageReceiveBuffer.length == _messageLength
-        && _messageReceiveBuffer.length > MIN_MESSAGE_LENGTH
-        && _messageCRC == CORRECT_CRC_VALUE)        
+        && _messageReceiveBuffer.length > MIN_MESSAGE_LENGTH)        
     {
-        // Well formed message received, pass it to the delegate
-        LogInfo(@"handleMessage: Well formed message, send to delegate.");
-        
-        if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
-            NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
-            dispatch_async(_backgroundQueue, ^(void) {
-                [_delegate nfcService:self didReceiveMessage:dataCopy];
-            });
+        // Check CRC
+        if (_messageCRC == CORRECT_CRC_VALUE) {
+            // Well formed message received, pass it to the delegate
+            LogInfo(@"FJNFCService: Complete message, send to delegate.");
+            
+            if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
+                NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
+                dispatch_async(_backgroundQueue, ^(void) {
+                    [_delegate nfcService:self didReceiveMessage:dataCopy];
+                });
+            }
+            
+            [self markCurrentMessageValidAtTime:timestamp];
+            [self clearMessageBuffer];            
         }
-        
-        // Clear the buffer and associated variables
-        LogTrace(@"--> Clear the buffer and associated variables");
-        [_messageReceiveBuffer setLength:0];
-        _messageLength  = MAX_MESSAGE_LENGTH;
-        _messageCRC = 0;
-        
-        [self markCurrentMessageValidAtTime:timestamp];
-    }
-    else if (_messageReceiveBuffer.length == _messageLength
-             && _messageReceiveBuffer.length > MIN_MESSAGE_LENGTH
-             && _messageCRC != CORRECT_CRC_VALUE)
-    {
-        // We received the right number of bytes but the CRC is incorrect, dump this message
-        NSLog(@"ERROR: bad CRC, ingoring current message.");
-        
-        [self markCurrentMessageCorruptAtTime:timestamp];
+        else {
+            //TODO: plumb this through to delegate
+            LogError(@"Bad CRC, ingoring current message.");
+            [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
+        }
     }
 }
 
-- (void) setDelegate:(id <FJNFCServiceDelegate>) delegate {
-	_delegate = delegate;
-}
-
--(void) markCurrentMessageCorruptAtTime:(double)timestamp {
-    // dump buffer, set corrupt message flag, and
-    _lastByteReceivedAtTime = timestamp;
+-(void)clearMessageBuffer {
+    [_messageReceiveBuffer setLength:0];
     _messageLength  = MAX_MESSAGE_LENGTH;
-    _messageValid = false;
-    
-    [_messageReceiveBuffer resetBytesInRange:NSMakeRange(0, [_messageReceiveBuffer length])];
+    _messageCRC = 0;
 }
 
--(void) markCurrentMessageValidAtTime:(double)timestamp {
+-(void)markCurrentMessageCorruptAndClearBufferAtTime:(double)timestamp {
+    [self markCurrentMessageCorruptAtTime:timestamp];
+    [self clearMessageBuffer];
+}
+
+-(void)markCurrentMessageCorruptAtTime:(double)timestamp {
+    _lastByteReceivedAtTime = timestamp;
+    _messageValid = false;
+}
+
+-(void)markCurrentMessageValidAtTime:(double)timestamp {
     _lastByteReceivedAtTime = timestamp;
     _messageValid = true;
 }

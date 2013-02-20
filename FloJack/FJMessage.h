@@ -10,7 +10,7 @@
 
 // Message Length Boundaries
 #define MIN_MESSAGE_LENGTH                       3   //todo change to 4
-#define MAX_MESSAGE_LENGTH                       256
+#define MAX_MESSAGE_LENGTH                       255
 
 #define CORRECT_CRC_VALUE                        0   
 
