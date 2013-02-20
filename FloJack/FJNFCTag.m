@@ -99,7 +99,7 @@
     UInt8 ndefTLVLength;
     [_data getBytes:&ndefTLVLength range:NSMakeRange(ndefTLVRange.location + 1, 1)];
     
-    if (ndefTLVLength > 0) {
+    if ((ndefTLVLength > 0) && (_data.length >= (ndefTLVRange.location + 2 + ndefTLVLength))) {
         NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVRange.location + 2, ndefTLVLength)];
         
         NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
