@@ -24,6 +24,8 @@
 
 @interface FJNFCService : NSObject 
 
+@property (nonatomic, assign) id <FJNFCServiceDelegate>	delegate;
+@property (readonly, nonatomic, assign) UInt32	outputAmplitude;
 
 - (id)init;
 - (UInt8 *)getCommunicationConfigMessage;
@@ -31,6 +33,8 @@
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength;
+- (void)setOutputAmplitudeHigh;
+- (void)setOutputAmplitudeNormal;
 
 @end
 

@@ -29,7 +29,7 @@
 #define SAMPLE_NOISE_CEILING        200000  // keeping running average and filter out noisy values around 0
 #define SAMPLE_NOISE_FLOOR          -200000 // keeping running average and filter out noisy values around 0
 
-#define AMPLITUDE                   (1<<24)
+//#define AMPLITUDE                   (1<<27) // EU: (1<<27) US: (1<<24)
 
 #define MESSAGE_SYNC_TIMEOUT        .500    // seconds
 
@@ -81,6 +81,7 @@ enum uart_state {
 }
 
 @synthesize delegate = _delegate;
+@synthesize outputAmplitude = _outputAmplitude;
 
 #pragma mark - NFC Service Audio Sessions and Callbacks (C)
 
@@ -143,7 +144,9 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
             
             // send interbyte delay config message if FloJack reconnected
             NSString *currentRoute = [(NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
+            NSLog(@"Current Route: %@", currentRoute);
             if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
+                
                 [self sendFloJackConnectedStatusToDelegate:true];
             }
             else {
@@ -340,7 +343,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		for(int j = 0; j < inNumberFrames; j++) {
 			waves = 0;
 			waves += sin(M_PI * phase+0.5); // nfcService should be 22.050kHz
-			waves *= (AMPLITUDE); // <--------- make sure to divide by how many waves you're stacking
+			waves *= (self->_outputAmplitude); // <--------- make sure to divide by how many waves you're stacking
 
 			values[j] = (SInt32)waves;
 			phase++;			
@@ -432,7 +435,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 				default:
 					break;
 			} //end: switch(state)
-            values[j] = (SInt32)(uartBitEnc[phaseEnc%SAMPLESPERBIT] * AMPLITUDE);
+            values[j] = (SInt32)(uartBitEnc[phaseEnc%SAMPLESPERBIT] * self->_outputAmplitude);
             phaseEnc++;
 		} //end: for(int j = 0; j< inNumberFrames; j++) 
         // copy data into left channel
@@ -471,7 +474,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _byteQueuedForTX = FALSE;
     
     // Assume non EU device
-    [self setOutputAmplitudeHigh];
+    [self setOutputAmplitudeNormal];
     
 	try {
         //float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
@@ -570,6 +573,10 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         // iPad 2
         logicOneValue = 1;
     }
+    else if([machineName caseInsensitiveCompare:@"iPad2,4"] == NSOrderedSame) {
+        // iPad 2
+        logicOneValue = 1;
+    }
     else if([machineName caseInsensitiveCompare:@"iPad1,1"] == NSOrderedSame) {
         // iPad
         logicOneValue = 1;
@@ -646,7 +653,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad3_msg;
     }
     else if([machineName caseInsensitiveCompare:@"iPad2,1"] == NSOrderedSame) {
-        // iPad 2
+        // iPad 2 WiFi
+        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
+    }
+    else if([machineName caseInsensitiveCompare:@"iPad2,4"] == NSOrderedSame) {
+        // iPad 2 WiFi (re-released)
         inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
     }
     else if([machineName caseInsensitiveCompare:@"iPhone4,1"] == NSOrderedSame) {
@@ -784,7 +795,30 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _messageValid = true;
 }
 
+/*
+ setOutputAmplitudeHigh()
+ Used to increase the output wave amplitude to 1<<27. 
+ This is necessary for EU devices with audio caps at ~80dBA.
+ 
+ WARNING:   IMPROPER USE CAN DAMAGE THE FLOJACK DEVICE.
+            DO NOT USE ON NON AUDIO CAPPED DEVICES.
+ 
+ @return void
+ */
+- (void)setOutputAmplitudeHigh {
+    _outputAmplitude = (1<<27);
+}
 
+/*
+ setOutputAmplitudeHigh()
+ Used to initialize output amplitude to normal levels. 
+ For use on non-EU devices with full 120 dBA audio outputs.
+ 
+ @return void
+ */
+- (void)setOutputAmplitudeNormal {
+    _outputAmplitude = (1<<24);
+}
 
 /*
  * Helper Functions
