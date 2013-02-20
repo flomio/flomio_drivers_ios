@@ -42,6 +42,13 @@ enum uart_state {
 	DECODE_BYTE_SAMPLE   = 5,
 };
 
+@interface FJNFCService()
+- (BOOL)isHeadsetPluggedInWithRoute:(NSString *)currentRoute;
+- (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
+- (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected;
+- (void)clearMessageBuffer;
+@end
+
 @implementation FJNFCService
 {
     id <FJNFCServiceDelegate>	 _delegate;
@@ -271,14 +278,14 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                         else if (bitNum == 8) {
 							// Sample is a parity bit
 							if(sample != (parityRx & 0x01)) {
-                                LogTrace(@" -- parity %ld,  UartByte 0x%x\n", sample, uartByte);
+                                LogError(@" -- parity %ld,  UartByte 0x%x\n", sample, uartByte);
                                 //decoderState = STARTBIT;
                                 parityGood = false;
                                 bitNum += 1;
 							}
                             else {
                                 LogTrace(@" ++ UartByte: 0x%x\n", uartByte);
-                                LogTrace(@" +++ good parity: %ld \n", sample);
+                                //LogTrace(@" +++ good parity: %ld \n", sample);
 								parityGood = true;
                                 bitNum += 1;                                
 							}							
@@ -287,11 +294,12 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 							// Sample is stop bit
 							if (sample == 1) {
 								// Valid byte
-                                LogTrace(@" +++ stop bit: %ld \n", sample);
+                                //LogTrace(@" +++ stop bit: %ld \n", sample);
 							}
                             else {
 								// Invalid byte			
-                                LogTrace(@" -- StopBit: %ld UartByte 0x%x\n", sample, uartByte);
+                                LogError(@" -- StopBit: %ld UartByte 0x%x\n", sample, uartByte);
+                                parityGood = false;
 							}
                             
                             // Send bye to message handler
@@ -461,12 +469,14 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     [self markCurrentMessageValidAtTime:0];
     
     _byteQueuedForTX = FALSE;
-	
+    
+    // Assume non EU device
+    [self setOutputAmplitudeHigh];
+    
 	try {
-        
-        float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
+        //float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
         //[[MPMusicPlayerController applicationMusicPlayer] setVolume:1.0];
-        NSLog(@"Volume Level: %g", volumeLevel);
+        //NSLog(@"Volume Level: %g", volumeLevel);
         
         // Logic high/low varies based on host device
         _logicOne = [self getLogicOneValueBasedOnDevice];
@@ -662,10 +672,10 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 
 
 
--(void) handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp {
+-(void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp {
     
     /*
-     *  ERROR CHECKING (todo: maybe refactor this into a new function?)
+     *  ERROR CHECKING 
      */
     // Before anything else carry out error handling
     if (not parityGood) {
@@ -947,7 +957,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
 	[super dealloc];
-
 }
 
 @end
