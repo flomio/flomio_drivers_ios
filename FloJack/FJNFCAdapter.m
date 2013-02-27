@@ -367,20 +367,40 @@
     [self sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
 }
 
-- (void)operationModeWriteDataTest {
+- (void)operationModeWriteDataTestTtag {
     // Touch-a-tag read only NFC tag
     // 1 NDEF Record (URI): http://www.ttag.be/m/04FAC9193E2580
     // TNF_WELL_KNOWN = 0x01;
-    // RTD_URI = {0x55};   // "U"    
-//    UInt8 bytes[] = {0x0E, 33, 0x02, -47, 1, 25, 85, 1, 116, 116, 97, 103, 46, 98, 101, 47, 109,
-//        47, 48, 52, 70, 65, 67, 57, 49, 57, 51, 69, 50, 53, 56, 48, 0x00};
-//    int bytesLength = 33;
-    
-    //
-    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x04, FLOMIO_OP_MODE_WRITE_PREVIOUS, 0x09};
+    // RTD_URI = {0x55};   // "U"   
+    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x21, FLOMIO_OP_MODE_WRITE_CURRENT, 0xD1,
+                    0x01, 0x19, 0x55, 0x01,
+                    0x74, 0x74, 0x61, 0x67,
+                    0x2e, 0x62, 0x65, 0x2f,
+                    0x6d, 0x2f, 0x30, 0x34,
+                    0x46, 0x41, 0x43, 0x39,
+                    0x31, 0x39, 0x33, 0x45,
+                    0x32, 0x35, 0x38, 0x30,
+                    0xFA};
     [self sendMessageToHost:(UInt8 *)bytes];
 }
 
+- (void)operationModeWriteDataTestFlomio {
+    // Touch-a-tag read only NFC tag
+    // 1 NDEF Record (URI): http://www.flomio.com
+    // TNF_WELL_KNOWN = 0x01;
+    // RTD_URI = {0x55};   // "U"
+    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x13, FLOMIO_OP_MODE_WRITE_CURRENT, 0xD1,
+                    0x01, 0x0b, 0x55, 0x03,
+                    0x66, 0x6c, 0x6f, 0x6d,
+                    0x69, 0x6f, 0x2e, 0x63,
+                    0x6f, 0x6d, 0xd3};
+    [self sendMessageToHost:(UInt8 *)bytes];
+}
+
+- (void)operationModeWriteDataTestPrevious {
+    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x04, FLOMIO_OP_MODE_WRITE_PREVIOUS, 0x09};
+    [self sendMessageToHost:(UInt8 *)bytes];
+}
 
 // Check if FloJack NFC reader is plugged in
 - (BOOL) isFloJackPluggedIn {

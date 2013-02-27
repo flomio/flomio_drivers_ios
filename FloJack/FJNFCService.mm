@@ -866,23 +866,36 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- sendDelegateIsFloJackPluggedIn()
- Tell consuming app (by way of adapter) if the FloJack is plugged in
+ send()
+ Queues up and sends a ingle byte across the audio line.
  
- @param isHeadsetPluggedIn        FloJack plugged in value
+ @param theByte             The byte to be sent
  
- @return void    
+ @return int                1 for byte queued, 0 for byte sent
  */
-- (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected {
-        if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
-            dispatch_async(_backgroundQueue, ^(void) {
-                [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
-            });
-        }
+- (int)send:(UInt8)byte {
+	if (_byteQueuedForTX == FALSE) {
+		// transmitter ready
+		_byteForTX = byte;
+		_byteQueuedForTX = TRUE;
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
-
-#pragma mark Send Messages to Host
+/**
+ sendByteToHost()
+ Send one byte across the audio jack to the FloJack.
+ 
+ @param theByte             The byte to be sent
+ 
+ @return void
+ */
+- (void)sendByteToHost:(UInt8)theByte {
+    // Keep transmitting the message until it's sent on the line
+    while ([self send:theByte]);
+}
 
 /**
  sendMessageToHost()
@@ -978,6 +991,48 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
 	[super dealloc];
+}
+
+#pragma mark Utilities for pushing bytes around
+
+/**
+ calculateCRCForMessage()
+ Calculate the CRC for the given byte array
+ 
+ @param message             Byte array representing a FloJack message {opcode, length, ...}. 
+                                Does not include CRC byte.
+ @param messageLength       Length of the FloJack message
+ 
+ @return void
+ */
+- (UInt8)calculateCRCForMessage:(UInt8[])theMessage withLength:(int)messageLength
+{
+    UInt8 crc=0;
+    for (int i=0; i<messageLength; i++)
+    {
+        crc ^= theMessage[i];
+    }
+    return crc;    
+}
+
+/**
+ verifyCRCForMessage()
+ Ensure this message's CRC is correct
+ 
+ @param message             Byte array representing a FloJack message {opcode, length, ..., CRC}s
+ 
+ @return void
+ */
+- (BOOL)verifyCRCForMessage:(UInt8[])theMessage
+{
+    UInt8 crc=0;
+    UInt8 len=theMessage[FLOJACK_MESSAGE_LENGTH_POSITION];
+    for (int i=0; i<(len-1); i++)
+    {
+        crc ^= theMessage[i];
+    }
+    LogInfo(@"CRC should be: 0x%02hhx and is: 0x%02hhx", (unsigned char) theMessage[len-1], (unsigned char) crc);
+    return (crc == theMessage[len-1]);
 }
 
 @end

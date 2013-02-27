@@ -168,7 +168,13 @@
             [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
             break;
         case 26:
-            [_nfcAdapter operationModeWriteDataTest];
+            [_nfcAdapter operationModeWriteDataTestPrevious];
+            break;
+        case 27:
+            [_nfcAdapter operationModeWriteDataTestFlomio];
+            break;
+        case 28:
+            [_nfcAdapter operationModeWriteDataTestTtag];
             break;
     }
 }

@@ -26,6 +26,11 @@
 - (void)writeTagWithPreviousNdefMessage;
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 
+// temporarily used for Type2 Write testing
+- (void)operationModeWriteDataTestPrevious;
+- (void)operationModeWriteDataTestFlomio;
+- (void)operationModeWriteDataTestTtag;
+
 // how many of these do we want to expose?
 - (void)disable14443AProtocol;
 - (void)disable14443BProtocol;
