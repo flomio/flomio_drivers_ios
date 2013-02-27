@@ -459,6 +459,12 @@
     }
 }
 
+- (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
+    if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveError:)]) {
+        [_delegate nfcAdapter:self didHaveError:errorCode];
+    }    
+}
+
 - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected; {
     if (isFloJackConnected) {
         // Set interbyte delay based on iOS device type

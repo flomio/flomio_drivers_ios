@@ -158,6 +158,18 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 			fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
 		}
 	}
+    else if (inID == kAudioSessionProperty_CurrentHardwareOutputVolume) {        
+        Float32 volume;
+        UInt32 dataSize = sizeof(Float32);
+        AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,
+                                 &dataSize,
+                                 &volume
+                                 );
+        
+        if (volume < 1) {
+            LogError(@"Volume not max. Level = %f", volume);
+        }
+    }
 }
 
 /** 
@@ -474,7 +486,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _byteQueuedForTX = FALSE;
     
     // Assume non EU device
-    [self setOutputAmplitudeNormal];
+    [self setOutputAmplitudeHigh];
     
 	try {
         //float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
@@ -502,6 +514,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		
 		UInt32 size = sizeof(_hwSampleRate);
 		XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &_hwSampleRate), "couldn't get hw sample rate");
+            
+            
+        //TODO audio volume
+        XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_CurrentHardwareOutputVolume, floJackAudioSessionPropertyListener, self), "couldn't set property listener");
+            
 		
 		XThrowIfError(SetupRemoteIO(_remoteIOUnit, _audioUnitRenderCallback, _remoteIOOutputFormat), "couldn't setup remote i/o unit");
 		
@@ -527,6 +544,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		fprintf(stderr, "An unknown error occurred\n");
 		if (_remoteIODCFilter) delete[] _remoteIODCFilter;
 	}
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recieveVolumeChangeNotification:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
     
     // Setup Grand Central Dispatch queue (thread pool)
     _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
@@ -704,8 +726,13 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     else if (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT) {       
         // sweet! timeout has passed, let's get cranking on this valid message
         if (_messageReceiveBuffer.length > 0) {
-            //TODO : plumb this issue up to delegate
             LogError(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
+            
+            if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+                dispatch_async(_backgroundQueue, ^(void) {
+                    [_delegate nfcService:self didHaveError:FLOMIO_MESSAGE_CORRUPT_ERROR];
+                });
+            }
         }
         
         LogTrace(@" ++ Message Valid: byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
@@ -807,6 +834,21 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _outputAmplitude = (1<<24);
 }
 
+
+- (void)recieveVolumeChangeNotification:(NSNotification *)notification
+{
+    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
+    LogInfo(@"volume: %g", volume);
+    
+    if (volume < 1) {
+        if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+            dispatch_async(_backgroundQueue, ^(void) {
+                [_delegate nfcService:self didHaveError:FLOMIO_VOLUME_LOW_ERROR];
+            });
+        }
+    }   
+}
+
 /*
  * Helper Functions
 */
@@ -902,13 +944,12 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  Send a message to the FloJack device. Message definitions can be found in device spec.
  
  @param message        Byte array representing a FloJack message {opcode, length, ..., CRC}
-
+ 
  @return void
  */
 - (void)sendMessageToHost:(UInt8[])theMessage {
     [self sendMessageToHost:theMessage withLength:theMessage[FLOJACK_MESSAGE_LENGTH_POSITION]];
 }
-
 
 /**
  sendMessageToHost()
@@ -920,6 +961,10 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return void
  */
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength {
+    // TODO make this function thread safe
+    NSLock *theLock = [[NSLock alloc] init];
+    [theLock lock];
+    
     _currentlySendingMessage = TRUE;
     
     for(int i=0; i<messageLength; i++) {
@@ -930,66 +975,31 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     // Give the last byte time to transmit
     [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
+    
+    [theLock unlock];
 }
-
 
 /**
- sendMutableArrayMessageToHost()
- Send a message to the FloJack device. Message definitions can be found in device spec.
+ sendDelegateIsFloJackPluggedIn()
+ Tell consuming app (by way of adapter) if the FloJack is plugged in
  
- @param message        Byte array representing a FloJack message {opcode, length, ..., CRC}
+ @param isHeadsetPluggedIn        FloJack plugged in value
  
- @return void
+ @return void    
  */
-- (void)sendMutableArrayMessageToHost:(NSMutableArray*)message {
-    // error checking
-    if (message == nil || [message count] == 0) {
-        LogError(@"sendMutableArrayMessageToHost: Empty array");
-        return;
-    }
-    else if ([message count] != [[message objectAtIndex:FLOJACK_MESSAGE_LENGTH_POSITION] unsignedCharValue]
-             || [message count] > MAX_MESSAGE_LENGTH
-             || [message count] < MIN_MESSAGE_LENGTH) {
-        LogError(@"sendMutableArrayMessageToHost: Message length is corrput");
-        return;
-    }
-    
-    _currentlySendingMessage = TRUE;
-    for(NSNumber *messageByte in message)
-    {
-        UInt8 byte = [messageByte unsignedCharValue];
-        
-        LogInfo(@"sendMessageToHost item: 0x%x", byte);
-        [self sendByteToHost:byte];
-    }
-    
-    // Give the last byte time to transmit
-    [NSThread sleepForTimeInterval:.025];
-    _currentlySendingMessage = FALSE;
-}
-
-// Send messsage bytes to the accessory
-- (void)sendByteToHost:(UInt8)theByte {
-    // Keep transmitting the message until it's sent on the line
-    while ([self send:theByte]);
-
-}
-
-- (int)send:(UInt8)byte {
-	if (_byteQueuedForTX == FALSE) {
-		// transmitter ready
-		_byteForTX = byte;
-		_byteQueuedForTX = TRUE;
-		return 0;
-	} else {
-		return 1;
-	}
+- (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected {
+        if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
+            dispatch_async(_backgroundQueue, ^(void) {
+                [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
+            });
+        }
 }
 
 - (void)dealloc
 {
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 

@@ -272,6 +272,14 @@ typedef enum
 	FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN = 0xFF
 } flomio_tag_write_status_opcodes_t;
 
+// FLOMIO error codes for bubbling up to delegate
+typedef enum
+{
+	FLOMIO_MESSAGE_CORRUPT_ERROR,
+    FLOMIO_VOLUME_LOW_ERROR,
+    FLOMIO_GENERIC_ERROR
+} flomio_nfc_adapter_error_codes_t;
+
 
 
 

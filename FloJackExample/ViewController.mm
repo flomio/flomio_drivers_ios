@@ -279,13 +279,19 @@
     });
 }
 
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveError:(NSInteger)errorCode {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NFC Adapter Error"
+                                                        message:[NSString stringWithFormat:@"Error: %d", errorCode]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+    });
+}
+
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)errorCode {
     dispatch_async(dispatch_get_main_queue(), ^{
-        // TODO this sends config message repeatedly which puts flojack in a bad state
-        // [self playSound:@"scan_sound"];
-        
-        
-        // Create a new alert object and set initial values.
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Write Status"
                                                         message:[NSString stringWithFormat:@"Tag Write Satus: %d", errorCode]
                                                        delegate:nil
@@ -311,6 +317,12 @@
 - (BOOL)nfcAdapter:(id)sender shouldSendMessage:(NSData *)theMessage; {
     // TODO
     return false;
+}
+
+- (void)dealloc
+{
+    dispatch_release(_backgroundQueue);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

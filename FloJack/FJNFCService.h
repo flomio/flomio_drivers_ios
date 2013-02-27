@@ -33,8 +33,12 @@
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength;
+- (void)recieveVolumeChangeNotification:(NSNotification *)notification;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
+#pragma mark Utilities for pushing bytes around
+- (UInt8)calculateCRCForMessage:(UInt8[])theMessage withLength:(int)messageLength;
+- (BOOL)verifyCRCForMessage:(UInt8[])theMessage;
 
 @end
 
@@ -43,6 +47,6 @@
 @protocol FJNFCServiceDelegate<NSObject>
  @required
   - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage;
+  - (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode;
   - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected;
-
 @end
