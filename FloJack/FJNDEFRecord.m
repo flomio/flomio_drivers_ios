@@ -38,11 +38,13 @@
         
         /* check arguments */
         if ((type == nil) || (payload == nil)) {
-            [NSException raise:@"Illegal Argument" format:@"Agrument is null"];
+            LogError(@"Parsing error: Type or Paylod is null");
+            return nil;
         }
         
         if (tnf < 0 || tnf > 0x07) {
-            [NSException raise:@"TNF Error" format:@"TNF is out of range"];
+            LogError(@"Parsing error: illegal TNF value");
+            return nil;
         }
         
         /* Determine if it is a short record */
@@ -96,11 +98,10 @@
     
     [data appendBytes:&flag length:1];
     
-    // Type Length
+    // Build up data buf
     dataBuf = [_type length];
     [data appendBytes:&dataBuf length:1];
     
-    // Payload Length
     dataBuf = _payload.length;
     [data appendBytes:&dataBuf length:1];
     
@@ -108,10 +109,8 @@
         [data appendData:_theId];
     }
     
-    // Type
     [data appendData:_type];
     
-    // Payload
     [data appendData:_payload];
     
     return (NSData *)[data copy];
@@ -181,28 +180,21 @@
         short tnf = (short)(flag[0] & 0x07);
         
         if (!mb && [records count] == 0 && !inChunk && !ignoreMbMe) {
-            //throw new FormatException("expected MB flag");
             LogError(@"expected MB flag");
             return nil;
         } else if (mb && [records count] != 0 && !ignoreMbMe) {
-            //throw new FormatException("unexpected MB flag");
             LogError(@"expected MB flag");
             return nil;
         } else if (inChunk && il) {
-            //throw new FormatException("unexpected IL flag in non-leading chunk");
             LogError(@"unexpected IL flag in non-leading chunk");
             return nil;
         } else if (cf && me) {
-            //throw new FormatException("unexpected ME flag in non-trailing chunk");
             LogError(@"unexpected ME flag in non-trailing chunk");
             return nil;
         } else if (inChunk && tnf != kTNFUnchanged) {
-            //throw new FormatException("expected TNF_UNCHANGED in non-leading chunk");
             LogError(@"expected TNF_UNCHANGED in non-leading chunk");
             return nil;
         } else if (!inChunk && tnf == kTNFUnchanged) {
-            //throw new FormatException("" +
-            //                          "unexpected TNF_UNCHANGED in first chunk or unchunked record");
             LogError(@"unexpected TNF_UNCHANGED in first chunk or unchunked record");
             return nil;
         }
@@ -230,18 +222,18 @@
         int idLength = 0;
         if (il) {
             char idLengthBuffer[1];
-            [data getBytes:typeLengthBuffer range:NSMakeRange(dataOffset, 1)];
+            [data getBytes:idLengthBuffer range:NSMakeRange(dataOffset, 1)];
             dataOffset++;
             idLength = idLengthBuffer[0] & 0xFF;
         }
         
-        
         if (inChunk && typeLength != 0) {
-            //throw new FormatException("expected zero-length type in non-leading chunk");
+            LogError(@"expected zero-length type in non-leading chunk");
+            return nil;
         }
         
         if (!inChunk) {
-            if (typeLength > 0 && typeLength <= 3) {
+            if (typeLength > 0) {
                 type = [data subdataWithRange:NSMakeRange(dataOffset, typeLength)];
                 dataOffset += typeLength;
             }
@@ -252,7 +244,7 @@
         }
         
         if (payloadLength > kMaxPayloadSize) {
-            // TODO
+            LogError(@"payload length greater than max");
             return nil;
         }
         
@@ -266,7 +258,6 @@
             }
         }
 
-        
         if (cf && !inChunk) {
             // first chunk
             // TODO
@@ -376,9 +367,5 @@
     }
     return [FJNDEFRecord createURIWithString:url.absoluteString];
 }
-
-
-
-
 
 @end
