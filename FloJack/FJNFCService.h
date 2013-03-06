@@ -36,9 +36,6 @@
 - (void)recieveVolumeChangeNotification:(NSNotification *)notification;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
-#pragma mark Utilities for pushing bytes around
-- (UInt8)calculateCRCForMessage:(UInt8[])theMessage withLength:(int)messageLength;
-- (BOOL)verifyCRCForMessage:(UInt8[])theMessage;
 
 @end
 

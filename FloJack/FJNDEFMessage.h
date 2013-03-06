@@ -25,11 +25,14 @@
 - (id)initWithByteBuffer:(NSData *)byteBuffer;
 
 // Create an NDEF message from NDEF records
+//- (id)initWithNdefRecord:(FJNDEFRecord *)ndefRecord;
 // Designated initializer
 - (id)initWithNdefRecords:(NSArray *)ndefRecords;
 
 // Returns a byte buffer representation of this entire NDEF message.
 - (NSData *)asByteBuffer;
+
++ (FJNDEFMessage *)createURIWithSting:(NSString *)uriString;
 
 @end
 

@@ -87,20 +87,17 @@
     
     
     //find mandatory NDEF Message TLV
-    UInt8 ndefTLVType = 0x03;
-    NSData *ndefTLV = [[NSData alloc] initWithBytes:&ndefTLVType length:1];
-    NSRange ndefTLVRange = [_data rangeOfData:ndefTLV options:nil range:NSMakeRange(16, _data.length - 17)];
-    
-    if (ndefTLVRange.location == NSNotFound) {
+    UInt8 ndefTLVLocation = self.type2ParseMemoryForNdefTLVLocation;
+    if (ndefTLVLocation == 0) {
         NSLog(@"NDEF TLV not found");
         return nil;
     }
     
     UInt8 ndefTLVLength;
-    [_data getBytes:&ndefTLVLength range:NSMakeRange(ndefTLVRange.location + 1, 1)];
-    
-    if ((ndefTLVLength > 0) && (_data.length >= (ndefTLVRange.location + 2 + ndefTLVLength))) {
-        NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVRange.location + 2, ndefTLVLength)];
+    [_data getBytes:&ndefTLVLength range:NSMakeRange(ndefTLVLocation + 1, 1)];
+        
+    if (ndefTLVLength > 0 && (_data.length >= (ndefTLVLocation + 2 + ndefTLVLength))) {
+        NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVLocation + 2, ndefTLVLength)];
         
         NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
         return [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
@@ -109,6 +106,52 @@
         NSLog(@"NDEF TLV found but length is zero");
         return nil;
     }
+}
+
+- (UInt8)type2ParseMemoryForNdefTLVLocation; {
+    char *dataPtr = (char *) _data.bytes;
+
+	for (int i = 16; i < _data.length; i++) {
+		if (dataPtr[i] == 0x00) {
+			// NULL TLV. No (L) or (V) present
+			continue;
+		}
+		else if (dataPtr[i] == 0x01) {
+			// Lock Control TLV. (T)=0x01, (L)=0x03
+			i += 1;
+			i += 3;
+			continue;
+		}
+		else if (dataPtr[i] == 0x02) {
+			// Memory Control TLV. (T)=0x02, (L)=0x03
+			i += 1;
+			i += 3;
+			continue;
+		}
+		else if (dataPtr[i] == 0x03) {
+			// NDEF TLV. (T)=0x03, (L)=0x03
+			return i;
+		}
+		else if (dataPtr[i] == 0xFD) {
+			// Proprietary TLV. (T)=variable, (L)=variable
+			if (dataPtr[i+1] < 0xFF) {
+				// Single byte format
+				i += 1;
+				i += dataPtr[i+1];
+			}
+			else {
+				// Three byte format (first byte == 0xFF)
+				UInt16 length = dataPtr[i+2] | dataPtr[i+3];
+				i += 3;
+				i += length;
+			}
+		}
+		else if (dataPtr[i] == 0xFE) {
+			// Terminator TLV. (T)=N/A, (L)=N/A
+			continue;
+		}
+	}
+	return nil;
 }
 
 @end

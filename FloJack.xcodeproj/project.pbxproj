@@ -15,7 +15,10 @@
 		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
 		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
 		150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2F00116288A50008FD352 /* FJNDEFRecord.h */; };
+		151E36EC16E2863C0005B739 /* FJNDEFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 151E36EB16E2863C0005B739 /* FJNDEFTests.m */; };
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
+		15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15379C8E16E574A2006195F0 /* FJMessageTests.m */; };
+		15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */; };
 		1559F29016517FF100B43633 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
 		1559F29116517FF100B43633 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1559F26E16517F8C00B43633 /* CoreGraphics.framework */; };
@@ -39,6 +42,14 @@
 		155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
 		157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
 		157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJMessage.h */; };
+		15806A1E16E40FA100D98748 /* FJMessage.h in Sources */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJMessage.h */; };
+		15806A1F16E40FA100D98748 /* FJNFCTag.h in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */; };
+		15806A2016E40FA100D98748 /* FJNDEFMessage.h in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFC16288072008FD352 /* FJNDEFMessage.h */; };
+		15806A2116E40FA100D98748 /* FJNDEFRecord.h in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00116288A50008FD352 /* FJNDEFRecord.h */; };
+		15806A2216E40FA100D98748 /* FJNFCAdapter.h in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
+		15806A2316E40FA100D98748 /* FJNFCService.h in Sources */ = {isa = PBXBuildFile; fileRef = 15E188E915DAC9E000AC0F72 /* FJNFCService.h */; };
+		15806A2416E40FA100D98748 /* NSData+FJStringDisplay.h in Sources */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
+		15806A2516E40FFC00D98748 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
 		158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 158EEF9E16B9E50500574748 /* scan_sound.mp3 */; };
 		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
 		15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
@@ -107,8 +118,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		151E36EA16E2863C0005B739 /* FJNDEFTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFTests.h; sourceTree = "<group>"; };
+		151E36EB16E2863C0005B739 /* FJNDEFTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFTests.m; sourceTree = "<group>"; };
 		15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
 		1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
+		15379C8D16E574A2006195F0 /* FJMessageTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJMessageTests.h; sourceTree = "<group>"; };
+		15379C8E16E574A2006195F0 /* FJMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJMessageTests.m; sourceTree = "<group>"; };
 		153ED1EF164D503A00CA3400 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1559F26E16517F8C00B43633 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1559F27016517F8C00B43633 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -166,9 +181,9 @@
 		15E188E915DAC9E000AC0F72 /* FJNFCService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCService.h; sourceTree = "<group>"; };
 		15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJNFCService.mm; sourceTree = "<group>"; };
 		15F2EFFC16288072008FD352 /* FJNDEFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFMessage.h; sourceTree = "<group>"; };
-		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFMessage.m; sourceTree = "<group>"; };
-		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFRecord.h; sourceTree = "<group>"; };
-		15F2F00216288A50008FD352 /* FJNDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFRecord.m; sourceTree = "<group>"; };
+		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FJNDEFRecord.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		15F2F00216288A50008FD352 /* FJNDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFRecord.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +364,10 @@
 		15C4B2E615C832E0009DE0E5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				15379C8D16E574A2006195F0 /* FJMessageTests.h */,
+				15379C8E16E574A2006195F0 /* FJMessageTests.m */,
+				151E36EA16E2863C0005B739 /* FJNDEFTests.h */,
+				151E36EB16E2863C0005B739 /* FJNDEFTests.m */,
 				15C4B2EC15C832E0009DE0E5 /* FloJackTests.h */,
 				15C4B2ED15C832E0009DE0E5 /* FloJackTests.m */,
 				15C4B2E715C832E0009DE0E5 /* Supporting Files */,
@@ -558,9 +577,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */,
+				15806A2516E40FFC00D98748 /* FJMessage.m in Sources */,
+				15806A1E16E40FA100D98748 /* FJMessage.h in Sources */,
+				15806A1F16E40FA100D98748 /* FJNFCTag.h in Sources */,
+				15806A2016E40FA100D98748 /* FJNDEFMessage.h in Sources */,
+				15806A2116E40FA100D98748 /* FJNDEFRecord.h in Sources */,
+				15806A2216E40FA100D98748 /* FJNFCAdapter.h in Sources */,
+				15806A2316E40FA100D98748 /* FJNFCService.h in Sources */,
+				15806A2416E40FA100D98748 /* NSData+FJStringDisplay.h in Sources */,
 				15C4B2EE15C832E0009DE0E5 /* FloJackTests.m in Sources */,
 				15F2EFFF16288072008FD352 /* FJNDEFMessage.m in Sources */,
 				15F2F00416288A50008FD352 /* FJNDEFRecord.m in Sources */,
+				151E36EC16E2863C0005B739 /* FJNDEFTests.m in Sources */,
+				15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

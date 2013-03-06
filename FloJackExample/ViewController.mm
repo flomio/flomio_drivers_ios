@@ -21,6 +21,7 @@
 
 @synthesize outputTextView = _outputTextView;
 @synthesize loggingTextView = _loggingTextView;
+@synthesize urlInputField = _urlInputField;
 
 #pragma mark - UI View Controller
 
@@ -170,12 +171,28 @@
         case 26:
             [_nfcAdapter operationModeWriteDataTestPrevious];
             break;
-        case 27:
-            [_nfcAdapter operationModeWriteDataTestFlomio];
+        case 27: {
+            FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.flomio.com"];
+            NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
+            [_nfcAdapter writeTagWithNdefMessage:testMessage];
             break;
-        case 28:
-            [_nfcAdapter operationModeWriteDataTestTtag];
+        }
+        case 28: {
+            FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.ttag.be/m/04FAC9193E2580"];
+            NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
+            [_nfcAdapter writeTagWithNdefMessage:testMessage];
+            
+            
+            
+            //[_nfcAdapter operationModeWriteDataTestTtag];
             break;
+        }
+        case 29: {
+            FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
+            NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
+            [_nfcAdapter writeTagWithNdefMessage:testMessage];
+            break;
+        }
     }
 }
 
@@ -267,6 +284,11 @@
                 [textUpdate appendString:[NSString stringWithFormat:@"\nTNF: %d",ndefRecord.tnf]];
                 [textUpdate appendString:[NSString stringWithFormat:@"\nType: %@",[ndefRecord.type fj_asHexString]]];
                 [textUpdate appendString:[NSString stringWithFormat:@"\nPayload: %@ (%@)",[ndefRecord.payload fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]]];
+                
+                NSURL *url = [ndefRecord getUriFromPayload];
+                if (url != nil) {
+                    [textUpdate appendString:[NSString stringWithFormat:@"\nURI: %@", url.description]];
+                }
 
                 NSLog(@"TNF: %d Type: %@ Payload: %@", ndefRecord.tnf, [ndefRecord.type fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]);
             }

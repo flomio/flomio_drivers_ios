@@ -9,16 +9,10 @@
 //
 
 #import "FJNDEFRecord.h"
-
+#import "Logging.h"
 
 @implementation FJNDEFRecord {
     char        flags_;
-    
-    // NFC Forum "URI Record Type Definition"
-    //
-    // This is a mapping of "URI Identifier Codes" to URI string prefixes,
-    // per section 3.2.2 of the NFC Forum URI Record Type Definition document.
-    NSArray     *tUriPrefixMap;
 }
 
 @synthesize tnf = _tnf;
@@ -26,140 +20,10 @@
 @synthesize theId = _theId;
 @synthesize payload = _payload;
 
-//typedef enum: short {
-//    
-////    Indicates no type, id, or payload is associated with this NDEF Record.
-////    Type, id and payload fields must all be empty to be a valid TNF_EMPTY
-////    record.    
-//    kTNFEmpty           = 0x00,
-//    
-////    Indicates the type field uses the RTD type name format.
-////    Use this TNF with RTD types such as RTD_TEXT, RTD_URI.
-//    kTNFWellKnown       = 0x01,
-//    
-////    Indicates the type field contains a value that follows the media-type BNF
-////    construct defined by RFC 2046.
-//    kTNFMimeMedia       = 0x02,
-//    
-////    Indicates the type field contains a value that follows the absolute-URI
-////    BNF construct defined by RFC 3986.
-//    kTNFAbsoluteUri     = 0x03,
-//    
-////    Indicates the type field contains a value that follows the RTD external
-////    name specification.
-////    Note this TNF should not be used with RTD_TEXT or RTD_URI constants.
-////    Those are well known RTD constants, not external RTD constants.
-//    kTNFExternalType    = 0x04,
-//    
-////    Indicates the payload type is unknown.
-////    This is similar to the "application/octet-stream" MIME type. The payload
-////    type is not explicitly encoded within the NDEF Message.
-////    The type field must be empty to be a valid TNF_UNKNOWN record.
-//    kTNFUnknown         = 0x05,
-//    
-////    Indicates the payload is an intermediate or final chunk of a chunked
-////    NDEF Record.
-////    The payload type is specified in the first chunk, and subsequent chunks
-////    must use TNF_UNCHANGED with an empty type field. TNF_UNCHANGED must not
-////    be used in any other situation.
-//    kTNFUnchanged       = 0x06,
-//    
-////    Reserved TNF type.
-////    The NFC Forum NDEF Specification v1.0 suggests for NDEF parsers to treat this
-////    value like TNF_UNKNOWN.
-//    kTnfReserved        = 0x07,
-//} tnfValues;
-
-
-
-//    Indicates no type, id, or payload is associated with this NDEF Record.
-//    Type, id and payload fields must all be empty to be a valid TNF_EMPTY
-//    record.
-static const UInt8 kTNFEmpty           = 0x00;
-
-//    Indicates the type field uses the RTD type name format.
-//    Use this TNF with RTD types such as RTD_TEXT, RTD_URI.
-static const UInt8 kTNFWellKnown       = 0x01;
-
-//    Indicates the type field contains a value that follows the media-type BNF
-//    construct defined by RFC 2046.
-static const UInt8 kTNFMimeMedia       = 0x02;
-
-//    Indicates the type field contains a value that follows the absolute-URI
-//    BNF construct defined by RFC 3986.
-static const UInt8 kTNFAbsoluteUri     = 0x03;
-
-//    Indicates the type field contains a value that follows the RTD external
-//    name specification.
-//    Note this TNF should not be used with RTD_TEXT or RTD_URI constants.
-//    Those are well known RTD constants, not external RTD constants.
-static const UInt8 kTNFExternalType    = 0x04;
-
-//    Indicates the payload type is unknown.
-//    This is similar to the "application/octet-stream" MIME type. The payload
-//    type is not explicitly encoded within the NDEF Message.
-//    The type field must be empty to be a valid TNF_UNKNOWN record.
-static const UInt8 kTNFUnknown         = 0x05;
-
-//    Indicates the payload is an intermediate or final chunk of a chunked
-//    NDEF Record.
-//    The payload type is specified in the first chunk, and subsequent chunks
-//    must use TNF_UNCHANGED with an empty type field. TNF_UNCHANGED must not
-//    be used in any other situation.
-static const UInt8 kTNFUnchanged       = 0x06;
-
-//    Reserved TNF type.
-//    The NFC Forum NDEF Specification v1.0 suggests for NDEF parsers to treat this
-//    value like TNF_UNKNOWN.
-static const UInt8 kTNFReserved        = 0x07;
-
-// RTD Text type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDText[] = {0x54}; // "T"
-
-// RTD URI type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDUri[] = {0x55};   // "U"
-
-// RTD Smart Poster type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDSmartPost[] = {0x53, 0x70};  // "Sp"
-
-// RTD Alternative Carrier type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDAlternativeCarrier[] = {0x61, 0x63}; // "ac"
-
-// RTD Handover Carrier type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDHandoverCarrier[] = {0x48, 0x63};  // "Hc"
-
-// RTD Handover Request type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDHandoverRequest[] = {0x48, 0x72};  // "Hr"
-
-// RTD Handover Select type. For use with TNF_WELL_KNOWN.
-static const UInt8 kRTDHandoverSelect[] = {0x48, 0x73}; // "Hs"
-
-// NDEF flag mask: Message Begins
-static const UInt8 kFlagMB = 0x80;
-
-// NDEF flag mask: Message Ends
-static const UInt8 kFlagME = 0x40;
-
-// NDEF flag mask: Chunk Flag
-static const UInt8 kFlagCF = 0x20;
-
-// NDEF flag mask: Short Record
-static const UInt8 kFlagSR = 0x10;
-
-// NDEF flag mask: ID Length Present
-static const UInt8 kFlagIL = 0x08;
-
-// 10 MB NDEF record payload limit
-static const long kMaxPayloadSize = 10 * (1 << 20);
-
-static const UInt8 kEmptyByteArray[] = {0x00};
-
-
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload {
 
     return [self initWithTnf:tnf andType:type andId:theId andPayload:payload andFlags:nil];
 }
-
 
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload andFlags:(NSData *)flags {
     
@@ -196,51 +60,23 @@ static const UInt8 kEmptyByteArray[] = {0x00};
         _type = [[NSData alloc] initWithData:type];
         _theId = [[NSData alloc] initWithData:theId];
         _payload = [[NSData alloc] initWithData:payload];
-        
-        tUriPrefixMap = [NSArray arrayWithObjects:@"", // 0x00
-                         @"http://www.", // 0x01
-                         @"https://www.", // 0x02
-                         @"http://", // 0x03
-                         @"https://", // 0x04
-                         @"tel:", // 0x05
-                         @"mailto:", // 0x06
-                         @"ftp://anonymous:anonymous@", // 0x07
-                         @"ftp://ftp.", // 0x08
-                         @"ftps://", // 0x09
-                         @"sftp://", // 0x0A
-                         @"smb://", // 0x0B
-                         @"nfs://", // 0x0C
-                         @"ftp://", // 0x0D
-                         @"dav://", // 0x0E
-                         @"news:", // 0x0F
-                         @"telnet://", // 0x10
-                         @"imap:", // 0x11
-                         @"rtsp://", // 0x12
-                         @"urn:", // 0x13
-                         @"pop:", // 0x14
-                         @"sip:", // 0x15
-                         @"sips:", // 0x16
-                         @"tftp:", // 0x17
-                         @"btspp://", // 0x18
-                         @"btl2cap://", // 0x19
-                         @"btgoep://", // 0x1A
-                         @"tcpobex://", // 0x1B
-                         @"irdaobex://", // 0x1C
-                         @"file://", // 0x1D
-                         @"urn:epc:id:", // 0x1E
-                         @"urn:epc:tag:", // 0x1F
-                         @"urn:epc:pat:", // 0x20
-                         @"urn:epc:raw:", // 0x21
-                         @"urn:epc:", // 0x22
-                         nil];
     }
     return self;
 }
 
+/**
+ Returns a byte buffer representation of this NDEF record.
+ 
+ @return NSData
+ */
 - (NSData *)asByteBuffer; {
     int capacity = 1 + _type.length + _theId.length + _payload.length;
     NSMutableData *data = [[NSMutableData alloc] initWithCapacity:capacity];
+    char dataBuf;
     
+    // TODO: We're assuming an SR here
+    
+    // Flag Byte
     /* Add TNF back into flag byte */
     char flag = flags_|_tnf;
     
@@ -260,42 +96,63 @@ static const UInt8 kEmptyByteArray[] = {0x00};
     
     [data appendBytes:&flag length:1];
     
-    char typeLength = (char) [_type length];
-    [data appendBytes:&typeLength length:1];
+    // Type Length
+    dataBuf = [_type length];
+    [data appendBytes:&dataBuf length:1];
     
+    // Payload Length
+    dataBuf = _payload.length;
+    [data appendBytes:&dataBuf length:1];
     
+    if (il) {
+        [data appendData:_theId];
+    }
     
+    // Type
+    [data appendData:_type];
     
-    
+    // Payload
+    [data appendData:_payload];
     
     return (NSData *)[data copy];
 }
 
-
-- (FJNDEFRecord *)createUriRecordFromUri:(NSURL *)url {
-    return [self createUriRecordFromUriString:[url absoluteString]];
-}
-
-- (FJNDEFRecord *)createUriRecordFromUriString:(NSString *)uriString {
-    // TODO: stub method to quiet compiler
-    
-//    UInt8 prefix = 0x0;
-    for (int i = 1; i < [tUriPrefixMap count]; i++) {
-//        if (uriString.startsWith(URI_PREFIX_MAP[i])) {
-//            prefix = (byte) i;
-//            uriString = uriString.substring(URI_PREFIX_MAP[i].length());
-//            break;
-//        }
+/**
+ Where applicable, parses the NDEF Record data payload and returns the embedded URI.
+    Must be TNF = WELL_KNOWN with RTD = 0x55 (URI).
+ 
+ @return NSURL  The decoded URL (or nil)
+ */
+- (NSURL *)getUriFromPayload {
+    if (_payload == nil || _tnf == 0 || _type == nil) {
+        return nil;
     }
-//    byte[] uriBytes = uriString.getBytes(Charsets.UTF_8);
-//    byte[] recordBytes = new byte[uriBytes.length + 1];
-//    recordBytes[0] = prefix;
-//    System.arraycopy(uriBytes, 0, recordBytes, 1, uriBytes.length);
-//    return new NdefRecord(TNF_WELL_KNOWN, RTD_URI, new byte[0], recordBytes);
-    return nil;
     
-}
+    if (_tnf == kTNFWellKnown) {
+        int type;
+        char typeBuffer[1];
+        [_type getBytes:typeBuffer range:NSMakeRange(0, 1)];
+        type = typeBuffer[0] & 0xFF;
+        
+        NSMutableString *urlStringBuilder = [[NSMutableString alloc]initWithCapacity:_payload.length];
+        if (_type.length == 1 && [_type isEqualToData:kRTDURI.copy]) {//type == kRTDUri[0]) {            
+            NSData *urlPrefixData =[_payload subdataWithRange:NSMakeRange(0,1)];
+            UInt8 prefixIndex;
+            [urlPrefixData getBytes:&prefixIndex length:1];
+            NSString *urlPrefix = [kUriPrefixMap objectAtIndex:prefixIndex];
+            [urlStringBuilder appendString:urlPrefix];
+            
+            NSData *urlPayloadData =[_payload subdataWithRange:NSMakeRange(1, (_payload.length - 1))];
+            NSString *urlPayload = [[NSString alloc] initWithData:urlPayloadData encoding:NSASCIIStringEncoding];
+            [urlStringBuilder appendString:urlPayload];
+            
+            NSURL *url = [[NSURL alloc] initWithString:urlStringBuilder];
+            return url;
+        }
+    }
 
+    return nil;
+}
 
 + (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe {
     
@@ -325,17 +182,29 @@ static const UInt8 kEmptyByteArray[] = {0x00};
         
         if (!mb && [records count] == 0 && !inChunk && !ignoreMbMe) {
             //throw new FormatException("expected MB flag");
+            LogError(@"expected MB flag");
+            return nil;
         } else if (mb && [records count] != 0 && !ignoreMbMe) {
             //throw new FormatException("unexpected MB flag");
+            LogError(@"expected MB flag");
+            return nil;
         } else if (inChunk && il) {
             //throw new FormatException("unexpected IL flag in non-leading chunk");
+            LogError(@"unexpected IL flag in non-leading chunk");
+            return nil;
         } else if (cf && me) {
             //throw new FormatException("unexpected ME flag in non-trailing chunk");
+            LogError(@"unexpected ME flag in non-trailing chunk");
+            return nil;
         } else if (inChunk && tnf != kTNFUnchanged) {
             //throw new FormatException("expected TNF_UNCHANGED in non-leading chunk");
+            LogError(@"expected TNF_UNCHANGED in non-leading chunk");
+            return nil;
         } else if (!inChunk && tnf == kTNFUnchanged) {
             //throw new FormatException("" +
             //                          "unexpected TNF_UNCHANGED in first chunk or unchunked record");
+            LogError(@"unexpected TNF_UNCHANGED in first chunk or unchunked record");
+            return nil;
         }
         
         char typeLengthBuffer[1];
@@ -372,11 +241,11 @@ static const UInt8 kEmptyByteArray[] = {0x00};
         }
         
         if (!inChunk) {
-            if (typeLength > 0) {
+            if (typeLength > 0 && typeLength <= 3) {
                 type = [data subdataWithRange:NSMakeRange(dataOffset, typeLength)];
                 dataOffset += typeLength;
             }
-            if (idLength > 0) {
+            if (idLength > 0 && idLength <= 3) {
                 recordId = [data subdataWithRange:NSMakeRange(dataOffset, idLength)];
                 dataOffset += idLength;
             }
@@ -388,8 +257,13 @@ static const UInt8 kEmptyByteArray[] = {0x00};
         }
         
         if (payloadLength > 0) {
+            if ((dataOffset + payloadLength) <= data.length) {
                 payload = [data subdataWithRange:NSMakeRange(dataOffset, payloadLength)];
                 dataOffset += payloadLength;
+            }
+            else {
+                return nil;
+            }
         }
 
         
@@ -427,6 +301,11 @@ static const UInt8 kEmptyByteArray[] = {0x00};
     return records;
 }
 
+/**
+ Ensures TNF is valid for the given type and payload.
+ 
+ @return NSString  Error message
+ */
 + (NSString *)validateTnf:(short)tnf withType:(NSData *)type andRecordId:(NSData *)typeId andPayload:(NSData *)payload {
     switch (tnf) {
         case kTNFEmpty:
@@ -449,8 +328,57 @@ static const UInt8 kEmptyByteArray[] = {0x00};
             return @"unexpected TNF_UNCHANGED in first chunk or logical record";
         default:
             return @"unexpected tnf value:";
-            //return String.format("unexpected tnf value: 0x%02x", tnf);
     }
 }
+
+#pragma mark - Static helper methods
+
+/**
+ NDEF prefix encode the given url and return as an NSData object.
+ 
+ @return NSData
+ */
++ (FJNDEFRecord *)createURIWithString:(NSString *)uriString {
+    if (uriString == nil) {
+        return nil;
+    }
+    
+    uriString = uriString.mutableCopy;
+    
+    UInt8 prefix = 0;
+    for (int i=0; i<kUriPrefixMap.count; i++) {
+        if ([uriString hasPrefix:[kUriPrefixMap objectAtIndex:i]]) {
+            prefix = (UInt8) i;
+            uriString = [uriString substringFromIndex:[(NSString *)[kUriPrefixMap objectAtIndex:i] length]];
+            break;
+        }
+    }
+    
+    NSMutableData *payload = [[NSMutableData alloc] initWithCapacity:(uriString.length +1)];
+    [payload appendBytes:&prefix length:1];
+    [payload appendData:[uriString dataUsingEncoding:NSASCIIStringEncoding]];
+    
+    FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:kTNFWellKnown andType:kRTDURI.copy andId:nil andPayload:payload];
+    
+    NSLog(@" ndefRecord: %@", ndefRecord.asByteBuffer);
+    
+    return ndefRecord;
+}
+
+/**
+ NDEF prefix encode the given url and return as an NSData object.
+ 
+ @return NSData
+ */
++ (FJNDEFRecord *)createURIWithURL:(NSURL *)url {
+    if (url == nil) {
+        return nil;
+    }
+    return [FJNDEFRecord createURIWithString:url.absoluteString];
+}
+
+
+
+
 
 @end

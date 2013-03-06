@@ -55,9 +55,26 @@ const static UInt8 flomio_bad_ack[] =                   {0x06, 0x04, 0x80, 0x82}
 
 const static UInt8 flomio_good_ack[] =                  {0x06, 0x04, 0x81, 0x83};
 
+
 const static UInt8 inter_byte_delay_ipad3_msg[] =       {0x0C, 0x05, 0x00, 0x0C, 0x05};
 
 const static UInt8 inter_byte_delay_ipad2_msg[] =       {0x0C, 0x05, 0x00, 0x0C, 0x05};
+
+// {} XOR 0x09
+
+const static UInt8 inter_byte_delay_ipad_mini_msg[] =   {0x0C, 0x05, 0x00, 0x80, 0x89};
+/*
+
+0x0C, 0x05, 0x00, 0x06, 0x0F
+0x0C, 0x05, 0x00, 0x0B, 0x02
+0x0C, 0x05, 0x00, 0x0C, 0x05    // ipad 2
+0x0C, 0x05, 0x00, 0x50, 0x59    // 3gs
+0x0C, 0x05, 0x00, 0x80, 0x89    //default
+0x0C, 0x05, 0x00, 0xFF, 0xF6
+ 
+ */
+
+
 
 const static UInt8 inter_byte_delay_iphone4s_msg[] =    {0x0C, 0x05, 0x00, 0x20, 0x29};
 
@@ -66,6 +83,7 @@ const static UInt8 inter_byte_delay_iphone4_msg[] =     {0x0C, 0x05, 0x00, 0x20,
 const static UInt8 inter_byte_delay_iphone3gs_msg[] =   {0x0C, 0x05, 0x00, 0x50, 0x59};
 
 const static UInt8 inter_byte_delay_default_msg[] =     {0x0C, 0x05, 0x50, 0x59};
+
 
 static const UInt8 keep_alive_time_infinite_msg[] =     {0x08,0x04,0x00,0x0C};
 
@@ -285,7 +303,7 @@ typedef enum
 
 @interface FJMessage : NSObject
 
-@property (nonatomic, assign) NSData    *message;
+@property (nonatomic, assign) NSData    *bytes;
 @property (nonatomic, assign) UInt8     opcode;
 @property (nonatomic, assign) UInt8     length;
 @property (nonatomic, assign) UInt8     subOpcode;
@@ -300,6 +318,7 @@ typedef enum
 - (id)init; 
 - (id)initWithBytes:(UInt8 *)theBytes;
 - (id)initWithData:(NSData *)theData;
+- (id)initWithMessageParameters:(UInt8)opcode andSubOpcode:(UInt8)subOpcode andData:(NSData *)data;
 
 
 + (UInt8)getMessageSubOpcode:(NSData *)theMessage;

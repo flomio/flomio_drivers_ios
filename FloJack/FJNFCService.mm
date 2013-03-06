@@ -67,6 +67,7 @@ enum uart_state {
     BOOL						 _byteQueuedForTX;
     BOOL                         _currentlySendingMessage;
     BOOL						 _muteEnabled;
+    NSLock                      *_messageTXLock;
     
     // Logic Values
     UInt8                        _logicOne;
@@ -78,6 +79,8 @@ enum uart_state {
     NSMutableData               *_messageReceiveBuffer;
     int                          _messageLength;
     BOOL                         _messageValid;
+    
+    
 }
 
 @synthesize delegate = _delegate;
@@ -485,8 +488,10 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     _byteQueuedForTX = FALSE;
     
+    _messageTXLock = [[NSLock alloc] init];
+    
     // Assume non EU device
-    [self setOutputAmplitudeHigh];
+    [self setOutputAmplitudeNormal];
     
 	try {
         //float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
@@ -599,6 +604,19 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         // iPad 2
         logicOneValue = 1;
     }
+    
+    
+    
+    
+    else if([machineName caseInsensitiveCompare:@"iPad2,5"] == NSOrderedSame) {
+        // iPad mini WiFi
+        logicOneValue = 1;
+    }
+    
+    
+    
+    
+    
     else if([machineName caseInsensitiveCompare:@"iPad1,1"] == NSOrderedSame) {
         // iPad
         logicOneValue = 1;
@@ -669,23 +687,51 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     NSString* machineName = [NSString stringWithCString:systemInfo.machine
                                                encoding:NSUTF8StringEncoding];
     
+    
     UInt8*	inter_byte_delay_message;
+    if([machineName rangeOfString:@"iPad3,2"].location != NSNotFound) {
+        // iPad 3 LTE
+        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad3_msg;
+    }
+    
+    
+    
+    
     if([machineName caseInsensitiveCompare:@"iPad3,2"] == NSOrderedSame) {
         // iPad 3 LTE
         inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad3_msg;
     }
-    else if([machineName caseInsensitiveCompare:@"iPad2,1"] == NSOrderedSame) {
+    
+    
+    else if([machineName caseInsensitiveCompare:@"iPad2,3"] == NSOrderedSame) {
         // iPad 2 WiFi
         inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
     }
+    
+    
+    else if([machineName caseInsensitiveCompare:@"iPad2,1"] == NSOrderedSame) {
+        // iPad 2 WiFi
+        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
+    }  
     else if([machineName caseInsensitiveCompare:@"iPad2,4"] == NSOrderedSame) {
         // iPad 2 WiFi (re-released)
         inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
     }
+    else if([machineName caseInsensitiveCompare:@"iPad2,5"] == NSOrderedSame) {
+        // iPad mini WiFi
+        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad_mini_msg;
+    }
+    
     else if([machineName caseInsensitiveCompare:@"iPhone4,1"] == NSOrderedSame) {
         // iPhone 4s
         inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4s_msg;
     }
+    
+    else if([machineName caseInsensitiveCompare:@"iPhone3,3"] == NSOrderedSame) {
+        // iPhone 4
+        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4_msg;
+    }
+    
     else if([machineName caseInsensitiveCompare:@"iPhone3,1"] == NSOrderedSame) {
         // iPhone 4
         inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4_msg;
@@ -961,22 +1007,22 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return void
  */
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength {
-    // TODO make this function thread safe
-    NSLock *theLock = [[NSLock alloc] init];
-    [theLock lock];
+    [_messageTXLock lock];
     
     _currentlySendingMessage = TRUE;
     
+    LogInfo(@"sendMessageToHost begin");
     for(int i=0; i<messageLength; i++) {
         LogInfo(@"sendMessageToHost item: 0x%x", theMessage[i]);
         [self sendByteToHost:theMessage[i]];
     }
+    LogInfo(@"sendMessageToHost end");
     
     // Give the last byte time to transmit
     [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
     
-    [theLock unlock];
+    [_messageTXLock unlock];
 }
 
 /**
@@ -1001,48 +1047,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     dispatch_release(_backgroundQueue);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
-}
-
-#pragma mark Utilities for pushing bytes around
-
-/**
- calculateCRCForMessage()
- Calculate the CRC for the given byte array
- 
- @param message             Byte array representing a FloJack message {opcode, length, ...}. 
-                                Does not include CRC byte.
- @param messageLength       Length of the FloJack message
- 
- @return void
- */
-- (UInt8)calculateCRCForMessage:(UInt8[])theMessage withLength:(int)messageLength
-{
-    UInt8 crc=0;
-    for (int i=0; i<messageLength; i++)
-    {
-        crc ^= theMessage[i];
-    }
-    return crc;    
-}
-
-/**
- verifyCRCForMessage()
- Ensure this message's CRC is correct
- 
- @param message             Byte array representing a FloJack message {opcode, length, ..., CRC}s
- 
- @return void
- */
-- (BOOL)verifyCRCForMessage:(UInt8[])theMessage
-{
-    UInt8 crc=0;
-    UInt8 len=theMessage[FLOJACK_MESSAGE_LENGTH_POSITION];
-    for (int i=0; i<(len-1); i++)
-    {
-        crc ^= theMessage[i];
-    }
-    LogInfo(@"CRC should be: 0x%02hhx and is: 0x%02hhx", (unsigned char) theMessage[len-1], (unsigned char) crc);
-    return (crc == theMessage[len-1]);
 }
 
 @end

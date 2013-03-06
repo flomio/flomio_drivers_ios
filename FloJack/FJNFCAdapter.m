@@ -367,36 +367,6 @@
     [self sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
 }
 
-- (void)operationModeWriteDataTestTtag {
-    // Touch-a-tag read only NFC tag
-    // 1 NDEF Record (URI): http://www.ttag.be/m/04FAC9193E2580
-    // TNF_WELL_KNOWN = 0x01;
-    // RTD_URI = {0x55};   // "U"   
-    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x21, FLOMIO_OP_MODE_WRITE_CURRENT, 0xD1,
-                    0x01, 0x19, 0x55, 0x01,
-                    0x74, 0x74, 0x61, 0x67,
-                    0x2e, 0x62, 0x65, 0x2f,
-                    0x6d, 0x2f, 0x30, 0x34,
-                    0x46, 0x41, 0x43, 0x39,
-                    0x31, 0x39, 0x33, 0x45,
-                    0x32, 0x35, 0x38, 0x30,
-                    0xFA};
-    [self sendMessageToHost:(UInt8 *)bytes];
-}
-
-- (void)operationModeWriteDataTestFlomio {
-    // Touch-a-tag read only NFC tag
-    // 1 NDEF Record (URI): http://www.flomio.com
-    // TNF_WELL_KNOWN = 0x01;
-    // RTD_URI = {0x55};   // "U"
-    UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x13, FLOMIO_OP_MODE_WRITE_CURRENT, 0xD1,
-                    0x01, 0x0b, 0x55, 0x03,
-                    0x66, 0x6c, 0x6f, 0x6d,
-                    0x69, 0x6f, 0x2e, 0x63,
-                    0x6f, 0x6d, 0xd3};
-    [self sendMessageToHost:(UInt8 *)bytes];
-}
-
 - (void)operationModeWriteDataTestPrevious {
     UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x04, FLOMIO_OP_MODE_WRITE_PREVIOUS, 0x09};
     [self sendMessageToHost:(UInt8 *)bytes];
@@ -406,6 +376,43 @@
 - (BOOL) isFloJackPluggedIn {
     return [_nfcService isHeadsetPluggedIn];
 }
+
+- (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage {
+    
+    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_CURRENT
+                                                                     andData:ndefMessageData];
+    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
+    [self sendMessageDataToHost:flojackMessage.bytes];
+
+    
+//    char buf;
+//    NSMutableData *message = [[NSMutableData alloc] init];
+//    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
+//    
+//    // op
+//    buf = FLOMIO_OPERATION_MODE_OP;
+//    [message appendBytes:&buf length:1];
+//    
+//    // len
+//    buf = ndefMessageData.length + 4;
+//    [message appendBytes:&buf length:1];
+//    
+//    // subop
+//    buf = FLOMIO_OP_MODE_WRITE_CURRENT;
+//    [message appendBytes:&buf length:1];
+//    
+//    // data
+//    [message appendData:ndefMessageData];
+//    
+//    // crc
+//    buf = (char) [_nfcService calculateCRCForMessage:message];
+//    [message appendBytes:&buf length:1];
+//    
+//    NSLog(@"write message: %@", [message fj_asHexString]);
+    
+    }
 
 /**
  resendLastMessageSent()
@@ -419,6 +426,9 @@
     [_lastMessageSent getBytes:&messageLength
                               range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
                                                 FLOJACK_MESSAGE_LENGTH_POSITION)];
+    
+    // pause to let line settle
+    [NSThread sleepForTimeInterval:.100];
     [_nfcService sendMessageToHost:message withLength:messageLength];
 }
 
@@ -433,6 +443,11 @@
     [_lastMessageSent setLength:messageLength];
     [_lastMessageSent replaceBytesInRange:NSMakeRange(0, messageLength)
                                 withBytes:message];
+}
+
+- (void)sendMessageDataToHost:(NSData *)data  {
+    [self setLastMessageSent:(UInt8 *)data.bytes];
+    [_nfcService sendMessageToHost:(UInt8 *)data.bytes];
 }
 
 - (void)sendMessageToHost:(UInt8[])message  {

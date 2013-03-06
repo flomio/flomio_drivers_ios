@@ -28,8 +28,6 @@
 
 // temporarily used for Type2 Write testing
 - (void)operationModeWriteDataTestPrevious;
-- (void)operationModeWriteDataTestFlomio;
-- (void)operationModeWriteDataTestTtag;
 
 // how many of these do we want to expose?
 - (void)disable14443AProtocol;

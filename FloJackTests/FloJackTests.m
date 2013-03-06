@@ -25,19 +25,23 @@
 }
 
 
+#pragma mark Test: NDEF Encoding / Decoding Tests
+
+
 // Touch-a-tag read only NFC tag
 // 1 NDEF Record (URI): http://www.ttag.be/m/04FAC9193E2580
 // TNF_WELL_KNOWN = 0x01;
 // RTD_URI = {0x55};   // "U"
-#pragma mark Test: One NDEF Short Records
 - (void)testNDEFMessageEncodeDecode
-{
-    // TODO
-    return;
-    
-    
-    UInt8 bytes[] = {-47, 1, 25, 85, 1, 116, 116, 97, 103, 46, 98, 101, 47, 109,
-        47, 48, 52, 70, 65, 67, 57, 49, 57, 51, 69, 50, 53, 56, 48};
+{    
+    UInt8 bytes[] = {0xd1, 0x01, 0x19, 0x55,
+                        0x01, 0x74, 0x74, 0x61,
+                        0x67, 0x2e, 0x62, 0x65,
+                        0x2f, 0x6d, 0x2f, 0x30,
+                        0x34, 0x46, 0x41, 0x43,
+                        0x39, 0x31, 0x39, 0x33,
+                        0x45, 0x32, 0x35, 0x38,
+                        0x30};
     int bytesLength = 29;
     
     NSData *ndefMessageData = [[NSData alloc] initWithBytes:bytes length:bytesLength];
@@ -52,11 +56,16 @@
 // 1 NDEF Record (URI): http://www.ttag.be/m/04FAC9193E2580
 // TNF_WELL_KNOWN = 0x01;
 // RTD_URI = {0x55};   // "U"
-#pragma mark Test: One NDEF Short Records
 - (void)testUriNdefMessage
 {
-    UInt8 bytes[] = {-47, 1, 25, 85, 1, 116, 116, 97, 103, 46, 98, 101, 47, 109,
-                     47, 48, 52, 70, 65, 67, 57, 49, 57, 51, 69, 50, 53, 56, 48};
+    UInt8 bytes[] = {0xd1, 0x01, 0x19, 0x55,
+                        0x01, 0x74, 0x74, 0x61,
+                        0x67, 0x2e, 0x62, 0x65,
+                        0x2f, 0x6d, 0x2f, 0x30,
+                        0x34, 0x46, 0x41, 0x43,
+                        0x39, 0x31, 0x39, 0x33,
+                        0x45, 0x32, 0x35, 0x38,
+                        0x30};
     int bytesLength = 29;
     
     NSData *data = [[NSData alloc] initWithBytes:bytes length:bytesLength];                  
@@ -123,7 +132,6 @@
 [22..64] Payload
 2, 101, 110, 90, 58, 56, 58, 84, 97, 115, 107, 32, 56, 59, 112, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 59, 111, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 58, 121, 101, 115
  */
-#pragma mark Test: Two NDEF Short Records
 - (void)testTwoNdefShortRecords
 {
     UInt8 bytes[] = {-111, 1, 12, 85, 3, 116, 97, 103, 115, 46, 116, 111, 47, 110, 116, 108, 82, 3, 43, 110, 116, 108, 2, 101, 110, 90, 58, 56, 58, 84, 97, 115, 107, 32, 56, 59, 112, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 59, 111, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 58, 121, 101, 115};

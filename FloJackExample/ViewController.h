@@ -17,6 +17,7 @@
 
 @property (retain, nonatomic) IBOutlet UITextView *outputTextView;
 @property (retain, nonatomic) IBOutlet UITextView *loggingTextView;
+@property (retain, nonatomic) IBOutlet UITextField *urlInputField;
 
 - (IBAction)buttonWasPressed:(id)sender;
 

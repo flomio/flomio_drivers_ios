@@ -7,12 +7,13 @@
 //
 
 #import "FJMessage.h"
+#import "NSData+FJStringDisplay.h"
 
 @implementation FJMessage {
     
 }
 
-@synthesize message     = _message;
+@synthesize bytes       = _bytes;
 @synthesize opcode      = _opcode;
 @synthesize length      = _length;
 @synthesize subOpcode   = _subOpcode;
@@ -35,6 +36,26 @@
     return [self initWithData:message];
 }
 
+- (id)initWithMessageParameters:(UInt8)opcode andSubOpcode:(UInt8)subOpcode andData:(NSData *)data; {
+    UInt8 length = (data.length + 4);
+    NSMutableData *message = [[NSMutableData alloc] initWithCapacity:length];
+    
+    [message appendBytes:&opcode length:1];
+    
+    [message appendBytes:&length length:1];
+    
+    [message appendBytes:&subOpcode length:1];
+    
+    [message appendData:data];
+    
+    UInt8 crc = [FJMessage calculateCRCForIncompleteMessage:message];
+    [message appendBytes:&crc length:1];
+    
+    //NSLog(@"write message: %@", [message fj_asHexString]);
+    
+    return [self initWithData:message];
+}
+
 /**
  Designated initializer. Initialize the FloJack Message from an NSData object.
  
@@ -47,7 +68,7 @@
     if (self) {
         if (theData != nil) {
             // Required message parameters
-            _message = [theData copy];            
+            _bytes = [theData copy];            
             [theData getBytes:&_opcode range:NSMakeRange(FLOJACK_MESSAGE_OPCODE_POSITION,
                                                          FLOJACK_MESSAGE_OPCODE_LENGTH)];
             [theData getBytes:&_length range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
@@ -239,12 +260,16 @@
                     switch (_subOpcode) {
                         case FLOMIO_TAG_WRITE_STATUS_SUCCEEDED:
                             _name = @"FLOMIO_TAG_WRITE_OP Succeeded";
+                            break;
                         case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_UNSUPPORTED:
                             _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag Unsupported";
+                            break;
                         case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_READ_ONLY:
                             _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag R/O";
+                            break;
                         case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_ENOUGH_MEM:
                             _name = @"FLOMIO_TAG_WRITE_OP Fail: Tag Too Small";
+                            break;
                         case FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN:
                             _name = @"FLOMIO_TAG_WRITE_OP Fail";
                             break;
@@ -313,6 +338,32 @@
     } else {
         return nil;
     }
+}
+
+/**
+ calculateCRCForIncompleteMessage()
+ Calculate the CRC for the given byte array
+ 
+ @param message             Byte array representing a FloJack message {opcode, length, ...}.
+ Does not include CRC byte.
+ @param messageLength       Length of the FloJack message
+ 
+ @return void
+ */
++ (UInt8)calculateCRCForIncompleteMessage:(UInt8[])theMessage withLength:(int)messageLength
+{
+    UInt8 crc=0;
+    for (int i=0; i<messageLength; i++)
+    {
+        crc ^= theMessage[i];
+    }
+    return crc;
+}
+
++ (UInt8)calculateCRCForIncompleteMessage:(NSData *)theData
+{
+    UInt8 *bytes = (UInt8 *) [theData bytes];
+    return [FJMessage calculateCRCForIncompleteMessage:bytes withLength:theData.length];
 }
 
 
