@@ -465,7 +465,6 @@
     [super dealloc];
 }
 
-
 #pragma mark - NFC Service Delegate
 
 - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage; {
@@ -482,8 +481,12 @@
 
 - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected; {
     if (isFloJackConnected) {
-        // Set interbyte delay based on iOS device type
-        [self sendMessageToHost:[_nfcService getCommunicationConfigMessage]];
+        // Send interbyte delay config message based on iOS device type
+        UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
+        FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
+                                                                   andSubOpcode:FLOMIO_BYTE_DELAY
+                                                                        andData:[NSData dataWithBytes:&interByteDelay length:1]];
+        [self sendMessageDataToHost:configMessage.bytes];
     }
     
     if (isFloJackConnected && [_delegate respondsToSelector:@selector(nfcAdapterDidDetectFloJackConnected:)]) {

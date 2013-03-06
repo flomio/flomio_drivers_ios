@@ -498,9 +498,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         //[[MPMusicPlayerController applicationMusicPlayer] setVolume:1.0];
         //NSLog(@"Volume Level: %g", volumeLevel);
         
-        // Logic high/low varies based on host device
-        _logicOne = [self getLogicOneValueBasedOnDevice];
-        _logicZero = [self getLogicZeroValueBasedOnDevice];
+        // Logic high/low varies based on host device        
+        _logicOne = [FJNFCService getDeviceLogicOneValue];
+        _logicZero = [FJNFCService getDeviceLogicZeroValue];
         
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -561,75 +561,22 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- getLogicOneValueBasedOnDevice()
  Get the Logic One value based on device type. 
- 
- --Machine name directory--
-  @"i386"      on the simulator
-  @"iPod1,1"   on iPod Touch
-  @"iPod2,1"   on iPod Touch Second Generation
-  @"iPod3,1"   on iPod Touch Third Generation
-  @"iPod4,1"   on iPod Touch Fourth Generation
-  @"iPhone1,1" on iPhone
-  @"iPhone1,2" on iPhone 3G
-  @"iPhone2,1" on iPhone 3GS
-  @"iPhone3,1" on iPhone 4
-  @"iPhone4,1" on iPhone 4S
-  @"iPad1,1"   on iPad
-  @"iPad2,1"   on iPad 2
  
  @return UInt8    1 or 0 indicating logical one for this device
  */
--(UInt8) getLogicOneValueBasedOnDevice  {
++(UInt8) getDeviceLogicOneValue  {
     // Get the device model number from uname
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString* machineName = [NSString stringWithCString:systemInfo.machine
                               encoding:NSUTF8StringEncoding];
     
+    // Default value (should work on most devices)
     UInt8	logicOneValue = 1;
-    if([machineName caseInsensitiveCompare:@"iPad3,1"] == NSOrderedSame) {
-        // iPad 3 WiFi
-        logicOneValue = 1;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPad3,2"] == NSOrderedSame) {
-        // iPad 3 LTE
-        logicOneValue = 1;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPad2,1"] == NSOrderedSame) {
-        // iPad 2
-        logicOneValue = 1;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPad2,4"] == NSOrderedSame) {
-        // iPad 2
-        logicOneValue = 1;
-    }
     
-    
-    
-    
-    else if([machineName caseInsensitiveCompare:@"iPad2,5"] == NSOrderedSame) {
-        // iPad mini WiFi
-        logicOneValue = 1;
-    }
-    
-    
-    
-    
-    
-    else if([machineName caseInsensitiveCompare:@"iPad1,1"] == NSOrderedSame) {
-        // iPad
-        logicOneValue = 1;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPhone4,1"] == NSOrderedSame) {
-        // iPhone 4s
-        logicOneValue = 1;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPhone3,1"] == NSOrderedSame) {
-        // iPhone 4
-        logicOneValue = 1;
-    }    
-    else if([machineName caseInsensitiveCompare:@"iPhone2,1"] == NSOrderedSame) {
+    // Device exceptions   
+    if([machineName caseInsensitiveCompare:@"iPhone2,1"] == NSOrderedSame) {
         // iPhone 3GS
         logicOneValue = 0;
     }
@@ -637,119 +584,59 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         // iPhone 3G
         logicOneValue = 0;
     }
-    else  {
-        // everything else. this probably won't work
-        logicOneValue = 1;       
-    }
     
     return logicOneValue;
 }
 
 /**
- getLogicZeroValueBasedOnDevice()
  Get the logical zero value based on device type.
  
  @return UInt8    1 or 0 indicating logical one for this device
  */
--(UInt8) getLogicZeroValueBasedOnDevice  {
++(UInt8) getDeviceLogicZeroValue  {
     // Return inverse of LogicOne value
-    if ([self getLogicOneValueBasedOnDevice] == 1)
+    if ([FJNFCService getDeviceLogicOneValue] == 1)
         return 0;
     else
         return 1;
 }
 
-
 /**
- getCommunicationConfigMessage()
- This message sets the maximum byte transfer rate the FloJack can use.
+ This message configures the delay between bytes transmitted by
+ the FloJack. For older devices we need to slow down to allow ample
+ sampling time.
  
- --Machine name directory--
- @"i386"      on the simulator
- @"iPod1,1"   on iPod Touch
- @"iPod2,1"   on iPod Touch Second Generation
- @"iPod3,1"   on iPod Touch Third Generation
- @"iPod4,1"   on iPod Touch Fourth Generation
- @"iPhone1,1" on iPhone
- @"iPhone1,2" on iPhone 3G
- @"iPhone2,1" on iPhone 3GS
- @"iPhone3,1" on iPhone 4
- @"iPhone4,1" on iPhone 4S
- @"iPad1,1"   on iPad
- @"iPad2,1"   on iPad 2
- 
- @return UInt8    1 or 0 indicating logical one for this device
+ @return UInt8    interbyte delay value
  */
--(UInt8*) getCommunicationConfigMessage  {
++ (UInt8)getDeviceInterByteDelay{
     // Get the device model number from uname
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString* machineName = [NSString stringWithCString:systemInfo.machine
                                                encoding:NSUTF8StringEncoding];
     
+    UInt8 inter_byte_delay = 0x80;
     
-    UInt8*	inter_byte_delay_message;
-    if([machineName rangeOfString:@"iPad3,2"].location != NSNotFound) {
-        // iPad 3 LTE
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad3_msg;
+    // Find delay based on device family
+    if([machineName rangeOfString:@"iPad"].location != NSNotFound) {
+        // iPad 4, 3, 2, 1
+        inter_byte_delay = 0x0C;
+    }
+    else if([machineName rangeOfString:@"iPhone"].location != NSNotFound) {
+        // iPhone 5, 4S, 4
+        inter_byte_delay = 0x20;
+    }
+    else if([machineName rangeOfString:@"iPhone2"].location != NSNotFound) {
+        // iPhone 3GS
+        inter_byte_delay = 0x50;
+    }
+    else if([machineName rangeOfString:@"iPod"].location != NSNotFound) {
+        // iPod Touch 1G, 2G, 3G, 4G, 5G
+        inter_byte_delay = 0x50;
     }
     
-    
-    
-    
-    if([machineName caseInsensitiveCompare:@"iPad3,2"] == NSOrderedSame) {
-        // iPad 3 LTE
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad3_msg;
-    }
-    
-    
-    else if([machineName caseInsensitiveCompare:@"iPad2,3"] == NSOrderedSame) {
-        // iPad 2 WiFi
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
-    }
-    
-    
-    else if([machineName caseInsensitiveCompare:@"iPad2,1"] == NSOrderedSame) {
-        // iPad 2 WiFi
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
-    }  
-    else if([machineName caseInsensitiveCompare:@"iPad2,4"] == NSOrderedSame) {
-        // iPad 2 WiFi (re-released)
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad2_msg;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPad2,5"] == NSOrderedSame) {
-        // iPad mini WiFi
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_ipad_mini_msg;
-    }
-    
-    else if([machineName caseInsensitiveCompare:@"iPhone4,1"] == NSOrderedSame) {
-        // iPhone 4s
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4s_msg;
-    }
-    
-    else if([machineName caseInsensitiveCompare:@"iPhone3,3"] == NSOrderedSame) {
-        // iPhone 4
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4_msg;
-    }
-    
-    else if([machineName caseInsensitiveCompare:@"iPhone3,1"] == NSOrderedSame) {
-        // iPhone 4
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone4_msg;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPhone1,2"] == NSOrderedSame) {
-        // iPhone 3G
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone3gs_msg;
-    }
-    else  {
-        // everything else. this probably won't work
-        inter_byte_delay_message = (UInt8*) inter_byte_delay_iphone3gs_msg;
-    }
-    
-    return inter_byte_delay_message;
+    return inter_byte_delay;
 }
-
-
-
 
 -(void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp {
     

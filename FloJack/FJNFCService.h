@@ -28,7 +28,6 @@
 @property (readonly, nonatomic, assign) UInt32	outputAmplitude;
 
 - (id)init;
-- (UInt8 *)getCommunicationConfigMessage;
 - (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;
@@ -36,6 +35,10 @@
 - (void)recieveVolumeChangeNotification:(NSNotification *)notification;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
+
++ (UInt8)getDeviceInterByteDelay;
++ (UInt8)getDeviceLogicOneValue;
++ (UInt8)getDeviceLogicZeroValue;
 
 @end
 
