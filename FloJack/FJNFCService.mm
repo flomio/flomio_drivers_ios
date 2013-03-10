@@ -575,7 +575,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     // Default value (should work on most devices)
     UInt8	logicOneValue = 1;
     
-    // Device exceptions   
+    // Device exceptions
     if([machineName caseInsensitiveCompare:@"iPhone2,1"] == NSOrderedSame) {
         // iPhone 3GS
         logicOneValue = 0;
@@ -663,7 +663,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
             
             if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
                 dispatch_async(_backgroundQueue, ^(void) {
-                    [_delegate nfcService:self didHaveError:FLOMIO_MESSAGE_CORRUPT_ERROR];
+                    [_delegate nfcService:self didHaveError:FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR];
                 });
             }
         }
@@ -775,11 +775,12 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     if (volume < 1) {
         if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+            NSInteger volumeLowError = FLOMIO_STATUS_VOLUME_LOW_ERROR;
             dispatch_async(_backgroundQueue, ^(void) {
-                [_delegate nfcService:self didHaveError:FLOMIO_VOLUME_LOW_ERROR];
+                [_delegate nfcService:self didHaveError:volumeLowError];
             });
         }
-    }   
+    }
 }
 
 /*

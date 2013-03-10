@@ -290,16 +290,16 @@ typedef enum
 	FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN = 0xFF
 } flomio_tag_write_status_opcodes_t;
 
-// FLOMIO error codes for bubbling up to delegate
+// FLOMIO status codes for bubbling up to delegate
 typedef enum
 {
-	FLOMIO_MESSAGE_CORRUPT_ERROR,
-    FLOMIO_VOLUME_LOW_ERROR,
-    FLOMIO_GENERIC_ERROR
-} flomio_nfc_adapter_error_codes_t;
-
-
-
+	FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR    = -4,
+    FLOMIO_STATUS_VOLUME_LOW_ERROR         = -3,
+    FLOMIO_STATUS_NACK_ERROR               = -2,
+    FLOMIO_STATUS_GENERIC_ERROR            = -1,
+    FLOMIO_STATUS_PING_RECIEVED            = 1,
+    FLOMIO_STATUS_ACK_RECIEVED             = 2,
+} flomio_nfc_adapter_status_codes_t;
 
 @interface FJMessage : NSObject
 

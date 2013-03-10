@@ -46,7 +46,7 @@
 
 @protocol FJNFCServiceDelegate<NSObject>
  @required
-  - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage;
   - (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode;
+  - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage;
   - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected;
 @end

@@ -142,6 +142,11 @@
                 break;
             case FLOMIO_PING_OP:
             {
+                if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
+                    NSInteger statusCode = FLOMIO_STATUS_ACK_RECIEVED;
+                    [_delegate nfcAdapter:self didHaveStatus:statusCode];
+                }
+                
                 LogInfo(@"FLOMIO_PING_OP ");
                 LogInfo(@"(TX) FLOMIO_PONG_OP ");
                 [self sendMessageToHost:(UInt8*)pong_command];
@@ -150,6 +155,10 @@
             case FLOMIO_ACK_ENABLE_OP:
                 switch (flojackMessageSubOpcode) {
                     case FLOMIO_ACK_BAD:
+                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
+                            NSInteger statusCode = FLOMIO_STATUS_NACK_ERROR;
+                            [_delegate nfcAdapter:self didHaveStatus:statusCode];
+                        }
                         LogInfo(@"FLOMIO_ACK_BAD ");
                         LogInfo(@"(TX) resendLastMessageSent ");
                         [self resendLastMessageSent];
@@ -473,9 +482,18 @@
     }
 }
 
+/**
+ Receives error codes from the NFC Service (e.g. corrupt message, message timeout, etc) and passes 
+ them up to the NFC Adapter delegate. Suggested that third party apps surface these to the user
+ in a meaningful way. 
+ 
+ @param nfcService      The NFC Service Object experiencing an error.
+ @param errorCode       The error code experienced by the NFC Service.
+ @return void
+ */
 - (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
-    if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveError:)]) {
-        [_delegate nfcAdapter:self didHaveError:errorCode];
+    if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
+        [_delegate nfcAdapter:self didHaveStatus:errorCode];
     }    
 }
 

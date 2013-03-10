@@ -22,6 +22,15 @@
 @synthesize outputTextView = _outputTextView;
 @synthesize loggingTextView = _loggingTextView;
 @synthesize urlInputField = _urlInputField;
+@synthesize scrollView = _scrollView;
+@synthesize statusPingPongCount     = _statusPingPongCount;
+@synthesize statusPingPongTextView  = _statusPingPongTextView;
+@synthesize statusNACKCount         = _statusNACKCount;
+@synthesize statusNackTextView      = _statusNackTextView ;
+@synthesize statusErrorCount        = _statusErrorCount;
+@synthesize statusErrorTextView     = _statusErrorTextView;
+@synthesize volumeLowErrorTextView  = _volumeLowErrorTextView;
+
 
 #pragma mark - UI View Controller
 
@@ -32,6 +41,13 @@
     
     _nfcAdapter = [[FJNFCAdapter alloc] init];
     [_nfcAdapter setDelegate:self];
+    
+    _statusPingPongCount = 0;
+    _statusNACKCount = 0;
+    _statusErrorCount = 0;
+    
+    _scrollView.contentSize = CGSizeMake(320, 1000);
+
     
     // Poll logging file for changes (TODO: move this to event based model)
     _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
@@ -71,6 +87,7 @@
 {
     //[self outputTextView:nil];
     //[self loggingTextView:nil];
+    [self setVolumeLowErrorTextView:nil];
     [super viewDidUnload];
 }
 
@@ -81,6 +98,9 @@
 }
 
 - (IBAction)buttonWasPressed:(id)sender {
+    // dismiss keyboard
+    [self.view endEditing:YES];
+    
     switch (((UIButton *)sender).tag) {
         // LEFT COLUMN
         case 0:  {
@@ -181,10 +201,6 @@
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.ttag.be/m/04FAC9193E2580"];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
             [_nfcAdapter writeTagWithNdefMessage:testMessage];
-            
-            
-            
-            //[_nfcAdapter operationModeWriteDataTestTtag];
             break;
         }
         case 29: {
@@ -301,21 +317,36 @@
     });
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveError:(NSInteger)errorCode {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NFC Adapter Error"
-                                                        message:[NSString stringWithFormat:@"Error: %d", errorCode]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        [alert show];
-    });
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
+    if (false) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (statusCode) {
+                case FLOMIO_STATUS_PING_RECIEVED:
+                    _statusPingPongTextView.text = @"PING-PONG : %d", _statusPingPongCount++;
+                    break;
+                case FLOMIO_STATUS_NACK_ERROR:
+                    _statusPingPongTextView.text = @"NACK : %d", _statusNACKCount++;
+                    break;
+                case FLOMIO_STATUS_VOLUME_LOW_ERROR:
+                    _volumeLowErrorTextView.text = @"Volume too low";
+                    break;
+                case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
+                    // fall through
+                case FLOMIO_STATUS_GENERIC_ERROR:
+                    _statusPingPongTextView.text = @"ERRORS : %d", _statusNACKCount++;
+                    break;
+                    
+                default:
+                    break;
+            }
+        });
+    }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)errorCode {
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Write Status"
-                                                        message:[NSString stringWithFormat:@"Tag Write Satus: %d", errorCode]
+                                                        message:[NSString stringWithFormat:@"Status: %d", statusCode]
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
