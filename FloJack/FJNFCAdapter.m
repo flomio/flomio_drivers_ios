@@ -143,7 +143,7 @@
             case FLOMIO_PING_OP:
             {
                 if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
-                    NSInteger statusCode = FLOMIO_STATUS_ACK_RECIEVED;
+                    NSInteger statusCode = FLOMIO_STATUS_PING_RECIEVED;
                     [_delegate nfcAdapter:self didHaveStatus:statusCode];
                 }
                 
