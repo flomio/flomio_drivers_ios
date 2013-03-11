@@ -318,29 +318,31 @@
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
-    if (false) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (statusCode) {
-                case FLOMIO_STATUS_PING_RECIEVED:
-                    _statusPingPongTextView.text = @"PING-PONG : %d", _statusPingPongCount++;
-                    break;
-                case FLOMIO_STATUS_NACK_ERROR:
-                    _statusPingPongTextView.text = @"NACK : %d", _statusNACKCount++;
-                    break;
-                case FLOMIO_STATUS_VOLUME_LOW_ERROR:
-                    _volumeLowErrorTextView.text = @"Volume too low";
-                    break;
-                case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
-                    // fall through
-                case FLOMIO_STATUS_GENERIC_ERROR:
-                    _statusPingPongTextView.text = @"ERRORS : %d", _statusNACKCount++;
-                    break;
-                    
-                default:
-                    break;
-            }
-        });
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch (statusCode) {
+            case FLOMIO_STATUS_PING_RECIEVED:
+                _statusPingPongCount++;
+                _statusPingPongTextView.text = [NSString stringWithFormat:@"PING-PONG : %d",_statusPingPongCount];
+                break;
+            case FLOMIO_STATUS_NACK_ERROR:
+                _statusNACKCount++;
+                _statusNackTextView.text = [NSString stringWithFormat:@"NACK : %d",_statusNACKCount];
+                break;
+            case FLOMIO_STATUS_VOLUME_LOW_ERROR:
+                _volumeLowErrorTextView.text = [NSString stringWithFormat:@"**ERROR** Volume low"];
+                break;
+            case FLOMIO_STATUS_VOLUME_OK:
+                _volumeLowErrorTextView.text = [NSString stringWithFormat:@"Volume OK"];
+            case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
+                // fall through
+            case FLOMIO_STATUS_GENERIC_ERROR:
+                _statusErrorCount++;
+                _statusErrorTextView.text = [NSString stringWithFormat:@"ERRORS : %d", _statusErrorCount];
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {

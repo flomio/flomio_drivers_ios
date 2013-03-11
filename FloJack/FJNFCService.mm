@@ -161,21 +161,13 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 			fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
 		}
 	}
-    else if (inID == kAudioSessionProperty_CurrentHardwareOutputVolume) {        
-        Float32 volume;
-        UInt32 dataSize = sizeof(Float32);
-        AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,
-                                 &dataSize,
-                                 &volume
-                                 );
-        
-        if (volume < 1) {
-            LogError(@"Volume not max. Level = %f", volume);
-        }
+    else if (inID == kAudioSessionProperty_CurrentHardwareOutputVolume) {
+        [self checkVolumeLevel];
     }
 }
 
-/** 
+
+/**
  floJackAURenderCallback()
  Called by the system when an audio unit requires input samples, or before and after a render operation.
  host registers callback with audio unit in preparation to send data
@@ -471,6 +463,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 #pragma mark - NFC Service (Objective C)
 
 - (id) init {
+    // Setup Grand Central Dispatch queue (thread pool)
+    _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
+    
     // Register an input callback function with an audio unit.
     _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
 	_audioUnitRenderCallback.inputProcRefCon = self;
@@ -482,10 +477,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     // Init state flags
     _currentlySendingMessage = FALSE;
-    _muteEnabled = FALSE;
-    
-    [self markCurrentMessageValidAtTime:0];
-    
+    _muteEnabled = FALSE;    
     _byteQueuedForTX = FALSE;
     
     _messageTXLock = [[NSLock alloc] init];
@@ -536,8 +528,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		
 		size = sizeof(_remoteIOOutputFormat);
 		XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &_remoteIOOutputFormat, &size), "couldn't get the remote I/O unit's output client format");
-            
-            // Perform other setup here...
         });
 	}
 	catch (CAXException &e) {
@@ -549,14 +539,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		fprintf(stderr, "An unknown error occurred\n");
 		if (_remoteIODCFilter) delete[] _remoteIODCFilter;
 	}
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(recieveVolumeChangeNotification:)
-                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
-                                               object:nil];
     
-    // Setup Grand Central Dispatch queue (thread pool)
-    _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
+
 	return self;
 }
 
@@ -767,20 +751,39 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _outputAmplitude = (1<<24);
 }
 
-
-- (void)recieveVolumeChangeNotification:(NSNotification *)notification
-{
-    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-    LogInfo(@"volume: %g", volume);
+/*
+ Checks if the current route's volume is at MAX value.
+ Returns a BOOL and sends status to NFC Service Delegate
+ to handle and propopgate to consuming app.  
+ 
+ @return BOOL   volume level acceptable or not
+ */
+- (BOOL)checkVolumeLevel; {
+    Float32 volume;
+    UInt32 dataSize = sizeof(Float32);
+    AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,
+                             &dataSize,
+                             &volume
+                             );
     
-    if (volume < 1) {
-        if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
-            NSInteger volumeLowError = FLOMIO_STATUS_VOLUME_LOW_ERROR;
-            dispatch_async(_backgroundQueue, ^(void) {
-                [_delegate nfcService:self didHaveError:volumeLowError];
-            });
-        }
+    NSInteger volumeStatus;
+    BOOL volumeStatusBool;
+    if (volume == 1) {
+        volumeStatus = FLOMIO_STATUS_VOLUME_OK;
+        volumeStatusBool = true;
     }
+    else {
+        LogError(@"Volume not max. Level = %f", volume);
+        volumeStatus = FLOMIO_STATUS_VOLUME_LOW_ERROR;
+        volumeStatusBool = false;
+    }
+    
+    if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+        dispatch_async(_backgroundQueue, ^(void) {
+            [self.delegate nfcService:self didHaveError:volumeStatus];
+        });
+    }
+    return volumeStatusBool;
 }
 
 /*

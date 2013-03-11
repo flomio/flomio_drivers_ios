@@ -23,6 +23,7 @@
     if (self) {
         _nfcService = [[FJNFCService alloc] init];
         [_nfcService setDelegate:self];
+        [_nfcService checkVolumeLevel];
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
         
@@ -491,7 +492,7 @@
  @param errorCode       The error code experienced by the NFC Service.
  @return void
  */
-- (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
+- (void)nfcService:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
     if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
         [_delegate nfcAdapter:self didHaveStatus:errorCode];
     }    

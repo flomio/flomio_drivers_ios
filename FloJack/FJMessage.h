@@ -299,6 +299,7 @@ typedef enum
     FLOMIO_STATUS_GENERIC_ERROR            = -1,
     FLOMIO_STATUS_PING_RECIEVED            = 1,
     FLOMIO_STATUS_ACK_RECIEVED             = 2,
+    FLOMIO_STATUS_VOLUME_OK                = 3
 } flomio_nfc_adapter_status_codes_t;
 
 @interface FJMessage : NSObject

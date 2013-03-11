@@ -28,6 +28,7 @@
 @property (readonly, nonatomic, assign) UInt32	outputAmplitude;
 
 - (id)init;
+- (BOOL)checkVolumeLevel;
 - (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;
@@ -46,7 +47,7 @@
 
 @protocol FJNFCServiceDelegate<NSObject>
  @required
-  - (void)nfcAdapter:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode;
+  - (void)nfcService:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode;
   - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage;
   - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected;
 @end
