@@ -209,6 +209,10 @@
             [_nfcAdapter writeTagWithNdefMessage:testMessage];
             break;
         }
+        case 30: {
+            [_nfcAdapter nfcServiceDidReceiveFloJack:nil connectedStatus:true];            
+            break;
+        }
     }
 }
 
@@ -291,7 +295,7 @@
                                               otherButtonTitles:nil];
         // Display the alert to the user
         
-        NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nData: %@", [[theNfcTag uid] fj_asHexString],
+        NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
                                 [[theNfcTag data] fj_asHexString]];
         
         if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {

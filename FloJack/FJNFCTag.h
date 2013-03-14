@@ -7,16 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FJMessage.h"
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
-
-typedef enum
-{
-    NFC_FORUM_TYPE_1 = 1,
-    NFC_FORUM_TYPE_2,
-    NFC_FORUM_TYPE_3,
-    NFC_FORUM_TYPE_4
-} nfc_forum_types_t;
 
 @interface FJNFCTag : NSObject
 
@@ -27,6 +20,7 @@ typedef enum
 
 - (id)initWithUid:(NSData *)theUid;
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData;
+- (id)initWithUid:(NSData *)theUid andData:(NSData *)theData andType:(UInt8)type;
 
 
 /*

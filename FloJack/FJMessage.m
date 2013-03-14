@@ -13,16 +13,17 @@
     
 }
 
-@synthesize bytes       = _bytes;
-@synthesize opcode      = _opcode;
-@synthesize length      = _length;
-@synthesize subOpcode   = _subOpcode;
-@synthesize enable      = _enable;
-@synthesize offset      = _offset;
-@synthesize data        = _data;
-@synthesize crc         = _crc;
-
-@synthesize name        = _name;
+@synthesize bytes           = _bytes;
+@synthesize opcode          = _opcode;
+@synthesize length          = _length;
+@synthesize subOpcode       = _subOpcode;
+@synthesize subOpcodeMSN    = _subOpcodeMSN;
+@synthesize subOpcodeLSN    = _subOpcodeLSN;
+@synthesize enable          = _enable;
+@synthesize offset          = _offset;
+@synthesize data            = _data;
+@synthesize crc             = _crc;
+@synthesize name            = _name;
 
 
 - (id)init; {
@@ -78,6 +79,8 @@
             
             // Optional message parameters
             _subOpcode = [FJMessage getMessageSubOpcode:theData];
+            _subOpcodeMSN = (_subOpcode >> 4) & 0x0F;
+            _subOpcodeLSN = _subOpcode & 0x0F;
             
             // variable declarations
             UInt8 flojackMessageEnable = 0;

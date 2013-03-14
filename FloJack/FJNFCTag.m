@@ -18,26 +18,23 @@
 @synthesize ndefMessage = _ndefMessage;
 @synthesize nfcForumType = _nfcForumType;
 
+- (id)initWithUid:(NSData *)theUid;{
+    return [self initWithUid:theUid andData:nil andType:UNKNOWN_TAG_TYPE];;
+}
 
-// Designated initializer
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData; {
+    return [self initWithUid:theUid andData:theData andType:UNKNOWN_TAG_TYPE];
+}
+
+- (id)initWithUid:(NSData *)theUid andData:(NSData *)theData andType:(UInt8)type; {
     self = [super init];
     if(self) {
         _uid = [theUid copy];
         _data = [theData copy];
-        
-        _nfcForumType = NFC_FORUM_TYPE_2;
+        _nfcForumType = type;
         _ndefMessage = [self parseMemoryForNdefMessage];
-        
-        //NSArray *ndefRecords = [FJNDEFRecord parseData:_data andIgnoreMbMe:FALSE];
-        //_ndefMessage = [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
-        
     }
     return self;
-}
-
-- (id)initWithUid:(NSData *)theUid;{
-    return [self initWithUid:theUid andData:nil];
 }
 
 - (FJNDEFMessage *)parseMemoryForNdefMessage; {
@@ -48,8 +45,7 @@
         case NFC_FORUM_TYPE_3:
         case NFC_FORUM_TYPE_4:
         default:
-            return [self type2ParseMemoryForNdefMessage];           
-        
+            return nil;
     }
 }
 

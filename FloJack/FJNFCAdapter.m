@@ -199,18 +199,17 @@
             case FLOMIO_TAG_READ_OP: {
                 LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
 
-                if (flojackMessageSubOpcode == FLOMIO_UID_ONLY) {
+                if (messyTest.subOpcodeLSN == FLOMIO_UID_ONLY) {
                     // Tag UID Only
                     if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                        FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[messyTest.data copy]];
+                        FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[messyTest.data copy] andData:nil andType:messyTest.subOpcodeMSN];
                         [_delegate nfcAdapter:self didScanTag:tag];
                     }
                 }
                 else {
                     // Tag all Memory
                     int tagUidLen = 0;
-                    int tagDataLen = 0;
-                    switch (flojackMessageSubOpcode) {
+                    switch (messyTest.subOpcodeLSN) {
                         case FLOMIO_ALL_MEM_UID_LEN_FOUR:
                             tagUidLen = 4;
                             break;
@@ -229,7 +228,7 @@
                     NSData *tagUid = [[NSData alloc] initWithData:[messyTest.data subdataWithRange:tagUidRange]];
                     
                     if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                        FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[messyTest.data copy]];
+                        FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[messyTest.data copy] andType:messyTest.subOpcodeMSN];
                         [_delegate nfcAdapter:self didScanTag:tag];
                     }
                 }                

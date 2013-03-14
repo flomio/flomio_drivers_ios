@@ -165,7 +165,19 @@ typedef enum
     FLOMIO_TAG_WRITE_OP,				// 16
 } flomio_opcode_t;
 
-// FLOMIO_TAG_READ_OP sub opcode indicating UID length
+// FLOMIO_TAG_READ_OP sub opcode indicating tag type (most significant nibble)
+typedef enum
+{
+    UNKNOWN_TAG_TYPE,
+    NFC_FORUM_TYPE_1,	//NFC-A, Topaz
+    NFC_FORUM_TYPE_2,	//NFC-A
+    NFC_FORUM_TYPE_3,	//NFC-F
+    NFC_FORUM_TYPE_4,	//NFC-A or NFC-B
+    MIFARE_CLASSIC,		//NFC-A
+    TYPE_V				//15693
+} nfc_tag_types_t;
+
+// FLOMIO_TAG_READ_OP sub opcode indicating UID length (least significant nibble)
 typedef enum
 {    
     FLOMIO_UID_ONLY = 0,                // UID only. Length varies
@@ -173,6 +185,7 @@ typedef enum
     FLOMIO_ALL_MEM_UID_LEN_SEVEN,		// All memory including seven byte UID
     FLOMIO_ALL_MEM_UID_LEN_TEN,			// All memory including ten byte UID
 } flomio_tag_uid_opcodes_t;
+
 
 //Flomio Status Sub-Opcode
 typedef enum
@@ -287,6 +300,7 @@ typedef enum
 	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_UNSUPPORTED,
 	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_READ_ONLY,
 	FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_ENOUGH_MEM,
+    FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_NDEF_FORMATTED,
 	FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN = 0xFF
 } flomio_tag_write_status_opcodes_t;
 
@@ -308,6 +322,8 @@ typedef enum
 @property (nonatomic, assign) UInt8     opcode;
 @property (nonatomic, assign) UInt8     length;
 @property (nonatomic, assign) UInt8     subOpcode;
+@property (nonatomic, assign) UInt8     subOpcodeMSN;
+@property (nonatomic, assign) UInt8     subOpcodeLSN;
 @property (nonatomic, assign) BOOL      enable;
 @property (nonatomic, assign) NSData    *offset;
 @property (nonatomic, assign) NSData    *data;
