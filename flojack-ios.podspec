@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.source       = { :local=> "/Users/beej/Documents/Aptana_Studio_3_Workspace/flojack-ios", :tag => "0.1" }
   s.platform     = :ios
   s.source_files = 'FloJack', 'FloJack/**/*.{h,m,mm}'
-  s.frameworks 	 = 'MediaPlayer.framework', 'AVFoundation.framework', 'AudioToolbox.framework', 'CoreAudio.framework', 'MobileCoreServices.framework', 'QuartzCore.framework', 'Foundation.framework', 'SenTestingKit.framework', 'CoreGraphics.framework', 'CoreData.framework'
+  s.frameworks 	 = 'AudioToolbox', 'AVFoundation', 'CoreAudio', 'CoreData', 'CoreGraphics', 'Foundation', 'MediaPlayer', 'MobileCoreServices', 'QuartzCore', 'SenTestingKit' 
   s.xcconfig 	 = { 'GCC_INPUT_FILETYPE' => 'sourcecode.cpp.objcpp', 'OTHER_LDFLAGS' => '-all_load'}
 end
