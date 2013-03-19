@@ -23,8 +23,8 @@
 - (id)init;
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
 - (void)sendMessageToHost:(UInt8[])message;
-- (void)writeTagWithPreviousNdefMessage;
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
+- (void)writeTagWithPreviousNdefMessage;
 
 // temporarily used for Type2 Write testing
 - (void)operationModeWriteDataTestPrevious;
@@ -57,7 +57,6 @@
 - (void)turnLedOff;
 - (void)operationModeUID;
 - (void)operationModeReadOnly;
-- (void)operationModeWriteDataTest;
 
 @end
 

@@ -386,6 +386,13 @@
     return [_nfcService isHeadsetPluggedIn];
 }
 
+/**
+ Transmit the current NDEF Message to the FloJack and write it to next tag detected.
+ 
+ @param FJNDEFMessage   NDEF Message for writing
+ 
+ @return void
+ */
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage {
     
     NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
@@ -394,34 +401,20 @@
                                                                      andData:ndefMessageData];
     NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
     [self sendMessageDataToHost:flojackMessage.bytes];
+}
 
-    
-//    char buf;
-//    NSMutableData *message = [[NSMutableData alloc] init];
-//    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
-//    
-//    // op
-//    buf = FLOMIO_OPERATION_MODE_OP;
-//    [message appendBytes:&buf length:1];
-//    
-//    // len
-//    buf = ndefMessageData.length + 4;
-//    [message appendBytes:&buf length:1];
-//    
-//    // subop
-//    buf = FLOMIO_OP_MODE_WRITE_CURRENT;
-//    [message appendBytes:&buf length:1];
-//    
-//    // data
-//    [message appendData:ndefMessageData];
-//    
-//    // crc
-//    buf = (char) [_nfcService calculateCRCForMessage:message];
-//    [message appendBytes:&buf length:1];
-//    
-//    NSLog(@"write message: %@", [message fj_asHexString]);
-    
-    }
+/**
+ Enter the FloJack into write mode and rewrite the last NDEFMessage from cache.
+ 
+ @return void
+ */
+- (void)writeTagWithPreviousNdefMessage; {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_PREVIOUS
+                                                                     andData:nil];
+    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
 
 /**
  resendLastMessageSent()

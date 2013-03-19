@@ -18,6 +18,7 @@
 #import "CAStreamBasicDescription.h"
 #import "CAXException.h"
 #import "FJMessage.h"
+#import "NSData+FJStringDisplay.h"
 #import "Logging.h"
 
 @protocol FJNFCServiceDelegate;
@@ -33,7 +34,6 @@
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength;
-- (void)recieveVolumeChangeNotification:(NSNotification *)notification;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
 

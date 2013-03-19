@@ -53,33 +53,26 @@ static const UInt8 kTNFUnchanged       = 0x06;
 //    value like TNF_UNKNOWN.
 static const UInt8 kTNFReserved        = 0x07;
 
-// RTD Text type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDText[] = {0x54}; // "T"
-static const NSData *kRTDText = [NSData dataWithBytes:(UInt8[]){0x54} length:1];
+// RTD Text type. For use with TNF_WELL_KNOWN. // "T"
+static NSData *kRTDText = nil;
 
-// RTD URI type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDUri[] = {0x55};   // "U"
-static const NSData *kRTDURI = [NSData dataWithBytes:(UInt8[]){0x55} length:1];
+// RTD URI type. For use with TNF_WELL_KNOWN.  // "U"
+static NSData *kRTDURI = nil;
 
-// RTD Smart Poster type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDSmartPost[] = {0x53, 0x70};  // "Sp"
-static const NSData *kRTDSmartPost = [NSData dataWithBytes:(UInt8[]){0x53, 0x70} length:2];
+// RTD Smart Poster type. For use with TNF_WELL_KNOWN. // "Sp"
+static NSData *kRTDSmartPost = nil; 
 
-// RTD Alternative Carrier type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDAlternativeCarrier[] = {0x61, 0x63}; // "ac"
-static const NSData *kRTDAlternativeCarrier = [NSData dataWithBytes:(UInt8[]){0x61, 0x63} length:2];
+// RTD Alternative Carrier type. For use with TNF_WELL_KNOWN. // "ac"
+static NSData *kRTDAlternativeCarrier = nil; 
 
-// RTD Handover Carrier type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDHandoverCarrier[] = {0x48, 0x63};  // "Hc"
-static const NSData *kRTDHandoverCarrier = [NSData dataWithBytes:(UInt8[]){0x48, 0x63} length:2];
+// RTD Handover Carrier type. For use with TNF_WELL_KNOWN. // "Hc"
+static NSData *kRTDHandoverCarrier = nil;
 
-// RTD Handover Request type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDHandoverRequest[] = {0x48, 0x72};  // "Hr"
-static const NSData *kRTDHandoverRequest = [NSData dataWithBytes:(UInt8[]){0x48, 0x72} length:2];
+// RTD Handover Request type. For use with TNF_WELL_KNOWN. // "Hr"
+static NSData *kRTDHandoverRequest = nil;
 
-// RTD Handover Select type. For use with TNF_WELL_KNOWN.
-//static const UInt8 kRTDHandoverSelect[] = {0x48, 0x73}; // "Hs"
-static const NSData *kRTDHandoverSelect = [NSData dataWithBytes:(UInt8[]){0x48, 0x73} length:2];
+// RTD Handover Select type. For use with TNF_WELL_KNOWN. // "Hs"
+static NSData *kRTDHandoverSelect = nil;
 
 // NDEF flag mask: Message Begins
 static const UInt8 kFlagMB = 0x80;
@@ -105,43 +98,7 @@ static const long kMaxPayloadSize = 10 * (1 << 20);
  This is a mapping of "URI Identifier Codes" to URI string prefixes,
  per section 3.2.2 of the NFC Forum URI Record Type Definition document.
  */
-static const NSArray *kUriPrefixMap = [[NSArray alloc] initWithObjects:
-                             @"", // 0x00
-                             @"http://www.", // 0x01
-                             @"https://www.", // 0x02
-                             @"http://", // 0x03
-                             @"https://", // 0x04
-                             @"tel:", // 0x05
-                             @"mailto:", // 0x06
-                             @"ftp://anonymous:anonymous@", // 0x07
-                             @"ftp://ftp.", // 0x08
-                             @"ftps://", // 0x09
-                             @"sftp://", // 0x0A
-                             @"smb://", // 0x0B
-                             @"nfs://", // 0x0C
-                             @"ftp://", // 0x0D
-                             @"dav://", // 0x0E
-                             @"news:", // 0x0F
-                             @"telnet://", // 0x10
-                             @"imap:", // 0x11
-                             @"rtsp://", // 0x12
-                             @"urn:", // 0x13
-                             @"pop:", // 0x14
-                             @"sip:", // 0x15
-                             @"sips:", // 0x16
-                             @"tftp:", // 0x17
-                             @"btspp://", // 0x18
-                             @"btl2cap://", // 0x19
-                             @"btgoep://", // 0x1A
-                             @"tcpobex://", // 0x1B
-                             @"irdaobex://", // 0x1C
-                             @"file://", // 0x1D
-                             @"urn:epc:id:", // 0x1E
-                             @"urn:epc:tag:", // 0x1F
-                             @"urn:epc:pat:", // 0x20
-                             @"urn:epc:raw:", // 0x21
-                             @"urn:epc:", // 0x22
-                             nil];
+static NSArray *kUriPrefixMap = nil;
 
 // Represents a logical (unchunked) NDEF (NFC Data Exchange Format) record.
 // An NDEF record always contains:
