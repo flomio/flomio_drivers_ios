@@ -18,7 +18,7 @@
 
 @interface FJNFCAdapter : NSObject<FJNFCServiceDelegate>
 
-@property (nonatomic, assign) id <FJNFCAdapterDelegate>	 delegate;
+@property id <FJNFCAdapterDelegate>	 delegate;
 
 - (id)init;
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;

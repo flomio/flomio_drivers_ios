@@ -102,7 +102,7 @@ void floJackAudioSessionInterruptionListener(void   *inClientData,
 {
 	printf("Session interrupted! --- %s ---", inInterruption == kAudioSessionBeginInterruption ? "Begin Interruption" : "End Interruption");
 	
-	FJNFCService *nfcService = (FJNFCService *) inClientData;
+	FJNFCService *nfcService = (FJNFCService *) CFBridgingRelease(inClientData);
 	
 	if (inInterruption == kAudioSessionEndInterruption) {
 		// make sure we are again the active session
@@ -132,7 +132,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
                                          const void *            inData)
 {
     
-    FJNFCService *self = (FJNFCService *)inClientData;
+    FJNFCService *self = (FJNFCService *)CFBridgingRelease(inClientData);
     
     
     if (inID == kAudioSessionProperty_AudioRouteChange) {
@@ -146,7 +146,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 			XThrowIfError(AudioOutputUnitStart(self->_remoteIOUnit), "couldn't start unit");
             
             // send interbyte delay config message if FloJack reconnected
-            NSString *currentRoute = [(NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
+            NSString *currentRoute = [(NSDictionary *)CFBridgingRelease(inData) objectForKey:@"OutputDeviceDidChange_NewRoute"];
             NSLog(@"Current Route: %@", currentRoute);
             if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
                 
@@ -188,7 +188,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                         UInt32 						inNumberFrames, 
                                         AudioBufferList 			*ioData)
 {
-    FJNFCService *self = (FJNFCService *)inRefCon;
+    FJNFCService *self = (FJNFCService *)CFBridgingRelease(inRefCon);
 	OSStatus ossError = AudioUnitRender(self->_remoteIOUnit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
 	
     // Bail out on critical audio errors
@@ -313,9 +313,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 							}
                             
                             // Send bye to message handler
-                            NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+                            //NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
                             [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];
-                            [autoreleasepool release];
+                            //[autoreleasepool release];
                             
 							decoderState = STARTBIT;
 						}
@@ -468,7 +468,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     // Register an input callback function with an audio unit.
     _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
-	_audioUnitRenderCallback.inputProcRefCon = self;
+	_audioUnitRenderCallback.inputProcRefCon = (__bridge void*) self;
 	
     // Initialize receive handler buffer
     _messageReceiveBuffer = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
@@ -483,20 +483,16 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _messageTXLock = [[NSLock alloc] init];
     
     // Assume non EU device
-    [self setOutputAmplitudeNormal];
+    [self setOutputAmplitudeHigh];
     
 	try {
-        //float volumeLevel = [[MPMusicPlayerController applicationMusicPlayer] volume];
-        //[[MPMusicPlayerController applicationMusicPlayer] setVolume:1.0];
-        //NSLog(@"Volume Level: %g", volumeLevel);
-        
         // Logic high/low varies based on host device        
         _logicOne = [FJNFCService getDeviceLogicOneValue];
         _logicZero = [FJNFCService getDeviceLogicZeroValue];
         
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, self), "couldn't initialize audio session");
+            XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, (__bridge void*) self), "couldn't initialize audio session");
 
 		
 		// Initialize and configure the audio session
@@ -504,7 +500,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		
 		UInt32 audioCategory = kAudioSessionCategory_PlayAndRecord;
 		XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(audioCategory), &audioCategory), "couldn't set audio category");
-		XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, floJackAudioSessionPropertyListener, self), "couldn't set property listener");
+		XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, floJackAudioSessionPropertyListener, (__bridge void*) self), "couldn't set property listener");
 		
 		Float32 preferredBufferSize = .005;
 		XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize), "couldn't set i/o buffer duration");
@@ -512,11 +508,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 		UInt32 size = sizeof(_hwSampleRate);
 		XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &_hwSampleRate), "couldn't get hw sample rate");
             
+        XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_CurrentHardwareOutputVolume, floJackAudioSessionPropertyListener, (__bridge void*) self), "couldn't set property listener");
             
-        //TODO audio volume
-        XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_CurrentHardwareOutputVolume, floJackAudioSessionPropertyListener, self), "couldn't set property listener");
-            
-		
 		XThrowIfError(SetupRemoteIO(_remoteIOUnit, _audioUnitRenderCallback, _remoteIOOutputFormat), "couldn't setup remote i/o unit");
 		
 		_remoteIODCFilter = new DCRejectionFilter[_remoteIOOutputFormat.NumberChannels()];
@@ -820,7 +813,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                               &reouteChange);
     
     if (!error && (reouteChange != NULL)) {
-        NSDictionary *audioRouteChangeDict = (NSDictionary *)reouteChange;
+        NSDictionary *audioRouteChangeDict = (NSDictionary *)CFBridgingRelease(reouteChange);
         NSString *currentRoute = [audioRouteChangeDict objectForKey:@"OutputDeviceDidChange_NewRoute"];
         return [self isHeadsetPluggedInWithRoute:currentRoute];
     }    
@@ -937,7 +930,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
+	//[super dealloc];
 }
 
 @end

@@ -463,10 +463,6 @@
     [_nfcService sendMessageToHost:message withLength:(int)msgSize];
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
-
 #pragma mark - NFC Service Delegate
 
 - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage; {

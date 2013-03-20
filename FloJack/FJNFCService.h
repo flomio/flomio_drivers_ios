@@ -25,8 +25,8 @@
 
 @interface FJNFCService : NSObject 
 
-@property (nonatomic, assign) id <FJNFCServiceDelegate>	delegate;
-@property (readonly, nonatomic, assign) UInt32	outputAmplitude;
+@property id <FJNFCServiceDelegate>	delegate;
+@property (readonly) UInt32	outputAmplitude;
 
 - (id)init;
 - (BOOL)checkVolumeLevel;
