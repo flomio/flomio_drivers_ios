@@ -213,7 +213,23 @@
             [_nfcAdapter nfcServiceDidReceiveFloJack:nil connectedStatus:true];            
             break;
         }
+        case 31: {
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Enter EU Mode?"
+                                                              message:@"WARNING: Only use on EU devices otherwise you will damage the FloJack device."
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                                    otherButtonTitles:@"Enter EU Mode", nil];
+            [message show];
+            break;
+        }
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [_nfcAdapter setOutputAmplitudeForDeviceWithVolumeCap];
+    }    
 }
 
 // This forces audio through speaker even when the accessory is plugged in.

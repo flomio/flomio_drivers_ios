@@ -22,6 +22,8 @@
 
 - (id)init;
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
+- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap;
+- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap;
 - (void)sendMessageToHost:(UInt8[])message;
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 - (void)writeTagWithPreviousNdefMessage;

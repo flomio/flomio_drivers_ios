@@ -29,7 +29,7 @@
 @property (readonly, nonatomic, assign) UInt32	outputAmplitude;
 
 - (id)init;
-- (BOOL)checkVolumeLevel;
+- (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
 - (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageToHost:(UInt8[])theMessage;

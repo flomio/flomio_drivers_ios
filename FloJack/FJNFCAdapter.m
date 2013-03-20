@@ -23,7 +23,7 @@
     if (self) {
         _nfcService = [[FJNFCService alloc] init];
         [_nfcService setDelegate:self];
-        [_nfcService checkVolumeLevel];
+        [_nfcService checkIfVolumeLevelMaxAndNotifyDelegate];
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
         
@@ -461,6 +461,55 @@
 - (void)sendMessageToHost:(UInt8[])message withSizeOf:(int)msgSize {
     [self setLastMessageSent:message];
     [_nfcService sendMessageToHost:message withLength:(int)msgSize];
+}
+
+/*
+ Send FloJack Wake + Config command to come out of deep sleep and begin polling.
+ Also sets the inter-byte delay config value based on the device type. 
+ 
+ @return void   
+ */
+- (void)sendWakeAndConfigMessageToHost {
+    UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
+    FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
+                                                               andSubOpcode:FLOMIO_BYTE_DELAY
+                                                                    andData:[NSData dataWithBytes:&interByteDelay length:1]];
+    [self sendMessageDataToHost:configMessage.bytes];
+}
+
+/*
+ Used to increase the output volume level for audio capped evices and resend config message. 
+ This is necessary for EU devices with audio caps at ~80dBA.
+ The method first checks to see if the volume level is max before proceeding.
+ 
+ WARNING:   IMPROPER USE CAN DAMAGE THE FLOJACK DEVICE.
+ DO NOT USE ON NON AUDIO CAPPED DEVICES.
+ 
+ @return BOOL   true if mode changed successfully, false is volume not max
+ */
+- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap; {
+    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+        [_nfcService setOutputAmplitudeHigh];
+        [self sendWakeAndConfigMessageToHost];
+        return true;
+    }
+    return false;
+}
+
+/*
+ Used to initialize output amplitude to normal levels for uncapped devices.
+ For use on non-EU devices with full 120 dBA audio outputs.
+ 
+ @return BOOL   true if mode changed successfully, false is volume not max
+ */
+
+- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap; {
+    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+        [_nfcService setOutputAmplitudeNormal];
+        [self sendWakeAndConfigMessageToHost];
+        return true;
+    }
+    return false;
 }
 
 - (void)dealloc {
