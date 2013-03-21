@@ -54,25 +54,25 @@ static const UInt8 kTNFUnchanged       = 0x06;
 static const UInt8 kTNFReserved        = 0x07;
 
 // RTD Text type. For use with TNF_WELL_KNOWN. // "T"
-static NSData *kRTDText = nil;
+static __unused NSData *kRTDText = nil;
 
 // RTD URI type. For use with TNF_WELL_KNOWN.  // "U"
-static NSData *kRTDURI = nil;
+static __unused NSData *kRTDURI = nil;
 
 // RTD Smart Poster type. For use with TNF_WELL_KNOWN. // "Sp"
-static NSData *kRTDSmartPost = nil; 
+static __unused NSData *kRTDSmartPost = nil; 
 
 // RTD Alternative Carrier type. For use with TNF_WELL_KNOWN. // "ac"
-static NSData *kRTDAlternativeCarrier = nil; 
+static __unused NSData *kRTDAlternativeCarrier = nil; 
 
 // RTD Handover Carrier type. For use with TNF_WELL_KNOWN. // "Hc"
-static NSData *kRTDHandoverCarrier = nil;
+static __unused NSData *kRTDHandoverCarrier = nil;
 
 // RTD Handover Request type. For use with TNF_WELL_KNOWN. // "Hr"
-static NSData *kRTDHandoverRequest = nil;
+static __unused NSData *kRTDHandoverRequest = nil;
 
 // RTD Handover Select type. For use with TNF_WELL_KNOWN. // "Hs"
-static NSData *kRTDHandoverSelect = nil;
+static __unused NSData *kRTDHandoverSelect = nil;
 
 // NDEF flag mask: Message Begins
 static const UInt8 kFlagMB = 0x80;
@@ -98,7 +98,7 @@ static const long kMaxPayloadSize = 10 * (1 << 20);
  This is a mapping of "URI Identifier Codes" to URI string prefixes,
  per section 3.2.2 of the NFC Forum URI Record Type Definition document.
  */
-static NSArray *kUriPrefixMap = nil;
+static __unused NSArray *kUriPrefixMap = nil;
 
 // Represents a logical (unchunked) NDEF (NFC Data Exchange Format) record.
 // An NDEF record always contains:
