@@ -22,7 +22,8 @@
 
 - (id)init;
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
-- (void)sendMessageToHost:(UInt8[])message;
+- (void)sendMessageToHost:(FJMessage *)theMessage;
+- (void)sendRawMessageToHost:(UInt8[])theMessage;
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 - (void)writeTagWithPreviousNdefMessage;
 

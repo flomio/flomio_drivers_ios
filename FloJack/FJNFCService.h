@@ -32,6 +32,7 @@
 - (BOOL)checkVolumeLevel;
 - (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
+- (void)sendMessageDataToHost:(NSData *)messageData;
 - (void)sendMessageToHost:(UInt8[])theMessage;
 - (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength;
 - (void)setOutputAmplitudeHigh;

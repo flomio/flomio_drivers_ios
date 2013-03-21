@@ -875,6 +875,33 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     while ([self send:theByte]);
 }
 
+
+/**
+ Send a message to the FloJack device. Message definitions can be found in device spec.
+ 
+ @param messageData        NSData representing the FJ Message
+ @return void
+ */
+- (void)sendMessageDataToHost:(NSData *)messageData {   
+    UInt8 *theMessage = (UInt8 *)messageData.bytes;
+    int messageLength = messageData.length;
+    
+    [_messageTXLock lock];
+    _currentlySendingMessage = TRUE;
+    
+    LogInfo(@"sendMessageToHost begin");
+    for(int i=0; i<messageLength; i++) {
+        LogInfo(@"sendMessageToHost item: 0x%x", theMessage[i]);
+        [self sendByteToHost:theMessage[i]];
+    }
+    LogInfo(@"sendMessageToHost end");
+    
+    // Give the last byte time to transmit
+    [NSThread sleepForTimeInterval:.025];
+    _currentlySendingMessage = FALSE;
+    [_messageTXLock unlock];    
+}
+
 /**
  sendMessageToHost()
  Send a message to the FloJack device. Message definitions can be found in device spec.
@@ -896,24 +923,24 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return void
  */
-- (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength {
-    [_messageTXLock lock];
-    
-    _currentlySendingMessage = TRUE;
-    
-    LogInfo(@"sendMessageToHost begin");
-    for(int i=0; i<messageLength; i++) {
-        LogInfo(@"sendMessageToHost item: 0x%x", theMessage[i]);
-        [self sendByteToHost:theMessage[i]];
-    }
-    LogInfo(@"sendMessageToHost end");
-    
-    // Give the last byte time to transmit
-    [NSThread sleepForTimeInterval:.025];
-    _currentlySendingMessage = FALSE;
-    
-    [_messageTXLock unlock];
-}
+//- (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength {
+//    [_messageTXLock lock];
+//    
+//    _currentlySendingMessage = TRUE;
+//    
+//    LogInfo(@"sendMessageToHost begin");
+//    for(int i=0; i<messageLength; i++) {
+//        LogInfo(@"sendMessageToHost item: 0x%x", theMessage[i]);
+//        [self sendByteToHost:theMessage[i]];
+//    }
+//    LogInfo(@"sendMessageToHost end");
+//    
+//    // Give the last byte time to transmit
+//    [NSThread sleepForTimeInterval:.025];
+//    _currentlySendingMessage = FALSE;
+//    
+//    [_messageTXLock unlock];
+//}
 
 /**
  sendDelegateIsFloJackPluggedIn()
