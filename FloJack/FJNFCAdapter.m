@@ -539,21 +539,26 @@
     }    
 }
 
+/**
+ Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delgate. 
+ 
+ @param nfcService          The NFC Service Object experiencing an error.
+ @param isFloJackConnected  Bool indicating FloJack connection status
+ @return void
+ */
 - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected; {
+    NSInteger statusCode;
     if (isFloJackConnected) {
-        // Send interbyte delay config message based on iOS device type
-        UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
-        FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
-                                                                   andSubOpcode:FLOMIO_BYTE_DELAY
-                                                                        andData:[NSData dataWithBytes:&interByteDelay length:1]];
-        [self sendMessageDataToHost:configMessage.bytes];
+        statusCode = FLOMIO_STATUS_FLOJACK_CONNECTED;
+        [self sendWakeAndConfigMessageToHost];
+    }
+    else {
+        statusCode = FLOMIO_STATUS_FLOJACK_DISCONNECTED;
     }
     
-    if (isFloJackConnected && [_delegate respondsToSelector:@selector(nfcAdapterDidDetectFloJackConnected:)]) {
-        [_delegate nfcAdapterDidDetectFloJackConnected:self];
-    } else if ([_delegate respondsToSelector:@selector(nfcAdapterDidDetectFloJackDisconnected:)]) {
-        [_delegate nfcAdapterDidDetectFloJackDisconnected:self];
-    }    
+    if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
+        [_delegate nfcAdapter:self didHaveStatus:statusCode];
+    }
 }
 
 @end

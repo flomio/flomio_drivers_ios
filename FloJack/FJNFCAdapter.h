@@ -73,6 +73,4 @@
  @optional
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber;
-  - (void)nfcAdapterDidDetectFloJackConnected:(FJNFCAdapter *)nfcAdapter;
-  - (void)nfcAdapterDidDetectFloJackDisconnected:(FJNFCAdapter *)nfcAdapter;
 @end
