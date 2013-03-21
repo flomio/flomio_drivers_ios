@@ -107,7 +107,7 @@ void floJackAudioSessionInterruptionListener(void   *inClientData,
 	if (inInterruption == kAudioSessionEndInterruption) {
 		// make sure we are again the active session
 		AudioSessionSetActive(true);
-		OSStatus status = AudioOutputUnitStart(nfcService->_remoteIOUnit);
+		//OSStatus status = AudioOutputUnitStart(nfcService->_remoteIOUnit);
 	}
 	
 	if (inInterruption == kAudioSessionBeginInterruption) {
@@ -132,7 +132,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
                                          const void *            inData)
 {
     
-    FJNFCService *self = (FJNFCService *)CFBridgingRelease(inClientData);
+    FJNFCService *self = (__bridge FJNFCService *)inClientData;
     
     
     if (inID == kAudioSessionProperty_AudioRouteChange) {
@@ -146,7 +146,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 			XThrowIfError(AudioOutputUnitStart(self->_remoteIOUnit), "couldn't start unit");
             
             // send interbyte delay config message if FloJack reconnected
-            NSString *currentRoute = [(NSDictionary *)CFBridgingRelease(inData) objectForKey:@"OutputDeviceDidChange_NewRoute"];
+            NSString *currentRoute = [(__bridge NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
             NSLog(@"Current Route: %@", currentRoute);
             if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
                 
@@ -188,7 +188,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                         UInt32 						inNumberFrames, 
                                         AudioBufferList 			*ioData)
 {
-    FJNFCService *self = (FJNFCService *)CFBridgingRelease(inRefCon);
+    FJNFCService *self = (__bridge FJNFCService *)inRefCon;
 	OSStatus ossError = AudioUnitRender(self->_remoteIOUnit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
 	
     // Bail out on critical audio errors
@@ -314,7 +314,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                             
                             // Send bye to message handler
                             //NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
-                            [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];
+                            @autoreleasepool {
+                                [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];
+                            }
                             //[autoreleasepool release];
                             
 							decoderState = STARTBIT;
@@ -463,78 +465,82 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 #pragma mark - NFC Service (Objective C)
 
 - (id) init {
-    // Setup Grand Central Dispatch queue (thread pool)
-    _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
-    
-    // Register an input callback function with an audio unit.
-    _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
-	_audioUnitRenderCallback.inputProcRefCon = (__bridge void*) self;
-	
-    // Initialize receive handler buffer
-    _messageReceiveBuffer = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
-    _messageLength = MAX_MESSAGE_LENGTH;
-    _messageCRC = 0;
-    
-    // Init state flags
-    _currentlySendingMessage = FALSE;
-    _muteEnabled = FALSE;    
-    _byteQueuedForTX = FALSE;
-    
-    _messageTXLock = [[NSLock alloc] init];
-    
-    // Assume non EU device
-    [self setOutputAmplitudeHigh];
-    
-	try {
-        // Logic high/low varies based on host device        
-        _logicOne = [FJNFCService getDeviceLogicOneValue];
-        _logicZero = [FJNFCService getDeviceLogicZeroValue];
+    self = [super init];
+    if (self) {
+        // Setup Grand Central Dispatch queue (thread pool)
+        _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
+        dispatch_retain(_backgroundQueue);
         
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, (__bridge void*) self), "couldn't initialize audio session");
-
-		
-		// Initialize and configure the audio session
-		XThrowIfError(AudioSessionSetActive(true), "couldn't set audio session active\n");
-		
-		UInt32 audioCategory = kAudioSessionCategory_PlayAndRecord;
-		XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(audioCategory), &audioCategory), "couldn't set audio category");
-		XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, floJackAudioSessionPropertyListener, (__bridge void*) self), "couldn't set property listener");
-		
-		Float32 preferredBufferSize = .005;
-		XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize), "couldn't set i/o buffer duration");
-		
-		UInt32 size = sizeof(_hwSampleRate);
-		XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &_hwSampleRate), "couldn't get hw sample rate");
+        // Register an input callback function with an audio unit.
+        _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
+        _audioUnitRenderCallback.inputProcRefCon = (__bridge_retained void*) self;
+        
+        // Initialize receive handler buffer
+        _messageReceiveBuffer = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
+        _messageLength = MAX_MESSAGE_LENGTH;
+        _messageCRC = 0;
+        
+        // Init state flags
+        _currentlySendingMessage = FALSE;
+        _muteEnabled = FALSE;    
+        _byteQueuedForTX = FALSE;
+        
+        _messageTXLock = [[NSLock alloc] init];
+        
+        // Assume non EU device
+        [self setOutputAmplitudeHigh];
+        
+        try {
+            // Logic high/low varies based on host device        
+            _logicOne = [FJNFCService getDeviceLogicOneValue];
+            _logicZero = [FJNFCService getDeviceLogicZeroValue];
             
-        XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_CurrentHardwareOutputVolume, floJackAudioSessionPropertyListener, (__bridge void*) self), "couldn't set property listener");
-            
-		XThrowIfError(SetupRemoteIO(_remoteIOUnit, _audioUnitRenderCallback, _remoteIOOutputFormat), "couldn't setup remote i/o unit");
-		
-		_remoteIODCFilter = new DCRejectionFilter[_remoteIOOutputFormat.NumberChannels()];
-		
-		size = sizeof(_maxFPS);
-		XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &_maxFPS, &size), "couldn't get the remote I/O unit's max frames per slice");
-		
-		XThrowIfError(AudioOutputUnitStart(_remoteIOUnit), "couldn't start remote i/o unit");
-		
-		size = sizeof(_remoteIOOutputFormat);
-		XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &_remoteIOOutputFormat, &size), "couldn't get the remote I/O unit's output client format");
-        });
-	}
-	catch (CAXException &e) {
-		char buf[256];
-		fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
-		if (_remoteIODCFilter) delete[] _remoteIODCFilter;
-	}
-	catch (...) {
-		fprintf(stderr, "An unknown error occurred\n");
-		if (_remoteIODCFilter) delete[] _remoteIODCFilter;
-	}
-    
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                XThrowIfError(AudioSessionInitialize(NULL, NULL, floJackAudioSessionInterruptionListener, (__bridge_retained void*) self), "couldn't initialize audio session");
 
-	return self;
+            
+            // Initialize and configure the audio session
+            XThrowIfError(AudioSessionSetActive(true), "couldn't set audio session active\n");
+            
+            UInt32 audioCategory = kAudioSessionCategory_PlayAndRecord;
+            XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(audioCategory), &audioCategory), "couldn't set audio category");
+            XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, floJackAudioSessionPropertyListener, (__bridge_retained void*) self), "couldn't set property listener");
+            
+            Float32 preferredBufferSize = .005;
+            XThrowIfError(AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize), "couldn't set i/o buffer duration");
+            
+            UInt32 size = sizeof(_hwSampleRate);
+            XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &_hwSampleRate), "couldn't get hw sample rate");
+                
+            XThrowIfError(AudioSessionAddPropertyListener(kAudioSessionProperty_CurrentHardwareOutputVolume, floJackAudioSessionPropertyListener, (__bridge_retained void*) self), "couldn't set property listener");
+                
+            XThrowIfError(SetupRemoteIO(_remoteIOUnit, _audioUnitRenderCallback, _remoteIOOutputFormat), "couldn't setup remote i/o unit");
+            
+            _remoteIODCFilter = new DCRejectionFilter[_remoteIOOutputFormat.NumberChannels()];
+            
+            size = sizeof(_maxFPS);
+            XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &_maxFPS, &size), "couldn't get the remote I/O unit's max frames per slice");
+            
+            XThrowIfError(AudioOutputUnitStart(_remoteIOUnit), "couldn't start remote i/o unit");
+            
+            size = sizeof(_remoteIOOutputFormat);
+            XThrowIfError(AudioUnitGetProperty(_remoteIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &_remoteIOOutputFormat, &size), "couldn't get the remote I/O unit's output client format");
+            });
+        }
+        catch (CAXException &e) {
+            char buf[256];
+            fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
+            if (_remoteIODCFilter) delete[] _remoteIODCFilter;
+        }
+        catch (...) {
+            fprintf(stderr, "An unknown error occurred\n");
+            if (_remoteIODCFilter) delete[] _remoteIODCFilter;
+        }
+        
+
+    }
+    return self;
 }
 
 /**
@@ -813,7 +819,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                                               &reouteChange);
     
     if (!error && (reouteChange != NULL)) {
-        NSDictionary *audioRouteChangeDict = (NSDictionary *)CFBridgingRelease(reouteChange);
+        NSDictionary *audioRouteChangeDict = (__bridge NSDictionary *)reouteChange;
         NSString *currentRoute = [audioRouteChangeDict objectForKey:@"OutputDeviceDidChange_NewRoute"];
         return [self isHeadsetPluggedInWithRoute:currentRoute];
     }    
@@ -930,7 +936,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-	//[super dealloc];
 }
 
 @end
