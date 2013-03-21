@@ -311,25 +311,22 @@ typedef enum
 
 @interface FJMessage : NSObject
 
-@property (nonatomic, assign) NSData    *bytes;
-@property (nonatomic, assign) UInt8     opcode;
-@property (nonatomic, assign) UInt8     length;
-@property (nonatomic, assign) UInt8     subOpcode;
-@property (nonatomic, assign) UInt8     subOpcodeMSN;
-@property (nonatomic, assign) UInt8     subOpcodeLSN;
-@property (nonatomic, assign) BOOL      enable;
-@property (nonatomic, assign) NSData    *offset;
-@property (nonatomic, assign) NSData    *data;
-@property (nonatomic, assign) NSData    *crc;
-
-@property (nonatomic, assign) NSString *name;
-
+@property (nonatomic, strong)   NSData    *bytes;
+@property (nonatomic)           UInt8     opcode;
+@property (nonatomic)           UInt8     length;
+@property (nonatomic)           UInt8     subOpcode;
+@property (nonatomic)           UInt8     subOpcodeMSN;
+@property (nonatomic)           UInt8     subOpcodeLSN;
+@property (nonatomic)           BOOL      enable;
+@property (nonatomic, strong)   NSData    *offset;
+@property (nonatomic, strong)   NSData    *data;
+@property (nonatomic)           UInt8     *crc;
+@property (nonatomic, strong)   NSString  *name;
 
 - (id)init; 
 - (id)initWithBytes:(UInt8 *)theBytes;
 - (id)initWithData:(NSData *)theData;
 - (id)initWithMessageParameters:(UInt8)opcode andSubOpcode:(UInt8)subOpcode andData:(NSData *)data;
-
 
 + (UInt8)getMessageSubOpcode:(NSData *)theMessage;
 

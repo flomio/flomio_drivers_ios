@@ -9,9 +9,7 @@
 #import "FJMessage.h"
 #import "NSData+FJStringDisplay.h"
 
-@implementation FJMessage {
-    
-}
+@implementation FJMessage 
 
 @synthesize bytes           = _bytes;
 @synthesize opcode          = _opcode;
