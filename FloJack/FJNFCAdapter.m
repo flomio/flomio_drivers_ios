@@ -31,11 +31,6 @@
     return self;    
 }
 
-- (void) setDelegate:(id <FJNFCAdapterDelegate>) delegate {
-	_delegate = delegate;
-}
-
-
 -(void) parseMessage:(NSData *)message;
 {
 
