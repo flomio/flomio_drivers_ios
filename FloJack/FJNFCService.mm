@@ -162,7 +162,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 		}
 	}
     else if (inID == kAudioSessionProperty_CurrentHardwareOutputVolume) {
-        [self checkVolumeLevel];
+        [self checkIfVolumeLevelMaxAndNotifyDelegate];
     }
 }
 
@@ -488,7 +488,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         _messageTXLock = [[NSLock alloc] init];
         
         // Assume non EU device
-        [self setOutputAmplitudeHigh];
+        [self setOutputAmplitudeNormal];
         
         try {
             // Logic high/low varies based on host device        
@@ -757,7 +757,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return BOOL   volume level acceptable or not
  */
-- (BOOL)checkVolumeLevel; {
+- (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate; {
     Float32 volume;
     UInt32 dataSize = sizeof(Float32);
     AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,

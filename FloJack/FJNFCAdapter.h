@@ -24,6 +24,9 @@
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
 - (void)sendMessageToHost:(FJMessage *)theMessage;
 - (void)sendRawMessageToHost:(UInt8[])theMessage;
+- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap;
+- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap;
+- (void)sendWakeAndConfigMessageToHost;
 - (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 - (void)writeTagWithPreviousNdefMessage;
 
@@ -71,6 +74,4 @@
  @optional
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber;
-  - (void)nfcAdapterDidDetectFloJackConnected:(FJNFCAdapter *)nfcAdapter;
-  - (void)nfcAdapterDidDetectFloJackDisconnected:(FJNFCAdapter *)nfcAdapter;
 @end

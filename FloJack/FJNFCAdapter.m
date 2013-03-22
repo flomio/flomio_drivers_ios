@@ -23,7 +23,7 @@
     if (self) {
         _nfcService = [[FJNFCService alloc] init];
         [_nfcService setDelegate:self];
-        [_nfcService checkVolumeLevel];
+        [_nfcService checkIfVolumeLevelMaxAndNotifyDelegate];
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
         
@@ -456,6 +456,20 @@
     [self sendMessageDataToHost:[[NSData alloc] initWithBytes:theMessage length:theMessage[FLOJACK_MESSAGE_LENGTH_POSITION]]];
 }
 
+/*
+ Send FloJack Wake + Config command to come out of deep sleep and begin polling.
+ Also sets the inter-byte delay config value based on the device type.
+ 
+ @return void
+ */
+- (void)sendWakeAndConfigMessageToHost {
+    UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
+    FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
+                                                               andSubOpcode:FLOMIO_BYTE_DELAY
+                                                                    andData:[NSData dataWithBytes:&interByteDelay length:1]];
+    [self sendMessageDataToHost:configMessage.bytes];
+}
+
 /**
  Keeps track of the last message sent to the device. Useful for keeping state until ACK / NACK received.
  
@@ -464,6 +478,41 @@
  */
 - (void)setLastMessageDataSent:(NSData *)message {
     [_lastMessageSent setData:message];
+}
+
+/*
+ Used to increase the output volume level for audio capped evices and resend config message. 
+ This is necessary for EU devices with audio caps at ~80dBA.
+ The method first checks to see if the volume level is max before proceeding.
+ 
+ WARNING:   IMPROPER USE CAN DAMAGE THE FLOJACK DEVICE.
+ DO NOT USE ON NON AUDIO CAPPED DEVICES.
+ 
+ @return BOOL   true if mode changed successfully, false is volume not max
+ */
+- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap; {
+    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+        [_nfcService setOutputAmplitudeHigh];
+        [self sendWakeAndConfigMessageToHost];
+        return true;
+    }
+    return false;
+}
+
+/*
+ Used to initialize output amplitude to normal levels for uncapped devices.
+ For use on non-EU devices with full 120 dBA audio outputs.
+ 
+ @return BOOL   true if mode changed successfully, false is volume not max
+ */
+
+- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap; {
+    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+        [_nfcService setOutputAmplitudeNormal];
+        [self sendWakeAndConfigMessageToHost];
+        return true;
+    }
+    return false;
 }
 
 #pragma mark - NFC Service Delegate
@@ -489,21 +538,26 @@
     }    
 }
 
+/**
+ Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delgate. 
+ 
+ @param nfcService          The NFC Service Object experiencing an error.
+ @param isFloJackConnected  Bool indicating FloJack connection status
+ @return void
+ */
 - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected; {
+    NSInteger statusCode;
     if (isFloJackConnected) {
-        // Send interbyte delay config message based on iOS device type
-        UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
-        FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
-                                                                   andSubOpcode:FLOMIO_BYTE_DELAY
-                                                                        andData:[NSData dataWithBytes:&interByteDelay length:1]];
-        [self sendMessageDataToHost:[configMessage.bytes copy]];
+        statusCode = FLOMIO_STATUS_FLOJACK_CONNECTED;
+        [self sendWakeAndConfigMessageToHost];
+    }
+    else {
+        statusCode = FLOMIO_STATUS_FLOJACK_DISCONNECTED;
     }
     
-    if (isFloJackConnected && [_delegate respondsToSelector:@selector(nfcAdapterDidDetectFloJackConnected:)]) {
-        [_delegate nfcAdapterDidDetectFloJackConnected:self];
-    } else if ([_delegate respondsToSelector:@selector(nfcAdapterDidDetectFloJackDisconnected:)]) {
-        [_delegate nfcAdapterDidDetectFloJackDisconnected:self];
-    }    
+    if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
+        [_delegate nfcAdapter:self didHaveStatus:statusCode];
+    }
 }
 
 @end
