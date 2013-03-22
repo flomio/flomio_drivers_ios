@@ -39,7 +39,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     _nfcAdapter = [[FJNFCAdapter alloc] init];
-//    [_nfcAdapter setDelegate:self];
+    [_nfcAdapter setDelegate:self];
     
     _statusPingPongCount = 0;
     _statusNACKCount = 0;
