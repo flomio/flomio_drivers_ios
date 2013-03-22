@@ -19,20 +19,20 @@
 @interface FJNFCAdapter : NSObject<FJNFCServiceDelegate>
 
 @property (nonatomic, assign) id <FJNFCAdapterDelegate>	 delegate;
+@property (nonatomic, assign) BOOL                       deviceHasVolumeCap;
 
 - (id)init;
-- (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
-- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap;
-- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap;
-- (void)sendWakeAndConfigMessageToHost;
+- (void)initializeFloJackDevice;
+- (void)setModeReadTagUID;
+- (void)setModeReadTagData;
+- (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
+- (void)setModeWriteTagWithPreviousNdefMessage;
 - (void)sendMessageToHost:(UInt8[])message;
-- (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
-- (void)writeTagWithPreviousNdefMessage;
 
-// temporarily used for Type2 Write testing
+// TODO: remove these, we don't need them any longer
 - (void)operationModeWriteDataTestPrevious;
-
-// how many of these do we want to expose?
+- (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
+// TODO: remove some or all of these
 - (void)disable14443AProtocol;
 - (void)disable14443BProtocol;
 - (void)disable15693Protocol;

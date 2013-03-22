@@ -17,6 +17,7 @@
 }
 
 @synthesize delegate = _delegate;
+@synthesize deviceHasVolumeCap = _deviceHasVolumeCap;
 
 - (id) init {
     self = [super init];
@@ -26,7 +27,7 @@
         [_nfcService checkIfVolumeLevelMaxAndNotifyDelegate];
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
-        
+        _deviceHasVolumeCap = false;
     }      
     return self;    
 }
@@ -387,36 +388,6 @@
 }
 
 /**
- Transmit the current NDEF Message to the FloJack and write it to next tag detected.
- 
- @param FJNDEFMessage   NDEF Message for writing
- 
- @return void
- */
-- (void)writeTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage {
-    
-    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
-    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_CURRENT
-                                                                     andData:ndefMessageData];
-    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
-    [self sendMessageDataToHost:flojackMessage.bytes];
-}
-
-/**
- Enter the FloJack into write mode and rewrite the last NDEFMessage from cache.
- 
- @return void
- */
-- (void)writeTagWithPreviousNdefMessage; {
-    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_PREVIOUS
-                                                                     andData:nil];
-    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
-    [self sendMessageDataToHost:flojackMessage.bytes];
-}
-
-/**
  resendLastMessageSent()
  Resend the last transmitted message, typically used when NACK is returned.
  
@@ -432,6 +403,61 @@
     // pause to let line settle
     [NSThread sleepForTimeInterval:.100];
     [_nfcService sendMessageToHost:message withLength:messageLength];
+}
+
+/**
+ TODO
+ 
+ @return void
+ */
+- (void)setModeReadTagUID {
+    UInt8 redundantReads = 1;
+    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                               andSubOpcode:FLOMIO_OP_MODE_READ_UID
+                                                                    andData:[NSData dataWithBytes:&redundantReads length:1]];
+    [self sendMessageDataToHost:setModeMessage.bytes];
+}
+
+/**
+ TODO
+ 
+ @return void
+ */
+- (void)setModeReadTagData {
+    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_READ_ALL_MEMORY
+                                                                     andData:nil];
+    [self sendMessageDataToHost:setModeMessage.bytes];
+}
+
+/**
+ Transmit the current NDEF Message to the FloJack and write it to next tag detected.
+ 
+ @param FJNDEFMessage   NDEF Message for writing
+ 
+ @return void
+ */
+- (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage {
+    
+    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_CURRENT
+                                                                     andData:ndefMessageData];
+    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/**
+ Enter the FloJack into write mode and rewrite the last NDEFMessage from cache.
+ 
+ @return void
+ */
+- (void)setModeWriteTagWithPreviousNdefMessage; {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_PREVIOUS
+                                                                     andData:nil];
+    NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
+    [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
 /**
@@ -469,7 +495,7 @@
  
  @return void   
  */
-- (void)sendWakeAndConfigMessageToHost {
+- (void)initializeFloJackDevice {
     UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
     FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
                                                                andSubOpcode:FLOMIO_BYTE_DELAY
@@ -478,38 +504,23 @@
 }
 
 /*
- Used to increase the output volume level for audio capped evices and resend config message. 
+ Used to increase the output volume level for audio capped evices and resend config message.
  This is necessary for EU devices with audio caps at ~80dBA.
  The method first checks to see if the volume level is max before proceeding.
  
  WARNING:   IMPROPER USE CAN DAMAGE THE FLOJACK DEVICE.
  DO NOT USE ON NON AUDIO CAPPED DEVICES.
  
- @return BOOL   true if mode changed successfully, false is volume not max
+ @return void   
  */
-- (BOOL)setOutputAmplitudeForDeviceWithVolumeCap; {
-    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+- (void)setDeviceHasVolumeCap:(BOOL)deviceHasVolumeCap {
+    _deviceHasVolumeCap = deviceHasVolumeCap;
+    if (deviceHasVolumeCap) {
         [_nfcService setOutputAmplitudeHigh];
-        [self sendWakeAndConfigMessageToHost];
-        return true;
     }
-    return false;
-}
-
-/*
- Used to initialize output amplitude to normal levels for uncapped devices.
- For use on non-EU devices with full 120 dBA audio outputs.
- 
- @return BOOL   true if mode changed successfully, false is volume not max
- */
-
-- (BOOL)setOutputAmplitudeForDeviceWithoutVolumeCap; {
-    if ([_nfcService checkIfVolumeLevelMaxAndNotifyDelegate]) {
+    else {
         [_nfcService setOutputAmplitudeNormal];
-        [self sendWakeAndConfigMessageToHost];
-        return true;
     }
-    return false;
 }
 
 - (void)dealloc {
@@ -550,7 +561,7 @@
     NSInteger statusCode;
     if (isFloJackConnected) {
         statusCode = FLOMIO_STATUS_FLOJACK_CONNECTED;
-        [self sendWakeAndConfigMessageToHost];
+        [self initializeFloJackDevice];
     }
     else {
         statusCode = FLOMIO_STATUS_FLOJACK_DISCONNECTED;

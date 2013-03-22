@@ -183,10 +183,10 @@
             
         // OPERATION MODE
         case 24:
-            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_uid_only];
+            [_nfcAdapter setModeReadTagUID];
             break;
         case 25:
-            [_nfcAdapter sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
+            [_nfcAdapter setModeReadTagData];
             break;
         case 26:
             [_nfcAdapter operationModeWriteDataTestPrevious];
@@ -194,23 +194,23 @@
         case 27: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.flomio.com"];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter writeTagWithNdefMessage:testMessage];
+            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
         case 28: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.ttag.be/m/04FAC9193E2580"];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter writeTagWithNdefMessage:testMessage];
+            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
         case 29: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter writeTagWithNdefMessage:testMessage];
+            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
         case 30: {
-            [_nfcAdapter nfcServiceDidReceiveFloJack:nil connectedStatus:true];            
+            [_nfcAdapter initializeFloJackDevice];            
             break;
         }
         case 31: {
@@ -228,7 +228,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        [_nfcAdapter setOutputAmplitudeForDeviceWithVolumeCap];
+        _nfcAdapter.deviceHasVolumeCap = true;
     }    
 }
 
