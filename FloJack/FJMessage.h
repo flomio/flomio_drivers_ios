@@ -269,7 +269,7 @@ typedef enum
     FLOMIO_PONG
 } flomio_ping_pong_t;
 
-//Operation Mode Sub-Opcodes
+//FLOMIO_OPERATION_MODE_OP Sub-Opcodes 
 typedef enum
 {
     FLOMIO_OP_MODE_READ_UID = 0,        // Send host UID only
