@@ -902,45 +902,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     [_messageTXLock unlock];    
 }
 
-/**
- sendMessageToHost()
- Send a message to the FloJack device. Message definitions can be found in device spec.
- 
- @param message        Byte array representing a FloJack message {opcode, length, ..., CRC}
- 
- @return void
- */
-- (void)sendMessageToHost:(UInt8[])theMessage {
-    [self sendMessageToHost:theMessage withLength:theMessage[FLOJACK_MESSAGE_LENGTH_POSITION]];
-}
-
-/**
- sendMessageToHost()
- Send a message to the FloJack device. Message definitions can be found in device spec.
- 
- @param message        Byte array representing a FloJack message {opcode, length, ..., CRC}
- @param messageSize    Length of the message
- 
- @return void
- */
-//- (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength {
-//    [_messageTXLock lock];
-//    
-//    _currentlySendingMessage = TRUE;
-//    
-//    LogInfo(@"sendMessageToHost begin");
-//    for(int i=0; i<messageLength; i++) {
-//        LogInfo(@"sendMessageToHost item: 0x%x", theMessage[i]);
-//        [self sendByteToHost:theMessage[i]];
-//    }
-//    LogInfo(@"sendMessageToHost end");
-//    
-//    // Give the last byte time to transmit
-//    [NSThread sleepForTimeInterval:.025];
-//    _currentlySendingMessage = FALSE;
-//    
-//    [_messageTXLock unlock];
-//}
 
 /**
  sendDelegateIsFloJackPluggedIn()

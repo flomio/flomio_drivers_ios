@@ -130,7 +130,7 @@
     char flag = flags_|_tnf;
     
     /* Determine if it is a short record */
-    BOOL sr = false;
+    BOOL __unused sr = false;
     if(_payload.length < 0xFF) {
         flag |= kFlagSR;
         sr = true;
@@ -175,7 +175,7 @@
     }
     
     if (_tnf == kTNFWellKnown) {
-        int type;
+        int __unused type;
         char typeBuffer[1];
         [_type getBytes:typeBuffer range:NSMakeRange(0, 1)];
         type = typeBuffer[0] & 0xFF;

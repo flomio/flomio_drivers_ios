@@ -28,6 +28,5 @@
 @property (strong, nonatomic) IBOutlet UITextView *volumeLowErrorTextView;
 
 - (IBAction)buttonWasPressed:(id)sender;
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 
 @end
