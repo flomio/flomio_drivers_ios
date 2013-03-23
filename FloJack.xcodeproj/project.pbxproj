@@ -76,6 +76,8 @@
 		15C4B46915C85DF8009DE0E5 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46115C85DF8009DE0E5 /* CADebugPrintf.cpp */; };
 		15C4B46A15C85DF8009DE0E5 /* CAStreamBasicDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46415C85DF8009DE0E5 /* CAStreamBasicDescription.mm */; };
 		15C4B46B15C85DF8009DE0E5 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46615C85DF8009DE0E5 /* CAXException.cpp */; };
+		15DBE7BD16FD62E70001CB14 /* FJNDEFURITests.h in Sources */ = {isa = PBXBuildFile; fileRef = 15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */; };
+		15DBE7BE16FD62E70001CB14 /* FJNDEFURITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */; };
 		15E188EB15DAC9E000AC0F72 /* FJNFCService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */; };
 		15E188ED15DAC9EF00AC0F72 /* FJNFCService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15E188E915DAC9E000AC0F72 /* FJNFCService.h */; };
 		15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFD16288072008FD352 /* FJNDEFMessage.m */; };
@@ -186,6 +188,8 @@
 		15C4B46515C85DF8009DE0E5 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
 		15C4B46615C85DF8009DE0E5 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
 		15C4B46715C85DF8009DE0E5 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFURITests.m; sourceTree = "<group>"; };
+		15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFURITests.h; sourceTree = "<group>"; };
 		15E188E915DAC9E000AC0F72 /* FJNFCService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCService.h; sourceTree = "<group>"; };
 		15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJNFCService.mm; sourceTree = "<group>"; };
 		15F2EFFC16288072008FD352 /* FJNDEFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFMessage.h; sourceTree = "<group>"; };
@@ -372,10 +376,12 @@
 		15C4B2E615C832E0009DE0E5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */,
+				15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */,
+				151E36EB16E2863C0005B739 /* FJNDEFTests.m */,
+				151E36EA16E2863C0005B739 /* FJNDEFTests.h */,
 				15379C8D16E574A2006195F0 /* FJMessageTests.h */,
 				15379C8E16E574A2006195F0 /* FJMessageTests.m */,
-				151E36EA16E2863C0005B739 /* FJNDEFTests.h */,
-				151E36EB16E2863C0005B739 /* FJNDEFTests.m */,
 				15C4B2EC15C832E0009DE0E5 /* FloJackTests.h */,
 				15C4B2ED15C832E0009DE0E5 /* FloJackTests.m */,
 				15C4B2E715C832E0009DE0E5 /* Supporting Files */,
@@ -593,6 +599,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15DBE7BD16FD62E70001CB14 /* FJNDEFURITests.h in Sources */,
+				15DBE7BE16FD62E70001CB14 /* FJNDEFURITests.m in Sources */,
 				15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */,
 				15806A2516E40FFC00D98748 /* FJMessage.m in Sources */,
 				15806A1E16E40FA100D98748 /* FJMessage.h in Sources */,
