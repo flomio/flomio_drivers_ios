@@ -25,15 +25,14 @@
 
 @interface FJNFCService : NSObject 
 
-@property (nonatomic, assign) id <FJNFCServiceDelegate>	delegate;
-@property (readonly, nonatomic, assign) UInt32	outputAmplitude;
+@property id <FJNFCServiceDelegate>	delegate;
+@property (readonly) UInt32	outputAmplitude;
 
 - (id)init;
 - (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
 - (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
-- (void)sendMessageToHost:(UInt8[])theMessage;
-- (void)sendMessageToHost:(UInt8[])theMessage withLength:(int)messageLength;
+- (void)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
 

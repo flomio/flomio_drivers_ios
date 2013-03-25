@@ -18,8 +18,8 @@
 
 @interface FJNFCAdapter : NSObject<FJNFCServiceDelegate>
 
-@property (nonatomic, assign) id <FJNFCAdapterDelegate>	 delegate;
-@property (nonatomic, assign) BOOL                       deviceHasVolumeCap;
+@property (nonatomic, strong) id <FJNFCAdapterDelegate>	 delegate;
+@property (nonatomic) BOOL                               deviceHasVolumeCap;
 
 - (id)init;
 - (void)initializeFloJackDevice;
@@ -27,7 +27,9 @@
 - (void)setModeReadTagData;
 - (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 - (void)setModeWriteTagWithPreviousNdefMessage;
-- (void)sendMessageToHost:(UInt8[])message;
+- (void)sendMessageDataToHost:(NSData *)data;
+- (void)sendMessageToHost:(FJMessage *)theMessage;
+- (void)sendRawMessageToHost:(UInt8[])theMessage;
 
 // TODO: remove these, we don't need them any longer
 - (void)operationModeWriteDataTestPrevious;

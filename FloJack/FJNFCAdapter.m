@@ -32,11 +32,6 @@
     return self;    
 }
 
-- (void) setDelegate:(id <FJNFCAdapterDelegate>) delegate {
-	_delegate = delegate;
-}
-
-
 -(void) parseMessage:(NSData *)message;
 {
 
@@ -151,7 +146,11 @@
                 
                 LogInfo(@"FLOMIO_PING_OP ");
                 LogInfo(@"(TX) FLOMIO_PONG_OP ");
-                [self sendMessageToHost:(UInt8*)pong_command];
+                // {0x0D, 0x04, 0x01, 0x08};
+                FJMessage *pongMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_PING_OP
+                                                                         andSubOpcode:FLOMIO_PONG
+                                                                              andData:nil];
+                [self sendMessageToHost:pongMessage];
                 break;
             }
             case FLOMIO_ACK_ENABLE_OP:
@@ -247,162 +246,140 @@
 
 // Turn off 14443A Protocol
 - (void)disable14443AProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_14443A_off_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_14443A_off_msg];
 }
 
 // Turn off 14443B Protocol
 - (void)disable14443BProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_14443B_off_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_14443B_off_msg];
 }
 
 // Turn off 15693 Protocol
 - (void)disable15693Protocol {
-    [self sendMessageToHost:(UInt8*)protocol_15693_off_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_15693_off_msg];
 }
 
 // Turn off Ack/Nack
 - (void)disableMessageAcks {
-    [self sendMessageToHost:(UInt8*)ack_disable_msg];
+    [self sendRawMessageToHost:(UInt8*)ack_disable_msg];
 }
 
 // Turn off Felica Protocol
 - (void)disableFelicaProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_felica_off_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_felica_off_msg];
 }
 
 // Turn off Standalone Mode
 - (void)disableStandaloneMode {
-    [self sendMessageToHost:(UInt8*)standalone_disable_msg];
+    [self sendRawMessageToHost:(UInt8*)standalone_disable_msg];
 }
 
 // Turn off Tag polling
 - (void)disableTagPolling {
-    [self sendMessageToHost:(UInt8*)polling_disable_msg];
+    [self sendRawMessageToHost:(UInt8*)polling_disable_msg];
 }
 
 // Dump and Clear out tag log
 - (void)dumpAndClearTagLog {
-    [self sendMessageToHost:(UInt8*)dump_log_all_msg];
+    [self sendRawMessageToHost:(UInt8*)dump_log_all_msg];
 }
 
 // Get NFC accessory hardware version
 - (void)getAllStatus {
-    [self sendMessageToHost:(UInt8*)status_msg];
+    [self sendRawMessageToHost:(UInt8*)status_msg];
 }
 
-/**
- Returns the current FloJack firmware version. Useful for diagnostic as well as checks being performed before firmware updates.
- 
- @return none
- */
+// Get FloJack Firmware version
 - (void)getFirmwareVersion {
-    [self sendMessageToHost:(UInt8*)status_sw_rev_msg];
+    [self sendRawMessageToHost:(UInt8*)status_sw_rev_msg];
 }
 
 // Get NFC accessory hardware version
 - (void)getHardwareVersion {
-    [self sendMessageToHost:(UInt8*)status_hw_rev_msg];
+    [self sendRawMessageToHost:(UInt8*)status_hw_rev_msg];
 }
 
 // Turn on 14443A Protocol
 - (void)enable14443AProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_14443A_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_14443A_msg];
 }
 
 // Turn on 14443B Protocol
 - (void)enable14443BProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_14443B_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_14443B_msg];
 }
 
 // Turn on 15693 Protocol
 - (void)enable15693Protocol {
-    [self sendMessageToHost:(UInt8*)protocol_15693_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_15693_msg];
 }
 
 // Turn on Felica Protocol
 - (void)enableFelicaProtocol {
-    [self sendMessageToHost:(UInt8*)protocol_felica_msg];
+    [self sendRawMessageToHost:(UInt8*)protocol_felica_msg];
 }
 
 // Turn on message Ack/Nack
 - (void)enableMessageAcks {
-    [self sendMessageToHost:(UInt8*)ack_enable_msg];
+    [self sendRawMessageToHost:(UInt8*)ack_enable_msg];
 }
 
 // Turn on Tag polling
 - (void)enableTagPolling {
-    [self sendMessageToHost:(UInt8*)polling_enable_msg];
+    [self sendRawMessageToHost:(UInt8*)polling_enable_msg];
 }
 
 // Turn on Standalone Mode
 - (void)enableStandaloneMode {
-    [self sendMessageToHost:(UInt8*)standalone_enable_msg];
+    [self sendRawMessageToHost:(UInt8*)standalone_enable_msg];
 }
 
 // Set polling rate to 1000ms
 - (void)setPollingRateTo1000ms {
-    [self sendMessageToHost:(UInt8*)polling_frequency_1000ms_msg];
+    [self sendRawMessageToHost:(UInt8*)polling_frequency_1000ms_msg];
 }
 
 // Set polling rate to 3000ms
 - (void)setPollingRateTo3000ms {
-    [self sendMessageToHost:(UInt8*)polling_frequency_3000ms_msg];
+    [self sendRawMessageToHost:(UInt8*)polling_frequency_3000ms_msg];
 }
 
 // Set Standalone Mode KAT to 1 minute
 - (void)setStandaloneModeKeepAliveTimeToOneMinute {
-    [self sendMessageToHost:(UInt8*)keep_alive_time_one_min_msg];
+    [self sendRawMessageToHost:(UInt8*)keep_alive_time_one_min_msg];
 }
 
 // Set standalone mode KAT to infinite
 - (void)setStandaloneModeKeepAliveTimeInfinite {
-    [self sendMessageToHost:(UInt8*)keep_alive_time_infinite_msg];
+    [self sendRawMessageToHost:(UInt8*)keep_alive_time_infinite_msg];
 }
 
 // Turn the LED on
 - (void)turnLedOn {
-    [self sendMessageToHost:(UInt8*)ti_host_command_led_on_msg];
+    [self sendRawMessageToHost:(UInt8*)ti_host_command_led_on_msg];
 }
 
 // Turn the LED off
 - (void)turnLedOff {
-    [self sendMessageToHost:(UInt8*)ti_host_command_led_off_msg];
+    [self sendRawMessageToHost:(UInt8*)ti_host_command_led_off_msg];
 }
 
 - (void)operationModeUID {
-    [self sendMessageToHost:(UInt8 *)op_mode_uid_only];
+    [self sendRawMessageToHost:(UInt8 *)op_mode_uid_only];
 }
 
 - (void)operationModeReadOnly {
-    [self sendMessageToHost:(UInt8 *)op_mode_read_memory_only];
+    [self sendRawMessageToHost:(UInt8 *)op_mode_read_memory_only];
 }
 
 - (void)operationModeWriteDataTestPrevious {
     UInt8 bytes[] = {FLOMIO_OPERATION_MODE_OP, 0x04, FLOMIO_OP_MODE_WRITE_PREVIOUS, 0x09};
-    [self sendMessageToHost:(UInt8 *)bytes];
+    [self sendRawMessageToHost:(UInt8 *)bytes];
 }
 
 // Check if FloJack NFC reader is plugged in
 - (BOOL) isFloJackPluggedIn {
     return [_nfcService isHeadsetPluggedIn];
-}
-
-/**
- resendLastMessageSent()
- Resend the last transmitted message, typically used when NACK is returned.
- 
- @return void
- */
-- (void)resendLastMessageSent {
-    unsigned char *message = (unsigned char *)[_lastMessageSent bytes];
-    UInt8 messageLength = 0;
-    [_lastMessageSent getBytes:&messageLength
-                              range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
-                                                FLOJACK_MESSAGE_LENGTH_POSITION)];
-    
-    // pause to let line settle
-    [NSThread sleepForTimeInterval:.100];
-    [_nfcService sendMessageToHost:message withLength:messageLength];
 }
 
 /**
@@ -444,7 +421,10 @@
                                                                 andSubOpcode:FLOMIO_OP_MODE_WRITE_CURRENT
                                                                      andData:ndefMessageData];
     NSLog(@"write FJMessage: %@", [flojackMessage.bytes fj_asHexString]);
-    [self sendMessageDataToHost:flojackMessage.bytes];
+    [self sendMessageDataToHost:[flojackMessage.bytes copy]];
+    
+    int i =0;
+    i++;
 }
 
 /**
@@ -461,39 +441,52 @@
 }
 
 /**
- setLastMessageSent()
- Keeps track of the last message sent to the device. Useful for keeping state until ACK / NACK received.
+ Resend the last transmitted message, typically used when NACK is returned.
  
  @return void
  */
-- (void)setLastMessageSent:(UInt8[])message {
-    int messageLength = message[FLOJACK_MESSAGE_LENGTH_POSITION];
-    [_lastMessageSent setLength:messageLength];
-    [_lastMessageSent replaceBytesInRange:NSMakeRange(0, messageLength)
-                                withBytes:message];
+- (void)resendLastMessageSent {
+    [self sendMessageDataToHost:_lastMessageSent];    
 }
 
+/**
+ TODO
+ 
+ @param TODO
+ @return void
+ */
 - (void)sendMessageDataToHost:(NSData *)data  {
-    [self setLastMessageSent:(UInt8 *)data.bytes];
-    [_nfcService sendMessageToHost:(UInt8 *)data.bytes];
+    [self setLastMessageDataSent:data];
+    [_nfcService sendMessageDataToHost:data];
 }
 
-- (void)sendMessageToHost:(UInt8[])message  {
-    // TODO, reimplement this with NSData 
-    [self setLastMessageSent:message];
-    [_nfcService sendMessageToHost:message];
+/**
+ TODO
+ 
+ @param TODO
+ @return void
+ */
+- (void)sendMessageToHost:(FJMessage *)theMessage  {
+    [self setLastMessageDataSent:[theMessage.bytes copy]];
+    [_nfcService sendMessageDataToHost:[theMessage.bytes copy]];
 }
 
-- (void)sendMessageToHost:(UInt8[])message withSizeOf:(int)msgSize {
-    [self setLastMessageSent:message];
-    [_nfcService sendMessageToHost:message withLength:(int)msgSize];
+/**
+ TODO
+ 
+ @param TODO
+ @return void
+ */
+- (void)sendRawMessageToHost:(UInt8[])theMessage  {
+    //TODO: shift over to OO method of message creation + sending
+    [self sendMessageDataToHost:[[NSData alloc] initWithBytes:theMessage length:theMessage[FLOJACK_MESSAGE_LENGTH_POSITION]]];
 }
 
 /*
  Send FloJack Wake + Config command to come out of deep sleep and begin polling.
- Also sets the inter-byte delay config value based on the device type. 
+ Also sets the inter-byte delay config value based on the device type.
  
- @return void   
+ @return void
  */
 - (void)initializeFloJackDevice {
     UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
@@ -501,6 +494,16 @@
                                                                andSubOpcode:FLOMIO_BYTE_DELAY
                                                                     andData:[NSData dataWithBytes:&interByteDelay length:1]];
     [self sendMessageDataToHost:configMessage.bytes];
+}
+
+/**
+ Keeps track of the last message sent to the device. Useful for keeping state until ACK / NACK received.
+ 
+ @param NSData message
+ @return void
+ */
+- (void)setLastMessageDataSent:(NSData *)message {
+    [_lastMessageSent setData:message];
 }
 
 /*
@@ -521,10 +524,6 @@
     else {
         [_nfcService setOutputAmplitudeNormal];
     }
-}
-
-- (void)dealloc {
-    [super dealloc];
 }
 
 #pragma mark - NFC Service Delegate
