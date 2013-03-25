@@ -249,39 +249,14 @@
     [self sendRawMessageToHost:(UInt8*)protocol_14443A_off_msg];
 }
 
-// Turn off 14443B Protocol
-- (void)disable14443BProtocol {
-    [self sendRawMessageToHost:(UInt8*)protocol_14443B_off_msg];
-}
-
 // Turn off 15693 Protocol
 - (void)disable15693Protocol {
     [self sendRawMessageToHost:(UInt8*)protocol_15693_off_msg];
 }
 
-// Turn off Ack/Nack
-- (void)disableMessageAcks {
-    [self sendRawMessageToHost:(UInt8*)ack_disable_msg];
-}
-
 // Turn off Felica Protocol
 - (void)disableFelicaProtocol {
     [self sendRawMessageToHost:(UInt8*)protocol_felica_off_msg];
-}
-
-// Turn off Standalone Mode
-- (void)disableStandaloneMode {
-    [self sendRawMessageToHost:(UInt8*)standalone_disable_msg];
-}
-
-// Turn off Tag polling
-- (void)disableTagPolling {
-    [self sendRawMessageToHost:(UInt8*)polling_disable_msg];
-}
-
-// Dump and Clear out tag log
-- (void)dumpAndClearTagLog {
-    [self sendRawMessageToHost:(UInt8*)dump_log_all_msg];
 }
 
 // Get NFC accessory hardware version
@@ -304,11 +279,6 @@
     [self sendRawMessageToHost:(UInt8*)protocol_14443A_msg];
 }
 
-// Turn on 14443B Protocol
-- (void)enable14443BProtocol {
-    [self sendRawMessageToHost:(UInt8*)protocol_14443B_msg];
-}
-
 // Turn on 15693 Protocol
 - (void)enable15693Protocol {
     [self sendRawMessageToHost:(UInt8*)protocol_15693_msg];
@@ -319,21 +289,6 @@
     [self sendRawMessageToHost:(UInt8*)protocol_felica_msg];
 }
 
-// Turn on message Ack/Nack
-- (void)enableMessageAcks {
-    [self sendRawMessageToHost:(UInt8*)ack_enable_msg];
-}
-
-// Turn on Tag polling
-- (void)enableTagPolling {
-    [self sendRawMessageToHost:(UInt8*)polling_enable_msg];
-}
-
-// Turn on Standalone Mode
-- (void)enableStandaloneMode {
-    [self sendRawMessageToHost:(UInt8*)standalone_enable_msg];
-}
-
 // Set polling rate to 1000ms
 - (void)setPollingRateTo1000ms {
     [self sendRawMessageToHost:(UInt8*)polling_frequency_1000ms_msg];
@@ -342,34 +297,6 @@
 // Set polling rate to 3000ms
 - (void)setPollingRateTo3000ms {
     [self sendRawMessageToHost:(UInt8*)polling_frequency_3000ms_msg];
-}
-
-// Set Standalone Mode KAT to 1 minute
-- (void)setStandaloneModeKeepAliveTimeToOneMinute {
-    [self sendRawMessageToHost:(UInt8*)keep_alive_time_one_min_msg];
-}
-
-// Set standalone mode KAT to infinite
-- (void)setStandaloneModeKeepAliveTimeInfinite {
-    [self sendRawMessageToHost:(UInt8*)keep_alive_time_infinite_msg];
-}
-
-// Turn the LED on
-- (void)turnLedOn {
-    [self sendRawMessageToHost:(UInt8*)ti_host_command_led_on_msg];
-}
-
-// Turn the LED off
-- (void)turnLedOff {
-    [self sendRawMessageToHost:(UInt8*)ti_host_command_led_off_msg];
-}
-
-- (void)operationModeUID {
-    [self sendRawMessageToHost:(UInt8 *)op_mode_uid_only];
-}
-
-- (void)operationModeReadOnly {
-    [self sendRawMessageToHost:(UInt8 *)op_mode_read_memory_only];
 }
 
 - (void)operationModeWriteDataTestPrevious {

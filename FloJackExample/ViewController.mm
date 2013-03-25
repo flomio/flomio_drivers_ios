@@ -102,18 +102,11 @@
     
     switch (((UIButton *)sender).tag) {
         // LEFT COLUMN
-        case 0:  {
+        case 0:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443A_msg];
-        }
             break;
         case 1:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443A_off_msg];
-            break;
-        case 2:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443B_msg];
-            break;
-        case 3:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443B_off_msg];
             break;
         case 4:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_15693_msg];
@@ -138,54 +131,21 @@
         case 10:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)status_hw_rev_msg];
             break;
-        case 11:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)dump_log_all_msg];
-            break;
-        case 12:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)keep_alive_time_infinite_msg];
-            break;
-        case 13:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)keep_alive_time_one_min_msg];
-            break;
             
          // RIGHT COLUMN
-        case 14:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_enable_msg];
-            break;
-        case 15:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_disable_msg];
-            break;
-        case 16:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)ack_enable_msg];
-            break;
-        case 17:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)ack_disable_msg];
-            break;
-        case 18:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)standalone_enable_msg];
-            break;
-        case 19:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)standalone_disable_msg];
-            break;
         case 20:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_frequency_1000ms_msg];
             break;
         case 21:
             [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_frequency_3000ms_msg];
             break;
-        case 22:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)ti_host_command_led_on_msg];
-            break;
-        case 23:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)ti_host_command_led_off_msg];
-            break;
             
         // OPERATION MODE
         case 24:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)op_mode_uid_only];
+            [_nfcAdapter setModeReadTagUID];
             break;
         case 25:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)op_mode_read_memory_only];
+            [_nfcAdapter setModeReadTagData];
             break;
         case 26:
             [_nfcAdapter operationModeWriteDataTestPrevious];

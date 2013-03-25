@@ -36,32 +36,17 @@
 - (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
 // TODO: remove some or all of these
 - (void)disable14443AProtocol;
-- (void)disable14443BProtocol;
 - (void)disable15693Protocol;
 - (void)disableFelicaProtocol;
-- (void)disableMessageAcks;
-- (void)disableStandaloneMode;
-- (void)disableTagPolling;
-- (void)dumpAndClearTagLog;
 - (void)enable14443AProtocol;
-- (void)enable14443BProtocol;
 - (void)enable15693Protocol;
 - (void)enableFelicaProtocol;
-- (void)enableMessageAcks;
-- (void)enableStandaloneMode;
-- (void)enableTagPolling;
 - (void)getAllStatus;
 - (void)getFirmwareVersion;
 - (void)getHardwareVersion;
 - (BOOL)isFloJackPluggedIn;
 - (void)setPollingRateTo1000ms;
 - (void)setPollingRateTo3000ms;
-- (void)setStandaloneModeKeepAliveTimeToOneMinute;
-- (void)setStandaloneModeKeepAliveTimeInfinite;
-- (void)turnLedOn;
-- (void)turnLedOff;
-- (void)operationModeUID;
-- (void)operationModeReadOnly;
 
 @end
 
