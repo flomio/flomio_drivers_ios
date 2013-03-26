@@ -18,6 +18,9 @@
 
 @synthesize delegate = _delegate;
 @synthesize deviceHasVolumeCap = _deviceHasVolumeCap;
+@synthesize pollFor14443aTags = _pollFor14443aTags;
+@synthesize pollFor15693Tags = _pollFor15693Tags;
+@synthesize pollForFelicaTags = _pollForFelicaTags;
 
 - (id) init {
     self = [super init];
@@ -28,6 +31,9 @@
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
         _deviceHasVolumeCap = false;
+        _pollFor14443aTags =  true;
+        _pollFor15693Tags =  false;
+        _pollForFelicaTags =  false;
     }      
     return self;    
 }
@@ -112,7 +118,7 @@
                                     break;
                             }
                             break;
-                        case FLOMIO_PORTO_FELICA:
+                        case FLOMIO_PROTO_FELICA:
                             switch (flojackMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     break;
@@ -452,6 +458,51 @@
         [_nfcService setOutputAmplitudeNormal];
     }
 }
+
+/*
+ TODO
+ 
+ @return void
+ */
+- (void)setPolling:(BOOL)enablePolling forProtocol:(flomio_proto_opcodes_t)protocol {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_POLLING_ENABLE_OP
+                                                                andSubOpcode:protocol
+                                                                     andData:[NSData dataWithBytes:&enablePolling length:1]];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/*
+ TODO
+ 
+ @return void
+ */
+- (void)setPollFor14443aTags:(BOOL)enablePolling {
+    _pollFor14443aTags = enablePolling;
+    [self setPolling:(BOOL)enablePolling forProtocol:FLOMIO_PROTO_14443A];
+}
+
+/*
+ TODO
+ 
+ @return void
+ */
+- (void)setPollFor15693Tags:(BOOL)enablePolling {
+    _pollFor15693Tags = enablePolling;
+    [self setPolling:(BOOL)enablePolling forProtocol:FLOMIO_PROTO_15693];
+}
+
+/*
+ TODO
+ 
+ @return void
+ */
+- (void)setPollForFelicaTags:(BOOL)enablePolling {
+    _pollForFelicaTags = enablePolling;
+    [self setPolling:(BOOL)enablePolling forProtocol:FLOMIO_PROTO_FELICA];
+}
+
+
+
 
 #pragma mark - NFC Service Delegate
 

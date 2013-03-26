@@ -1,91 +1,54 @@
 //
-//  ViewController.m
+//  TagReadWriteViewController.m
 //  FloJackExample
 //
 //  Created by John Bullard on 11/12/12.
 //  Copyright (c) 2012 John Bullard. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TagReadWriteViewController.h"
+#import "AppDelegate.h"
 
-@interface ViewController ()
-
-@end
-
-@implementation ViewController {
+@implementation TagReadWriteViewController {
     AVAudioPlayer       *_audioPlayer;
-    FJNFCAdapter        *_nfcAdapter;
-    dispatch_queue_t    _backgroundQueue;
 }
 
 @synthesize outputTextView          = _outputTextView;
-@synthesize loggingTextView         = _loggingTextView;
 @synthesize urlInputField           = _urlInputField;
 @synthesize scrollView              = _scrollView;
 @synthesize statusPingPongCount     = _statusPingPongCount;
 @synthesize statusPingPongTextView  = _statusPingPongTextView;
 @synthesize statusNACKCount         = _statusNACKCount;
-@synthesize statusNackTextView      = _statusNackTextView ;
+@synthesize statusNackTextView      = _statusNackTextView;
 @synthesize statusErrorCount        = _statusErrorCount;
 @synthesize statusErrorTextView     = _statusErrorTextView;
 @synthesize volumeLowErrorTextView  = _volumeLowErrorTextView;
 
-
 #pragma mark - UI View Controller
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.tabBarItem = [[UITabBarItem alloc] init];
+        self.tabBarItem.title = @"Tags";
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    _nfcAdapter = [[FJNFCAdapter alloc] init];
-    [_nfcAdapter setDelegate:self];
     
     _statusPingPongCount = 0;
     _statusNACKCount = 0;
     _statusErrorCount = 0;
     
     _scrollView.contentSize = CGSizeMake(320, 1000);
-    
-    // Poll logging file for changes (TODO: move this to event based model)
-    _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
-
-    //    dispatch_async(_backgroundQueue, ^(void) {
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-//                                                             NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"console.log"];
-//        NSString *logContent = nil;
-//        
-//        while(true) {
-//            [NSThread sleepForTimeInterval:1.000];
-//            
-//            if (logContent.length > (100 * 20)) {
-//                // clear log after ~20 entries (~5 commands)
-//                NSFileHandle *file;
-//                file = [NSFileHandle fileHandleForUpdatingAtPath:logPath];
-//                if (file == nil)
-//                    NSLog(@"Failed to open file");
-//                
-//                [file truncateFileAtOffset: 0];
-//                [file closeFile];                
-//            }
-//            
-//             logContent = [NSString stringWithContentsOfFile:logPath
-//                                                             encoding:NSUTF8StringEncoding
-//                                                                error:NULL];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                _loggingTextView.text = [NSString stringWithFormat:@"%@", logContent];
-//            });
-//        }
-//        
-//    });
 }
 
 - (void)viewDidUnload
 {
     //[self outputTextView:nil];
-    //[self loggingTextView:nil];
     [self setVolumeLowErrorTextView:nil];
     [super viewDidUnload];
 }
@@ -99,96 +62,40 @@
 - (IBAction)buttonWasPressed:(id)sender {
     // dismiss keyboard
     [self.view endEditing:YES];
+    AppDelegate *appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
     
-    switch (((UIButton *)sender).tag) {
-        // LEFT COLUMN
-        case 0:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443A_msg];
-            break;
-        case 1:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_14443A_off_msg];
-            break;
-        case 4:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_15693_msg];
-            break;
-        case 5:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_15693_off_msg];
-            break;
-        case 6:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_felica_msg];
-            break;
-        case 7:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)protocol_felica_off_msg];
-            break;
-        case 8:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)status_msg];
-            break;
-            
-        // MIDDLE COLUMN
-        case 9:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)status_sw_rev_msg];
-            break;
-        case 10:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)status_hw_rev_msg];
-            break;
-            
-         // RIGHT COLUMN
-        case 20:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_frequency_1000ms_msg];
-            break;
-        case 21:
-            [_nfcAdapter sendRawMessageToHost:(UInt8 *)polling_frequency_3000ms_msg];
-            break;
-            
-        // OPERATION MODE
+    switch (((UIButton *)sender).tag) {           
+        // Read Tags
         case 24:
-            [_nfcAdapter setModeReadTagUID];
+            [appDelegate.nfcAdapter setModeReadTagUID];
             break;
         case 25:
-            [_nfcAdapter setModeReadTagData];
+            [appDelegate.nfcAdapter setModeReadTagData];
             break;
         case 26:
-            [_nfcAdapter operationModeWriteDataTestPrevious];
+            [appDelegate.nfcAdapter operationModeWriteDataTestPrevious];
             break;
+            
+        // Write Tags
         case 27: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.flomio.com"];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
+            [appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
         case 28: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:@"http://www.ttag.be/m/04FAC9193E2580"];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
+            [appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
         case 29: {
             FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
             NSLog(@"%@", [testMessage.asByteBuffer fj_asHexString]);
-            [_nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
-            break;
-        }
-        case 30: {
-            [_nfcAdapter initializeFloJackDevice];            
-            break;
-        }
-        case 31: {
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Enter EU Mode?"
-                                                              message:@"WARNING: Only use on EU devices otherwise you will damage the FloJack device."
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                                    otherButtonTitles:@"Enter EU Mode", nil];
-            [message show];
+            [appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
             break;
         }
     }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        _nfcAdapter.deviceHasVolumeCap = true;
-    }    
 }
 
 // This forces audio through speaker even when the accessory is plugged in.
@@ -230,13 +137,8 @@
     }
 }
 
-//- (void)volumeChanged:(NSNotification *)notification
-//{
-//    float volume = [[[notification userInfo] objectForKey:@"AVSystemController_AudioVolumeNotificationParameter"] floatValue];
-//    NSLog(@"volume: %g", volume);
-//}
 
-#pragma mark - AVAudioPlayer Delegate
+#pragma mark - AVAudioPlayerDelegate
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
@@ -251,7 +153,7 @@
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
 }
 
-#pragma mark - FJNFCAdapter Delegate
+#pragma mark - FJNFCAdapterDelegate
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
     
@@ -268,8 +170,7 @@
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
-        // Display the alert to the user
-        
+        // Display the alert to the user        
         NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
                                 [[theNfcTag data] fj_asHexString]];
         
@@ -335,27 +236,14 @@
     });
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _outputTextView.text = [NSString stringWithFormat:@"%@ - Firmware v%@", _outputTextView.text, theVersionNumber];
-    });
-    
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {   
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber; {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _outputTextView.text = [NSString stringWithFormat:@"%@ - Hardware v%@", _outputTextView.text, theVersionNumber];
-    });
 }
-
 
 - (void)dealloc
 {
-    dispatch_release(_backgroundQueue);
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-
-
 
 @end

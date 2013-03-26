@@ -202,7 +202,7 @@ typedef enum
     FLOMIO_PROTO_14443A = 0,
     FLOMIO_PROTO_14443B,
     FLOMIO_PROTO_15693,
-    FLOMIO_PORTO_FELICA
+    FLOMIO_PROTO_FELICA
 } flomio_proto_opcodes_t;
 
 

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TagReadWriteViewController.h
 //  FloJackExample
 //
 //  Created by John Bullard on 11/12/12.
@@ -13,10 +13,9 @@
 #import "FJNFCAdapter.h"
 #import "NSData+FJStringDisplay.h"
 
-@interface ViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate>
+@interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *outputTextView;
-@property (strong, nonatomic) IBOutlet UITextView *loggingTextView;
 @property (strong, nonatomic) IBOutlet UITextField *urlInputField;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic)  NSInteger statusPingPongCount;

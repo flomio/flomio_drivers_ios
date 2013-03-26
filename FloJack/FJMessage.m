@@ -154,7 +154,7 @@
                                     break;
                             }
                             break;
-                        case FLOMIO_PORTO_FELICA:
+                        case FLOMIO_PROTO_FELICA:
                             switch (flojackMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     _name = @"FLOMIO_PORTO_FELICA_ENABLE";

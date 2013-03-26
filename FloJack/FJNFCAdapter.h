@@ -20,6 +20,9 @@
 
 @property (nonatomic, strong) id <FJNFCAdapterDelegate>	 delegate;
 @property (nonatomic) BOOL                               deviceHasVolumeCap;
+@property (nonatomic) BOOL                               pollFor14443aTags;
+@property (nonatomic) BOOL                               pollFor15693Tags;
+@property (nonatomic) BOOL                               pollForFelicaTags;
 
 - (id)init;
 - (void)initializeFloJackDevice;
