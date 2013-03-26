@@ -367,7 +367,67 @@
     return [FJMessage calculateCRCForIncompleteMessage:bytes withLength:theData.length];
 }
 
++(NSString*)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode {
+    NSString *result = nil;
+    switch(statusCode) {
+        case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
+            result = @"MESSAGE_CORRUPT_ERROR";
+            break;
+        case FLOMIO_STATUS_VOLUME_LOW_ERROR:
+            result = @"VOLUME_LOW_ERROR";
+            break;
+        case FLOMIO_STATUS_NACK_ERROR:
+            result = @"NACK_ERROR";
+            break;
+        case FLOMIO_STATUS_GENERIC_ERROR:
+            result = @"GENERIC_ERROR";
+            break;
+        case FLOMIO_STATUS_PING_RECIEVED:
+            result = @"PING_RECIEVED";
+            break;
+        case FLOMIO_STATUS_ACK_RECIEVED:
+            result = @"ACK_RECIEVED";
+            break;
+        case FLOMIO_STATUS_VOLUME_OK:
+            result = @"VOLUME_OK";
+            break;
+        case FLOMIO_STATUS_FLOJACK_CONNECTED:
+            result = @"FLOJACK_CONNECTED";
+            break;
+        case FLOMIO_STATUS_FLOJACK_DISCONNECTED:
+            result = @"FLOJACK_DISCONNECTED";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    return result;
+}
 
-
++(NSString*)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode {
+    NSString *result = nil;
+    switch(statusCode) {
+        case FLOMIO_TAG_WRITE_STATUS_SUCCEEDED:
+            result = @"WRITE_SUCCEEDED";
+            break;
+        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_UNSUPPORTED:
+            result = @"WRITE_FAIL_TAG_UNSUPPORTED";
+            break;
+        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_READ_ONLY:
+            result = @"WRITE_FAIL_TAG_READ_ONLY";
+            break;
+        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_ENOUGH_MEM:
+            result = @"WRITE_FAIL_TAG_NOT_ENOUGH_MEM";
+            break;
+        case FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_NDEF_FORMATTED:
+            result = @"WRITE_FAIL_TAG_NOT_NDEF_FORMATTED";
+            break;
+        case FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN:
+            result = @"WRITE_FAIL_UNKOWN";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    return result;
+}
 
 @end

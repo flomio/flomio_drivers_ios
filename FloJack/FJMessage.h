@@ -330,6 +330,8 @@ typedef enum
 - (id)initWithData:(NSData *)theData;
 - (id)initWithMessageParameters:(UInt8)opcode andSubOpcode:(UInt8)subOpcode andData:(NSData *)data;
 
++(NSString*)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode;
++(NSString*)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode;
 + (UInt8)getMessageSubOpcode:(NSData *)theMessage;
 
 @end
