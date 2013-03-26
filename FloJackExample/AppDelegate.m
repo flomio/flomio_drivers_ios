@@ -28,7 +28,7 @@
     UtilitiesViewController *utilitiesViewController;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.tagReadWriteViewController = [[TagReadWriteViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil];
+        self.tagReadWriteViewController = [[TagReadWriteViewController alloc] initWithNibName:@"TagReadWriteViewController_iPhone" bundle:nil];
         loggingViewController = [[LoggingViewController alloc] initWithNibName:@"LoggingViewController_iPhone" bundle:nil];
         utilitiesViewController = [[UtilitiesViewController alloc] initWithNibName:@"UtilitiesViewController_iPhone" bundle:nil];
         
