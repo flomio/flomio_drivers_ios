@@ -54,7 +54,7 @@
             break;
         case 4:
             // TODO: Add confirmation to this setting
-            //[appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+            [appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
             break;
     }
 }
@@ -110,12 +110,14 @@
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
-    NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::FloJack Status %d", statusCode];
+    NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
+    NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::FloJack Status %@", statusCodeString];
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
-    NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::FloJack Tag Write Status %d", statusCode];
+    NSString *statusCodeString = [FJMessage formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode];
+    NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::FloJack Tag Write Status %@", statusCodeString];
     [self updateLogTextViewWithString:textUpdate];
 }
 

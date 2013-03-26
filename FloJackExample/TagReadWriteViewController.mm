@@ -136,6 +136,11 @@
     }
 }
 
+- (void)updateLogTextViewWithString:(NSString *)updateString {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",self.outputTextView.text, updateString];
+    });
+}
 
 #pragma mark - AVAudioPlayerDelegate
 
@@ -156,7 +161,27 @@
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
     
-    NSLog(@"Tag uid: %@", [[theNfcTag uid] fj_asHexString]);
+    // Display the alert to the user
+    NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
+                                   [[theNfcTag data] fj_asHexString]];
+    
+    if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {
+        for (FJNDEFRecord *ndefRecord in theNfcTag.ndefMessage.ndefRecords) {
+            [textUpdate appendString:@"\n\nNDEF Record Found"];
+            [textUpdate appendString:[NSString stringWithFormat:@"\nTNF: %d",ndefRecord.tnf]];
+            [textUpdate appendString:[NSString stringWithFormat:@"\nType: %@",[ndefRecord.type fj_asHexString]]];
+            [textUpdate appendString:[NSString stringWithFormat:@"\nPayload: %@ (%@)",[ndefRecord.payload fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]]];
+            
+            NSURL *url = [ndefRecord getUriFromPayload];
+            if (url != nil) {
+                [textUpdate appendString:[NSString stringWithFormat:@"\nURI: %@", url.description]];
+            }
+            
+            NSLog(@"TNF: %d Type: %@ Payload: %@", ndefRecord.tnf, [ndefRecord.type fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]);
+        }
+        
+    }    
+    [self updateLogTextViewWithString:textUpdate];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         // TODO this sends config message repeatedly which puts flojack in a bad state
@@ -168,35 +193,16 @@
                                                         message:[NSString stringWithFormat:@"We found the following tag: %@",[[theNfcTag uid] fj_asHexString]]
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        // Display the alert to the user        
-        NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
-                                [[theNfcTag data] fj_asHexString]];
-        
-        if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {
-            for (FJNDEFRecord *ndefRecord in theNfcTag.ndefMessage.ndefRecords) {
-                [textUpdate appendString:@"\n\nNDEF Record Found"];
-                [textUpdate appendString:[NSString stringWithFormat:@"\nTNF: %d",ndefRecord.tnf]];
-                [textUpdate appendString:[NSString stringWithFormat:@"\nType: %@",[ndefRecord.type fj_asHexString]]];
-                [textUpdate appendString:[NSString stringWithFormat:@"\nPayload: %@ (%@)",[ndefRecord.payload fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]]];
-                
-                NSURL *url = [ndefRecord getUriFromPayload];
-                if (url != nil) {
-                    [textUpdate appendString:[NSString stringWithFormat:@"\nURI: %@", url.description]];
-                }
-
-                NSLog(@"TNF: %d Type: %@ Payload: %@", ndefRecord.tnf, [ndefRecord.type fj_asHexString], [ndefRecord.payload fj_asASCIIStringEncoded]);
-            }
-            
-        }        
-        
-        _outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",_outputTextView.text, textUpdate];
-        
+                                              otherButtonTitles:nil];        
         [alert show];
     });
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
+    NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Status %@", statusCodeString];
+    [self updateLogTextViewWithString:textUpdate];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         switch (statusCode) {
             case FLOMIO_STATUS_PING_RECIEVED:
@@ -225,9 +231,13 @@
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
+    NSString *statusCodeString = [FJMessage formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Tag Write Status %@", statusCodeString];
+    [self updateLogTextViewWithString:textUpdate];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Write Status"
-                                                        message:[NSString stringWithFormat:@"Status: %d", statusCode]
+                                                        message:[NSString stringWithFormat:@"Status: %@", statusCodeString]
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
