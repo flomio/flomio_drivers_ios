@@ -48,7 +48,6 @@
 
 - (void)viewDidUnload
 {
-    //[self outputTextView:nil];
     [self setVolumeLowErrorTextView:nil];
     [super viewDidUnload];
 }
@@ -236,10 +235,12 @@
     });
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {   
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {
+    return;
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber; {
+    return;
 }
 
 - (void)dealloc

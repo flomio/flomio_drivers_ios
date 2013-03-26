@@ -11,5 +11,6 @@
 #import "FJNFCAdapter.h"
 
 @interface UtilitiesViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextView *loggingOutputTextView;
 
 @end
