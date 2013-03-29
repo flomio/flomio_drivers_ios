@@ -501,7 +501,29 @@
     [self setPolling:(BOOL)enablePolling forProtocol:FLOMIO_PROTO_FELICA];
 }
 
-
+/*
+ Set the tag polling rate in milliseconds. Acceptable rates are [0, 6375] in 25ms increments.
+ 
+ @param pollPeriod The polling period (should be in range [0, 6375] and a multiple of 25]
+ @return void
+ */
+- (void)setPollPeriod:(NSInteger)pollPeriod {
+    if (pollPeriod < 0) {
+        pollPeriod = 0;
+    }
+    else if(pollPeriod > 6375) {
+        pollPeriod = 6375;        
+    }
+    
+    // Resolution is 25ms increments
+    pollPeriod -= (pollPeriod % 25);    
+    _pollPeriod = pollPeriod;
+    
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_POLLING_RATE_OP
+                                                                andSubOpcode:(pollPeriod / 25)
+                                                                     andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];    
+}
 
 
 #pragma mark - NFC Service Delegate

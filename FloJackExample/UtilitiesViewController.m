@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.pollingRateTextField.text = @"750";
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,7 +55,7 @@
             break;
         case 4:
             // TODO: Add confirmation to this setting
-            [appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+            //[appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
             break;
     }
 }
@@ -74,9 +75,18 @@
             break;
     }
 }
+                
+-(IBAction)updatePollRate:(id)sender {
+    [self.view endEditing:YES];
+    
+    AppDelegate *appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
+    int pollValue = [self.pollingRateTextField.text intValue];    
+    appDelegate.nfcAdapter.pollPeriod = pollValue;
+}
 
 - (void)viewDidUnload {
     [self setLoggingOutputTextView:nil];
+    [self setPollingRateTextField:nil];
     [super viewDidUnload];
 }
 

@@ -24,6 +24,9 @@
 @property (nonatomic) BOOL                               pollFor15693Tags;
 @property (nonatomic) BOOL                               pollForFelicaTags;
 
+// Set the tag polling rate in milliseconds. Value must be in range [0, 6375] and an increment of 25.
+@property (nonatomic) NSInteger                          pollPeriod;
+
 - (id)init;
 - (void)initializeFloJackDevice;
 - (void)setModeReadTagUID;

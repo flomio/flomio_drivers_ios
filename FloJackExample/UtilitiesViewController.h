@@ -12,5 +12,7 @@
 
 @interface UtilitiesViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *loggingOutputTextView;
+@property (weak, nonatomic) IBOutlet UITextField *pollingRateTextField;
+
 
 @end
