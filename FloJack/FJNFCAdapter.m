@@ -465,7 +465,7 @@
  @return void
  */
 - (void)setPolling:(BOOL)enablePolling forProtocol:(flomio_proto_opcodes_t)protocol {
-    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_POLLING_ENABLE_OP
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_PROTO_ENABLE_OP
                                                                 andSubOpcode:protocol
                                                                      andData:[NSData dataWithBytes:&enablePolling length:1]];
     [self sendMessageDataToHost:flojackMessage.bytes];
