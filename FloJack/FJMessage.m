@@ -398,7 +398,8 @@
             result = @"FLOJACK_DISCONNECTED";
             break;
         default:
-            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            result = @"STATUS_UNKNOWN";
+            break;
     }
     return result;
 }
@@ -425,7 +426,8 @@
             result = @"WRITE_FAIL_UNKOWN";
             break;
         default:
-            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            result = @"STATUS_UNKNOWN";
+            break;
     }
     return result;
 }
