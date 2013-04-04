@@ -68,6 +68,95 @@
                           urlT2,                    @"url"
                           , nil];
     [self.ndefTestData addObject:dictT2];
+    
+    
+    /**
+     Test Dataset 3:
+     TNF = TNF_WELL_KNOWN (0x01), RTD = RTD_URI (0x55)
+     Payload = "mailto:info@flomio.com?subject=Flo&amp;body=jack"
+     */
+    int bytesLengthT3 = 42;
+    UInt8 bytesT3[] = {
+        0xd1, 0x01, 0x26, 0x55,
+        0x06, 0x69, 0x6e, 0x66,
+        0x6f, 0x40, 0x66, 0x6c,
+        0x6f, 0x6d, 0x69, 0x6f,
+        0x2e, 0x63, 0x6f, 0x6d,
+        0x3f, 0x73, 0x75, 0x62,
+        0x6a, 0x65, 0x63, 0x74,
+        0x3d, 0x46, 0x6c, 0x6f,
+        0x26, 0x62, 0x6f, 0x64,
+        0x79, 0x3d, 0x6a, 0x61,
+        0x63, 0x6b 
+    };
+    
+    NSURL *urlT3 = [[NSURL alloc] initWithString:@"mailto:info@flomio.com?subject=Flo&body=jack"];
+    NSNumber *ndefRecordCountT3 = [NSNumber numberWithInt:1];
+    
+    NSData *ndefMessageDataT3 = [[NSData alloc] initWithBytes:bytesT3 length:bytesLengthT3];
+    NSDictionary *dictT3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                            ndefMessageDataT3,        @"ndefData",
+                            ndefRecordCountT3,        @"ndefRecordCount",
+                            urlT3,                    @"url"
+                            , nil];
+    [self.ndefTestData addObject:dictT3];
+    
+    
+    /*
+     Test Dataset 4:
+     TNF = TNF_WELL_KNOWN (0x01), RTD = RTD_URI (0x55)
+     Payload = "tel:3055559334"
+     */
+    int bytesLengthT4 = 15;
+    UInt8 bytesT4[] = {
+        0xd1, 0x01, 0x0b, 0x55,
+        0x05, 0x33, 0x30, 0x35,
+        0x35, 0x35, 0x35, 0x39,
+        0x33, 0x33, 0x34
+    };
+    NSURL *urlT4 = [[NSURL alloc] initWithString:@"tel:3055559334"];
+    NSNumber *ndefRecordCountT4 = [NSNumber numberWithInt:1];
+    
+    NSData *ndefMessageDataT4 = [[NSData alloc] initWithBytes:bytesT4 length:bytesLengthT4];
+    NSDictionary *dictT4 = [NSDictionary dictionaryWithObjectsAndKeys:
+                            ndefMessageDataT4,        @"ndefData",
+                            ndefRecordCountT4,        @"ndefRecordCount",
+                            urlT4,                    @"url"
+                            , nil];
+    [self.ndefTestData addObject:dictT4];
+    
+    /*
+     Test Dataset 5:
+     TNF = TNF_WELL_KNOWN (0x01), RTD = RTD_URI (0x55)
+     Payload = "sms:3055559334?body=NFC rocks my socks "    
+     */
+    //TODO: tests still failing
+    int bytesLengthT5 = 52; //44;
+    UInt8 bytesT5[] = {
+        0xd1, 0x01, 0x30, 0x55,
+        0x00, 0x73, 0x6d, 0x73,
+        0x3a, 0x33, 0x30, 0x35,
+        0x35, 0x35, 0x35, 0x39,
+        0x33, 0x33, 0x34, 0x3f,
+        0x62, 0x6f, 0x64, 0x79,
+        0x3d, 0x4e, 0x46, 0x43,
+        0x25, 0x32, 0x30, 0x72,
+        0x6f, 0x63, 0x6b, 0x73,
+        0x25, 0x32, 0x30, 0x6d,
+        0x79, 0x25, 0x32, 0x30,
+        0x73, 0x6f, 0x63, 0x6b,
+        0x73, 0x25, 0x32, 0x30
+    };
+    NSURL *urlT5 = [[NSURL alloc] initWithString:@"sms:3055559334?body=NFC%20rocks%20my%20socks%20"];
+    NSNumber *ndefRecordCountT5 = [NSNumber numberWithInt:1];
+    
+    NSData *ndefMessageDataT5 = [[NSData alloc] initWithBytes:bytesT5 length:bytesLengthT5];
+    NSDictionary *dictT5 = [NSDictionary dictionaryWithObjectsAndKeys:
+                            ndefMessageDataT5,        @"ndefData",
+                            ndefRecordCountT5,        @"ndefRecordCount",
+                            urlT5,                    @"url"
+                            , nil];
+    [self.ndefTestData addObject:dictT5];
 }
 
 - (void)testFJNDEFMessageDataDecoding
