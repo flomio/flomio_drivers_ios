@@ -26,6 +26,7 @@
 @interface FJNFCService : NSObject 
 
 @property id <FJNFCServiceDelegate>	delegate;
+@property (nonatomic) dispatch_semaphore_t messageTXLock; 
 @property (readonly) UInt32	outputAmplitude;
 
 - (id)init;

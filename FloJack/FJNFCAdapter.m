@@ -22,6 +22,10 @@
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
 
+-(FJAudioPlayer*)getFJAudioPlayer {
+    return [[FJAudioPlayer alloc] initWithNFCService:_nfcService];
+}
+
 - (id) init {
     self = [super init];
     if (self) {

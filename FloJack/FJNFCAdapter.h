@@ -8,6 +8,7 @@
 
 #import <AudioToolbox/AudioServices.h>
 #import <Foundation/Foundation.h>
+#import "FJAudioPlayer.h"
 #import "FJNDEFRecord.h"
 #import "FJMessage.h"
 #import "FJNFCService.h"
@@ -29,6 +30,7 @@
 
 - (id)init;
 - (void)initializeFloJackDevice;
+- (FJAudioPlayer*)getFJAudioPlayer;
 - (void)setModeReadTagUID;
 - (void)setModeReadTagData;
 - (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;

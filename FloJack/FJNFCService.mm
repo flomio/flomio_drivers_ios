@@ -67,7 +67,7 @@ enum uart_state {
     BOOL						 _byteQueuedForTX;
     BOOL                         _currentlySendingMessage;
     BOOL						 _muteEnabled;
-    NSLock                      *_messageTXLock;
+    
     
     // Logic Values
     UInt8                        _logicOne;
@@ -84,6 +84,7 @@ enum uart_state {
 }
 
 @synthesize delegate = _delegate;
+@synthesize messageTXLock = _messageTXLock;
 @synthesize outputAmplitude = _outputAmplitude;
 
 #pragma mark - NFC Service Audio Sessions and Callbacks (C)
@@ -485,7 +486,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         _muteEnabled = FALSE;    
         _byteQueuedForTX = FALSE;
         
-        _messageTXLock = [[NSLock alloc] init];
+        _messageTXLock = dispatch_semaphore_create(1);
         
         // Assume non EU device
         [self setOutputAmplitudeNormal];
@@ -886,7 +887,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     UInt8 *theMessage = (UInt8 *)messageData.bytes;
     int messageLength = messageData.length;
     
-    [_messageTXLock lock];
+    dispatch_semaphore_wait(_messageTXLock, DISPATCH_TIME_FOREVER);
     _currentlySendingMessage = TRUE;
     
     LogInfo(@"sendMessageToHost begin");
@@ -899,7 +900,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     // Give the last byte time to transmit
     [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
-    [_messageTXLock unlock];    
+    dispatch_semaphore_signal(_messageTXLock);    
 }
 
 

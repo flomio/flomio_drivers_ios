@@ -55,6 +55,8 @@
 		15A7E28216EA7A5B0095A974 /* Flomio_Spark_Black_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A7E28116EA7A5B0095A974 /* Flomio_Spark_Black_114x114.png */; };
 		15A7E28416EA7A8D0095A974 /* Flomio_Spark_Blac_72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A7E28316EA7A8D0095A974 /* Flomio_Spark_Blac_72x72.png */; };
 		15A7E28616EA7AB90095A974 /* Flomio_Spark_Black_144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A7E28516EA7AB90095A974 /* Flomio_Spark_Black_144x144.png */; };
+		15ACA760170F5EDA00563CD4 /* FJAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ACA75F170F5EDA00563CD4 /* FJAudioPlayer.m */; };
+		15ACA761170F66DC00563CD4 /* FJAudioPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 15ACA75E170F5EDA00563CD4 /* FJAudioPlayer.h */; };
 		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
 		15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
 		15B48C04164D65E800043A4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */; };
@@ -163,6 +165,8 @@
 		15A7E28116EA7A5B0095A974 /* Flomio_Spark_Black_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Flomio_Spark_Black_114x114.png; path = "../../../../flojack-ios/Flomio_Spark_Black_114x114.png"; sourceTree = "<group>"; };
 		15A7E28316EA7A8D0095A974 /* Flomio_Spark_Blac_72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Flomio_Spark_Blac_72x72.png; path = "../../../../flojack-ios/Flomio_Spark_Blac_72x72.png"; sourceTree = "<group>"; };
 		15A7E28516EA7AB90095A974 /* Flomio_Spark_Black_144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Flomio_Spark_Black_144x144.png; path = "../../../../flojack-ios/Flomio_Spark_Black_144x144.png"; sourceTree = "<group>"; };
+		15ACA75E170F5EDA00563CD4 /* FJAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJAudioPlayer.h; sourceTree = "<group>"; };
+		15ACA75F170F5EDA00563CD4 /* FJAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJAudioPlayer.m; sourceTree = "<group>"; };
 		15B046F6165322C3000FF892 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		15B046F9165323CE000FF892 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
 		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				155D4F7115D492D900CF45FD /* Lib */,
+				15ACA75E170F5EDA00563CD4 /* FJAudioPlayer.h */,
+				15ACA75F170F5EDA00563CD4 /* FJAudioPlayer.m */,
 				157C812C15DBFF2C00760BF2 /* FJMessage.h */,
 				157C812D15DBFF2C00760BF2 /* FJMessage.m */,
 				15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */,
@@ -609,6 +615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15ACA761170F66DC00563CD4 /* FJAudioPlayer.h in Sources */,
 				15C4B31015C83482009DE0E5 /* aurio_helper.cpp in Sources */,
 				15C4B31515C83482009DE0E5 /* FJNFCAdapter.m in Sources */,
 				15C4B45C15C85BE0009DE0E5 /* FJNFCTag.m in Sources */,
@@ -621,6 +628,7 @@
 				15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */,
 				15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */,
 				1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */,
+				15ACA760170F5EDA00563CD4 /* FJAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,8 @@
 #import "AppDelegate.h"
 
 @implementation TagReadWriteViewController {
-    AVAudioPlayer       *_audioPlayer;
+    FJNFCAdapter        *_nfcAdapter;
+    FJAudioPlayer       *_fjAudioPlayer;
 }
 
 @synthesize outputTextView          = _outputTextView;
@@ -44,6 +45,11 @@
     _statusErrorCount = 0;
     
     _scrollView.contentSize = CGSizeMake(320, 1000);
+    
+    AppDelegate *appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
+    _nfcAdapter = appDelegate.nfcAdapter;
+    
+    _fjAudioPlayer = [_nfcAdapter getFJAudioPlayer];
 }
 
 - (void)viewDidUnload
@@ -58,7 +64,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)buttonWasPressed:(id)sender {
+- (IBAction)buttonWasPressed:(id)sender {    
     // dismiss keyboard
     [self.view endEditing:YES];
     AppDelegate *appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
@@ -97,69 +103,17 @@
     }
 }
 
-// This forces audio through speaker even when the accessory is plugged in.
--(void)playSound:(NSString *)soundFileName
-{
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource : soundFileName ofType :@"mp3"];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath : path])
-    {
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-        
-        UInt32 allowMixing = true;
-        AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
-        
-        UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-        AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
-        
-        [[AVAudioSession sharedInstance] setActive:YES error:nil];
-        
-        NSURL *url = [NSURL fileURLWithPath:path];
-        
-        NSError *error;
-        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        _audioPlayer.numberOfLoops = 0;
-        [_audioPlayer prepareToPlay];
-        _audioPlayer.delegate = self;
-        
-        if (_audioPlayer != nil)
-        {
-            [_audioPlayer play];
-        }
-        
-        [[AVAudioSession sharedInstance] setActive:NO error:nil];
-    }
-    else
-    {
-        NSLog(@"error, file not found: %@", path);
-    }
-}
-
 - (void)updateLogTextViewWithString:(NSString *)updateString {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",self.outputTextView.text, updateString];
     });
 }
 
-#pragma mark - AVAudioPlayerDelegate
-
--(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
-{
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
-    UInt32 allowMixing = true;
-    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
-    
-    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
-    AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
-    
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
-}
-
 #pragma mark - FJNFCAdapterDelegate
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
+    [_fjAudioPlayer playSoundWithPath:path];
     
     // Display the alert to the user
     NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
@@ -184,10 +138,6 @@
     [self updateLogTextViewWithString:textUpdate];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        // TODO this sends config message repeatedly which puts flojack in a bad state
-       // [self playSound:@"scan_sound"];
-        
-        
         // Create a new alert object and set initial values.
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tag Found" 
                                                         message:[NSString stringWithFormat:@"We found the following tag: %@",[[theNfcTag uid] fj_asHexString]]

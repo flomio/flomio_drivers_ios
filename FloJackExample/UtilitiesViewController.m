@@ -55,7 +55,7 @@
             break;
         case 4:
             // TODO: Add confirmation to this setting
-            //[appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+            [appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
             break;
     }
 }
