@@ -80,26 +80,20 @@
  */
 -(BOOL)disableFloJackAudioComm {
     dispatch_semaphore_wait(self.fjNfcService.messageTXLock, DISPATCH_TIME_FOREVER);
-    BOOL success = true;
-    
+    BOOL success = true;   
     
     NSError *sharedAudioSessionError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
-    
-    UInt8 allowMixing = 1;
-    OSStatus setPropertyCategoryError  = 0;
-    setPropertyCategoryError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
     
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
     OSStatus setPropertyRouteError  = 0;
     setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
     
-    if (sharedAudioSessionError != nil || setPropertyCategoryError != 0 || setPropertyRouteError != 0) {
-        LogError("AudioSession Error(s): %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyCategoryError], [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
+    if (sharedAudioSessionError != nil || setPropertyRouteError != 0) {
+        LogError("AudioSession Error(s): %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
         dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
         success = false;
-    }
-    
+    }    
     return success;
 }
 
@@ -114,10 +108,6 @@
     NSError *sharedAudioSessionError = nil;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
     
-    UInt32 allowMixing = true;
-    OSStatus setPropertyCategoryError  = 0;
-    setPropertyCategoryError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);    
-    
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
     OSStatus setPropertyRouteError  = 0;
     setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
@@ -125,11 +115,10 @@
     NSError *sharedAudioSessionSetActiveError = nil;
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    if (sharedAudioSessionError != nil || setPropertyCategoryError != 0 || setPropertyRouteError != 0 || sharedAudioSessionSetActiveError != nil) {
-        LogError("AudioSession Error(s): %@, %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyCategoryError], [FJAudioSessionHelper formatOSStatus:setPropertyRouteError], sharedAudioSessionSetActiveError.localizedDescription);
+    if (sharedAudioSessionError != nil || setPropertyRouteError != 0 || sharedAudioSessionSetActiveError != nil) {
+        LogError("AudioSession Error(s): %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError], sharedAudioSessionSetActiveError.localizedDescription);
         success = false;
-    }
-    
+    }    
     dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
     return success;
 }
