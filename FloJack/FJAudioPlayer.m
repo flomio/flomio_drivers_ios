@@ -8,22 +8,12 @@
 
 #import "FJAudioPlayer.h"
 
-
 @implementation FJAudioPlayer
-@synthesize audioPlayer = _audioPlayer;
-@synthesize fjNfcService = _fjNfcService;
+@synthesize audioPlayer         = _audioPlayer;
+@synthesize fjNfcService        = _fjNfcService;
 
 /**
- TODO
- 
- @return 
- */
--(id)init {
-    return [self initWithNFCService:nil];
-}
-
-/**
- TODO
+ Designated initializer. FJNFCService object is needed to lock/release audio TX semaphores.
  
  @return 
  */
@@ -110,7 +100,7 @@
     
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
     OSStatus setPropertyRouteError  = 0;
-    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    setPropertyRouteError = AudioSessionSetProperty(kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
     
     NSError *sharedAudioSessionSetActiveError = nil;
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
