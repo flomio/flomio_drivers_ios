@@ -316,7 +316,7 @@
 
 // Check if FloJack NFC reader is plugged in
 - (BOOL) isFloJackPluggedIn {
-    return [_nfcService isHeadsetPluggedIn];
+    return _nfcService.floJackConnected;
 }
 
 /**

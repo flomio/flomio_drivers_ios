@@ -84,6 +84,7 @@ enum uart_state {
 }
 
 @synthesize delegate = _delegate;
+@synthesize floJackConnected = _floJackConnected;
 @synthesize messageTXLock = _messageTXLock;
 @synthesize outputAmplitude = _outputAmplitude;
 
@@ -150,10 +151,11 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
             NSString *currentRoute = [(__bridge NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
             NSLog(@"Current Route: %@", currentRoute);
             if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
-                
+                self->_floJackConnected = true;
                 [self sendFloJackConnectedStatusToDelegate:true];
             }
             else {
+                self->_floJackConnected = false;
                 [self sendFloJackConnectedStatusToDelegate:false];
             }
 		}
@@ -192,11 +194,14 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     FJNFCService *self = (__bridge FJNFCService *)inRefCon;
 	OSStatus ossError = AudioUnitRender(self->_remoteIOUnit, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
 	
-    // Bail out on critical audio errors
     if (ossError) {
-        printf("(PerformThru) AudioUnitRender Error:%d\n", (int)ossError);
+        printf("AudioUnitRender Error:%d\n", (int)ossError);
         return ossError;
-    }	
+    }
+    else if (!self.floJackConnected) {
+        SilenceData(ioData);
+        return ossError;
+    }    
     
     // TX vars
 	static int byteCounter = 1;
@@ -487,6 +492,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         _byteQueuedForTX = FALSE;
         
         _messageTXLock = dispatch_semaphore_create(1);
+        _floJackConnected = false;
         
         // Assume non EU device
         [self setOutputAmplitudeNormal];
@@ -786,50 +792,24 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     return volumeStatusBool;
 }
 
-/*
- * Helper Functions
-*/
-
 /**
- isHeadsetPluggedIn()
- Check if a headset (3-conductor plug) is plugged in 
-  -- Definitions --
-  Receiver: "the small speaker you hold to your ear when on a phone call"
-  Headset: A 3-conductor plug in the headset jack (Left, Right, Microphone + Ground).
-  Headphones: A 2-conductor plug in the headset jack (Left, Right + Ground)
-  Microphone: The iPhone's microphone (at the base of the unit)
-  Speaker: The iPhone's "loud" speaker (at the base of the unit)
-
-  -- Known values of route --
-   "Headset"
-   "Headphone"
-   "Speaker"
-   "SpeakerAndMicrophone"
-   "HeadphonesAndMicrophone"
-   "HeadsetInOut"  <-- Used for the FloJack
-   "ReceiverAndMicrophone"
-   "Lineout"
- 
- @return boolean    Indicates if the FloJack is connected
- */
-- (BOOL)isHeadsetPluggedIn {
-    UInt32 routeSize = sizeof(CFDictionaryRef);
-    CFDictionaryRef reouteChange;
-    OSStatus error = AudioSessionGetProperty (kAudioSessionProperty_AudioRouteChange,
-                                              &routeSize,
-                                              &reouteChange);
-    
-    if (!error && (reouteChange != NULL)) {
-        NSDictionary *audioRouteChangeDict = (__bridge NSDictionary *)reouteChange;
-        NSString *currentRoute = [audioRouteChangeDict objectForKey:@"OutputDeviceDidChange_NewRoute"];
-        return [self isHeadsetPluggedInWithRoute:currentRoute];
-    }    
-    return NO;
-}
-
-/**
- isHeadsetPluggedInWithRoute()
  Check if a headset (3-conductor plug) is plugged in
+ -- Definitions --
+ Receiver: "the small speaker you hold to your ear when on a phone call"
+ Headset: A 3-conductor plug in the headset jack (Left, Right, Microphone + Ground).
+ Headphones: A 2-conductor plug in the headset jack (Left, Right + Ground)
+ Microphone: The iPhone's microphone (at the base of the unit)
+ Speaker: The iPhone's "loud" speaker (at the base of the unit)
+ 
+ -- Known values of route --
+ "Headset"
+ "Headphone"
+ "Speaker"
+ "SpeakerAndMicrophone"
+ "HeadphonesAndMicrophone"
+ "HeadsetInOut"  <-- Used for the FloJack
+ "ReceiverAndMicrophone"
+ "Lineout"
  
  @param currentRoute         NSString the new audio route
  

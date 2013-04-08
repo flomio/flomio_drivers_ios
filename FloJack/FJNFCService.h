@@ -17,6 +17,7 @@
 #import "aurio_helper.h"
 #import "CAStreamBasicDescription.h"
 #import "CAXException.h"
+#import "FJAudioSessionHelper.h"
 #import "FJMessage.h"
 #import "NSData+FJStringDisplay.h"
 #import "Logging.h"
@@ -26,12 +27,12 @@
 @interface FJNFCService : NSObject 
 
 @property id <FJNFCServiceDelegate>	delegate;
-@property (nonatomic) dispatch_semaphore_t messageTXLock; 
+@property (nonatomic) dispatch_semaphore_t messageTXLock;
+@property (readonly) BOOL	floJackConnected;
 @property (readonly) UInt32	outputAmplitude;
 
 - (id)init;
 - (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
-- (BOOL)isHeadsetPluggedIn;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;
