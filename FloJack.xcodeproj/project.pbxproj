@@ -323,8 +323,6 @@
 				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
 				15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */,
 				1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */,
-				151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */,
-				151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -341,6 +339,8 @@
 		155D4F7115D492D900CF45FD /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */,
+				151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */,
 				155D4F8415D5FDA800CF45FD /* Logging.h */,
 				155D4F7015D4926C00CF45FD /* AurioTouch2 */,
 				15C4B45D15C85DB6009DE0E5 /* CoreAduio */,
