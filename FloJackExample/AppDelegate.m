@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    FJAudioPlayer       *_fjAudioPlayer;
+    NSString            *_scanSoundPath;
+}
 
 @synthesize nfcAdapter;
 @synthesize tagReadWriteViewController;
@@ -23,6 +26,9 @@
     
     self.nfcAdapter = [[FJNFCAdapter alloc] init];
     [self.nfcAdapter setDelegate:self];
+    
+    _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
+    _fjAudioPlayer = [self.nfcAdapter getFJAudioPlayer];
     
     LoggingViewController *loggingViewController;
     UtilitiesViewController *utilitiesViewController;
@@ -73,6 +79,8 @@
 #pragma mark - FJNFCAdapterDelegate
 
 - (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
+    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
+    
     NSLog(@"FloJack Tag Scanned: %@", [[theNfcTag uid] fj_asHexString]);
     if ([self.rootTabBarController.selectedViewController respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
         [(id)self.rootTabBarController.selectedViewController nfcAdapter:theNfcAdapter didScanTag:theNfcTag];        
@@ -87,6 +95,8 @@
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
+    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
+    
     NSLog(@"FloJack Write Status: %d", statusCode);
     if ([self.rootTabBarController.selectedViewController respondsToSelector:@selector(nfcAdapter: didWriteTagAndStatusWas:)]) {
         [(id)self.rootTabBarController.selectedViewController nfcAdapter:theNfcAdapter didWriteTagAndStatusWas:statusCode];

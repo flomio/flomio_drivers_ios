@@ -9,10 +9,7 @@
 #import "TagReadWriteViewController.h"
 #import "AppDelegate.h"
 
-@implementation TagReadWriteViewController {
-    FJNFCAdapter        *_nfcAdapter;
-    FJAudioPlayer       *_fjAudioPlayer;
-}
+@implementation TagReadWriteViewController
 
 @synthesize outputTextView          = _outputTextView;
 @synthesize urlInputField           = _urlInputField;
@@ -44,12 +41,7 @@
     _statusNACKCount = 0;
     _statusErrorCount = 0;
     
-    _scrollView.contentSize = CGSizeMake(320, 1000);
-    
-    AppDelegate *appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
-    _nfcAdapter = appDelegate.nfcAdapter;
-    
-    _fjAudioPlayer = [_nfcAdapter getFJAudioPlayer];
+    _scrollView.contentSize = CGSizeMake(320, 1000);    
 }
 
 - (void)viewDidUnload
@@ -112,9 +104,6 @@
 #pragma mark - FJNFCAdapterDelegate
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
-    [_fjAudioPlayer playSoundWithPath:path];
-    
     // Display the alert to the user
     NSMutableString *textUpdate = [NSMutableString stringWithFormat:@"--Tag Found-- \nUID: %@ \nType: %d \nData: %@", [[theNfcTag uid] fj_asHexString], theNfcTag.nfcForumType,
                                    [[theNfcTag data] fj_asHexString]];
