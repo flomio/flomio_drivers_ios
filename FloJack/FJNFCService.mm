@@ -61,6 +61,7 @@ enum uart_state {
     DCRejectionFilter			*_remoteIODCFilter;
     AudioUnit					 _remoteIOUnit;
     CAStreamBasicDescription	 _remoteIOOutputFormat;
+    UInt8                        _ignoreRouteChangeCount;
     
     // NFC Service state variables
     UInt8						 _byteForTX;
@@ -493,6 +494,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         
         _messageTXLock = dispatch_semaphore_create(1);
         _floJackConnected = false;
+        _ignoreRouteChangeCount = 0;
         
         // Assume non EU device
         [self setOutputAmplitudeNormal];
@@ -548,6 +550,63 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 
     }
     return self;
+}
+
+/**
+ Disables FloJack audio line communication and switches route to device speaker.
+ 
+ @return BOOL indicates if execution was successful
+ */
+-(BOOL)enableDeviceSpeaker {
+    dispatch_semaphore_wait(_messageTXLock, DISPATCH_TIME_FOREVER);
+    BOOL success = true;
+    
+    NSError *sharedAudioSessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
+    
+    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+    OSStatus setPropertyRouteError  = 0;
+    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    
+    if (sharedAudioSessionError != nil || setPropertyRouteError != 0) {
+        LogError("AudioSession Error(s): %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
+        dispatch_semaphore_signal(_messageTXLock);
+        success = false;
+    }
+    else {
+        success = false;
+        _ignoreRouteChangeCount = 2;        
+    }
+    return success;
+}
+
+/**
+ Switches route to HeadSetInOut and enabled FloJack audio line communication.
+ 
+ @return BOOL indicates if execution was successful
+ */
+-(BOOL)disableDeviceSpeaker {
+    BOOL success;
+    
+    NSError *sharedAudioSessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
+    
+    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
+    OSStatus setPropertyRouteError  = 0;
+    setPropertyRouteError = AudioSessionSetProperty(kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    
+    NSError *sharedAudioSessionSetActiveError = nil;
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
+    if (sharedAudioSessionError != nil || setPropertyRouteError != 0 || sharedAudioSessionSetActiveError != nil) {
+        LogError("AudioSession Error(s): %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError], sharedAudioSessionSetActiveError.localizedDescription);
+        success = false;
+    }
+    else {
+        success = true;
+        dispatch_semaphore_signal(_messageTXLock);
+    }
+    return success;
 }
 
 /**
@@ -885,7 +944,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 
 
 /**
- sendDelegateIsFloJackPluggedIn()
  Tell consuming app (by way of adapter) if the FloJack is plugged in
  
  @param isHeadsetPluggedIn        FloJack plugged in value
@@ -893,11 +951,16 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return void    
  */
 - (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected {
-        if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
-            dispatch_async(_backgroundQueue, ^(void) {
-                [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
-            });
-        }
+    if (_ignoreRouteChangeCount > 0) {
+        _ignoreRouteChangeCount--;
+        return;
+    }
+    
+    if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
+        dispatch_async(_backgroundQueue, ^(void) {
+            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
+        });
+    }
 }
 
 - (void)dealloc

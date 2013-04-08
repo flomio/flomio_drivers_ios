@@ -40,7 +40,7 @@
         soundPlayed = false;
     }
     else {
-        [self disableFloJackAudioComm];
+        [_fjNfcService enableDeviceSpeaker];
         
         [[AVAudioSession sharedInstance] setActive:YES error:nil];
         NSError *error;
@@ -63,64 +63,15 @@
     return soundPlayed;
 }
 
-/**
- Disables FloJack audio line communication and switches route to external speaker.
- 
- @return BOOL indicates if execution was successful 
- */
--(BOOL)disableFloJackAudioComm {
-    dispatch_semaphore_wait(self.fjNfcService.messageTXLock, DISPATCH_TIME_FOREVER);
-    BOOL success = true;   
-    
-    NSError *sharedAudioSessionError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
-    
-    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    OSStatus setPropertyRouteError  = 0;
-    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
-    
-    if (sharedAudioSessionError != nil || setPropertyRouteError != 0) {
-        LogError("AudioSession Error(s): %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
-        dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
-        success = false;
-    }    
-    return success;
-}
-
-/**
- Enables FloJack audio line communication and switches route to HeadSetInOut.
- 
- @return BOOL indicates if execution was successful 
- */
--(BOOL)enableFloJackAudioComm {
-    BOOL success = true;
-    
-    NSError *sharedAudioSessionError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
-    
-    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
-    OSStatus setPropertyRouteError  = 0;
-    setPropertyRouteError = AudioSessionSetProperty(kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
-    
-    NSError *sharedAudioSessionSetActiveError = nil;
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    
-    if (sharedAudioSessionError != nil || setPropertyRouteError != 0 || sharedAudioSessionSetActiveError != nil) {
-        LogError("AudioSession Error(s): %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError], sharedAudioSessionSetActiveError.localizedDescription);
-        success = false;
-    }    
-    dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
-    return success;
-}
 
 #pragma mark - AVAudioPlayerDelegate
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [self enableFloJackAudioComm];
+    [_fjNfcService disableDeviceSpeaker];
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
-    [self enableFloJackAudioComm];
+    [_fjNfcService disableDeviceSpeaker];
 }
 
 @end

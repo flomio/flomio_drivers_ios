@@ -7,6 +7,7 @@
 //
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 #import <dispatch/dispatch.h>
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -33,6 +34,8 @@
 
 - (id)init;
 - (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
+- (BOOL)disableDeviceSpeaker;
+- (BOOL)enableDeviceSpeaker;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;
