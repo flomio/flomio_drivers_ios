@@ -11,6 +11,7 @@
 #import <dispatch/dispatch.h>
 #import <Foundation/Foundation.h>
 #import "FJNFCService.h"
+#import "FJAudioSessionHelper.h"
 
 @interface FJAudioPlayer : NSObject <AVAudioPlayerDelegate>
 

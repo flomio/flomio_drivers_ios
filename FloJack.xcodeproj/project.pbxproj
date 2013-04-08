@@ -15,6 +15,7 @@
 		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
 		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
 		150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2F00116288A50008FD352 /* FJNDEFRecord.h */; };
+		151A4EBF17132DC60090CDF1 /* FJAudioSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */; };
 		151E36EC16E2863C0005B739 /* FJNDEFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 151E36EB16E2863C0005B739 /* FJNDEFTests.m */; };
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15379C8E16E574A2006195F0 /* FJMessageTests.m */; };
@@ -133,6 +134,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJAudioSessionHelper.h; sourceTree = "<group>"; };
+		151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJAudioSessionHelper.m; sourceTree = "<group>"; };
 		151E36EA16E2863C0005B739 /* FJNDEFTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFTests.h; sourceTree = "<group>"; };
 		151E36EB16E2863C0005B739 /* FJNDEFTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFTests.m; sourceTree = "<group>"; };
 		15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
 				15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */,
 				1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */,
+				151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */,
+				151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -629,6 +634,7 @@
 				15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */,
 				1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */,
 				15ACA760170F5EDA00563CD4 /* FJAudioPlayer.m in Sources */,
+				151A4EBF17132DC60090CDF1 /* FJAudioSessionHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

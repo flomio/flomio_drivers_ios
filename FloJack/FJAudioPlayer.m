@@ -76,37 +76,62 @@
 /**
  Disables FloJack audio line communication and switches route to external speaker.
  
- @return void
+ @return BOOL indicates if execution was successful 
  */
--(void)disableFloJackAudioComm {
+-(BOOL)disableFloJackAudioComm {
     dispatch_semaphore_wait(self.fjNfcService.messageTXLock, DISPATCH_TIME_FOREVER);
+    BOOL success = true;
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     
-    UInt32 allowMixing = true;
-    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+    NSError *sharedAudioSessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
+    
+    UInt8 allowMixing = 1;
+    OSStatus setPropertyCategoryError  = 0;
+    setPropertyCategoryError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
     
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    OSStatus setPropertyRouteError  = 0;
+    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    
+    if (sharedAudioSessionError != nil || setPropertyCategoryError != 0 || setPropertyRouteError != 0) {
+        LogError("AudioSession Error(s): %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyCategoryError], [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
+        dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
+        success = false;
+    }
+    
+    return success;
 }
 
 /**
  Enables FloJack audio line communication and switches route to HeadSetInOut.
  
- @return void
+ @return BOOL indicates if execution was successful 
  */
--(void)enableFloJackAudioComm {
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+-(BOOL)enableFloJackAudioComm {
+    BOOL success = true;
+    
+    NSError *sharedAudioSessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
     
     UInt32 allowMixing = true;
-    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+    OSStatus setPropertyCategoryError  = 0;
+    setPropertyCategoryError = AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);    
     
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_None;
-    AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    OSStatus setPropertyRouteError  = 0;
+    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
     
+    NSError *sharedAudioSessionSetActiveError = nil;
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
+    if (sharedAudioSessionError != nil || setPropertyCategoryError != 0 || setPropertyRouteError != 0 || sharedAudioSessionSetActiveError != nil) {
+        LogError("AudioSession Error(s): %@, %@, %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyCategoryError], [FJAudioSessionHelper formatOSStatus:setPropertyRouteError], sharedAudioSessionSetActiveError.localizedDescription);
+        success = false;
+    }
+    
     dispatch_semaphore_signal(self.fjNfcService.messageTXLock);
+    return success;
 }
 
 #pragma mark - AVAudioPlayerDelegate
