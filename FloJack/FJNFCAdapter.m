@@ -548,13 +548,22 @@
  @return void
  */
 - (void)nfcService:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
+    switch (errorCode) {
+        case FLOMIO_STATUS_VOLUME_LOW_ERROR:
+        case FLOMIO_STATUS_VOLUME_OK: {
+            if (!_nfcService.floJackConnected) {
+                return;
+            }            
+            break;
+        }
+    }    
     if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
         [_delegate nfcAdapter:self didHaveStatus:errorCode];
-    }    
+    }
 }
 
 /**
- Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delgate. 
+ Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delgate.
  
  @param nfcService          The NFC Service Object experiencing an error.
  @param isFloJackConnected  Bool indicating FloJack connection status
