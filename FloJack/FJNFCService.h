@@ -34,8 +34,8 @@
 
 - (id)init;
 - (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
-- (BOOL)disableDeviceSpeaker;
-- (BOOL)enableDeviceSpeaker;
+- (BOOL)disableDeviceSpeakerPlayback;
+- (BOOL)enableDeviceSpeakerPlayback;
 - (void)sendByteToHost:(UInt8)theByte;
 - (void)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;

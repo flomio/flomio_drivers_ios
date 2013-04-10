@@ -40,7 +40,7 @@
         soundPlayed = false;
     }
     else {
-        [_fjNfcService enableDeviceSpeaker];
+        [_fjNfcService enableDeviceSpeakerPlayback];
         
         [[AVAudioSession sharedInstance] setActive:YES error:nil];
         NSError *error;
@@ -67,11 +67,11 @@
 #pragma mark - AVAudioPlayerDelegate
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [_fjNfcService disableDeviceSpeaker];
+    [_fjNfcService disableDeviceSpeakerPlayback];
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
-    [_fjNfcService disableDeviceSpeaker];
+    [_fjNfcService disableDeviceSpeakerPlayback];
 }
 
 @end

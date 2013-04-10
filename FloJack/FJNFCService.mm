@@ -557,7 +557,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return BOOL indicates if execution was successful
  */
--(BOOL)enableDeviceSpeaker {
+-(BOOL)enableDeviceSpeakerPlayback {
     dispatch_semaphore_wait(_messageTXLock, DISPATCH_TIME_FOREVER);
     BOOL success = true;
     
@@ -585,7 +585,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return BOOL indicates if execution was successful
  */
--(BOOL)disableDeviceSpeaker {
+-(BOOL)disableDeviceSpeakerPlayback {
     BOOL success;
     
     NSError *sharedAudioSessionError = nil;
