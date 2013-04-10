@@ -37,7 +37,7 @@
 - (BOOL)disableDeviceSpeakerPlayback;
 - (BOOL)enableDeviceSpeakerPlayback;
 - (void)sendByteToHost:(UInt8)theByte;
-- (void)sendMessageDataToHost:(NSData *)messageData;
+- (BOOL)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
 

@@ -922,7 +922,12 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @param messageData        NSData representing the FJ Message
  @return void
  */
-- (void)sendMessageDataToHost:(NSData *)messageData {   
+- (BOOL)sendMessageDataToHost:(NSData *)messageData {
+    if (!self.floJackConnected) {
+        [self sendFloJackConnectedStatusToDelegate:false];
+        return false;
+    }    
+    
     UInt8 *theMessage = (UInt8 *)messageData.bytes;
     int messageLength = messageData.length;
     
@@ -939,7 +944,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     // Give the last byte time to transmit
     [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
-    dispatch_semaphore_signal(_messageTXLock);    
+    dispatch_semaphore_signal(_messageTXLock);
+    
+    return true;
 }
 
 
