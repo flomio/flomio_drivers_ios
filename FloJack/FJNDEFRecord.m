@@ -330,7 +330,11 @@
             break;
         }
         
-        [records addObject:[[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];
+        FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload];
+        if (ndefRecord != nil) {
+            [records addObject:[[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];            
+        }
+        
         
         if (ignoreMbMe) {  // for parsing a single NdefRecord
             break;
