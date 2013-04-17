@@ -32,6 +32,7 @@
 - (void)initializeFloJackDevice;
 - (FJAudioPlayer*)getFJAudioPlayer;
 - (void)setModeReadTagUID;
+- (void)setModeReadTagUIDAndNDEF;
 - (void)setModeReadTagData;
 - (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage;
 - (void)setModeWriteTagWithPreviousNdefMessage;

@@ -337,6 +337,18 @@
  
  @return void
  */
+- (void)setModeReadTagUIDAndNDEF {
+    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
+                                                                andSubOpcode:FLOMIO_OP_MODE_READ_UID_NDEF
+                                                                     andData:nil];
+    [self sendMessageDataToHost:setModeMessage.bytes];
+}
+
+/**
+ TODO
+ 
+ @return void
+ */
 - (void)setModeReadTagData {
     FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
                                                                 andSubOpcode:FLOMIO_OP_MODE_READ_ALL_MEMORY

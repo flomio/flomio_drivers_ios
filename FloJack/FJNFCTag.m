@@ -50,10 +50,27 @@
 }
 
 - (FJNDEFMessage *)type2ParseMemoryForNdefMessage; {
-    if (_data == nil || _data.length < 48) {
+    if (_data == nil || _uid == nil) {
         return nil;
-    }    
+    }
     
+    // _data contains UID + NDEF payload only
+    UInt8 ndefBegin = _uid.length;
+    UInt8 ndefLen = (_data.length - _uid.length);
+    
+    NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefBegin, ndefLen)];
+    
+    NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
+    if (ndefRecords != nil) {
+        return [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
+    }
+    
+    
+    // _data contains full data payload
+    if ( _data.length < 48) {
+        return nil;
+    }
+        
     //check for errors in capability container
     UInt8 ccMagicValue;
     [_data getBytes:&ccMagicValue range:NSMakeRange(12, 1)];
@@ -93,9 +110,9 @@
     [_data getBytes:&ndefTLVLength range:NSMakeRange(ndefTLVLocation + 1, 1)];
         
     if (ndefTLVLength > 0 && (_data.length >= (ndefTLVLocation + 2 + ndefTLVLength))) {
-        NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVLocation + 2, ndefTLVLength)];
+        ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVLocation + 2, ndefTLVLength)];
         
-        NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
+        ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
         return [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
     }
     else {

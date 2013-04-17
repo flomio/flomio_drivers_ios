@@ -272,10 +272,11 @@ typedef enum
 //FLOMIO_OPERATION_MODE_OP Sub-Opcodes 
 typedef enum
 {
-    FLOMIO_OP_MODE_READ_UID = 0,        // Send host UID only
-    FLOMIO_OP_MODE_READ_ALL_MEMORY,     // Send host ALL BLOCKS (UID, OTP, CC, TLV, DATA, etc)
-    FLOMIO_OP_MODE_WRITE_CURRENT,       // Write data to tag
-    FLOMIO_OP_MODE_WRITE_PREVIOUS       // Send UID. Wait for read or write command
+    FLOMIO_OP_MODE_READ_UID = 0,         // Send host UID only
+    FLOMIO_OP_MODE_READ_ALL_MEMORY,      // Send host ALL BLOCKS (UID, OTP, CC, TLV, DATA, etc)
+    FLOMIO_OP_MODE_WRITE_CURRENT,        // Write data to tag
+    FLOMIO_OP_MODE_WRITE_PREVIOUS,       // Send UID. Wait for read or write command
+    FLOMIO_OP_MODE_READ_UID_NDEF         // Send host UID + NDEF Message
 } flomio_operation_modes_t;
 
 //Block Read/Write Sub-Opcodes

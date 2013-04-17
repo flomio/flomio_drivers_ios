@@ -63,6 +63,9 @@
     
     switch (((UIButton *)sender).tag) {           
         // Read Tags
+        case 23:
+            [appDelegate.nfcAdapter setModeReadTagUIDAndNDEF];
+            break;
         case 24:
             [appDelegate.nfcAdapter setModeReadTagUID];
             break;
