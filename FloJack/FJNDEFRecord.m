@@ -201,6 +201,9 @@
 }
 
 + (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe {
+    if (data == nil || data.length == 0) {
+        return nil;
+    }
     
     NSMutableArray *records = [[NSMutableArray alloc] init];
     
