@@ -45,7 +45,7 @@ enum uart_state {
 @interface FJNFCService()
 - (BOOL)isHeadsetPluggedInWithRoute:(NSString *)currentRoute;
 - (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
-- (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected;
+- (void)sendFloJackConnectedStatusToDelegate;
 - (void)clearMessageBuffer;
 @end
 
@@ -85,7 +85,6 @@ enum uart_state {
 }
 
 @synthesize delegate = _delegate;
-@synthesize floJackConnected = _floJackConnected;
 @synthesize messageTXLock = _messageTXLock;
 @synthesize outputAmplitude = _outputAmplitude;
 
@@ -136,8 +135,7 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 {
     
     FJNFCService *self = (__bridge FJNFCService *)inClientData;
-    
-    
+       
     if (inID == kAudioSessionProperty_AudioRouteChange) {
 		try {
             // if there was a route change, we need to dispose the current rio unit and create a new one
@@ -150,15 +148,9 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
             
             // send interbyte delay config message if FloJack reconnected
             NSString *currentRoute = [(__bridge NSDictionary *)inData objectForKey:@"OutputDeviceDidChange_NewRoute"];
-            NSLog(@"Current Route: %@", currentRoute);
-            if ([self isHeadsetPluggedInWithRoute:currentRoute]) {
-                self->_floJackConnected = true;
-                [self sendFloJackConnectedStatusToDelegate:true];
-            }
-            else {
-                self->_floJackConnected = false;
-                [self sendFloJackConnectedStatusToDelegate:false];
-            }
+            NSLog(@"Current Route: %@", currentRoute);            
+            [self sendFloJackConnectedStatusToDelegate];
+
 		}
         catch (CAXException e) {
 			char buf[256];
@@ -493,7 +485,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         _byteQueuedForTX = FALSE;
         
         _messageTXLock = dispatch_semaphore_create(1);
-        _floJackConnected = false;
         _ignoreRouteChangeCount = 0;
         
         // Assume non EU device
@@ -610,7 +601,29 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- Get the Logic One value based on device type. 
+ Get current audio route description and determine if FloJack is connected.  
+ 
+ @return BOOL    FloJack connected status
+ */
+-(BOOL)floJackConnected {
+    CFDictionaryRef route;
+    UInt32 size = sizeof(route);
+    XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_AudioRouteDescription, &size, &route), "couldn't get new sample rate");
+    
+    NSDictionary *inputRoutes = [(NSArray *)[(__bridge NSDictionary *)route objectForKey:@"RouteDetailedDescription_Inputs"] objectAtIndex:0];
+    NSDictionary *outputRoutes = [(NSArray *)[(__bridge NSDictionary *)route objectForKey:@"RouteDetailedDescription_Outputs"] objectAtIndex:0];
+    
+    if ([[inputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"MicrophoneWired"] &&
+        [[outputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"Headphones"]) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ Get the Logic One value based on device type.
  
  @return UInt8    1 or 0 indicating logical one for this device
  */
@@ -838,15 +851,16 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         volumeStatusBool = true;
     }
     else {
-        LogError(@"Volume not max. Level = %f", volume);
         volumeStatus = FLOMIO_STATUS_VOLUME_LOW_ERROR;
         volumeStatusBool = false;
     }
     
-    if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
-        dispatch_async(_backgroundQueue, ^(void) {
-            [self.delegate nfcService:self didHaveError:volumeStatus];
-        });
+    if (self.floJackConnected) {
+        if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+            dispatch_async(_backgroundQueue, ^(void) {
+                [self.delegate nfcService:self didHaveError:volumeStatus];
+            });
+        }
     }
     return volumeStatusBool;
 }
@@ -924,7 +938,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  */
 - (BOOL)sendMessageDataToHost:(NSData *)messageData {
     if (!self.floJackConnected) {
-        [self sendFloJackConnectedStatusToDelegate:false];
+        [self sendFloJackConnectedStatusToDelegate];
         return false;
     }    
     
@@ -957,7 +971,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return void    
  */
-- (void)sendFloJackConnectedStatusToDelegate:(BOOL)isFloJackConnected {
+- (void)sendFloJackConnectedStatusToDelegate {
     if (_ignoreRouteChangeCount > 0) {
         _ignoreRouteChangeCount--;
         return;
@@ -965,7 +979,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
         dispatch_async(_backgroundQueue, ^(void) {
-            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:isFloJackConnected];
+            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:self.floJackConnected];
         });
     }
 }

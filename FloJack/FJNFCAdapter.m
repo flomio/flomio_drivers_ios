@@ -560,14 +560,17 @@
  @return void
  */
 - (void)nfcService:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode {
-    switch (errorCode) {
+    switch (errorCode) {      
         case FLOMIO_STATUS_VOLUME_LOW_ERROR:
-        case FLOMIO_STATUS_VOLUME_OK: {
-            if (!_nfcService.floJackConnected) {
-                return;
-            }            
+        case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
+        case FLOMIO_STATUS_NACK_ERROR:
+        case FLOMIO_STATUS_GENERIC_ERROR:
+        case FLOMIO_STATUS_FLOJACK_DISCONNECTED:
+            LogError("%@", [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)errorCode]);
             break;
-        }
+        default:
+            LogInfo("%@", [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)errorCode]);
+            break;
     }    
     if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
         [_delegate nfcAdapter:self didHaveStatus:errorCode];
