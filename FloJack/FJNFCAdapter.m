@@ -511,9 +511,15 @@
     [self sendMessageDataToHost:flojackMessage.bytes];    
 }
 
-
 #pragma mark - NFC Service Delegate
 
+/**
+ Receives decoded messages from the FJNFCService.
+ 
+ @param nfcService      The NFC Service Object experiencing an error.
+ @param theMessage      The received message.
+ @return void
+ */
 - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage; {
     if(theMessage != nil || theMessage.length > 0) {
         [self parseMessage:theMessage];
