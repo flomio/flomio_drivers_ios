@@ -30,7 +30,10 @@
 
 - (id)init;
 - (void)initializeFloJackDevice;
-- (FJAudioPlayer*)getFJAudioPlayer;
+- (BOOL)isFloJackPluggedIn;
+- (void)getFirmwareVersion;
+- (FJAudioPlayer *)getFJAudioPlayer;
+- (void)getHardwareVersion;
 - (void)setModeReadTagUID;
 - (void)setModeReadTagUIDAndNDEF;
 - (void)setModeReadTagData;
@@ -39,11 +42,6 @@
 - (void)sendMessageDataToHost:(NSData *)data;
 - (void)sendMessageToHost:(FJMessage *)theMessage;
 - (void)sendRawMessageToHost:(UInt8[])theMessage;
-
-// TODO: remove some or all of these
-- (void)getFirmwareVersion;
-- (void)getHardwareVersion;
-- (BOOL)isFloJackPluggedIn;
 
 @end
 

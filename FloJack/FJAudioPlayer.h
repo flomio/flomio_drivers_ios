@@ -18,11 +18,11 @@
 @property (strong, readonly) FJNFCService *fjNfcService;
 @property (nonatomic) AVAudioPlayer *audioPlayer;
 
--(id)initWithNFCService:(FJNFCService *)fjNfcService;
--(BOOL)playSoundWithPath:(NSString *)path;
+- (id)initWithNFCService:(FJNFCService *)fjNfcService;
+- (BOOL)playSoundWithPath:(NSString *)path;
 
 // AVAudioPlayerDelegate Protocol
--(void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error;
--(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error;
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
 
 @end

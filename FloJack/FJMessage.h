@@ -41,10 +41,8 @@
 #define NDEF_MESSAGE_HEADER                      0x03
 
 // FloJack protocol messages {opcode, length, data[] }
-
-const static UInt8 status_hw_rev_msg[] =                {0x01,0x04,0x01,0x04};
-
-const static UInt8 status_sw_rev_msg[] =                {0x01,0x04,0x02,0x07};
+const static UInt8 status_hw_rev_msg[] =         {0x01,0x04,0x01,0x04};
+const static UInt8 status_sw_rev_msg[] =         {0x01,0x04,0x02,0x07};
 
 //Flomio Accessory-Client Message Opcodes
 typedef enum
@@ -114,14 +112,12 @@ typedef enum
     FLOMIO_PROTO_FELICA
 } flomio_proto_opcodes_t;
 
-
 //Flomio ACK responses
 typedef enum
 {
     FLOMIO_ACK_BAD = 0x80,
     FLOMIO_ACK_GOOD
 } flomio_ack_responses_t;
-
 
 //Polling Increment
 #define FLOMIO_POLLING_RATE  25  //25 ms increments
@@ -133,7 +129,6 @@ typedef enum
 } flomio_log_opcodes_t;
 
 //Flomio LED Control definitions
-
 typedef enum
 {
     FLOMIO_LED_IDLE = 0,
@@ -235,13 +230,13 @@ typedef enum
 @property (nonatomic)           UInt8     *crc;
 @property (nonatomic, strong)   NSString  *name;
 
-- (id)init; 
+- (id)init;
 - (id)initWithBytes:(UInt8 *)theBytes;
 - (id)initWithData:(NSData *)theData;
 - (id)initWithMessageParameters:(UInt8)opcode andSubOpcode:(UInt8)subOpcode andData:(NSData *)data;
 
-+(NSString*)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode;
-+(NSString*)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode;
++ (NSString*)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode;
++ (NSString*)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode;
 + (UInt8)getMessageSubOpcode:(NSData *)theMessage;
 
 @end

@@ -32,7 +32,7 @@
 // Returns a byte buffer representation of this entire NDEF message.
 - (NSData *)asByteBuffer;
 
-+ (FJNDEFMessage *)createURIWithSting:(NSString *)uriString;
++(FJNDEFMessage *)createURIWithSting:(NSString *)uriString;
 
 @end
 

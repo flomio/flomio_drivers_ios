@@ -111,7 +111,12 @@ static __unused NSArray *kUriPrefixMap = nil;
 // The underlying record representation may be chunked across several NDEF records when the payload is large.
 // This is an immutable data class.
 //
-@interface FJNDEFRecord : NSObject 
+@interface FJNDEFRecord : NSObject
+
+@property(nonatomic, readonly) short tnf;
+@property(nonatomic, readonly) NSData *type;
+@property(nonatomic, readonly) NSData *theId;
+@property(nonatomic, readonly) NSData *payload;
 
 // Construct an NDEF Record. Validation is performed to make sure the header is valid, and that the id, type and payload sizes appear to be valid.
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload;
@@ -130,14 +135,8 @@ static __unused NSArray *kUriPrefixMap = nil;
 // Parses the byte message for one or more NDEF records.
 + (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe;
 
-#pragma mark - Static helper methods
 // Creates an NDEF record payload of well known type URI.
 + (FJNDEFRecord *)createURIWithURL:(NSURL *)url;
 + (FJNDEFRecord *)createURIWithString:(NSString *)uriString;
-
-@property(nonatomic, readonly) short tnf;
-@property(nonatomic, readonly) NSData *type;
-@property(nonatomic, readonly) NSData *theId;
-@property(nonatomic, readonly) NSData *payload;
 
 @end

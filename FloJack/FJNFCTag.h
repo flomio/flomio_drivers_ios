@@ -11,6 +11,8 @@
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
 
+#define NFC_FORUM_TYPE2_CC_LOC              13;
+
 @interface FJNFCTag : NSObject
 
 @property(nonatomic, readonly) NSData *uid;
@@ -22,26 +24,7 @@
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData;
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData andType:(UInt8)type;
 
-
-/*
- Collection of static methods for parsing NFC Forum Type 2 memory.
- 
- --READ--
- -dynamic vs static memory
- -r/w security
- -cc bytes
- -NDEF Message(s)
- -counters
- 
- This will parse out Lock, Memory, NDEF, and other TLV headers.
- 
- 
- --WRITE--
- TODO
- 
- */
-#define NFC_FORUM_TYPE2_CC_LOC              13;
-
+// Methods for parsing NFC Forum Type 2 memory.
 - (FJNDEFMessage *)parseMemoryForNdefMessage;
 - (FJNDEFMessage *)type2ParseMemoryForNdefMessage;
 
