@@ -9,6 +9,7 @@
 #import "FJAudioPlayer.h"
 
 @implementation FJAudioPlayer
+
 @synthesize audioPlayer         = _audioPlayer;
 @synthesize fjNfcService        = _fjNfcService;
 

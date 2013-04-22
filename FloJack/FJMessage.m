@@ -367,7 +367,7 @@
     return [FJMessage calculateCRCForIncompleteMessage:bytes withLength:theData.length];
 }
 
-+(NSString*)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode {
++ (NSString *)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode {
     NSString *result = nil;
     switch(statusCode) {
         case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
@@ -404,7 +404,7 @@
     return result;
 }
 
-+(NSString*)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode {
++ (NSString *)formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode {
     NSString *result = nil;
     switch(statusCode) {
         case FLOMIO_TAG_WRITE_STATUS_SUCCEEDED:

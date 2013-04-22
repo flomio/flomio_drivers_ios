@@ -20,7 +20,7 @@
 @synthesize theId = _theId;
 @synthesize payload = _payload;
 
-+(void)initialize; {
++ (void)initialize; {
     kRTDAlternativeCarrier = [NSData dataWithBytes:(UInt8[]){0x61, 0x63} length:2];
     kRTDHandoverCarrier = [NSData dataWithBytes:(UInt8[]){0x48, 0x63} length:2];
     kRTDHandoverRequest = [NSData dataWithBytes:(UInt8[]){0x48, 0x72} length:2];

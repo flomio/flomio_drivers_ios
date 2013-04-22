@@ -88,12 +88,10 @@ enum uart_state {
 #pragma mark - NFC Service Audio Sessions and Callbacks (C)
 
 /**
- floJackAudioSessionInterruptionListener()
  Invoked when an audio interruption in iOS begins or ends.
  
  @param inClientData            Data that you specified in the inClientData parameter of the AudioSessionInitialize function. Can be NULL.
  @param inInterruptionState     A constant that indicates whether the interruption has just started or just ended. See “Audio Session Interruption States.”
- 
  @return void
  */
 void floJackAudioSessionInterruptionListener(void   *inClientData,
@@ -115,14 +113,12 @@ void floJackAudioSessionInterruptionListener(void   *inClientData,
 }
 
 /**
- floJackAudioSessionPropertyListener()
  Invoked when an audio session property changes in iOS.
  
  @param inClientData        Data that you specified in the inClientData parameter of the AudioSessionAddPropertyListener function. Can be NULL.
  @param inID                The identifier for the audio session property whose value just changed. See “Audio Session Property Identifiers.”
  @param inDataSize          The size, in bytes, of the value of the changed property.
  @param inData              The new value of the changed property.
-
  @return void
  */
 void floJackAudioSessionPropertyListener(void *                  inClientData,
@@ -161,7 +157,6 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
 
 
 /**
- floJackAURenderCallback()
  Called by the system when an audio unit requires input samples, or before and after a render operation.
  host registers callback with audio unit in preparation to send data
  
@@ -171,7 +166,6 @@ void floJackAudioSessionPropertyListener(void *                  inClientData,
  @param inBusNumber     The bus number associated with this call of audio unit render.
  @param inNumberFrames  The number of sample frames that will be represented in the audio data in the provided ioData parameter.
  @param ioData          The AudioBufferList that will be used to contain the rendered or provided audio data.
- 
  @return OSStatus indicator.
  */
 static OSStatus	floJackAURenderCallback(void						*inRefCon,
@@ -460,7 +454,13 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 
 #pragma mark - NFC Service (Objective C)
 
-- (id) init {
+/**
+ Designated initializer for FJNFCService. Initializes decoder state
+ and preps audio session for decoding process. 
+ 
+ @return FJNFCService
+ */
+- (id)init {
     self = [super init];
     if (self) {
         // Setup Grand Central Dispatch queue (thread pool)
@@ -540,32 +540,46 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     return self;
 }
 
-/**
- Disables FloJack audio line communication and switches route to device speaker.
+/*
+ Checks if the current route's volume is at MAX value.
+ Returns a BOOL and sends status to NFC Service Delegate
+ to handle and propopgate to consuming app.
  
- @return BOOL indicates if execution was successful
+ @return BOOL   volume level acceptable or not
  */
--(BOOL)enableDeviceSpeakerPlayback {
-    dispatch_semaphore_wait(_messageTXLock, DISPATCH_TIME_FOREVER);
-    BOOL success = true;
+- (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate; {
+    Float32 volume;
+    UInt32 dataSize = sizeof(Float32);
+    AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,
+                             &dataSize,
+                             &volume
+                             );
     
-    NSError *sharedAudioSessionError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
-    
-    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    OSStatus setPropertyRouteError  = 0;
-    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
-    
-    if (sharedAudioSessionError != nil || setPropertyRouteError != 0) {
-        LogError("AudioSession Error(s): %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
-        dispatch_semaphore_signal(_messageTXLock);
-        success = false;
+    NSInteger volumeStatus;
+    BOOL volumeStatusBool;
+    if (volume == 1) {
+        volumeStatus = FLOMIO_STATUS_VOLUME_OK;
+        volumeStatusBool = true;
     }
     else {
-        success = false;
-        _ignoreRouteChangeCount = 2;        
+        volumeStatus = FLOMIO_STATUS_VOLUME_LOW_ERROR;
+        volumeStatusBool = false;
     }
-    return success;
+    
+    if (self.floJackConnected) {
+        if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
+            dispatch_async(_backgroundQueue, ^(void) {
+                [self.delegate nfcService:self didHaveError:volumeStatus];
+            });
+        }
+    }
+    return volumeStatusBool;
+}
+
+- (void)clearMessageBuffer {
+    [_messageReceiveBuffer setLength:0];
+    _messageLength  = MAX_MESSAGE_LENGTH;
+    _messageCRC = 0;
 }
 
 /**
@@ -573,7 +587,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  
  @return BOOL indicates if execution was successful
  */
--(BOOL)disableDeviceSpeakerPlayback {
+- (BOOL)disableDeviceSpeakerPlayback {
     BOOL success;
     
     NSError *sharedAudioSessionError = nil;
@@ -598,11 +612,39 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
+ Disables FloJack audio line communication and switches route to device speaker.
+ 
+ @return BOOL indicates if execution was successful
+ */
+- (BOOL)enableDeviceSpeakerPlayback {
+    dispatch_semaphore_wait(_messageTXLock, DISPATCH_TIME_FOREVER);
+    BOOL success = true;
+    
+    NSError *sharedAudioSessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sharedAudioSessionError];
+    
+    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+    OSStatus setPropertyRouteError  = 0;
+    setPropertyRouteError = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof(audioRouteOverride), &audioRouteOverride);
+    
+    if (sharedAudioSessionError != nil || setPropertyRouteError != 0) {
+        LogError("AudioSession Error(s): %@, %@", sharedAudioSessionError.localizedDescription, [FJAudioSessionHelper formatOSStatus:setPropertyRouteError]);
+        dispatch_semaphore_signal(_messageTXLock);
+        success = false;
+    }
+    else {
+        success = false;
+        _ignoreRouteChangeCount = 2;        
+    }
+    return success;
+}
+
+/**
  Get current audio route description and determine if FloJack is connected.  
  
  @return BOOL    FloJack connected status
  */
--(BOOL)floJackConnected {
+- (BOOL)floJackConnected {
     CFDictionaryRef route;
     UInt32 size = sizeof(route);
     XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_AudioRouteDescription, &size, &route), "couldn't get new sample rate");
@@ -620,94 +662,17 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- Get the Logic One value based on device type.
+ Process the decoded byte. If parity is correct and the message sync timeout 
+ hasn't passed, this byte will be added to the receive message buffer.
+ Otherwise the receive message buffer is marked invalid and cleared when 
+ transmission has finished.
  
- @return UInt8    1 or 0 indicating logical one for this device
+ @param byte             Decoded byte
+ @param withParity       Parity check was successful
+ @param atTimestamp      Decoding timestamp
+ @return void
  */
-+(UInt8) getDeviceLogicOneValue  {
-    // Get the device model number from uname
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString* machineName = [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
-    
-    // Default value (should work on most devices)
-    UInt8	logicOneValue = 1;
-    
-    // Device exceptions
-    if([machineName caseInsensitiveCompare:@"iPhone2,1"] == NSOrderedSame) {
-        // iPhone 3GS
-        logicOneValue = 0;
-    }
-    else if([machineName caseInsensitiveCompare:@"iPhone1,2"] == NSOrderedSame) {
-        // iPhone 3G
-        logicOneValue = 0;
-    }
-    
-    return logicOneValue;
-}
-
-/**
- Get the logical zero value based on device type.
- 
- @return UInt8    1 or 0 indicating logical one for this device
- */
-+(UInt8) getDeviceLogicZeroValue  {
-    // Return inverse of LogicOne value
-    if ([FJNFCService getDeviceLogicOneValue] == 1)
-        return 0;
-    else
-        return 1;
-}
-
-/**
- This message configures the delay between bytes transmitted by
- the FloJack. For older devices we need to slow down to allow ample
- sampling time.
- 
- TODO: iPad Mini Testing
- 0x05 = (0x0C ^ 0x05 ^ 0x00)     // CRC calc
- 0x0C, 0x05, 0x00, 0x06, 0x0F
- 0x0C, 0x05, 0x00, 0x0B, 0x02
- 0x0C, 0x05, 0x00, 0x0C, 0x05    // ipad 2
- 0x0C, 0x05, 0x00, 0x50, 0x59    // 3gs
- 0x0C, 0x05, 0x00, 0x80, 0x89    // flojack default
- 0x0C, 0x05, 0x00, 0xFF, 0xF6
- 
- @return UInt8    interbyte delay value
- */
-+ (UInt8)getDeviceInterByteDelay{
-    // Get the device model number from uname
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString* machineName = [NSString stringWithCString:systemInfo.machine
-                                               encoding:NSUTF8StringEncoding];
-    
-    UInt8 inter_byte_delay = 0x80;
-    
-    // Find delay based on device family
-    if([machineName rangeOfString:@"iPad"].location != NSNotFound) {
-        // iPad 4, 3, 2, 1
-        inter_byte_delay = 0x0C;
-    }
-    else if([machineName rangeOfString:@"iPhone"].location != NSNotFound) {
-        // iPhone 5, 4S, 4
-        inter_byte_delay = 0x20;
-    }
-    else if([machineName rangeOfString:@"iPhone2"].location != NSNotFound) {
-        // iPhone 3GS
-        inter_byte_delay = 0x50;
-    }
-    else if([machineName rangeOfString:@"iPod"].location != NSNotFound) {
-        // iPod Touch 1G, 2G, 3G, 4G, 5G
-        inter_byte_delay = 0x50;
-    }
-    
-    return inter_byte_delay;
-}
-
--(void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp {
-    
+- (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp {
     /*
      *  ERROR CHECKING 
      */
@@ -789,29 +754,42 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     }
 }
 
--(void)clearMessageBuffer {
-    [_messageReceiveBuffer setLength:0];
-    _messageLength  = MAX_MESSAGE_LENGTH;
-    _messageCRC = 0;
-}
-
--(void)markCurrentMessageCorruptAndClearBufferAtTime:(double)timestamp {
+/**
+ Mark the current message corrupt and clear the receive buffer.
+ 
+ @param timestamp       Time when message was marked valid and buffer cleared
+ @return void
+ */
+- (void)markCurrentMessageCorruptAndClearBufferAtTime:(double)timestamp {
     [self markCurrentMessageCorruptAtTime:timestamp];
     [self clearMessageBuffer];
 }
 
--(void)markCurrentMessageCorruptAtTime:(double)timestamp {
+/**
+ Mark the current message invalid and timestamp.
+ The message receive buffer will be flushed after transmission
+ completes.
+ 
+ @param timestamp       Time when message was marked corrupt
+ @return void
+ */
+- (void)markCurrentMessageCorruptAtTime:(double)timestamp {
     _lastByteReceivedAtTime = timestamp;
     _messageValid = false;
 }
 
--(void)markCurrentMessageValidAtTime:(double)timestamp {
+/**
+ Mark the current message valid and capture the timestamp.
+ 
+ @param timestamp       Time when message was marked valid
+ @return void
+ */
+- (void)markCurrentMessageValidAtTime:(double)timestamp {
     _lastByteReceivedAtTime = timestamp;
     _messageValid = true;
 }
 
 /*
- setOutputAmplitudeHigh()
  Used to increase the output wave amplitude to 1<<27. 
  This is necessary for EU devices with audio caps at ~80dBA.
  
@@ -825,7 +803,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /*
- setOutputAmplitudeHigh()
  Used to initialize output amplitude to normal levels. 
  For use on non-EU devices with full 120 dBA audio outputs.
  
@@ -835,48 +812,10 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     _outputAmplitude = (1<<24);
 }
 
-/*
- Checks if the current route's volume is at MAX value.
- Returns a BOOL and sends status to NFC Service Delegate
- to handle and propopgate to consuming app.  
- 
- @return BOOL   volume level acceptable or not
- */
-- (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate; {
-    Float32 volume;
-    UInt32 dataSize = sizeof(Float32);
-    AudioSessionGetProperty (kAudioSessionProperty_CurrentHardwareOutputVolume,
-                             &dataSize,
-                             &volume
-                             );
-    
-    NSInteger volumeStatus;
-    BOOL volumeStatusBool;
-    if (volume == 1) {
-        volumeStatus = FLOMIO_STATUS_VOLUME_OK;
-        volumeStatusBool = true;
-    }
-    else {
-        volumeStatus = FLOMIO_STATUS_VOLUME_LOW_ERROR;
-        volumeStatusBool = false;
-    }
-    
-    if (self.floJackConnected) {
-        if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
-            dispatch_async(_backgroundQueue, ^(void) {
-                [self.delegate nfcService:self didHaveError:volumeStatus];
-            });
-        }
-    }
-    return volumeStatusBool;
-}
-
 /**
- send()
  Queues up and sends a ingle byte across the audio line.
  
  @param theByte             The byte to be sent
- 
  @return int                1 for byte queued, 0 for byte sent
  */
 - (int)send:(UInt8)byte {
@@ -891,11 +830,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- sendByteToHost()
  Send one byte across the audio jack to the FloJack.
  
  @param theByte             The byte to be sent
- 
  @return void
  */
 - (void)sendByteToHost:(UInt8)theByte {
@@ -903,6 +840,23 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     while ([self send:theByte]);
 }
 
+/**
+ Tell consuming app (by way of adapter) if the FloJack is plugged in
+ 
+ @return void
+ */
+- (void)sendFloJackConnectedStatusToDelegate {
+    if (_ignoreRouteChangeCount > 0) {
+        _ignoreRouteChangeCount--;
+        return;
+    }
+    
+    if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
+        dispatch_async(_backgroundQueue, ^(void) {
+            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:self.floJackConnected];
+        });
+    }
+}
 
 /**
  Send a message to the FloJack device. Message definitions can be found in device spec.
@@ -937,32 +891,103 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     return true;
 }
 
-
 /**
- Tell consuming app (by way of adapter) if the FloJack is plugged in
+ Deallocate the NFC Service.
  
- @param isHeadsetPluggedIn        FloJack plugged in value
- 
- @return void    
+ @return void
  */
-- (void)sendFloJackConnectedStatusToDelegate {
-    if (_ignoreRouteChangeCount > 0) {
-        _ignoreRouteChangeCount--;
-        return;
-    }
-    
-    if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
-        dispatch_async(_backgroundQueue, ^(void) {
-            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:self.floJackConnected];
-        });
-    }
-}
-
 - (void)dealloc
 {
 	delete[] _remoteIODCFilter;
     dispatch_release(_backgroundQueue);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+/**
+ This message configures the delay between bytes transmitted by
+ the FloJack. For older devices we need to slow down to allow ample
+ sampling time.
+ 
+ TODO: iPad Mini Testing
+ 0x05 = (0x0C ^ 0x05 ^ 0x00)     // CRC calc
+ 0x0C, 0x05, 0x00, 0x06, 0x0F
+ 0x0C, 0x05, 0x00, 0x0B, 0x02
+ 0x0C, 0x05, 0x00, 0x0C, 0x05    // ipad 2
+ 0x0C, 0x05, 0x00, 0x50, 0x59    // 3gs
+ 0x0C, 0x05, 0x00, 0x80, 0x89    // flojack default
+ 0x0C, 0x05, 0x00, 0xFF, 0xF6
+ 
+ @return UInt8    interbyte delay value
+ */
++ (UInt8)getDeviceInterByteDelay{
+    // Get the device model number from uname
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString* machineName = [NSString stringWithCString:systemInfo.machine
+                                               encoding:NSUTF8StringEncoding];
+    
+    UInt8 inter_byte_delay = 0x80;
+    
+    // Find delay based on device family
+    if([machineName rangeOfString:@"iPad"].location != NSNotFound) {
+        // iPad 4, 3, 2, 1
+        inter_byte_delay = 0x0C;
+    }
+    else if([machineName rangeOfString:@"iPhone"].location != NSNotFound) {
+        // iPhone 5, 4S, 4
+        inter_byte_delay = 0x20;
+    }
+    else if([machineName rangeOfString:@"iPhone2"].location != NSNotFound) {
+        // iPhone 3GS
+        inter_byte_delay = 0x50;
+    }
+    else if([machineName rangeOfString:@"iPod"].location != NSNotFound) {
+        // iPod Touch 1G, 2G, 3G, 4G, 5G
+        inter_byte_delay = 0x50;
+    }
+    
+    return inter_byte_delay;
+}
+
+/**
+ Get the Logic One value based on device type.
+ 
+ @return UInt8    1 or 0 indicating logical one for this device
+ */
++ (UInt8)getDeviceLogicOneValue  {
+    // Get the device model number from uname
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString* machineName = [NSString stringWithCString:systemInfo.machine
+                                               encoding:NSUTF8StringEncoding];
+    
+    // Default value (should work on most devices)
+    UInt8	logicOneValue = 1;
+    
+    // Device exceptions
+    if([machineName caseInsensitiveCompare:@"iPhone2,1"] == NSOrderedSame) {
+        // iPhone 3GS
+        logicOneValue = 0;
+    }
+    else if([machineName caseInsensitiveCompare:@"iPhone1,2"] == NSOrderedSame) {
+        // iPhone 3G
+        logicOneValue = 0;
+    }
+    
+    return logicOneValue;
+}
+
+/**
+ Get the logical zero value based on device type.
+ 
+ @return UInt8    1 or 0 indicating logical one for this device
+ */
++ (UInt8)getDeviceLogicZeroValue  {
+    // Return inverse of LogicOne value
+    if ([FJNFCService getDeviceLogicOneValue] == 1)
+        return 0;
+    else
+        return 1;
 }
 
 @end

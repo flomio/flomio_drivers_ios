@@ -39,8 +39,4 @@
     return [[NSString alloc] initWithData:self encoding:NSASCIIStringEncoding];
 }
 
-
-
-
-
 @end
