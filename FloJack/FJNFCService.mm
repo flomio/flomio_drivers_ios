@@ -66,7 +66,6 @@ enum uart_state {
     BOOL                         _currentlySendingMessage;
     BOOL						 _muteEnabled;
     
-    
     // Logic Values
     UInt8                        _logicOne;
     UInt8                        _logicZero;
@@ -77,8 +76,6 @@ enum uart_state {
     NSMutableData               *_messageReceiveBuffer;
     int                          _messageLength;
     BOOL                         _messageValid;
-    
-    
 }
 
 @synthesize delegate = _delegate;

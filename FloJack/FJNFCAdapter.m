@@ -8,8 +8,6 @@
 
 #import "FJNFCAdapter.h"
 
-#define HIGHJACK_SENDBYTE(x) while ([_nfcService send:x])
-
 @implementation FJNFCAdapter {
     id <FJNFCAdapterDelegate>       _delegate;
     FJNFCService                    *_nfcService;
@@ -22,6 +20,11 @@
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
 
+/**
+ Designated intializer of FJNFCAdapter. 
+ 
+ @return FJNFCAdapter
+ */
 - (id)init {
     self = [super init];
     if (self) {
@@ -38,16 +41,29 @@
     return self;    
 }
 
-// Get FloJack Firmware version
+/**
+ Get FloJack Firmware version
+ 
+ @return void
+ */
 - (void)getFirmwareVersion {
     [self sendRawMessageToHost:(UInt8*)status_sw_rev_msg];
 }
 
+/**
+ Accessor for FloJack audio player helper. 
+ 
+ @return FJAudioPlayer
+ */
 -(FJAudioPlayer *)getFJAudioPlayer {
     return [[FJAudioPlayer alloc] initWithNFCService:_nfcService];
 }
 
-// Get NFC accessory hardware version
+/**
+ Get NFC accessory hardware version
+ 
+ @return void
+ */
 - (void)getHardwareVersion {
     [self sendRawMessageToHost:(UInt8*)status_hw_rev_msg];
 }
@@ -65,12 +81,23 @@
                                                                     andData:[NSData dataWithBytes:&interByteDelay length:1]];
     [self sendMessageDataToHost:configMessage.bytes];
 }
-
-// Check if FloJack NFC reader is plugged in
+ 
+/**
+ Determine if FloJack is connected.
+ 
+ @return BOOL FloJack connection status
+ */
 - (BOOL)isFloJackPluggedIn {
     return _nfcService.floJackConnected;
 }
 
+/**
+ Parses an NSData object for a FloJack
+ message and handles it accordingly. 
+ 
+ @param NSData Byte stream to be parsed.
+ @return void
+ */
 - (void)parseMessage:(NSData *)message;
 {
     FJMessage *messyTest = [[FJMessage alloc] initWithData:message];
@@ -278,9 +305,9 @@
 }
 
 /**
- TODO
+ Send message to FloJack.
  
- @param TODO
+ @param NSData  Byte representation of FloJack command
  @return void
  */
 - (void)sendMessageDataToHost:(NSData *)data  {
@@ -289,9 +316,9 @@
 }
 
 /**
- TODO
+ Send message to FloJack.
  
- @param TODO
+ @param FJMessage FJMessage representation of FloJack command
  @return void
  */
 - (void)sendMessageToHost:(FJMessage *)theMessage  {
@@ -300,9 +327,9 @@
 }
 
 /**
- TODO
+ Send message to FloJack.
  
- @param TODO
+ @param UInt8[]  Byte array representatino of FloJack command.
  @return void
  */
 - (void)sendRawMessageToHost:(UInt8[])theMessage  {
@@ -311,7 +338,8 @@
 }
 
 /**
- TODO
+ Enter FloJack into read tag UID mode. When tags are discovered only the UID 
+ will be returned.
  
  @return void
  */
@@ -324,7 +352,8 @@
 }
 
 /**
- TODO
+ Enter FloJack into read tag UID + NDEF mode. When tags are discovered the UID
+ and any NDEF encoded data will be returned.
  
  @return void
  */
@@ -336,7 +365,9 @@
 }
 
 /**
- TODO
+ Enter FloJack into read tag data mode. When tags are discovered the
+ entire memory structure will be returned in cluding UID, OTP fields,
+ capability counters, TLV, and other meta information.
  
  @return void
  */
@@ -351,7 +382,6 @@
  Transmit the current NDEF Message to the FloJack and write it to next tag detected.
  
  @param FJNDEFMessage   NDEF Message for writing
- 
  @return void
  */
 - (void)setModeWriteTagWithNdefMessage:(FJNDEFMessage *)theNDEFMessage {
@@ -411,8 +441,10 @@
 }
 
 /*
- TODO
+ Enable or disable polling for a given NFC RF protocol.
  
+ @param BOOL  Enable or disable polling
+ @param flomio_proto_opcodes_t  Selected protocol (1443A/B, 15693, Felica)
  @return void
  */
 - (void)setPolling:(BOOL)enablePolling forProtocol:(flomio_proto_opcodes_t)protocol {
@@ -423,8 +455,9 @@
 }
 
 /*
- TODO
+ Enable or disable polling for 14443A tags.
  
+ @param BOOL  14443A polling enabled
  @return void
  */
 - (void)setPollFor14443aTags:(BOOL)enablePolling {
@@ -433,8 +466,9 @@
 }
 
 /*
- TODO
+ Enable or disable polling for 15693 vicinity tags.
  
+ @param BOOL  15693 polling enabled
  @return void
  */
 - (void)setPollFor15693Tags:(BOOL)enablePolling {
@@ -443,8 +477,9 @@
 }
 
 /*
- TODO
+ Enable or disable polling for Sony Felica tags.
  
+ @param BOOL  Felica polling enabled
  @return void
  */
 - (void)setPollForFelicaTags:(BOOL)enablePolling {
