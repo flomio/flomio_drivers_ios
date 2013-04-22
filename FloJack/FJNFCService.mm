@@ -29,8 +29,6 @@
 #define SAMPLE_NOISE_CEILING        200000  // keeping running average and filter out noisy values around 0
 #define SAMPLE_NOISE_FLOOR          -200000 // keeping running average and filter out noisy values around 0
 
-//#define AMPLITUDE                   (1<<27) // EU: (1<<27) US: (1<<24)
-
 #define MESSAGE_SYNC_TIMEOUT        .500    // seconds
 
 enum uart_state {
@@ -43,7 +41,6 @@ enum uart_state {
 };
 
 @interface FJNFCService()
-- (BOOL)isHeadsetPluggedInWithRoute:(NSString *)currentRoute;
 - (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
 - (void)sendFloJackConnectedStatusToDelegate;
 - (void)clearMessageBuffer;
@@ -668,6 +665,15 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  the FloJack. For older devices we need to slow down to allow ample
  sampling time.
  
+ TODO: iPad Mini Testing
+ 0x05 = (0x0C ^ 0x05 ^ 0x00)     // CRC calc
+ 0x0C, 0x05, 0x00, 0x06, 0x0F
+ 0x0C, 0x05, 0x00, 0x0B, 0x02
+ 0x0C, 0x05, 0x00, 0x0C, 0x05    // ipad 2
+ 0x0C, 0x05, 0x00, 0x50, 0x59    // 3gs
+ 0x0C, 0x05, 0x00, 0x80, 0x89    // flojack default
+ 0x0C, 0x05, 0x00, 0xFF, 0xF6
+ 
  @return UInt8    interbyte delay value
  */
 + (UInt8)getDeviceInterByteDelay{
@@ -863,38 +869,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         }
     }
     return volumeStatusBool;
-}
-
-/**
- Check if a headset (3-conductor plug) is plugged in
- -- Definitions --
- Receiver: "the small speaker you hold to your ear when on a phone call"
- Headset: A 3-conductor plug in the headset jack (Left, Right, Microphone + Ground).
- Headphones: A 2-conductor plug in the headset jack (Left, Right + Ground)
- Microphone: The iPhone's microphone (at the base of the unit)
- Speaker: The iPhone's "loud" speaker (at the base of the unit)
- 
- -- Known values of route --
- "Headset"
- "Headphone"
- "Speaker"
- "SpeakerAndMicrophone"
- "HeadphonesAndMicrophone"
- "HeadsetInOut"  <-- Used for the FloJack
- "ReceiverAndMicrophone"
- "Lineout"
- 
- @param currentRoute         NSString the new audio route
- 
- @return boolean    Indicates if the FloJack is connected
- */
-- (BOOL)isHeadsetPluggedInWithRoute:(NSString *)currentRoute {
-    if (currentRoute != nil) {
-        if ([currentRoute isEqualToString:@"HeadsetInOut"]) {
-            return true;
-        }
-    }
-    return false;
 }
 
 /**

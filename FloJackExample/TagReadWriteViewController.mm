@@ -72,9 +72,6 @@
         case 25:
             [appDelegate.nfcAdapter setModeReadTagData];
             break;
-        case 26:
-            [appDelegate.nfcAdapter operationModeWriteDataTestPrevious];
-            break;
             
         // Write Tags
         case 27: {

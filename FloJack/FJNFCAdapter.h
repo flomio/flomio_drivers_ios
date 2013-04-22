@@ -40,22 +40,10 @@
 - (void)sendMessageToHost:(FJMessage *)theMessage;
 - (void)sendRawMessageToHost:(UInt8[])theMessage;
 
-// TODO: remove these, we don't need them any longer
-- (void)operationModeWriteDataTestPrevious;
-- (void)setDelegate:(id <FJNFCAdapterDelegate>) delegate;
 // TODO: remove some or all of these
-- (void)disable14443AProtocol;
-- (void)disable15693Protocol;
-- (void)disableFelicaProtocol;
-- (void)enable14443AProtocol;
-- (void)enable15693Protocol;
-- (void)enableFelicaProtocol;
-- (void)getAllStatus;
 - (void)getFirmwareVersion;
 - (void)getHardwareVersion;
 - (BOOL)isFloJackPluggedIn;
-- (void)setPollingRateTo1000ms;
-- (void)setPollingRateTo3000ms;
 
 @end
 
