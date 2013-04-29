@@ -41,7 +41,7 @@
     NSMutableData *messageByteBuffer = [[NSMutableData alloc] init];
     
     if (_ndefRecords == nil || [_ndefRecords count] == 0) {
-        return [[NSData alloc] initWithData:messageByteBuffer];
+        return nil;
     }
     
     [_ndefRecords enumerateObjectsUsingBlock:^(FJNDEFRecord *ndefRecord, NSUInteger i, BOOL *stop) {
