@@ -27,5 +27,6 @@
 // Methods for parsing NFC Forum Type 2 memory.
 - (FJNDEFMessage *)parseMemoryForNdefMessage;
 - (FJNDEFMessage *)type2ParseMemoryForNdefMessage;
+- (UInt8)type2ParseMemoryForNdefTLVLocation;
 
 @end
