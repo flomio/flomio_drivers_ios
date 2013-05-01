@@ -76,12 +76,6 @@
 		15DBE7BE16FD62E70001CB14 /* FJNDEFURITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */; };
 		15E188EB15DAC9E000AC0F72 /* FJNFCService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */; };
 		15E188ED15DAC9EF00AC0F72 /* FJNFCService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15E188E915DAC9E000AC0F72 /* FJNFCService.h */; };
-		15E472221700ED6B00223D3F /* UtilitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E472201700ED6B00223D3F /* UtilitiesViewController.m */; };
-		15E472231700ED6B00223D3F /* UtilitiesViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E472211700ED6B00223D3F /* UtilitiesViewController_iPad.xib */; };
-		15E472271700ED9900223D3F /* LoggingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E472251700ED9900223D3F /* LoggingViewController.m */; };
-		15E472281700ED9900223D3F /* LoggingViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E472261700ED9900223D3F /* LoggingViewController_iPad.xib */; };
-		15E4722A170120EE00223D3F /* LoggingViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E47229170120EE00223D3F /* LoggingViewController_iPhone.xib */; };
-		15E4722C170120FB00223D3F /* UtilitiesViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E4722B170120FA00223D3F /* UtilitiesViewController_iPhone.xib */; };
 		15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFD16288072008FD352 /* FJNDEFMessage.m */; };
 		15F2EFFF16288072008FD352 /* FJNDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFD16288072008FD352 /* FJNDEFMessage.m */; };
 		15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2EFFC16288072008FD352 /* FJNDEFMessage.h */; };
@@ -142,7 +136,7 @@
 		1559F29716517FF100B43633 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1559F29916517FF100B43633 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1559F29B16517FF100B43633 /* FloJackExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJackExample-Prefix.pch"; sourceTree = "<group>"; };
-		1559F29C16517FF100B43633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1559F29C16517FF100B43633 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1559F29D16517FF100B43633 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1559F29F16517FF100B43633 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1559F2A116517FF100B43633 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -200,14 +194,6 @@
 		15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFURITests.h; sourceTree = "<group>"; };
 		15E188E915DAC9E000AC0F72 /* FJNFCService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCService.h; sourceTree = "<group>"; };
 		15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJNFCService.mm; sourceTree = "<group>"; };
-		15E4721F1700ED6B00223D3F /* UtilitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilitiesViewController.h; sourceTree = "<group>"; };
-		15E472201700ED6B00223D3F /* UtilitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilitiesViewController.m; sourceTree = "<group>"; };
-		15E472211700ED6B00223D3F /* UtilitiesViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtilitiesViewController_iPad.xib; sourceTree = "<group>"; };
-		15E472241700ED9800223D3F /* LoggingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggingViewController.h; sourceTree = "<group>"; };
-		15E472251700ED9900223D3F /* LoggingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggingViewController.m; sourceTree = "<group>"; };
-		15E472261700ED9900223D3F /* LoggingViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoggingViewController_iPad.xib; sourceTree = "<group>"; };
-		15E47229170120EE00223D3F /* LoggingViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoggingViewController_iPhone.xib; sourceTree = "<group>"; };
-		15E4722B170120FA00223D3F /* UtilitiesViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtilitiesViewController_iPhone.xib; sourceTree = "<group>"; };
 		15F2EFFC16288072008FD352 /* FJNDEFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFMessage.h; sourceTree = "<group>"; };
 		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FJNDEFRecord.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -265,18 +251,10 @@
 			children = (
 				1559F29C16517FF100B43633 /* AppDelegate.h */,
 				1559F29D16517FF100B43633 /* AppDelegate.m */,
-				15E472241700ED9800223D3F /* LoggingViewController.h */,
-				15E472251700ED9900223D3F /* LoggingViewController.m */,
-				15E472261700ED9900223D3F /* LoggingViewController_iPad.xib */,
-				15E47229170120EE00223D3F /* LoggingViewController_iPhone.xib */,
 				1559F2A516517FF100B43633 /* TagReadWriteViewController.h */,
 				1559F2A616517FF100B43633 /* TagReadWriteViewController.mm */,
 				1559F2A816517FF100B43633 /* TagReadWriteViewController_iPhone.xib */,
 				1559F2B11651811300B43633 /* TagReadWriteViewController_iPad.xib */,
-				15E4721F1700ED6B00223D3F /* UtilitiesViewController.h */,
-				15E472201700ED6B00223D3F /* UtilitiesViewController.m */,
-				15E472211700ED6B00223D3F /* UtilitiesViewController_iPad.xib */,
-				15E4722B170120FA00223D3F /* UtilitiesViewController_iPhone.xib */,
 				1559F29416517FF100B43633 /* Supporting Files */,
 			);
 			path = FloJackExample;
@@ -566,10 +544,6 @@
 				15A7E28216EA7A5B0095A974 /* Flomio_Spark_Black_114x114.png in Resources */,
 				15A7E28416EA7A8D0095A974 /* Flomio_Spark_Blac_72x72.png in Resources */,
 				15A7E28616EA7AB90095A974 /* Flomio_Spark_Black_144x144.png in Resources */,
-				15E472231700ED6B00223D3F /* UtilitiesViewController_iPad.xib in Resources */,
-				15E472281700ED9900223D3F /* LoggingViewController_iPad.xib in Resources */,
-				15E4722A170120EE00223D3F /* LoggingViewController_iPhone.xib in Resources */,
-				15E4722C170120FB00223D3F /* UtilitiesViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,8 +581,6 @@
 				1559F29A16517FF100B43633 /* main.m in Sources */,
 				1559F29E16517FF100B43633 /* AppDelegate.m in Sources */,
 				1559F2A716517FF100B43633 /* TagReadWriteViewController.mm in Sources */,
-				15E472221700ED6B00223D3F /* UtilitiesViewController.m in Sources */,
-				15E472271700ED9900223D3F /* LoggingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
