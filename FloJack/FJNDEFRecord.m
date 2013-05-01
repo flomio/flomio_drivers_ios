@@ -218,129 +218,134 @@
     int dataOffset = 0;
     
     while (!me) {
-        char flag[1];
-        [data getBytes:flag range:NSMakeRange(dataOffset, 1)];
-        dataOffset++;
-        
-        BOOL mb = (flag[0] & kFlagMB) != 0;
-        me = (flag[0] & kFlagME) != 0;
-        BOOL cf = (flag[0] & kFlagCF) != 0;
-        BOOL sr = (flag[0] & kFlagSR) != 0;
-        BOOL il = (flag[0] & kFlagIL) != 0;
-        short tnf = (short)(flag[0] & 0x07);
-        
-        if (!mb && [records count] == 0 && !inChunk && !ignoreMbMe) {
-            LogError(@"expected MB flag");
-            return nil;
-        } else if (mb && [records count] != 0 && !ignoreMbMe) {
-            LogError(@"expected MB flag");
-            return nil;
-        } else if (inChunk && il) {
-            LogError(@"unexpected IL flag in non-leading chunk");
-            return nil;
-        } else if (cf && me) {
-            LogError(@"unexpected ME flag in non-trailing chunk");
-            return nil;
-        } else if (inChunk && tnf != kTNFUnchanged) {
-            LogError(@"expected TNF_UNCHANGED in non-leading chunk");
-            return nil;
-        } else if (!inChunk && tnf == kTNFUnchanged) {
-            LogError(@"unexpected TNF_UNCHANGED in first chunk or unchunked record");
-            return nil;
-        }
-        
-        char typeLengthBuffer[1];
-        [data getBytes:typeLengthBuffer range:NSMakeRange(dataOffset, 1)];
-        dataOffset++;
-        int typeLength = typeLengthBuffer[0] & 0xFF;
-        
-        long payloadLength;
-        if (sr) {
-            char payLoadLengthBuffer[1];
-            [data getBytes:payLoadLengthBuffer range:NSMakeRange(dataOffset, 1)];
+        @try {
+            char flag[1];
+            [data getBytes:flag range:NSMakeRange(dataOffset, 1)];
             dataOffset++;
-            payloadLength = payLoadLengthBuffer[0] & 0xFF;
-        }
-        else {
-            char payLoadLengthBuffer[3];
-            [data getBytes:payLoadLengthBuffer range:NSMakeRange(dataOffset, 3)];
-            dataOffset += 3;
-                //TODO fix this 
-            //payloadLength =  payLoadLengthBuffer & 0xFFFFFFFFL;
-        }
-        
-        int idLength = 0;
-        if (il) {
-            char idLengthBuffer[1];
-            [data getBytes:idLengthBuffer range:NSMakeRange(dataOffset, 1)];
-            dataOffset++;
-            idLength = idLengthBuffer[0] & 0xFF;
-        }
-        
-        if (inChunk && typeLength != 0) {
-            LogError(@"expected zero-length type in non-leading chunk");
-            return nil;
-        }
-        
-        if (!inChunk) {
-            if (typeLength > 0) {
-                type = [data subdataWithRange:NSMakeRange(dataOffset, typeLength)];
-                dataOffset += typeLength;
-            }
-            if (idLength > 0 && idLength <= 3) {
-                recordId = [data subdataWithRange:NSMakeRange(dataOffset, idLength)];
-                dataOffset += idLength;
-            }
-        }
-        
-        if (payloadLength > kMaxPayloadSize) {
-            LogError(@"payload length greater than max");
-            return nil;
-        }
-        
-        if (payloadLength > 0) {
-            if ((dataOffset + payloadLength) <= data.length) {
-                payload = [data subdataWithRange:NSMakeRange(dataOffset, payloadLength)];
-                dataOffset += payloadLength;
-            }
-            else {
+            
+            BOOL mb = (flag[0] & kFlagMB) != 0;
+            me = (flag[0] & kFlagME) != 0;
+            BOOL cf = (flag[0] & kFlagCF) != 0;
+            BOOL sr = (flag[0] & kFlagSR) != 0;
+            BOOL il = (flag[0] & kFlagIL) != 0;
+            short tnf = (short)(flag[0] & 0x07);
+            
+            if (!mb && [records count] == 0 && !inChunk && !ignoreMbMe) {
+                LogError(@"expected MB flag");
+                return nil;
+            } else if (mb && [records count] != 0 && !ignoreMbMe) {
+                LogError(@"expected MB flag");
+                return nil;
+            } else if (inChunk && il) {
+                LogError(@"unexpected IL flag in non-leading chunk");
+                return nil;
+            } else if (cf && me) {
+                LogError(@"unexpected ME flag in non-trailing chunk");
+                return nil;
+            } else if (inChunk && tnf != kTNFUnchanged) {
+                LogError(@"expected TNF_UNCHANGED in non-leading chunk");
+                return nil;
+            } else if (!inChunk && tnf == kTNFUnchanged) {
+                LogError(@"unexpected TNF_UNCHANGED in first chunk or unchunked record");
                 return nil;
             }
-        }
+            
+            char typeLengthBuffer[1];
+            [data getBytes:typeLengthBuffer range:NSMakeRange(dataOffset, 1)];
+            dataOffset++;
+            int typeLength = typeLengthBuffer[0] & 0xFF;
+            
+            long payloadLength;
+            if (sr) {
+                char payLoadLengthBuffer[1];
+                [data getBytes:payLoadLengthBuffer range:NSMakeRange(dataOffset, 1)];
+                dataOffset++;
+                payloadLength = payLoadLengthBuffer[0] & 0xFF;
+            }
+            else {
+                char payLoadLengthBuffer[3];
+                [data getBytes:payLoadLengthBuffer range:NSMakeRange(dataOffset, 3)];
+                dataOffset += 3;
+                    //TODO fix this 
+                //payloadLength =  payLoadLengthBuffer & 0xFFFFFFFFL;
+            }
+            
+            int idLength = 0;
+            if (il) {
+                char idLengthBuffer[1];
+                [data getBytes:idLengthBuffer range:NSMakeRange(dataOffset, 1)];
+                dataOffset++;
+                idLength = idLengthBuffer[0] & 0xFF;
+            }
+            
+            if (inChunk && typeLength != 0) {
+                LogError(@"expected zero-length type in non-leading chunk");
+                return nil;
+            }
+            
+            if (!inChunk) {
+                if (typeLength > 0) {
+                    type = [data subdataWithRange:NSMakeRange(dataOffset, typeLength)];
+                    dataOffset += typeLength;
+                }
+                if (idLength > 0 && idLength <= 3) {
+                    recordId = [data subdataWithRange:NSMakeRange(dataOffset, idLength)];
+                    dataOffset += idLength;
+                }
+            }
+            
+            if (payloadLength > kMaxPayloadSize) {
+                LogError(@"payload length greater than max");
+                return nil;
+            }
+            
+            if (payloadLength > 0) {
+                if ((dataOffset + payloadLength) <= data.length) {
+                    payload = [data subdataWithRange:NSMakeRange(dataOffset, payloadLength)];
+                    dataOffset += payloadLength;
+                }
+                else {
+                    return nil;
+                }
+            }
 
-        if (cf && !inChunk) {
-            // first chunk
-            // TODO
+            if (cf && !inChunk) {
+                // first chunk
+                // TODO
+            }
+            if (cf || inChunk) {
+                // any chunk
+                // TODO
+            }
+            if (!cf && inChunk) {
+                // last chunk, flatten the payload
+                // TODO
+            }
+            if (cf) {
+                // more chunks to come
+                // TODO
+            } else {
+                inChunk = false;
+            }
+            
+            NSString *error = [FJNDEFRecord validateTnf:tnf withType:type andRecordId:recordId andPayload:payload];
+            if (error != nil) {
+                // TODO , throw error
+                break;
+            }
+            
+            FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload];
+            if (ndefRecord != nil) {
+                [records addObject:[[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];            
+            }
+            
+            
+            if (ignoreMbMe) {  // for parsing a single NdefRecord
+                break;
+            }
         }
-        if (cf || inChunk) {
-            // any chunk
-            // TODO
-        }
-        if (!cf && inChunk) {
-            // last chunk, flatten the payload
-            // TODO
-        }
-        if (cf) {
-            // more chunks to come
-            // TODO
-        } else {
-            inChunk = false;
-        }
-        
-        NSString *error = [FJNDEFRecord validateTnf:tnf withType:type andRecordId:recordId andPayload:payload];
-        if (error != nil) {
-            // TODO , throw error
-            break;
-        }
-        
-        FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload];
-        if (ndefRecord != nil) {
-            [records addObject:[[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];            
-        }
-        
-        
-        if (ignoreMbMe) {  // for parsing a single NdefRecord
-            break;
+        @catch (NSException * e) {
+            return nil;
         }
     }
     return records;
