@@ -92,105 +92,48 @@
 }
 
 /**
- Parses an NSData object for a FloJack
- message and handles it accordingly. 
+ Parses an NSData object for a FloJack message and handles it accordingly. 
  
  @param NSData Byte stream to be parsed.
  @return void
  */
 - (void)parseMessage:(NSData *)message;
 {
-    FJMessage *messyTest = [[FJMessage alloc] initWithData:message];
-    UInt8 flojackMessageOpcode = messyTest.opcode;
-    UInt8 flojackMessageSubOpcode = messyTest.subOpcode;
-    UInt8 flojackMessageEnable = messyTest.enable;
-    NSData *messageData = [messyTest.data copy];
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithData:message];
+    UInt8 flojackMessageOpcode = flojackMessage.opcode;
+    UInt8 flojackMessageSubOpcode = flojackMessage.subOpcode;
+    NSData *messageData = [flojackMessage.data copy];
     
-    //check opcode
     switch (flojackMessageOpcode) {
         case FLOMIO_STATUS_OP:
-            switch (flojackMessageSubOpcode)
-        {
-            case FLOMIO_STATUS_ALL:
-                break;
-            case FLOMIO_STATUS_HW_REV: {
-                LogInfo(@"FLOMIO_STATUS_HW_REV ");
-                NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
-                
-                if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
-                    [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
-                }
-            }
-                break;
-            case FLOMIO_STATUS_SW_REV: {
-                LogInfo(@"FLOMIO_STATUS_SW_REV ");
-                NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
-                
-                if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
-                    [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
-                }
-            }
-                break;
-            case FLOMIO_STATUS_BATTERY:
-                //break; //intentional fall through
-            default:
-                //not currently supported
-                break;
-        }
-            break;
-        case FLOMIO_PROTO_ENABLE_OP:
             switch (flojackMessageSubOpcode) {
-                case FLOMIO_PROTO_14443A:
-                    switch (flojackMessageEnable) {
-                        case FLOMIO_ENABLE:
-                            break;
-                        case FLOMIO_DISABLE:
-                            break;
+                case FLOMIO_STATUS_HW_REV: {
+                        LogInfo(@"FLOMIO_STATUS_HW_REV ");
+                        NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                        
+                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
+                            [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
+                        }
                     }
                     break;
-                case FLOMIO_PROTO_14443B:
-                    switch (flojackMessageEnable) {
-                        case FLOMIO_ENABLE:
-                            break;
-                        case FLOMIO_DISABLE:
-                            break;
+                case FLOMIO_STATUS_SW_REV: {
+                        LogInfo(@"FLOMIO_STATUS_SW_REV ");
+                        NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                        
+                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
+                            [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
+                        }
                     }
                     break;
-                case FLOMIO_PROTO_15693:
-                    switch (flojackMessageEnable) {
-                        case FLOMIO_ENABLE:
-                            break;
-                        case FLOMIO_DISABLE:
-                            break;
-                    }
+                case FLOMIO_STATUS_ALL:
                     break;
-                case FLOMIO_PROTO_FELICA:
-                    switch (flojackMessageEnable) {
-                        case FLOMIO_ENABLE:
-                            break;
-                        case FLOMIO_DISABLE:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            
-            break;
-        case FLOMIO_POLLING_ENABLE_OP:
-            switch (flojackMessageEnable) {
-                case FLOMIO_DISABLE:
-                    break;
-                case FLOMIO_ENABLE:
+                case FLOMIO_STATUS_BATTERY:
                     break;
                 default:
                     break;
             }
             break;
-        case FLOMIO_POLLING_RATE_OP:
-            break;
-        case FLOMIO_PING_OP:
-        {
+        case FLOMIO_PING_OP: {
             if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
                 NSInteger statusCode = FLOMIO_STATUS_PING_RECIEVED;
                 [_delegate nfcAdapter:self didHaveStatus:statusCode];
@@ -218,49 +161,23 @@
                 case FLOMIO_ACK_GOOD:
                     LogInfo(@"FLOMIO_ACK_GOOD ");
                     break;
-                case FLOMIO_DISABLE:
-                    break;
-                case FLOMIO_ENABLE:
-                    break;
                 default:
-                    break;
-            }
-            break;
-        case FLOMIO_STANDALONE_OP:
-            switch (flojackMessageEnable) {
-                case FLOMIO_DISABLE:
-                    break;
-                case FLOMIO_ENABLE:
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case FLOMIO_STANDALONE_TIMEOUT_OP:
-            break;
-        case FLOMIO_DUMP_LOG_OP:
-            switch (flojackMessageSubOpcode) {
-                case FLOMIO_LOG_ALL:
-                    break;
-                default:
-                    //not currently supported
                     break;
             }
             break;
         case FLOMIO_TAG_READ_OP: {
             LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
-            
-            if (messyTest.subOpcodeLSN == FLOMIO_UID_ONLY) {
+            if (flojackMessage.subOpcodeLSN == FLOMIO_UID_ONLY) {
                 // Tag UID Only
                 if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[messyTest.data copy] andData:nil andType:messyTest.subOpcodeMSN];
+                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[flojackMessage.data copy] andData:nil andType:flojackMessage.subOpcodeMSN];
                     [_delegate nfcAdapter:self didScanTag:tag];
                 }
             }
             else {
                 // Tag all Memory
                 int tagUidLen = 0;
-                switch (messyTest.subOpcodeLSN) {
+                switch (flojackMessage.subOpcodeLSN) {
                     case FLOMIO_ALL_MEM_UID_LEN_FOUR:
                         tagUidLen = 4;
                         break;
@@ -273,25 +190,36 @@
                     default:
                         tagUidLen = 7;
                         break;
-                }
-                
+                }                
                 NSRange tagUidRange = NSMakeRange(0, tagUidLen);
-                NSData *tagUid = [[NSData alloc] initWithData:[messyTest.data subdataWithRange:tagUidRange]];
+                NSData *tagUid = [[NSData alloc] initWithData:[flojackMessage.data subdataWithRange:tagUidRange]];
                 
                 if ([_delegate respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[messyTest.data copy] andType:messyTest.subOpcodeMSN];
+                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[flojackMessage.data copy] andType:flojackMessage.subOpcodeMSN];
                     [_delegate nfcAdapter:self didScanTag:tag];
                 }
             }
             break;
         }
         case FLOMIO_TAG_WRITE_OP: {
-            LogInfo(@"%@", messyTest.name);
+            LogInfo(@"%@", flojackMessage.name);
             if ([_delegate respondsToSelector:@selector(nfcAdapter: didWriteTagAndStatusWas:)]) {
-                NSInteger writeStatus = messyTest.subOpcode;
+                NSInteger writeStatus = flojackMessage.subOpcode;
                 [_delegate nfcAdapter:self didWriteTagAndStatusWas:writeStatus];
             }
         }
+        case FLOMIO_PROTO_ENABLE_OP:
+            break;
+        case FLOMIO_POLLING_ENABLE_OP:
+            break;
+        case FLOMIO_POLLING_RATE_OP:
+            break;
+        case FLOMIO_STANDALONE_OP:
+            break;
+        case FLOMIO_STANDALONE_TIMEOUT_OP:
+            break;
+        case FLOMIO_DUMP_LOG_OP:
+            break;
     }
 }
 
@@ -310,7 +238,7 @@
  @param NSData  Byte representation of FloJack command
  @return void
  */
-- (void)sendMessageDataToHost:(NSData *)data  {
+- (void)sendMessageDataToHost:(NSData *)data {
     [self setLastMessageDataSent:data];
     [_nfcService sendMessageDataToHost:data];
 }
@@ -321,7 +249,7 @@
  @param FJMessage FJMessage representation of FloJack command
  @return void
  */
-- (void)sendMessageToHost:(FJMessage *)theMessage  {
+- (void)sendMessageToHost:(FJMessage *)theMessage {
     [self setLastMessageDataSent:[theMessage.bytes copy]];
     [_nfcService sendMessageDataToHost:[theMessage.bytes copy]];
 }
@@ -332,7 +260,7 @@
  @param UInt8[]  Byte array representatino of FloJack command.
  @return void
  */
-- (void)sendRawMessageToHost:(UInt8[])theMessage  {
+- (void)sendRawMessageToHost:(UInt8[])theMessage {
     //TODO: shift over to OO method of message creation + sending
     [self sendMessageDataToHost:[[NSData alloc] initWithBytes:theMessage length:theMessage[FLOJACK_MESSAGE_LENGTH_POSITION]]];
 }
