@@ -118,22 +118,13 @@ static __unused NSArray *kUriPrefixMap = nil;
 @property(nonatomic, readonly) NSData *theId;
 @property(nonatomic, readonly) NSData *payload;
 
-// Construct an NDEF Record. Validation is performed to make sure the header is valid, and that the id, type and payload sizes appear to be valid.
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload;
-
-// Construct an NDEF Record from raw bytes.
-// Validation is performed to make sure the header is valid, and that the id, type and payload sizes appear to be valid.
-// Definitive initializer.
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload andFlags:(NSData *)flags;
-
-// Returns a byte buffer representation of this NDEF record.
 - (NSData *)asByteBuffer;
++ (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe;
 
 // Returns the URL from a TNF_WELL_KNOWN record (if applicable).
 - (NSURL *)getUriFromPayload;
-
-// Parses the byte message for one or more NDEF records.
-+ (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe;
 
 // Creates an NDEF record payload of well known type URI.
 + (FJNDEFRecord *)createURIWithURL:(NSURL *)url;

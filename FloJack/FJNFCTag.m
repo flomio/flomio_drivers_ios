@@ -18,14 +18,35 @@
 @synthesize ndefMessage = _ndefMessage;
 @synthesize nfcForumType = _nfcForumType;
 
+/**
+ Initializes a new tag object using UID only. 
+ 
+ @param theUid  The tag's UID.
+ @return id
+ */
 - (id)initWithUid:(NSData *)theUid;{
     return [self initWithUid:theUid andData:nil andType:UNKNOWN_TAG_TYPE];;
 }
 
+/**
+ Initializes a new tag object using UID, data payload.
+ 
+ @param theUid  The tag's UID.
+ @param theData The tag's data payload.
+ @return id
+ */
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData; {
     return [self initWithUid:theUid andData:theData andType:UNKNOWN_TAG_TYPE];
 }
 
+/**
+ Initializes a new tag object using UID, data payload, and tag type.  
+ 
+ @param theUid  The tag's UID.
+ @param theData The tag's data payload.
+ @param type The tag's NFC Forum Type. 
+ @return id
+ */
 - (id)initWithUid:(NSData *)theUid andData:(NSData *)theData andType:(UInt8)type; {
     self = [super init];
     if(self) {
@@ -37,6 +58,11 @@
     return self;
 }
 
+/**
+ Searches for an NDEF message in the tag data. 
+ 
+ @return FJNDEFMessage
+ */
 - (FJNDEFMessage *)parseMemoryForNdefMessage; {
     switch (_nfcForumType) {
         case NFC_FORUM_TYPE_1:
@@ -49,6 +75,11 @@
     }
 }
 
+/**
+ Returns the location of the NDEF message.
+ 
+ @return FJNDEFMessage
+ */
 - (FJNDEFMessage *)type2ParseMemoryForNdefMessage; {
     if (_data == nil || _uid == nil) {
         return nil;
@@ -121,9 +152,18 @@
     }
 }
 
+/**
+ Returns the location of an Type2 NDEF TLV. 
+ Returns zero on error.
+ 
+ @return UInt8
+ */
 - (UInt8)type2ParseMemoryForNdefTLVLocation; {
+    if (_data == nil || _nfcForumType != NFC_FORUM_TYPE_2) {
+        return 0;
+    }
+    
     char *dataPtr = (char *) _data.bytes;
-
 	for (int i = 16; i < _data.length; i++) {
 		if (dataPtr[i] == 0x00) {
 			// NULL TLV. No (L) or (V) present

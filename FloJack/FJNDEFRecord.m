@@ -20,58 +20,30 @@
 @synthesize theId = _theId;
 @synthesize payload = _payload;
 
-+ (void)initialize; {
-    kRTDAlternativeCarrier = [NSData dataWithBytes:(UInt8[]){0x61, 0x63} length:2];
-    kRTDHandoverCarrier = [NSData dataWithBytes:(UInt8[]){0x48, 0x63} length:2];
-    kRTDHandoverRequest = [NSData dataWithBytes:(UInt8[]){0x48, 0x72} length:2];
-    kRTDHandoverSelect = [NSData dataWithBytes:(UInt8[]){0x48, 0x73} length:2];
-    kRTDSmartPost = [NSData dataWithBytes:(UInt8[]){0x53, 0x70} length:2];
-    kRTDURI = [NSData dataWithBytes:(UInt8[]){0x55} length:1];
-    
-    kUriPrefixMap = [[NSArray alloc] initWithObjects:
-                                           @"", // 0x00
-                                           @"http://www.", // 0x01
-                                           @"https://www.", // 0x02
-                                           @"http://", // 0x03
-                                           @"https://", // 0x04
-                                           @"tel:", // 0x05
-                                           @"mailto:", // 0x06
-                                           @"ftp://anonymous:anonymous@", // 0x07
-                                           @"ftp://ftp.", // 0x08
-                                           @"ftps://", // 0x09
-                                           @"sftp://", // 0x0A
-                                           @"smb://", // 0x0B
-                                           @"nfs://", // 0x0C
-                                           @"ftp://", // 0x0D
-                                           @"dav://", // 0x0E
-                                           @"news:", // 0x0F
-                                           @"telnet://", // 0x10
-                                           @"imap:", // 0x11
-                                           @"rtsp://", // 0x12
-                                           @"urn:", // 0x13
-                                           @"pop:", // 0x14
-                                           @"sip:", // 0x15
-                                           @"sips:", // 0x16
-                                           @"tftp:", // 0x17
-                                           @"btspp://", // 0x18
-                                           @"btl2cap://", // 0x19
-                                           @"btgoep://", // 0x1A
-                                           @"tcpobex://", // 0x1B
-                                           @"irdaobex://", // 0x1C
-                                           @"file://", // 0x1D
-                                           @"urn:epc:id:", // 0x1E
-                                           @"urn:epc:tag:", // 0x1F
-                                           @"urn:epc:pat:", // 0x20
-                                           @"urn:epc:raw:", // 0x21
-                                           @"urn:epc:", // 0x22
-                                           nil];
-}
-
+/**
+ Initializer.
+ 
+ @param tnf  Record TNF Value.
+ @param type  Record type.
+ @param typeId  Record ID.
+ @param payload  Record payload.
+ @return id  The NDEF record.
+ */
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload {
 
     return [self initWithTnf:tnf andType:type andId:theId andPayload:payload andFlags:nil];
 }
 
+/**
+ Designated initializer. 
+ 
+ @param tnf  Record TNF Value.
+ @param type  Record type.
+ @param typeId  Record ID.
+ @param payload  Record payload.
+ @param flags  Record flags.
+ @return id  The NDEF record. 
+ */
 - (id)initWithTnf:(short)tnf andType:(NSData *)type andId:(NSData *)theId andPayload:(NSData *)payload andFlags:(NSData *)flags {
     
     if (self = [super init])
@@ -111,6 +83,58 @@
         _payload = [[NSData alloc] initWithData:payload];
     }
     return self;
+}
+
+/**
+ Initializer, creates NDEF record globals.
+ 
+ @return void
+ */
++ (void)initialize; {
+    kRTDAlternativeCarrier = [NSData dataWithBytes:(UInt8[]){0x61, 0x63} length:2];
+    kRTDHandoverCarrier = [NSData dataWithBytes:(UInt8[]){0x48, 0x63} length:2];
+    kRTDHandoverRequest = [NSData dataWithBytes:(UInt8[]){0x48, 0x72} length:2];
+    kRTDHandoverSelect = [NSData dataWithBytes:(UInt8[]){0x48, 0x73} length:2];
+    kRTDSmartPost = [NSData dataWithBytes:(UInt8[]){0x53, 0x70} length:2];
+    kRTDURI = [NSData dataWithBytes:(UInt8[]){0x55} length:1];
+    
+    kUriPrefixMap = [[NSArray alloc] initWithObjects:
+                     @"", // 0x00
+                     @"http://www.", // 0x01
+                     @"https://www.", // 0x02
+                     @"http://", // 0x03
+                     @"https://", // 0x04
+                     @"tel:", // 0x05
+                     @"mailto:", // 0x06
+                     @"ftp://anonymous:anonymous@", // 0x07
+                     @"ftp://ftp.", // 0x08
+                     @"ftps://", // 0x09
+                     @"sftp://", // 0x0A
+                     @"smb://", // 0x0B
+                     @"nfs://", // 0x0C
+                     @"ftp://", // 0x0D
+                     @"dav://", // 0x0E
+                     @"news:", // 0x0F
+                     @"telnet://", // 0x10
+                     @"imap:", // 0x11
+                     @"rtsp://", // 0x12
+                     @"urn:", // 0x13
+                     @"pop:", // 0x14
+                     @"sip:", // 0x15
+                     @"sips:", // 0x16
+                     @"tftp:", // 0x17
+                     @"btspp://", // 0x18
+                     @"btl2cap://", // 0x19
+                     @"btgoep://", // 0x1A
+                     @"tcpobex://", // 0x1B
+                     @"irdaobex://", // 0x1C
+                     @"file://", // 0x1D
+                     @"urn:epc:id:", // 0x1E
+                     @"urn:epc:tag:", // 0x1F
+                     @"urn:epc:pat:", // 0x20
+                     @"urn:epc:raw:", // 0x21
+                     @"urn:epc:", // 0x22
+                     nil];
 }
 
 /**
@@ -200,6 +224,59 @@
     return nil;
 }
 
+/**
+ NDEF prefix encode the given url and return as an NSData object.
+ 
+ @param uriString  String representation of URL to be encoded
+ @return FJNDEFRecord
+ */
++ (FJNDEFRecord *)createURIWithString:(NSString *)uriString {
+    if (uriString == nil) {
+        return nil;
+    }
+    
+    uriString = uriString.mutableCopy;
+    
+    UInt8 prefix = 0;
+    for (int i=0; i<kUriPrefixMap.count; i++) {
+        if ([uriString hasPrefix:[kUriPrefixMap objectAtIndex:i]]) {
+            prefix = (UInt8) i;
+            uriString = [uriString substringFromIndex:[(NSString *)[kUriPrefixMap objectAtIndex:i] length]];
+            break;
+        }
+    }
+    
+    NSMutableData *payload = [[NSMutableData alloc] initWithCapacity:(uriString.length +1)];
+    [payload appendBytes:&prefix length:1];
+    [payload appendData:[uriString dataUsingEncoding:NSASCIIStringEncoding]];
+    
+    FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:kTNFWellKnown andType:kRTDURI.copy andId:nil andPayload:payload];
+    
+    NSLog(@" ndefRecord: %@", ndefRecord.asByteBuffer);
+    
+    return ndefRecord;
+}
+
+/**
+ NDEF prefix encode the given url and return as an NSData object.
+ 
+ @param url  URL to be encoded
+ @return FJNDEFRecord
+ */
++ (FJNDEFRecord *)createURIWithURL:(NSURL *)url {
+    if (url == nil) {
+        return nil;
+    }
+    return [FJNDEFRecord createURIWithString:url.absoluteString];
+}
+
+/**
+ Parse an NDEF record from the given data.
+ 
+ @param data  Bytes to be decoded.
+ @param ignoreMbMe  Ignore message begin and end flags. 
+ @return NSArray  Array of NDEF records. 
+ */
 + (NSArray *)parseData:(NSData *)data andIgnoreMbMe:(BOOL)ignoreMbMe {
     if (data == nil || data.length == 0) {
         return nil;
@@ -354,6 +431,10 @@
 /**
  Ensures TNF is valid for the given type and payload.
  
+ @param tnf  Record TNF Value.
+ @param type  Record type. 
+ @param typeId  Record ID.
+ @param payload  Record payload
  @return NSString  Error message
  */
 + (NSString *)validateTnf:(short)tnf withType:(NSData *)type andRecordId:(NSData *)typeId andPayload:(NSData *)payload {
@@ -379,52 +460,6 @@
         default:
             return @"unexpected tnf value:";
     }
-}
-
-#pragma mark - Static helper methods
-
-/**
- NDEF prefix encode the given url and return as an NSData object.
- 
- @return NSData
- */
-+ (FJNDEFRecord *)createURIWithString:(NSString *)uriString {
-    if (uriString == nil) {
-        return nil;
-    }
-    
-    uriString = uriString.mutableCopy;
-    
-    UInt8 prefix = 0;
-    for (int i=0; i<kUriPrefixMap.count; i++) {
-        if ([uriString hasPrefix:[kUriPrefixMap objectAtIndex:i]]) {
-            prefix = (UInt8) i;
-            uriString = [uriString substringFromIndex:[(NSString *)[kUriPrefixMap objectAtIndex:i] length]];
-            break;
-        }
-    }
-    
-    NSMutableData *payload = [[NSMutableData alloc] initWithCapacity:(uriString.length +1)];
-    [payload appendBytes:&prefix length:1];
-    [payload appendData:[uriString dataUsingEncoding:NSASCIIStringEncoding]];
-    
-    FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:kTNFWellKnown andType:kRTDURI.copy andId:nil andPayload:payload];
-    
-    NSLog(@" ndefRecord: %@", ndefRecord.asByteBuffer);
-    
-    return ndefRecord;
-}
-
-/**
- NDEF prefix encode the given url and return as an NSData object.
- 
- @return NSData
- */
-+ (FJNDEFRecord *)createURIWithURL:(NSURL *)url {
-    if (url == nil) {
-        return nil;
-    }
-    return [FJNDEFRecord createURIWithString:url.absoluteString];
 }
 
 @end
