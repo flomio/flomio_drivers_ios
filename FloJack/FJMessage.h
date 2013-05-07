@@ -170,7 +170,9 @@ typedef enum
 typedef enum
 {
     FLOMIO_PING = 0,
-    FLOMIO_PONG
+    FLOMIO_PONG,
+    FLOMIO_PONG_LOW_POWER_ERROR,
+    FLOMIO_PONG_CALIBRATION_ERROR,
 } flomio_ping_pong_t;
 
 //FLOMIO_OPERATION_MODE_OP Sub-Opcodes 
@@ -205,7 +207,9 @@ typedef enum
 // FLOMIO status codes for bubbling up to delegate
 typedef enum
 {
-	FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR    = -4,
+    FLOMIO_STATUS_PING_CALIBRATION_ERROR   = -6,
+    FLOMIO_STATUS_PING_LOW_POWER_ERROR     = -5,
+    FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR    = -4,
     FLOMIO_STATUS_VOLUME_LOW_ERROR         = -3,
     FLOMIO_STATUS_NACK_ERROR               = -2,
     FLOMIO_STATUS_GENERIC_ERROR            = -1,

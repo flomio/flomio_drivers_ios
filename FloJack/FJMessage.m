@@ -370,6 +370,12 @@
 + (NSString *)formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode {
     NSString *result = nil;
     switch(statusCode) {
+        case FLOMIO_STATUS_PING_CALIBRATION_ERROR:
+            result = @"CALIBRATION_ERROR";
+            break;
+        case FLOMIO_STATUS_PING_LOW_POWER_ERROR:
+            result = @"LOW_POWER_ERROR";
+            break;
         case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
             result = @"MESSAGE_CORRUPT_ERROR";
             break;

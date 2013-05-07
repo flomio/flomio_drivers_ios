@@ -134,8 +134,23 @@
             }
             break;
         case FLOMIO_PING_OP: {
+            NSInteger statusCode;
+            switch (flojackMessage.subOpcodeLSN) {
+                case FLOMIO_PONG:
+                    statusCode = FLOMIO_STATUS_PING_RECIEVED;
+                    break;
+                case FLOMIO_PONG_LOW_POWER_ERROR:
+                    statusCode = FLOMIO_STATUS_PING_LOW_POWER_ERROR;
+                    break;
+                case FLOMIO_PONG_CALIBRATION_ERROR:
+                    statusCode = FLOMIO_STATUS_PING_CALIBRATION_ERROR;
+                    break;
+                default:
+                    statusCode = FLOMIO_STATUS_PING_RECIEVED;
+                    break;
+            }            
+            
             if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
-                NSInteger statusCode = FLOMIO_STATUS_PING_RECIEVED;
                 [_delegate nfcAdapter:self didHaveStatus:statusCode];
             }
             
