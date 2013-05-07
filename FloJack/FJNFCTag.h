@@ -10,8 +10,12 @@
 #import "FJMessage.h"
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
+#import "Logging.h"`
 
-#define NFC_FORUM_TYPE2_CC_LOC              13;
+#define FLOMIO_TAG_MAX_DATA_LEN             168
+#define FLOMIO_TAG_MAX_PAGES                42
+#define FLOMIO_TAG_MAX_UID_LEN              8
+#define NFC_FORUM_TYPE2_CC_LOC              13
 
 @interface FJNFCTag : NSObject
 

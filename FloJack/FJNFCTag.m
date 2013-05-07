@@ -54,6 +54,10 @@
         _data = [theData copy];
         _nfcForumType = type;
         _ndefMessage = [self parseMemoryForNdefMessage];
+        
+        if (_data.length == FLOMIO_TAG_MAX_DATA_LEN) {
+            LogInfo(@"Warning: tag data truncation my have occured.");
+        }
     }
     return self;
 }
