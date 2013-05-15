@@ -113,7 +113,7 @@
 
 - (void)updateLogTextViewWithString:(NSString *)updateString {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.outputTextView.text = [NSString stringWithFormat:@"%@ \n%@",self.outputTextView.text, updateString];
+        self.outputTextView.text = [NSString stringWithFormat:@"%@ \n%@", updateString, self.outputTextView.text];
     });
 }
 
