@@ -10,7 +10,7 @@
 #import "FJMessage.h"
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
-#import "Logging.h"`
+#import "Logging.h"
 
 #define FLOMIO_TAG_MAX_DATA_LEN             168
 #define FLOMIO_TAG_MAX_PAGES                42
