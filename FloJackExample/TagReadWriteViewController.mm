@@ -37,6 +37,17 @@
 
 #pragma mark - UI Input
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+        [_appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+        [self updateLogTextViewWithString:[NSString stringWithFormat:@":::Device Volume Cap = True"]];
+    }
+    else {
+        [_appDelegate.nfcAdapter setDeviceHasVolumeCap:false];
+        [self updateLogTextViewWithString:[NSString stringWithFormat:@":::Device Volume Cap = False"]];
+    }
+}
+
 - (IBAction)buttonWasPressedForPollingRate:(id)sender {
     int pollValue = [self.pollingRateTextField.text intValue];
     _appDelegate.nfcAdapter.pollPeriod = pollValue;
@@ -69,9 +80,9 @@
         case 3:
             [_appDelegate.nfcAdapter getHardwareVersion];
             break;
-        case 4:
-            // TODO: Add confirmation to this setting
-            [_appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+        case 4:           
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EU Mode" message:@"Warning: May damage the FloJack device. Only enable for volume limited devices. See http://flomio.com/volume-limit" delegate:self cancelButtonTitle:@"Enable" otherButtonTitles:@"Cancel", nil];
+            [alert show];
             break;
     }
 }
