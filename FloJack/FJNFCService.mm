@@ -865,7 +865,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     if (!self.floJackConnected) {
         [self sendFloJackConnectedStatusToDelegate];
         return false;
-    }    
+    }
+    
+    [NSThread sleepForTimeInterval:0.010];
     
     UInt8 *theMessage = (UInt8 *)messageData.bytes;
     int messageLength = messageData.length;
