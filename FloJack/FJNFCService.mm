@@ -357,7 +357,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
                 }
 				else if (self->_byteQueuedForTX == TRUE && uartBitTx >= NUMSTOPBITS && uartSyncBitTx >= NUMSYNCBITS) {
                     encoderState = STARTBIT;
-					self->_byteQueuedForTX = FALSE;
 				}
                 else {
 					encoderState = NEXTBIT;
@@ -368,6 +367,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 				case STARTBIT:
 				{
 					uartByteTx = self->_byteForTX;
+                    self->_byteQueuedForTX = FALSE;
 
                     LogTrace(@"uartByteTx: 0x%x\n", uartByteTx);
 					
