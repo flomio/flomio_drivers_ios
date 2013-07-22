@@ -16,18 +16,27 @@
 
 #define ZERO_TO_ONE_THRESHOLD       0       // threshold used to detect start bit
 
-#define SAMPLESPERBIT               32      // (44100 / HIGHFREQ)  // how many samples per UART bit
+//#define SAMPLESPERBIT               32      // (44100 / HIGHFREQ)  // how many samples per UART bit
+//#define SAMPLESPERBIT               24      // (44100 / HIGHFREQ)  // how many samples per UART bit
+//#define SAMPLESPERBIT               22      // (44100 / HIGHFREQ)  // how many samples per UART bit
+#define SAMPLESPERBIT               13      // (44100 / HIGHFREQ)  // how many samples per UART bit
+//#define SAMPLESPERBIT               7      // (44100 / HIGHFREQ)  // how many samples per UART bit
 #define SHORT                       (SAMPLESPERBIT/2 + SAMPLESPERBIT/4)
 #define LONG                        (SAMPLESPERBIT + SAMPLESPERBIT/2)
 
-#define HIGHFREQ                    1378.125 // baud rate. best to take a divisible number for 44.1kS/s
+//#define HIGHFREQ                    1378.125 // baud rate. best to take a divisible number for 44.1kS/s
+//#define HIGHFREQ                    1837.5 // baud rate. best to take a divisible number for 44.1kS/s
+//#define HIGHFREQ                    2000 // baud rate. best to take a divisible number for 44.1kS/s
+#define HIGHFREQ                    3392 // baud rate. best to take a divisible number for 44.1kS/s
+//#define HIGHFREQ                    6300 // baud rate. best to take a divisible number for 44.1kS/s
 #define LOWFREQ                     (HIGHFREQ / 2)
     
-#define NUMSTOPBITS                 18      // number of stop bits to send before sending next value.
+//#define NUMSTOPBITS                 18      // number of stop bits to send before sending next value.
+#define NUMSTOPBITS                 20      // number of stop bits to send before sending next value.
 #define NUMSYNCBITS                 4       // number of ones to send before sending first value.
 
-#define SAMPLE_NOISE_CEILING        200000  // keeping running average and filter out noisy values around 0
-#define SAMPLE_NOISE_FLOOR          -200000 // keeping running average and filter out noisy values around 0
+#define SAMPLE_NOISE_CEILING         100000 // keeping running average and filter out noisy values around 0
+#define SAMPLE_NOISE_FLOOR          -100000 // keeping running average and filter out noisy values around 0
 
 #define MESSAGE_SYNC_TIMEOUT        .500    // seconds
 
@@ -238,7 +247,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
             sample_avg_high = (sample_avg_high + raw_sample)/2;
 		}
         
-        if (sample != lastSample && sample_avg_high > SAMPLE_NOISE_CEILING && sample_avg_low < SAMPLE_NOISE_FLOOR) {
+        if ((sample != lastSample) && (sample_avg_high > SAMPLE_NOISE_CEILING) && (sample_avg_low < SAMPLE_NOISE_FLOOR)) {
 			// we have a transition
 			SInt32 diff = phase2 - lastPhase2;
 			switch (decoderState) {
@@ -292,6 +301,15 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 							if (sample == 1) {
 								// Valid byte
                                 //LogTrace(@" +++ stop bit: %ld \n", sample);
+//                                if(frameIndex > (80))
+//                                {
+//                                    //LogError(@"%f\n", raw_sample);
+//                                    for(int k=frameIndex-80; k<256; k++)
+//                                    {
+//                                        NSLog(@"%d\n", left_audio_channel[k]);
+//                                    }
+//                                    NSLog(@"%f\n", raw_sample);
+//                                }
 							}
                             else {
 								// Invalid byte			
@@ -943,7 +961,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     else if([machineName rangeOfString:@"iPod"].location != NSNotFound) {
         // iPod Touch 1G, 2G, 3G, 4G, 5G
         inter_byte_delay = 0x50;
-    }
+    } 
     
     return inter_byte_delay;
 }
