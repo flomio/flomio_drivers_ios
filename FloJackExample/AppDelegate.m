@@ -80,4 +80,9 @@
     }
 }
 
+- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue; {
+    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveSnifferThresh:)]) {
+        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveSnifferThresh:theSnifferValue];
+    }
+}
 @end

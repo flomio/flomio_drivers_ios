@@ -276,7 +276,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 						// We have a valid sample.
 						if (bitNum < 8) {
 							// Sample is part of the byte
-                            LogDecoder(@"Bit %d value %ld diff %ld parity %d\n", bitNum, sample, diff, parityRx & 0x01);
+                            //LogDecoder(@"Bit %d value %ld diff %ld parity %d\n", bitNum, sample, diff, parityRx & 0x01);
                             uartByte = ((uartByte >> 1) + (sample << 7));
 							bitNum += 1;
 							parityRx += sample;

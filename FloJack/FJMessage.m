@@ -110,6 +110,14 @@
                         case FLOMIO_STATUS_BATTERY:
                             _name = @"FLOMIO_STATUS_BATTERY";
                             break;
+                        case FLOMIO_STATUS_SNIFFTHRESH:  {
+                            _name = @"FLOMIO_STATUS_SNIFFTHRESH";
+                            
+                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
+                            break;
+                        }
                         default:
                             break;
                     }

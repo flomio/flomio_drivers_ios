@@ -43,6 +43,8 @@
 // FloJack protocol messages {opcode, length, data[] }
 const static UInt8 status_hw_rev_msg[] =         {0x01,0x04,0x01,0x04};
 const static UInt8 status_sw_rev_msg[] =         {0x01,0x04,0x02,0x07};
+const static UInt8 status_sniffthresh_msg[] =    {0x01,0x04,0x04,0x01};
+
 
 //Flomio Accessory-Client Message Opcodes
 typedef enum
@@ -93,7 +95,8 @@ typedef enum
     FLOMIO_STATUS_ALL = 0,
     FLOMIO_STATUS_HW_REV,
     FLOMIO_STATUS_SW_REV,
-    FLOMIO_STATUS_BATTERY
+    FLOMIO_STATUS_BATTERY,
+    FLOMIO_STATUS_SNIFFTHRESH
 } flomio_status_opcodes_t;
 
 //Battery Status

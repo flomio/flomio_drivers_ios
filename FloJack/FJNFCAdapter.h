@@ -34,6 +34,7 @@
 - (void)getFirmwareVersion;
 - (FJAudioPlayer *)getFJAudioPlayer;
 - (void)getHardwareVersion;
+- (void)getSnifferThresh;
 - (void)setModeReadTagUID;
 - (void)setModeReadTagUIDAndNDEF;
 - (void)setModeReadTagData;
@@ -55,4 +56,5 @@
  @optional
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber;
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue;
 @end

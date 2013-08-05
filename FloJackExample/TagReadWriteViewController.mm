@@ -80,7 +80,10 @@
         case 3:
             [_appDelegate.nfcAdapter getHardwareVersion];
             break;
-        case 4:           
+        case 4:
+            [_appDelegate.nfcAdapter getSnifferThresh];
+            break;
+        case 5:
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EU Mode" message:@"Warning: May damage the FloJack device. Only enable for volume limited devices. See http://flomio.com/volume-limit" delegate:self cancelButtonTitle:@"Enable" otherButtonTitles:@"Cancel", nil];
             [alert show];
             break;
@@ -206,6 +209,12 @@
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Hardware Version %@", theVersionNumber];
+    
+    [self updateLogTextViewWithString:textUpdate];
+}
+
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue; {
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Threshold %@", theSnifferValue];
     
     [self updateLogTextViewWithString:textUpdate];
 }

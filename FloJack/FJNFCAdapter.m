@@ -68,6 +68,16 @@
     [self sendRawMessageToHost:(UInt8*)status_hw_rev_msg];
 }
 
+/**
+ Get NFC Accessory Sniffer Threshold value
+ 
+ @return void
+ */
+
+- (void)getSnifferThresh {
+    [self sendRawMessageToHost:(UInt8*)status_sniffthresh_msg];
+}
+
 /*
  Send FloJack Wake + Config command to come out of deep sleep and begin polling.
  Also sets the inter-byte delay config value based on the device type.
@@ -124,6 +134,15 @@
                             [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
                         }
                     }
+                    break;
+                case FLOMIO_STATUS_SNIFFTHRESH: {
+                    LogInfo(@"FLOMIO_STATUS_SNIFFTHRESH ");
+                    NSString *snifferValue = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                    
+                    if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveSnifferThresh:)]) {
+                        [_delegate nfcAdapter:self didReceiveSnifferThresh:snifferValue];
+                    }
+                }
                     break;
                 case FLOMIO_STATUS_ALL:
                     break;
