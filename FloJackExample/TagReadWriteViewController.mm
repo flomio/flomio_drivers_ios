@@ -136,22 +136,22 @@
         switch (statusCode) {
             case FLOMIO_STATUS_PING_RECIEVED:
                 _statusPingPongCount++;
-                _statusPingPongTextView.text = [NSString stringWithFormat:@"PING-PONG : %d",_statusPingPongCount];
+                _statusPingPongTextView.text = [NSString stringWithFormat:@"Msgs: %d",_statusPingPongCount];
                 break;
             case FLOMIO_STATUS_NACK_ERROR:
                 _statusNACKCount++;
-                _statusNACKTextView.text = [NSString stringWithFormat:@"NACK : %d",_statusNACKCount];
+                _statusNACKTextView.text = [NSString stringWithFormat:@"Issues: %d",_statusNACKCount];
                 break;
             case FLOMIO_STATUS_VOLUME_LOW_ERROR:
-                _statusVolumeLowErrorTextView.text = [NSString stringWithFormat:@"**ERROR** Volume low"];
+                _statusVolumeLowErrorTextView.text = [NSString stringWithFormat:@"**ERROR** Vol low"];
                 break;
             case FLOMIO_STATUS_VOLUME_OK:
-                _statusVolumeLowErrorTextView.text = [NSString stringWithFormat:@"Volume OK"];
+                _statusVolumeLowErrorTextView.text = [NSString stringWithFormat:@"Vol OK"];
             case FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR:
                 // fall through
             case FLOMIO_STATUS_GENERIC_ERROR:
                 _statusErrorCount++;
-                _statusErrorTextView.text = [NSString stringWithFormat:@"ERRORS : %d", _statusErrorCount];
+                _statusErrorTextView.text = [NSString stringWithFormat:@"ERR: %d", _statusErrorCount];
                 break;
             default:
                 break;

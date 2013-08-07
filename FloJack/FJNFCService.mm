@@ -828,7 +828,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- Queues up and sends a ingle byte across the audio line.
+ Queues up and sends a single byte across the audio line.
  
  @param theByte             The byte to be sent
  @return int                1 for byte queued, 0 for byte sent
