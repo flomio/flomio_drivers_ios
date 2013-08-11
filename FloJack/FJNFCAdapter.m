@@ -19,6 +19,7 @@
 @synthesize pollFor14443aTags = _pollFor14443aTags;
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
+@synthesize standaloneMode = _standaloneMode;
 
 /**
  Designated intializer of FJNFCAdapter. 
@@ -37,6 +38,7 @@
         _pollFor14443aTags =  true;
         _pollFor15693Tags =  false;
         _pollForFelicaTags =  false;
+        _standaloneMode = false;
     }      
     return self;    
 }
@@ -115,43 +117,56 @@
     NSData *messageData = [flojackMessage.data copy];
     
     switch (flojackMessageOpcode) {
-        case FLOMIO_STATUS_OP:
+        case FLOMIO_STATUS_OP: {
             switch (flojackMessageSubOpcode) {
                 case FLOMIO_STATUS_HW_REV: {
-                        LogInfo(@"FLOMIO_STATUS_HW_REV ");
-                        NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
-                        
-                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
-                            [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
-                        }
+                    LogInfo(@"FLOMIO_STATUS_HW_REV ");
+                    NSString *hardwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                    
+                    if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
+                        [_delegate nfcAdapter:self didReceiveHardwareVersion:hardwareVersion];
                     }
                     break;
+                }
                 case FLOMIO_STATUS_SW_REV: {
-                        LogInfo(@"FLOMIO_STATUS_SW_REV ");
-                        NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
-                        
-                        if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
-                            [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
-                        }
+                    LogInfo(@"FLOMIO_STATUS_SW_REV ");
+                    NSString *firmwareVersion = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                    
+                    if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
+                        [_delegate nfcAdapter:self didReceiveFirmwareVersion:firmwareVersion];
                     }
                     break;
+                }
                 case FLOMIO_STATUS_SNIFFTHRESH: {
                     LogInfo(@"FLOMIO_STATUS_SNIFFTHRESH ");
                     NSString *snifferValue = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
-                    
+                
                     if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveSnifferThresh:)]) {
                         [_delegate nfcAdapter:self didReceiveSnifferThresh:snifferValue];
                     }
+                    break;
                 }
+                case FLOMIO_STATUS_SNIFFCALIB: {
+                    LogInfo(@"FLOMIO_STATUS_SNIFFCALIB ");
+                    NSString *calibValues = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                    
+                    if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveSnifferCalib:)]) {
+                        [_delegate nfcAdapter:self didReceiveSnifferCalib:calibValues];
+                    }
                     break;
-                case FLOMIO_STATUS_ALL:
+                }
+                case FLOMIO_STATUS_ALL: {
                     break;
-                case FLOMIO_STATUS_BATTERY:
+                }
+                case FLOMIO_STATUS_BATTERY: {
                     break;
-                default:
+                }
+                default: {
                     break;
+                }
             }
             break;
+        }
         case FLOMIO_PING_OP: {
             NSInteger statusCode;
             switch (flojackMessage.subOpcodeLSN) {
@@ -167,7 +182,7 @@
                 default:
                     statusCode = FLOMIO_STATUS_PING_RECIEVED;
                     break;
-            }            
+            }
             
             if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
                 [_delegate nfcAdapter:self didHaveStatus:statusCode];
@@ -242,18 +257,24 @@
                 [_delegate nfcAdapter:self didWriteTagAndStatusWas:writeStatus];
             }
         }
-        case FLOMIO_PROTO_ENABLE_OP:
+        case FLOMIO_PROTO_ENABLE_OP: {
             break;
-        case FLOMIO_POLLING_ENABLE_OP:
+        }
+        case FLOMIO_POLLING_ENABLE_OP: {
             break;
-        case FLOMIO_POLLING_RATE_OP:
+        }
+        case FLOMIO_POLLING_RATE_OP: {
             break;
-        case FLOMIO_STANDALONE_OP:
+        }
+        case FLOMIO_STANDALONE_OP: {
             break;
-        case FLOMIO_STANDALONE_TIMEOUT_OP:
+        }
+        case FLOMIO_STANDALONE_TIMEOUT_OP: {
             break;
-        case FLOMIO_DUMP_LOG_OP:
+        }
+        case FLOMIO_DUMP_LOG_OP: {
             break;
+        }
     }
 }
 
@@ -406,7 +427,7 @@
  Enable or disable polling for a given NFC RF protocol.
  
  @param BOOL  Enable or disable polling
- @param flomio_proto_opcodes_t  Selected protocol (1443A/B, 15693, Felica)
+ @param flomio_proto_opcodes_t  Selected protocol (14443A/B, 15693, Felica)
  @return void
  */
 - (void)setPolling:(BOOL)enablePolling forProtocol:(flomio_proto_opcodes_t)protocol {
@@ -450,6 +471,22 @@
 }
 
 /*
+ Enable or disable FloJack standalone mode.  This keeps FloJack from going to sleep
+ after disconnecting from Host device.  FloJack will continue to scan tags very much 
+ like the Poken devices.
+ 
+ @param BOOL  Standalone mode enable
+ @return void
+ */
+- (void)setStandaloneMode:(BOOL)standaloneMode {
+    _standaloneMode = standaloneMode;
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STANDALONE_OP
+                                                                andSubOpcode:nil
+                                                                andData:[NSData dataWithBytes:&standaloneMode length:1]];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/*
  Set the tag polling rate in milliseconds. Acceptable rates are [0, 6375] in 25ms increments.
  
  @param pollPeriod The polling period (should be in range [0, 6375] and a multiple of 25]
@@ -471,6 +508,61 @@
                                                                 andSubOpcode:(pollPeriod / 25)
                                                                      andData:nil];
     [self sendMessageDataToHost:flojackMessage.bytes];    
+}
+
+/* 
+ Increment the Sniffer Threshold by a specified number of steps.  Acceptable range is [0, 65536].
+ Protection against Threshold overrun is left to the FloJack firmware to protect against.
+ 
+ @param incrementAmount The amount by which to increment Sniffer THreshold
+ @return void
+*/
+- (void)setIncrementSnifferThreshold:(UInt16)incrementAmount {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
+                                                                andSubOpcode:FLOMIO_INCREMENT_THRESHOLD
+                                                                     andData:[NSData dataWithBytes:&incrementAmount length:1]];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/*
+ Decrement the Sniffer Threshold by a specified number of steps.  Acceptable range is [0, 65536].
+ Protection against Threshold negtive swing is left to the FloJack firmware to protect against.
+ 
+ @param incrementAmount The amount by which to increment Sniffer THreshold
+ @return void
+ */
+- (void)setDecrementSnifferThreshold:(UInt16)decrementAmount {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
+                                                                andSubOpcode:FLOMIO_DECREMENT_THRESHOLD
+                                                                     andData:[NSData dataWithBytes:&decrementAmount length:1]];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/*
+ Force a full re-calibration process to reset the Sniffer Threshold.  This command doesn't take 
+ any arguments or expects any return response.
+ 
+ @return void
+ */
+- (void)sendResetSnifferThreshold {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
+                                                                andSubOpcode:FLOMIO_RESET_THRESHOLD
+                                                                     andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/*
+ Set the max value of the Sniffer Threshold to a specified number.  Acceptable range is [0, 65536].
+ The lower the value the more reactive the Sniffer routine will react to false positive.
+ 
+ @param maxThreshold The amount by which to increment Sniffer THreshold
+ @return void
+ */
+- (void)setMaxSnifferThreshold:(UInt16)maxThreshold {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
+                                                                andSubOpcode:FLOMIO_SET_MAX_THRESHOLD
+                                                                     andData:[NSData dataWithBytes:&maxThreshold length:1]];
+    [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
 #pragma mark - NFC Service Delegate

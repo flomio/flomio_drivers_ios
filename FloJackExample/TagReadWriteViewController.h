@@ -28,11 +28,14 @@
 @property (strong, nonatomic) IBOutlet UITextView *statusNACKTextView;
 @property (strong, nonatomic) IBOutlet UITextView *statusVolumeLowErrorTextView;
 @property (strong, nonatomic) IBOutlet UITextField *urlInputField;
+@property (weak, nonatomic) IBOutlet UITextField *tweakThresholdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *maxThresholdTextField;
 
 - (IBAction)buttonWasPressedForPollingRate:(id)sender;
 - (IBAction)buttonWasPressedForReadTag:(id)sender;
 - (IBAction)buttonWasPressedForUtilities:(id)sender;
 - (IBAction)buttonWasPressedForWriteTag:(id)sender;
-- (IBAction)switchWasFlippedForProtocols:(id)sender;
+- (IBAction)switchWasFlippedForConfig:(id)sender;
+- (IBAction)buttonWasPressedForSendConfig:(id)sender;
 
 @end

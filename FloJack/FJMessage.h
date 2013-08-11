@@ -56,15 +56,16 @@ typedef enum
     FLOMIO_TAG_READ_OP,                 // 5
     FLOMIO_ACK_ENABLE_OP,               // 6
     FLOMIO_STANDALONE_OP,               // 7
-    FLOMIO_STANDALONE_TIMEOUT_OP,       // 8
-    FLOMIO_DUMP_LOG_OP,                 // 9
-    FLOMIO_LED_CONTROL_OP,              // 10
+    FLOMIO_STANDALONE_TIMEOUT_OP,       // 8  TODO: Timeout needs to be implemented
+    FLOMIO_DUMP_LOG_OP,                 // 9  TODO: Dump log needs to be implemented
+    FLOMIO_LED_CONTROL_OP,              // 10 
     FLOMIO_TI_HOST_COMMAND_OP,          // 11
     FLOMIO_COMMUNICATION_CONFIG_OP,     // 12
     FLOMIO_PING_OP,                     // 13
     FLOMIO_OPERATION_MODE_OP,           // 14
     FLOMIO_BLOCK_READ_WRITE_OP,         // 15
     FLOMIO_TAG_WRITE_OP,				// 16
+    FLOMIO_SNIFFER_CONFIG_OP            // 17
 } flomio_opcode_t;
 
 // FLOMIO_TAG_READ_OP sub opcode indicating tag type (most significant nibble)
@@ -96,7 +97,8 @@ typedef enum
     FLOMIO_STATUS_HW_REV,
     FLOMIO_STATUS_SW_REV,
     FLOMIO_STATUS_BATTERY,
-    FLOMIO_STATUS_SNIFFTHRESH
+    FLOMIO_STATUS_SNIFFTHRESH,
+    FLOMIO_STATUS_SNIFFCALIB
 } flomio_status_opcodes_t;
 
 //Battery Status
@@ -206,6 +208,15 @@ typedef enum
     FLOMIO_TAG_WRITE_STATUS_FAIL_TAG_NOT_NDEF_FORMATTED,
 	FLOMIO_TAG_WRITE_STATUS_FAIL_UNKOWN = 0xFF
 } flomio_tag_write_status_opcodes_t;
+
+// FLOMIO_SNIFFER_CONFIG_OP subopcodes
+typedef enum
+{
+    FLOMIO_INCREMENT_THRESHOLD = 0,
+    FLOMIO_DECREMENT_THRESHOLD,
+    FLOMIO_RESET_THRESHOLD,
+    FLOMIO_SET_MAX_THRESHOLD
+} flomio_sniffer_config_opcodes_t;
 
 // FLOMIO status codes for bubbling up to delegate
 typedef enum

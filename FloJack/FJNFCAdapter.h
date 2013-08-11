@@ -24,9 +24,11 @@
 @property (nonatomic) BOOL                               pollFor14443aTags;
 @property (nonatomic) BOOL                               pollFor15693Tags;
 @property (nonatomic) BOOL                               pollForFelicaTags;
+@property (nonatomic) BOOL                               standaloneMode;
 
 // Set the tag polling rate in milliseconds. Value must be in range [0, 6375] and an increment of 25.
 @property (nonatomic) NSInteger                          pollPeriod;
+
 
 - (id)init;
 - (void)initializeFloJackDevice;
@@ -43,7 +45,11 @@
 - (void)sendMessageDataToHost:(NSData *)data;
 - (void)sendMessageToHost:(FJMessage *)theMessage;
 - (void)sendRawMessageToHost:(UInt8[])theMessage;
-
+- (void)setIncrementSnifferThreshold:(UInt16)incrementAmount;
+- (void)setDecrementSnifferThreshold:(UInt16)decrementAmount;
+- (void)sendResetSnifferThreshold;  // method for last Sniffer Threshold command (no argument)
+- (void)setMaxSnifferThreshold:(UInt16)maxThreshold;
+                                      
 @end
 
 #pragma mark - NFC Adapter Protocol
@@ -57,4 +63,5 @@
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber;
   - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue;
+  - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferCalib:(NSString *)theCalibValues;
 @end

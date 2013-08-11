@@ -22,6 +22,8 @@
 @synthesize statusPingPongTextView          = _statusPingPongTextView;
 @synthesize statusVolumeLowErrorTextView    = _statusVolumeLowErrorTextView;
 @synthesize urlInputField                   = _urlInputField;
+@synthesize tweakThresholdTextField         = _tweakThresholdTextField;
+@synthesize maxThresholdTextField           = _maxThresholdTextField;
 
 #pragma mark - UI View Controller
 
@@ -48,6 +50,8 @@
     }
 }
 
+// TODO Need to clean up button action because the self.pollingRateTextField "Send" keyboard action
+// is a duplicate of this
 - (IBAction)buttonWasPressedForPollingRate:(id)sender {
     int pollValue = [self.pollingRateTextField.text intValue];
     _appDelegate.nfcAdapter.pollPeriod = pollValue;
@@ -84,20 +88,41 @@
             [_appDelegate.nfcAdapter getSnifferThresh];
             break;
         case 5:
+            // TODO Need to clean up button action because the self.tweakThresholdTextField "Send" keyboard action
+            // is a duplicate of this
+            [_appDelegate.nfcAdapter setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+            [self.view endEditing:YES];
+            break;
+        case 6:
+            [_appDelegate.nfcAdapter setDecrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+            [self.view endEditing:YES];
+            break;
+        case 7:
+            // TODO Need to clean up button action because the self.maxThresholdTextField "Send" keyboard action
+            // is a duplicate of this
+            [_appDelegate.nfcAdapter setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
+            [self.view endEditing:YES];
+            break;
+        case 8:
+            [_appDelegate.nfcAdapter sendResetSnifferThreshold];
+            break;
+        case 9:
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EU Mode" message:@"Warning: May damage the FloJack device. Only enable for volume limited devices. See http://flomio.com/volume-limit" delegate:self cancelButtonTitle:@"Enable" otherButtonTitles:@"Cancel", nil];
             [alert show];
             break;
     }
 }
 
-- (IBAction)buttonWasPressedForWriteTag:(id)sender {    
+// TODO Need to clean up button action because the _urlInputField "Send" keyboard action
+// is a duplicate of this
+- (IBAction)buttonWasPressedForWriteTag:(id)sender {
     FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
     [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
     
     [self.view endEditing:YES];
 }
 
-- (IBAction)switchWasFlippedForProtocols:(id)sender {
+- (IBAction)switchWasFlippedForConfig:(id)sender {
     UISwitch *onOffSwitch = (UISwitch *) sender;
     switch (onOffSwitch.tag) {
         case 1:
@@ -109,7 +134,17 @@
         case 3:
             _appDelegate.nfcAdapter.pollForFelicaTags = onOffSwitch.on;
             break;
+        case 4:
+            _appDelegate.nfcAdapter.standaloneMode = onOffSwitch.on;
     }
+}
+
+- (IBAction)buttonWasPressedForSendConfig:(id)sender {
+    
+    FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
+    [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
+    
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UI Output
@@ -219,4 +254,23 @@
     [self updateLogTextViewWithString:textUpdate];
 }
 
+- (bool)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isEqual:_urlInputField]) {
+        [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:[FJNDEFMessage createURIWithSting:_urlInputField.text]];
+    } else if ([textField isEqual:_pollingRateTextField]) {
+            _appDelegate.nfcAdapter.pollPeriod = [self.pollingRateTextField.text intValue];
+    } else if ([textField isEqual:_tweakThresholdTextField]) {
+        [_appDelegate.nfcAdapter setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+    } else if ([textField isEqual:_maxThresholdTextField]) {
+        [_appDelegate.nfcAdapter setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
+    }
+    [self.view endEditing:YES];
+    return YES;
+}
+
+- (void)viewDidUnload {
+    [self setTweakThresholdTextField:nil];
+    [self setMaxThresholdTextField:nil];
+    [super viewDidUnload];
+}
 @end

@@ -77,6 +77,14 @@
 		15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2EFFC16288072008FD352 /* FJNDEFMessage.h */; };
 		15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
 		15F2F00416288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
+		EF38A7E717B82A7900684263 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7DF17B82A7900684263 /* Icon-72.png */; };
+		EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E017B82A7900684263 /* Icon-72@2x.png */; };
+		EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E117B82A7900684263 /* Icon-Small-50.png */; };
+		EF38A7EA17B82A7900684263 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */; };
+		EF38A7EB17B82A7900684263 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E317B82A7900684263 /* Icon-Small.png */; };
+		EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E417B82A7900684263 /* Icon-Small@2x.png */; };
+		EF38A7ED17B82A7900684263 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E517B82A7900684263 /* Icon.png */; };
+		EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E617B82A7900684263 /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +198,14 @@
 		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FJNDEFRecord.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		15F2F00216288A50008FD352 /* FJNDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFRecord.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EF38A7DF17B82A7900684263 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		EF38A7E017B82A7900684263 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		EF38A7E117B82A7900684263 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		EF38A7E317B82A7900684263 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		EF38A7E417B82A7900684263 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		EF38A7E517B82A7900684263 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		EF38A7E617B82A7900684263 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +271,7 @@
 		1559F29416517FF100B43633 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF38A7EF17B82AF000684263 /* Icons */,
 				15D3F67E16B73116006D2A68 /* Sounds */,
 				1559F29516517FF100B43633 /* FloJackExample-Info.plist */,
 				1559F29616517FF100B43633 /* InfoPlist.strings */,
@@ -432,6 +449,21 @@
 			path = ../../flomio_client/mobile/ios/FlomioDemo;
 			sourceTree = "<group>";
 		};
+		EF38A7EF17B82AF000684263 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				EF38A7DF17B82A7900684263 /* Icon-72.png */,
+				EF38A7E017B82A7900684263 /* Icon-72@2x.png */,
+				EF38A7E117B82A7900684263 /* Icon-Small-50.png */,
+				EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */,
+				EF38A7E317B82A7900684263 /* Icon-Small.png */,
+				EF38A7E417B82A7900684263 /* Icon-Small@2x.png */,
+				EF38A7E517B82A7900684263 /* Icon.png */,
+				EF38A7E617B82A7900684263 /* Icon@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -528,6 +560,14 @@
 				1559F2AA16517FF100B43633 /* TagReadWriteViewController~iphone.xib in Resources */,
 				1559F2B21651811300B43633 /* TagReadWriteViewController.xib in Resources */,
 				158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */,
+				EF38A7E717B82A7900684263 /* Icon-72.png in Resources */,
+				EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */,
+				EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */,
+				EF38A7EA17B82A7900684263 /* Icon-Small-50@2x.png in Resources */,
+				EF38A7EB17B82A7900684263 /* Icon-Small.png in Resources */,
+				EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */,
+				EF38A7ED17B82A7900684263 /* Icon.png in Resources */,
+				EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

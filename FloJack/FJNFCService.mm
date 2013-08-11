@@ -8,12 +8,6 @@
 
 #import "FJNFCService.h"
 
-// Sample rate calculation
-#define fc                          1200
-#define df                          100
-#define T                           (1/df)
-#define N                           (SInt32)(T * nfcService->_hwSampleRate)
-
 #define ZERO_TO_ONE_THRESHOLD       0       // threshold used to detect start bit
 
 //#define SAMPLESPERBIT               32      // (44100 / HIGHFREQ)  // how many samples per UART bit
