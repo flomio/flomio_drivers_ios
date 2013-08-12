@@ -44,15 +44,6 @@
 }
 
 /**
- Get FloJack Firmware version
- 
- @return void
- */
-- (void)getFirmwareVersion {
-    [self sendRawMessageToHost:(UInt8*)status_sw_rev_msg];
-}
-
-/**
  Accessor for FloJack audio player helper. 
  
  @return FJAudioPlayer
@@ -62,25 +53,56 @@
 }
 
 /**
- Get NFC accessory hardware version
+ Get FloJack Firmware version
+ 
+ @return void
+ */
+- (void)getFirmwareVersion {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+                                                                andSubOpcode:FLOMIO_STATUS_SW_REV
+                                                                andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+/**
+ Get FloJack Hardware version
  
  @return void
  */
 - (void)getHardwareVersion {
-    [self sendRawMessageToHost:(UInt8*)status_hw_rev_msg];
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+                                                                andSubOpcode:FLOMIO_STATUS_HW_REV
+                                                                andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
 /**
- Get NFC Accessory Sniffer Threshold value
+ Get FloJack Sniffer Threshold value
  
  @return void
  */
-
 - (void)getSnifferThresh {
-    [self sendRawMessageToHost:(UInt8*)status_sniffthresh_msg];
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+                                                                andSubOpcode:FLOMIO_STATUS_SNIFFTHRESH
+                                                                     andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
-/*
+/**
+ Get FloJack Sniffer Calibration numbers.  18 words of data.  They include the
+ Sniffer Threshold, Sniffer Max and 16 calibration values from reset (power cycle).
+ 
+ @return void
+*/
+- (void)getSnifferCalib {
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+                                                                andSubOpcode:FLOMIO_STATUS_SNIFFCALIB
+                                                                andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
+
+/**
  Send FloJack Wake + Config command to come out of deep sleep and begin polling.
  Also sets the inter-byte delay config value based on the device type.
  
@@ -89,8 +111,8 @@
 - (void)initializeFloJackDevice {
     UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
     FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
-                                                               andSubOpcode:FLOMIO_BYTE_DELAY
-                                                                    andData:[NSData dataWithBytes:&interByteDelay length:1]];
+                                                                andSubOpcode:FLOMIO_BYTE_DELAY
+                                                                andData:[NSData dataWithBytes:&interByteDelay length:1]];
     [self sendMessageDataToHost:configMessage.bytes];
 }
  
@@ -148,7 +170,7 @@
                 }
                 case FLOMIO_STATUS_SNIFFCALIB: {
                     LogInfo(@"FLOMIO_STATUS_SNIFFCALIB ");
-                    NSString *calibValues = [NSString stringWithFormat:@"%@", [messageData fj_asHexString]];
+                    NSString *calibValues = [NSString stringWithFormat:@"%@", [messageData fj_asHexWordStringWithSpace]];
                     
                     if ([_delegate respondsToSelector:@selector(nfcAdapter: didReceiveSnifferCalib:)]) {
                         [_delegate nfcAdapter:self didReceiveSnifferCalib:calibValues];
@@ -261,12 +283,14 @@
             break;
         }
         case FLOMIO_POLLING_ENABLE_OP: {
+            // TODO Need to implement the response to delegate to notify app that FloJack changed polling config
             break;
         }
         case FLOMIO_POLLING_RATE_OP: {
             break;
         }
         case FLOMIO_STANDALONE_OP: {
+            // TODO Need to implement the response to delegate to notify app that FloJack changed standalone mode
             break;
         }
         case FLOMIO_STANDALONE_TIMEOUT_OP: {
@@ -481,8 +505,8 @@
 - (void)setStandaloneMode:(BOOL)standaloneMode {
     _standaloneMode = standaloneMode;
     FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STANDALONE_OP
-                                                                andSubOpcode:nil
-                                                                andData:[NSData dataWithBytes:&standaloneMode length:1]];
+                                                                andSubOpcode:_standaloneMode
+                                                                andData:nil];
     [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
@@ -520,7 +544,7 @@
 - (void)setIncrementSnifferThreshold:(UInt16)incrementAmount {
     FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
                                                                 andSubOpcode:FLOMIO_INCREMENT_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&incrementAmount length:1]];
+                                                                     andData:[NSData dataWithBytes:&incrementAmount length:2]];
     [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
@@ -534,7 +558,7 @@
 - (void)setDecrementSnifferThreshold:(UInt16)decrementAmount {
     FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
                                                                 andSubOpcode:FLOMIO_DECREMENT_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&decrementAmount length:1]];
+                                                                     andData:[NSData dataWithBytes:&decrementAmount length:2]];
     [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
@@ -561,7 +585,7 @@
 - (void)setMaxSnifferThreshold:(UInt16)maxThreshold {
     FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
                                                                 andSubOpcode:FLOMIO_SET_MAX_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&maxThreshold length:1]];
+                                                                     andData:[NSData dataWithBytes:&maxThreshold length:2]];
     [self sendMessageDataToHost:flojackMessage.bytes];
 }
 

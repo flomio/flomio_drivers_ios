@@ -84,4 +84,10 @@
         [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveSnifferThresh:theSnifferValue];
     }
 }
+
+- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveSnifferCalib:(NSString *)theCalibValues; {
+    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveSnifferCalib:)]) {
+        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveSnifferCalib:theCalibValues];
+    }
+}
 @end

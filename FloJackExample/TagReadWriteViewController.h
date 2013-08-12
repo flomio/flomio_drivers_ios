@@ -30,6 +30,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *urlInputField;
 @property (weak, nonatomic) IBOutlet UITextField *tweakThresholdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *maxThresholdTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *switchPolling14443A;
+@property (weak, nonatomic) IBOutlet UISwitch *switchPolling15693;
+@property (weak, nonatomic) IBOutlet UISwitch *switchPollingFelica;
+@property (weak, nonatomic) IBOutlet UISwitch *switchStandaloneMode;
 
 - (IBAction)buttonWasPressedForPollingRate:(id)sender;
 - (IBAction)buttonWasPressedForReadTag:(id)sender;

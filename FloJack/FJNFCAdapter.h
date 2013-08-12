@@ -37,6 +37,7 @@
 - (FJAudioPlayer *)getFJAudioPlayer;
 - (void)getHardwareVersion;
 - (void)getSnifferThresh;
+- (void)getSnifferCalib;
 - (void)setModeReadTagUID;
 - (void)setModeReadTagUIDAndNDEF;
 - (void)setModeReadTagData;

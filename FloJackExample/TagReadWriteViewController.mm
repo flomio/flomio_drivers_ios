@@ -24,6 +24,10 @@
 @synthesize urlInputField                   = _urlInputField;
 @synthesize tweakThresholdTextField         = _tweakThresholdTextField;
 @synthesize maxThresholdTextField           = _maxThresholdTextField;
+@synthesize switchPolling14443A             = _switchPolling14443A;
+@synthesize switchPolling15693              = _switchPolling15693;
+@synthesize switchPollingFelica             = _switchPollingFelica;
+@synthesize switchStandaloneMode            = _switchStandaloneMode;
 
 #pragma mark - UI View Controller
 
@@ -85,7 +89,7 @@
             [_appDelegate.nfcAdapter getHardwareVersion];
             break;
         case 4:
-            [_appDelegate.nfcAdapter getSnifferThresh];
+            [_appDelegate.nfcAdapter getSnifferCalib];
             break;
         case 5:
             // TODO Need to clean up button action because the self.tweakThresholdTextField "Send" keyboard action
@@ -118,7 +122,6 @@
 - (IBAction)buttonWasPressedForWriteTag:(id)sender {
     FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
     [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
-    
     [self.view endEditing:YES];
 }
 
@@ -136,15 +139,15 @@
             break;
         case 4:
             _appDelegate.nfcAdapter.standaloneMode = onOffSwitch.on;
+            break;
     }
 }
 
 - (IBAction)buttonWasPressedForSendConfig:(id)sender {
-    
-    FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
-    [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
-    
-    [self.view endEditing:YES];
+    [_appDelegate.nfcAdapter setStandaloneMode:_switchPolling14443A.isOn];
+    [_appDelegate.nfcAdapter setStandaloneMode:_switchPolling15693.isOn];
+    [_appDelegate.nfcAdapter setStandaloneMode:_switchPollingFelica.isOn];
+    [_appDelegate.nfcAdapter setStandaloneMode:_switchStandaloneMode.isOn];
 }
 
 #pragma mark - UI Output
@@ -215,7 +218,6 @@
             }
         }
     }
-    
     [self updateLogTextViewWithString:textUpdate];
     [self showAlertWithTitle:@"Tag Read" andMessage:[theNfcTag.uid fj_asHexString]];
 }
@@ -223,7 +225,6 @@
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Status %@", statusCodeString];
-    
     [self updateLogTextViewWithString:textUpdate];
     [self updateStatusTextViewWithStatus:statusCode];
 }
@@ -231,26 +232,27 @@
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode];
     NSString *textUpdate = [NSString stringWithFormat:@":::Tag Write Status %@", statusCodeString];
-    
     [self updateLogTextViewWithString:textUpdate];
     [self showAlertWithTitle:@"Tag Write Status" andMessage:statusCodeString];
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Firmware Version %@", theVersionNumber];
-    
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Hardware Version %@", theVersionNumber];
-    
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Threshold %@", theSnifferValue];
-    
+    [self updateLogTextViewWithString:textUpdate];
+}
+
+- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferCalib:(NSString *)theCalibValues; {
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Calibration Stats %@", theCalibValues];
     [self updateLogTextViewWithString:textUpdate];
 }
 
@@ -271,6 +273,10 @@
 - (void)viewDidUnload {
     [self setTweakThresholdTextField:nil];
     [self setMaxThresholdTextField:nil];
+    [self setSwitchPolling14443A:nil];
+    [self setSwitchPolling15693:nil];
+    [self setSwitchPollingFelica:nil];
+    [self setSwitchStandaloneMode:nil];
     [super viewDidUnload];
 }
 @end

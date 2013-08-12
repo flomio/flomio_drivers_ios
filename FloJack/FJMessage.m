@@ -118,6 +118,14 @@
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                         }
+                        case FLOMIO_STATUS_SNIFFCALIB:  {
+                            _name = @"FLOMIO_STATUS_SNIFFCALIB";
+
+                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
+                            break;
+                        }
                         default:
                             break;
                     }
@@ -328,7 +336,7 @@
             //flojackMessageOpcode == FLOMIO_POLLING_RATE_OP ||
             flojackMessageOpcode == FLOMIO_TAG_READ_OP ||
             flojackMessageOpcode == FLOMIO_ACK_ENABLE_OP ||
-            //flojackMessageOpcode == FLOMIO_STANDALONE_OP ||
+            flojackMessageOpcode == FLOMIO_STANDALONE_OP ||
             //flojackMessageOpcode == FLOMIO_STANDALONE_TIMEOUT_OP ||
             //flojackMessageOpcode == FLOMIO_DUMP_LOG_OP ||
             flojackMessageOpcode == FLOMIO_LED_CONTROL_OP ||

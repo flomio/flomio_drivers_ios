@@ -40,12 +40,6 @@
 // Tag Formatting
 #define NDEF_MESSAGE_HEADER                      0x03
 
-// FloJack protocol messages {opcode, length, data[] }
-const static UInt8 status_hw_rev_msg[] =         {0x01,0x04,0x01,0x04};
-const static UInt8 status_sw_rev_msg[] =         {0x01,0x04,0x02,0x07};
-const static UInt8 status_sniffthresh_msg[] =    {0x01,0x04,0x04,0x01};
-
-
 //Flomio Accessory-Client Message Opcodes
 typedef enum
 {
@@ -233,6 +227,7 @@ typedef enum
     FLOMIO_STATUS_FLOJACK_CONNECTED        = 4,
     FLOMIO_STATUS_FLOJACK_DISCONNECTED     = 5,
 } flomio_nfc_adapter_status_codes_t;
+
 
 @interface FJMessage : NSObject
 
