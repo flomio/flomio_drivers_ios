@@ -312,6 +312,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 							}
                             
                             // Send bye to message handler
+                            // TODO Possible source of memory leak, as per:
+                            // http://stackoverflow.com/questions/14677049/what-is-autoreleasepool-objective-c
                             //NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
                             @autoreleasepool {
                                 [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];

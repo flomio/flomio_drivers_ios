@@ -22,7 +22,7 @@
 @synthesize standaloneMode = _standaloneMode;
 
 /**
- Designated intializer of FJNFCAdapter. 
+ Designated intializer of FJNFCAdapter.  Should be overloaded by Client App to have custom config context in place.
  
  @return FJNFCAdapter
  */

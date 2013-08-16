@@ -228,6 +228,12 @@ typedef enum
     FLOMIO_STATUS_FLOJACK_DISCONNECTED     = 5,
 } flomio_nfc_adapter_status_codes_t;
 
+// FloJack protocol messages {opcode, length, data[] } - Used for messages that don't have 
+const static UInt8 status_hw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};
+const static UInt8 status_sw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SW_REV,0x07};
+const static UInt8 status_sniffthresh_msg[] =    {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SNIFFTHRESH,0x01};
+const static UInt8 status_sniffcalib_msg[] =     {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SNIFFCALIB,0x01};
+
 
 @interface FJMessage : NSObject
 
