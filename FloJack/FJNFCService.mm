@@ -225,11 +225,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	 ************************************/
 	for(int frameIndex = 0; frameIndex<inNumberFrames; frameIndex++) {
 		float raw_sample = left_audio_channel[frameIndex];
-        //left_audio_channel[frameIndex] = 0;
-        LogWaveform(@"%8ld, %8.0f\n", phase2, raw_sample);
 
-		if(decoderState == DECODE_BYTE_SAMPLE )
-			LogDecoderVerbose(@"%8ld, %8.0f, %d\n", phase2, raw_sample, frameIndex);
+		if ((frameIndex < 20 || frameIndex > 80) || (decoderState == DECODE_BYTE_SAMPLE))
+			LogDecoderVerbose(@"%8ld, %8.0f, Decode %d\n", phase2, raw_sample, frameIndex);
 
 		phase2 += 1;
 		if (raw_sample < ZERO_TO_ONE_THRESHOLD) {
@@ -304,22 +302,19 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 //                                    }
 //                                    NSLog(@"%f\n", raw_sample);
 //                                }
+                                
+                                // Send bye to message handler
+                                // TODO Possible source of memory leak, as per:
+                                // http://stackoverflow.com/questions/14677049/what-is-autoreleasepool-objective-c
+                                @autoreleasepool {
+                                    [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];
+                                }
 							}
                             else {
 								// Invalid byte			
                                 LogError(@" -- StopBit: %ld UartByte 0x%x\n", sample, uartByte);
                                 parityGood = false;
-							}
-                            
-                            // Send bye to message handler
-                            // TODO Possible source of memory leak, as per:
-                            // http://stackoverflow.com/questions/14677049/what-is-autoreleasepool-objective-c
-                            //NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
-                            @autoreleasepool {
-                                [self handleReceivedByte:uartByte withParity:parityGood atTimestamp:CACurrentMediaTime()];
-                            }
-                            //[autoreleasepool release];
-                            
+							}                            
 							decoderState = STARTBIT;
 						}
 					}
@@ -651,13 +646,16 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 }
 
 /**
- Get current audio route description and determine if FloJack is connected.  
+ Get current audio route description and determine if FloJack is connected.  This method is called VERY often.  Keep it light 
+ and be concisous of memory leaks.
  
  @return BOOL    FloJack connected status
  */
 - (BOOL)floJackConnected {
     CFDictionaryRef route;
     UInt32 size = sizeof(route);
+    BOOL result = false; // assume FloJack is disconnected
+    
     XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_AudioRouteDescription, &size, &route), "couldn't get new sample rate");
     
     NSDictionary *inputRoutes = [(NSArray *)[(__bridge NSDictionary *)route objectForKey:@"RouteDetailedDescription_Inputs"] objectAtIndex:0];
@@ -665,11 +663,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     
     if ([[inputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"MicrophoneWired"] &&
         [[outputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"Headphones"]) {
-        return true;
+        result = true;
     }
-    else {
-        return false;
-    }
+    
+    CFRelease(route);
+    return result;
 }
 
 /**

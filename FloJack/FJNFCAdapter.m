@@ -632,7 +632,7 @@
 }
 
 /**
- Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delgate.
+ Receives connect / disconnect notifications from NFC Service, sends the wake + config message if needed, and passes the connection status up to the NFC Adapter delegate.
  
  @param nfcService          The NFC Service Object experiencing an error.
  @param isFloJackConnected  Bool indicating FloJack connection status
@@ -646,6 +646,7 @@
     }
     else {
         statusCode = FLOMIO_STATUS_FLOJACK_DISCONNECTED;
+        
     }
     
     if ([_delegate respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
