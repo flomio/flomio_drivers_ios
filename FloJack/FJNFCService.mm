@@ -226,8 +226,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 	for(int frameIndex = 0; frameIndex<inNumberFrames; frameIndex++) {
 		float raw_sample = left_audio_channel[frameIndex];
 
-		if ((frameIndex < 20 || frameIndex > 80) || (decoderState == DECODE_BYTE_SAMPLE))
+		if (decoderState == DECODE_BYTE_SAMPLE) {
 			LogDecoderVerbose(@"%8ld, %8.0f, Decode %d\n", phase2, raw_sample, frameIndex);
+        }
 
 		phase2 += 1;
 		if (raw_sample < ZERO_TO_ONE_THRESHOLD) {
@@ -327,7 +328,6 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 						lastSample = sample;
 						continue;
 					}
-					
 					break;
 				default:
 					break;
