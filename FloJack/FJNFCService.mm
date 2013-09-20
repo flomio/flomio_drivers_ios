@@ -727,11 +727,11 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         UInt8 length = 0;
         [_messageReceiveBuffer getBytes:&length
                                       range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
-                                                        FLOJACK_MESSAGE_LENGTH_POSITION)];
+                                                        FLOJACK_MESSAGE_LENGTH_LENGTH)];
         _messageLength = length;
         if (_messageLength < MIN_MESSAGE_LENGTH || _messageLength > MAX_MESSAGE_LENGTH)
         {
-            LogError(@"Invalid message length, ingoring current message.");
+            LogError(@"Invalid message length, ignoring current message.");
             [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         }
     }
@@ -757,7 +757,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         }
         else {
             //TODO: plumb this through to delegate
-            LogError(@"Bad CRC, ingoring current message.");
+            LogError(@"Bad CRC, ignoring current message.");
             [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         }
     }
