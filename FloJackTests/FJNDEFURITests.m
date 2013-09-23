@@ -328,7 +328,7 @@
         NSNumber *ndefRecordCount = [item objectForKey:@"ndefRecordCount"];
         NSURL *url = [item objectForKey:@"url"];
         
-        FJNDEFMessage *ndefMessage = [FJNDEFMessage createURIWithSting:url.absoluteString];
+        FJNDEFMessage *ndefMessage = [FJNDEFMessage createURIWithString:url.absoluteString];
                 
         STAssertTrue((ndefMessage.ndefRecords.count == ndefRecordCount.intValue)
                      , @"FJNDEFMessage encoded incorrect number of NDEF Records.");

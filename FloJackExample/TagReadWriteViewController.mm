@@ -120,7 +120,7 @@
 // TODO Need to clean up button action because the _urlInputField "Send" keyboard action
 // is a duplicate of this
 - (IBAction)buttonWasPressedForWriteTag:(id)sender {
-    FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithSting:_urlInputField.text];
+    FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithString:_urlInputField.text];
     [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
     [self.view endEditing:YES];
 }
@@ -258,7 +258,7 @@
 
 - (bool)textFieldShouldReturn:(UITextField *)textField {
     if ([textField isEqual:_urlInputField]) {
-        [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:[FJNDEFMessage createURIWithSting:_urlInputField.text]];
+        [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:[FJNDEFMessage createURIWithString:_urlInputField.text]];
     } else if ([textField isEqual:_pollingRateTextField]) {
             _appDelegate.nfcAdapter.pollPeriod = [self.pollingRateTextField.text intValue];
     } else if ([textField isEqual:_tweakThresholdTextField]) {

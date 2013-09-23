@@ -106,7 +106,7 @@
  @params uriString String representation of URI to encode. 
  @return NSData
  */
-+ (FJNDEFMessage *)createURIWithSting:(NSString *)uriString {
++ (FJNDEFMessage *)createURIWithString:(NSString *)uriString {
     if (uriString == nil) {
         return nil;
     }
