@@ -24,7 +24,6 @@
 #define HIGHFREQ                    3392 // baud rate. best to take a divisible number for 44.1kS/s
 //#define HIGHFREQ                    6300 // baud rate. best to take a divisible number for 44.1kS/s
 #define LOWFREQ                     (HIGHFREQ / 2)
-    
 //#define NUMSTOPBITS                 18      // number of stop bits to send before sending next value.
 #define NUMSTOPBITS                 20      // number of stop bits to send before sending next value.
 #define NUMSYNCBITS                 4       // number of ones to send before sending first value.
@@ -895,7 +894,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     LogInfo(@"sendMessageToHost end");
     
     // Give the last byte time to transmit
-    [NSThread sleepForTimeInterval:.025];
+    while (self->_byteQueuedForTX == TRUE) [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
     dispatch_semaphore_signal(_messageTXLock);
     
@@ -952,10 +951,14 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         // iPhone 3GS
         inter_byte_delay = 0x50;
     }
+    else if([machineName rangeOfString:@"iPod5,1"].location != NSNotFound) {
+        // iPod Touch 5G
+        inter_byte_delay = 0x80;
+    }
     else if([machineName rangeOfString:@"iPod"].location != NSNotFound) {
         // iPod Touch 1G, 2G, 3G, 4G, 5G
         inter_byte_delay = 0x50;
-    } 
+    }
     
     return inter_byte_delay;
 }
