@@ -167,7 +167,7 @@
         return 0;
     }
     
-    char *dataPtr = (char *) _data.bytes;
+    UInt8 *dataPtr = (UInt8 *) _data.bytes;
 	for (int i = 16; i < _data.length; i++) {
 		if (dataPtr[i] == 0x00) {
 			// NULL TLV. No (L) or (V) present
