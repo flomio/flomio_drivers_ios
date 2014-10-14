@@ -1,7 +1,7 @@
 var interface_a_c_r_audio_jack_reader =
 [
     [ "authenticateWithMasterKey:length:", "interface_a_c_r_audio_jack_reader.html#a3ffee97e28593e2853ee45d9d900d7c7", null ],
-    [ "authenticateWithMasterKey:length:completion:", "interface_a_c_r_audio_jack_reader.html#afde2b68a3b82b99070083942f86658a6", null ],
+    [ "authenticateWithMasterKey:length:completion:", "interface_a_c_r_audio_jack_reader.html#a301dfb07ca9751b48c43b774d7f5e76b", null ],
     [ "createFrame:length:", "interface_a_c_r_audio_jack_reader.html#a49f37baa36259bf8aa9a8bb8d48f5bee", null ],
     [ "delegate", "interface_a_c_r_audio_jack_reader.html#a83791cdf5a2342cbf488950a6f332e4f", null ],
     [ "getAtrWithSlotNumber:", "interface_a_c_r_audio_jack_reader.html#ae4be584d785b7d9d353c461be8fd04c0", null ],
@@ -19,7 +19,7 @@ var interface_a_c_r_audio_jack_reader =
     [ "piccTransmitWithTimeout:commandApdu:length:", "interface_a_c_r_audio_jack_reader.html#ae0b09dd64cdf333aa6428135d3938053", null ],
     [ "powerCardWithAction:slotNum:timeout:error:", "interface_a_c_r_audio_jack_reader.html#a832c9c34cdbe8089ce897e7e5e73b67b", null ],
     [ "reset", "interface_a_c_r_audio_jack_reader.html#a470414220e75255c7d831a4e80f7d368", null ],
-    [ "resetWithCompletion:", "interface_a_c_r_audio_jack_reader.html#a81ba1c027f01ea97b338464240954f3c", null ],
+    [ "resetWithCompletion:", "interface_a_c_r_audio_jack_reader.html#a23c4fb527cdbec8fe8d6b2c5583a2278", null ],
     [ "sendCommand:length:", "interface_a_c_r_audio_jack_reader.html#ae871db931ed9a8a5e898e3623056a9a7", null ],
     [ "sendFrame:", "interface_a_c_r_audio_jack_reader.html#a1888c8916e9b43ea45dade3d49e7ca86", null ],
     [ "setAesKey:length:", "interface_a_c_r_audio_jack_reader.html#a64cc559531df5670c663a0cbdb09cb7b", null ],

@@ -19,6 +19,7 @@
 		5609540D16AFC86B004DB9EE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5609540B16AFC86B004DB9EE /* MainStoryboard.storyboard */; };
 		5609541016AFC86B004DB9EE /* AJDMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5609540F16AFC86B004DB9EE /* AJDMasterViewController.m */; };
 		562F93401855B63600812027 /* AJDPiccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 562F933F1855B63600812027 /* AJDPiccViewController.m */; };
+		568D3F2119B838330042071C /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568D3F2019B838330042071C /* libAudioJack.a */; };
 		56AB84AF17B0EAD60055A643 /* dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84AE17B0EAD60055A643 /* dummy.mm */; };
 		56C04C91181E6D3D00869140 /* AJDReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C04C90181E6D3D00869140 /* AJDReaderViewController.m */; };
 		56C04C94181E6DE800869140 /* AJDIdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C04C93181E6DE800869140 /* AJDIdViewController.m */; };
@@ -26,7 +27,6 @@
 		56C04C9A181E6E4200869140 /* AJDDukptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C04C99181E6E4200869140 /* AJDDukptViewController.m */; };
 		56DC27D018EC151C00552F9A /* AJDTrackDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DC27CF18EC151C00552F9A /* AJDTrackDataViewController.m */; };
 		56E0DD5018B5DD4D00490115 /* AJDHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E0DD4F18B5DD4D00490115 /* AJDHex.m */; };
-		56E387A318F69509009B140E /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E387A118F69509009B140E /* libAudioJack.a */; };
 		56E5D1F618B3102100FF02CE /* AJDIccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1F518B3102100FF02CE /* AJDIccViewController.m */; };
 		56E5D1F918B316CC00FF02CE /* AJDIccPowerActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1F818B316CC00FF02CE /* AJDIccPowerActionViewController.m */; };
 		56E5D1FC18B316DF00FF02CE /* AJDIccProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1FB18B316DF00FF02CE /* AJDIccProtocolViewController.m */; };
@@ -54,6 +54,19 @@
 		5609540F16AFC86B004DB9EE /* AJDMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJDMasterViewController.m; sourceTree = "<group>"; };
 		562F933E1855B63600812027 /* AJDPiccViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDPiccViewController.h; sourceTree = "<group>"; };
 		562F933F1855B63600812027 /* AJDPiccViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDPiccViewController.m; sourceTree = "<group>"; };
+		568D3F1419B838330042071C /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
+		568D3F1519B838330042071C /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
+		568D3F1619B838330042071C /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
+		568D3F1719B838330042071C /* ACRDukptReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptReceiver.h; sourceTree = "<group>"; };
+		568D3F1819B838330042071C /* ACRDukptTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptTrackData.h; sourceTree = "<group>"; };
+		568D3F1919B838330042071C /* ACRResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRResult.h; sourceTree = "<group>"; };
+		568D3F1A19B838330042071C /* ACRStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRStatus.h; sourceTree = "<group>"; };
+		568D3F1B19B838330042071C /* ACRTrack1Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack1Data.h; sourceTree = "<group>"; };
+		568D3F1C19B838330042071C /* ACRTrack2Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack2Data.h; sourceTree = "<group>"; };
+		568D3F1D19B838330042071C /* ACRTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrackData.h; sourceTree = "<group>"; };
+		568D3F1E19B838330042071C /* AudioJack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJack.h; sourceTree = "<group>"; };
+		568D3F1F19B838330042071C /* AudioJackErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJackErrors.h; sourceTree = "<group>"; };
+		568D3F2019B838330042071C /* libAudioJack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAudioJack.a; sourceTree = "<group>"; };
 		56AB84AE17B0EAD60055A643 /* dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dummy.mm; sourceTree = "<group>"; };
 		56C04C8F181E6D3D00869140 /* AJDReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDReaderViewController.h; sourceTree = "<group>"; };
 		56C04C90181E6D3D00869140 /* AJDReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDReaderViewController.m; sourceTree = "<group>"; };
@@ -67,19 +80,6 @@
 		56DC27CF18EC151C00552F9A /* AJDTrackDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDTrackDataViewController.m; sourceTree = "<group>"; };
 		56E0DD4E18B5DD4D00490115 /* AJDHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDHex.h; sourceTree = "<group>"; };
 		56E0DD4F18B5DD4D00490115 /* AJDHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDHex.m; sourceTree = "<group>"; };
-		56E3879418F69509009B140E /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
-		56E3879518F69509009B140E /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
-		56E3879618F69509009B140E /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
-		56E3879718F69509009B140E /* ACRDukptReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptReceiver.h; sourceTree = "<group>"; };
-		56E3879818F69509009B140E /* ACRDukptTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptTrackData.h; sourceTree = "<group>"; };
-		56E3879918F69509009B140E /* ACRResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRResult.h; sourceTree = "<group>"; };
-		56E3879A18F69509009B140E /* ACRStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRStatus.h; sourceTree = "<group>"; };
-		56E3879B18F69509009B140E /* ACRTrack1Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack1Data.h; sourceTree = "<group>"; };
-		56E3879C18F69509009B140E /* ACRTrack2Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack2Data.h; sourceTree = "<group>"; };
-		56E3879D18F69509009B140E /* ACRTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrackData.h; sourceTree = "<group>"; };
-		56E3879F18F69509009B140E /* AudioJack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJack.h; sourceTree = "<group>"; };
-		56E387A018F69509009B140E /* AudioJackErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJackErrors.h; sourceTree = "<group>"; };
-		56E387A118F69509009B140E /* libAudioJack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAudioJack.a; sourceTree = "<group>"; };
 		56E5D1F418B3102100FF02CE /* AJDIccViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDIccViewController.h; sourceTree = "<group>"; };
 		56E5D1F518B3102100FF02CE /* AJDIccViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDIccViewController.m; sourceTree = "<group>"; };
 		56E5D1F718B316CC00FF02CE /* AJDIccPowerActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDIccPowerActionViewController.h; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				560953F416AFC86B004DB9EE /* UIKit.framework in Frameworks */,
 				560953F616AFC86B004DB9EE /* Foundation.framework in Frameworks */,
 				560953F816AFC86B004DB9EE /* CoreGraphics.framework in Frameworks */,
-				56E387A318F69509009B140E /* libAudioJack.a in Frameworks */,
+				568D3F2119B838330042071C /* libAudioJack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +112,7 @@
 			children = (
 				56F7077916B3CB7B00D9E6B4 /* ACSIcon_114x114.png */,
 				56F7077716B3CB7200D9E6B4 /* ACSIcon_57x57.png */,
-				56E3879318F69509009B140E /* AudioJack */,
+				568D3F1319B838330042071C /* AudioJack */,
 				560953F916AFC86B004DB9EE /* AudioJackDemo */,
 				560953F216AFC86B004DB9EE /* Frameworks */,
 				560953F016AFC86B004DB9EE /* Products */,
@@ -186,22 +186,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		56E3879318F69509009B140E /* AudioJack */ = {
+		568D3F1319B838330042071C /* AudioJack */ = {
 			isa = PBXGroup;
 			children = (
-				56E3879418F69509009B140E /* ACRAesTrackData.h */,
-				56E3879518F69509009B140E /* ACRAudioJackReader.h */,
-				56E3879618F69509009B140E /* ACRCRC16.h */,
-				56E3879718F69509009B140E /* ACRDukptReceiver.h */,
-				56E3879818F69509009B140E /* ACRDukptTrackData.h */,
-				56E3879918F69509009B140E /* ACRResult.h */,
-				56E3879A18F69509009B140E /* ACRStatus.h */,
-				56E3879B18F69509009B140E /* ACRTrack1Data.h */,
-				56E3879C18F69509009B140E /* ACRTrack2Data.h */,
-				56E3879D18F69509009B140E /* ACRTrackData.h */,
-				56E3879F18F69509009B140E /* AudioJack.h */,
-				56E387A018F69509009B140E /* AudioJackErrors.h */,
-				56E387A118F69509009B140E /* libAudioJack.a */,
+				568D3F1419B838330042071C /* ACRAesTrackData.h */,
+				568D3F1519B838330042071C /* ACRAudioJackReader.h */,
+				568D3F1619B838330042071C /* ACRCRC16.h */,
+				568D3F1719B838330042071C /* ACRDukptReceiver.h */,
+				568D3F1819B838330042071C /* ACRDukptTrackData.h */,
+				568D3F1919B838330042071C /* ACRResult.h */,
+				568D3F1A19B838330042071C /* ACRStatus.h */,
+				568D3F1B19B838330042071C /* ACRTrack1Data.h */,
+				568D3F1C19B838330042071C /* ACRTrack2Data.h */,
+				568D3F1D19B838330042071C /* ACRTrackData.h */,
+				568D3F1E19B838330042071C /* AudioJack.h */,
+				568D3F1F19B838330042071C /* AudioJackErrors.h */,
+				568D3F2019B838330042071C /* libAudioJack.a */,
 			);
 			path = AudioJack;
 			sourceTree = "<group>";

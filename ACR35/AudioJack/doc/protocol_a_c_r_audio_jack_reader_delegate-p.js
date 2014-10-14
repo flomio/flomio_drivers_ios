@@ -12,5 +12,6 @@ var protocol_a_c_r_audio_jack_reader_delegate_p =
     [ "reader:didSendStatus:", "protocol_a_c_r_audio_jack_reader_delegate-p.html#a365903a1e25b15c68ccca9fd09f77f66", null ],
     [ "reader:didSendTrackData:", "protocol_a_c_r_audio_jack_reader_delegate-p.html#ae92481cba41cc22f9218f26afbc0aa89", null ],
     [ "reader:didSendTrackDataOption:", "protocol_a_c_r_audio_jack_reader_delegate-p.html#a72068c7fcb8d020690d898ffe7b47113", null ],
+    [ "readerDidNotifyTrackData:", "protocol_a_c_r_audio_jack_reader_delegate-p.html#aafb1beb6d3d9ba225e886c677b4be05e", null ],
     [ "readerDidReset:", "protocol_a_c_r_audio_jack_reader_delegate-p.html#ac37fd9a9f3704b6f95f60335f6048b49", null ]
 ];

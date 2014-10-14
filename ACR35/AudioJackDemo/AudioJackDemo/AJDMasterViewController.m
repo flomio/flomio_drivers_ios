@@ -87,6 +87,8 @@
     NSUInteger _piccCardType;
     NSData *_piccCommandApdu;
     NSData *_piccRfConfig;
+
+    UIAlertView *_trackDataAlert;
 }
 
 - (void)awakeFromNib
@@ -682,6 +684,19 @@
     [_responseCondition unlock];
 }
 
+- (void)readerDidNotifyTrackData:(ACRAudioJackReader *)reader {
+
+    // Show the track data alert.
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        _trackDataAlert = [[UIAlertView alloc] initWithTitle:@"Information" message:@"Processing the track data..." delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+        [_trackDataAlert show];
+
+        // Dismiss the track data alert after 5 seconds.
+        [self performSelector:@selector(AJD_dismissAlertView:) withObject:_trackDataAlert afterDelay:5];
+    });
+}
+
 - (void)reader:(ACRAudioJackReader *)reader didSendTrackData:(ACRTrackData *)trackData {
 
     ACRTrack1Data *track1Data = [[ACRTrack1Data alloc] init];
@@ -692,6 +707,30 @@
     NSString *track2MacString = @"";
     NSString *batteryStatusString = [self AJD_stringFromBatteryStatus:trackData.batteryStatus];
     NSString *keySerialNumberString = @"";
+    NSString *errorString = @"";
+
+    // Dismiss the track data alert.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self AJD_dismissAlertView:_trackDataAlert];
+    });
+
+    if ((trackData.track1ErrorCode != ACRTrackErrorSuccess) &&
+        (trackData.track2ErrorCode != ACRTrackErrorSuccess)) {
+
+        errorString = @"The track 1 and track 2 data";
+
+    } else {
+
+        if (trackData.track1ErrorCode != ACRTrackErrorSuccess) {
+            errorString = @"The track 1 data";
+        }
+
+        if (trackData.track2ErrorCode != ACRTrackErrorSuccess) {
+            errorString = @"The track 2 data";
+        }
+    }
+
+    errorString = [errorString stringByAppendingString:@" may be corrupted. Please swipe the card again!"];
 
     // Show the track error.
     if ((trackData.track1ErrorCode != ACRTrackErrorSuccess) ||
@@ -699,11 +738,9 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"The track data may be corrupted. Please swipe the card again!" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
         });
-
-        goto cleanup;
     }
 
     if ([trackData isKindOfClass:[ACRAesTrackData class]]) {
@@ -2558,6 +2595,14 @@ cleanup:
     _resultReady = NO;
     
     [_responseCondition unlock];
+}
+
+/**
+ * Dismisses the alert view.
+ * @param alertView the alert view.
+ */
+- (void)AJD_dismissAlertView:(UIAlertView *)alertView {
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end

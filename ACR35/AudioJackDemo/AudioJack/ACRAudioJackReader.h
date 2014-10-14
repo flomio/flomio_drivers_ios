@@ -536,6 +536,12 @@ typedef NSUInteger ACRTrackDataOption;
 - (void)reader:(ACRAudioJackReader *)reader didSendStatus:(ACRStatus *)status;
 
 /**
+ * Tells the delegate that the reader notified the track data.
+ * @param reader the reader.
+ */
+- (void)readerDidNotifyTrackData:(ACRAudioJackReader *)reader;
+
+/**
  * Tells the delegate that the reader sent the track data.
  * @param reader    the reader.
  * @param trackData the track data.

@@ -24,8 +24,8 @@ To install the library to your development environment, see the section
 Release Notes
 -------------
 
-Version:      1.0.0 Preview 7
-Release Date: 15/5/2014
+Version:      1.0.0 Preview 8
+Release Date: 4/9/2014
 
 This preview library is subject to change. It may or may not work with your iOS
 device.
@@ -69,6 +69,10 @@ History
 ----------
 
 Library
+
+v1.0.0 Preview 8 (4/9/2014)
+- Add the following methods to ACRAudioJackReaderDelegate protocol:
+  readerDidNotifyTrackData:
 
 v1.0.0 Preview 7 (15/5/2014)
 - Remove the limitation of command length in
@@ -177,6 +181,11 @@ v1.0.0 Preview 1 (6/5/2013)
 
 
 Demo
+
+v1.0.0 Preview 7 (4/9/2014)
+- Show the track error of each track and continue to show it if it contains any
+  error in reader:didSendTrackData: of AJDMasterViewController.
+- Show the track data alert.
 
 v1.0.0 Preview 6 (10/4/2014)
 - Add track data setup.
