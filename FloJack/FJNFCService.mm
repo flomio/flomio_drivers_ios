@@ -470,7 +470,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     if (self) {
         // Setup Grand Central Dispatch queue (thread pool)
         _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
-        dispatch_retain(_backgroundQueue);
+// not supported with ARC        dispatch_retain(_backgroundQueue);
         
         // Register an input callback function with an audio unit.
         _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
@@ -909,7 +909,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
 - (void)dealloc
 {
 	delete[] _remoteIODCFilter;
-    dispatch_release(_backgroundQueue);
+// not supported with ARC    dispatch_release(_backgroundQueue);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

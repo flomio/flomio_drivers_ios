@@ -47,6 +47,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 */
 
+#ifdef __cplusplus
+
 #if !defined(__rio_helper_h__)
 #define __rio_helper_h__
 
@@ -87,3 +89,5 @@ protected:
 };
 
 #endif
+
+#endif // __cplusplus

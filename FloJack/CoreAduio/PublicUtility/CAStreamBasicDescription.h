@@ -47,6 +47,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 */
 
+#ifdef __cplusplus
 
 #ifndef __CAStreamBasicDescription_h__
 #define __CAStreamBasicDescription_h__
@@ -88,8 +89,7 @@ typedef Float32 AudioUnitSampleType;
 //	It adds a number of convenience routines, but otherwise adds nothing
 //	to the footprint of the original struct.
 //=============================================================================
-class CAStreamBasicDescription
-    :public AudioStreamBasicDescription
+class CAStreamBasicDescription:public AudioStreamBasicDescription
 {
 
 //	Constants
@@ -308,3 +308,5 @@ bool SanityCheck(const AudioStreamBasicDescription& x);
 
 
 #endif // __CAStreamBasicDescription_h__
+
+#endif // cplusplus
