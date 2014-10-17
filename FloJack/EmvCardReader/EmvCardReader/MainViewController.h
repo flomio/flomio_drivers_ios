@@ -1,12 +1,18 @@
-//  File: MainViewController.h
-//  Abstract: The application's main (initial) view controller.
 //
-//  Created by Richard Grundy on 10/14/14.
-//  Copyright (c) 2014 Flomio, Inc. All rights reserved.
+//  MainViewController.h
+//  EMVCardReader
 //
- 
-#import <UIKit/UIKit.h>
+//  Created by Boris  on 10/17/14.
+//  Copyright (c) 2014 LLT. All rights reserved.
+//
 
-@interface MainViewController : UITableViewController
+#import <UIKit/UIKit.h>
+#import "LeftMenuView.h"
+
+@interface MainViewController : UIViewController {
+    
+    LeftMenuView *leftMenu;
+    CGPoint startPosition;
+}
 
 @end

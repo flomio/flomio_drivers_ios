@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  EmvCardReader
+//  EMVCardReader
 //
-//  Created by Richard Grundy on 10/14/14.
-//  Copyright (c) 2014 Flomio, Inc. All rights reserved.
+//  Created by Boris  on 10/17/14.
+//  Copyright (c) 2014 LLT. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -14,24 +14,10 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [(UINavigationController*)self.window.rootViewController setDelegate:self];
-    
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
     return YES;
-}
-
-#pragma mark -
-#pragma mark UINavigationControllerDelegate
-
-//| ----------------------------------------------------------------------------
-//  Force the navigation controller to defer to the topViewController for
-//  its supportedInterfaceOrientations.  This allows some of the demos
-//  to rotate into landscape while keeping others in portrait.
-//
-- (NSUInteger)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController
-{
-    return navigationController.topViewController.supportedInterfaceOrientations;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

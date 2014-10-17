@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  AboutViewController.h
 //  EMVCardReader
 //
 //  Created by Boris  on 10/17/14.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface AboutViewController : UIViewController
 
 @end
-

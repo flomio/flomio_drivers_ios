@@ -7,56 +7,78 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EFD4424C19EE148E0015990B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4424B19EE148E0015990B /* main.m */; };
-		EFD4424F19EE148E0015990B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4424E19EE148E0015990B /* AppDelegate.m */; };
-		EFD4425719EE148E0015990B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFD4425619EE148E0015990B /* Images.xcassets */; };
-		EFD4425A19EE148E0015990B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFD4425819EE148E0015990B /* LaunchScreen.xib */; };
-		EFD4426619EE148E0015990B /* EmvCardReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4426519EE148E0015990B /* EmvCardReaderTests.m */; };
-		EFD4427319EE6DC80015990B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFD4427219EE6DC80015990B /* Main.storyboard */; };
-		EFD4427819EE6F1F0015990B /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4427519EE6F1F0015990B /* NavigationController.m */; };
-		EFD4427919EE6F1F0015990B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4427719EE6F1F0015990B /* MainViewController.m */; };
-		EFD4427E19EE976C0015990B /* CustomRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD4427D19EE976C0015990B /* CustomRightViewController.m */; };
+		4514C63B19F1D8CD0006EB1D /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4514C63A19F1D8CD0006EB1D /* ConfigurationViewController.m */; };
+		4514C63E19F1D8EB0006EB1D /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4514C63D19F1D8EB0006EB1D /* AboutViewController.m */; };
+		45B4248C19F1C61000D9B141 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B4248B19F1C61000D9B141 /* main.m */; };
+		45B4248F19F1C61000D9B141 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B4248E19F1C61000D9B141 /* AppDelegate.m */; };
+		45B4249219F1C61000D9B141 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B4249119F1C61000D9B141 /* FirstViewController.m */; };
+		45B4249519F1C61000D9B141 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B4249419F1C61000D9B141 /* SecondViewController.m */; };
+		45B4249819F1C61000D9B141 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45B4249619F1C61000D9B141 /* Main.storyboard */; };
+		45B4249A19F1C61000D9B141 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45B4249919F1C61000D9B141 /* Images.xcassets */; };
+		45B4249D19F1C61000D9B141 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B4249B19F1C61000D9B141 /* LaunchScreen.xib */; };
+		45B424A919F1C61000D9B141 /* EMVCardReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */; };
+		45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424B319F1C79F00D9B141 /* MainViewController.m */; };
+		45B424BF19F1CA2500D9B141 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */; };
+		45B424C019F1CA2500D9B141 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BA19F1CA2500D9B141 /* MMDrawerController.m */; };
+		45B424C119F1CA2500D9B141 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */; };
+		45B424C219F1CA2500D9B141 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */; };
+		45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424C419F1D11D00D9B141 /* LeftMenuView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EFD4426019EE148E0015990B /* PBXContainerItemProxy */ = {
+		45B424A319F1C61000D9B141 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EFD4423E19EE148D0015990B /* Project object */;
+			containerPortal = 45B4247E19F1C61000D9B141 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EFD4424519EE148E0015990B;
-			remoteInfo = EmvCardReader;
+			remoteGlobalIDString = 45B4248519F1C61000D9B141;
+			remoteInfo = EMVCardReader;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EFD4424619EE148E0015990B /* EmvCardReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmvCardReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFD4424A19EE148E0015990B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFD4424B19EE148E0015990B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EFD4424D19EE148E0015990B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		EFD4424E19EE148E0015990B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		EFD4425619EE148E0015990B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EFD4425919EE148E0015990B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		EFD4425F19EE148E0015990B /* EmvCardReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmvCardReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFD4426419EE148E0015990B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFD4426519EE148E0015990B /* EmvCardReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmvCardReaderTests.m; sourceTree = "<group>"; };
-		EFD4427219EE6DC80015990B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		EFD4427419EE6F1F0015990B /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		EFD4427519EE6F1F0015990B /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		EFD4427619EE6F1F0015990B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		EFD4427719EE6F1F0015990B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		EFD4427C19EE976C0015990B /* CustomRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomRightViewController.h; path = ../../../../../Downloads/NavBar/CustomRightView/CustomRightViewController.h; sourceTree = "<group>"; };
-		EFD4427D19EE976C0015990B /* CustomRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomRightViewController.m; path = ../../../../../Downloads/NavBar/CustomRightView/CustomRightViewController.m; sourceTree = "<group>"; };
+		4514C63919F1D8CD0006EB1D /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
+		4514C63A19F1D8CD0006EB1D /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
+		4514C63C19F1D8EB0006EB1D /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		4514C63D19F1D8EB0006EB1D /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		45B4248619F1C61000D9B141 /* EMVCardReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMVCardReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45B4248A19F1C61000D9B141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45B4248B19F1C61000D9B141 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		45B4248D19F1C61000D9B141 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		45B4248E19F1C61000D9B141 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		45B4249019F1C61000D9B141 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		45B4249119F1C61000D9B141 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		45B4249319F1C61000D9B141 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		45B4249419F1C61000D9B141 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		45B4249719F1C61000D9B141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45B4249919F1C61000D9B141 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		45B4249C19F1C61000D9B141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		45B424A219F1C61000D9B141 /* EMVCardReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMVCardReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		45B424A719F1C61000D9B141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMVCardReaderTests.m; sourceTree = "<group>"; };
+		45B424B219F1C79F00D9B141 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		45B424B319F1C79F00D9B141 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		45B424B619F1CA2500D9B141 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		45B424B819F1CA2500D9B141 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		45B424B919F1CA2500D9B141 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
+		45B424BA19F1CA2500D9B141 /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
+		45B424BB19F1CA2500D9B141 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
+		45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
+		45B424BD19F1CA2500D9B141 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		45B424C319F1D11D00D9B141 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
+		45B424C419F1D11D00D9B141 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EFD4424319EE148E0015990B /* Frameworks */ = {
+		45B4248319F1C61000D9B141 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EFD4425C19EE148E0015990B /* Frameworks */ = {
+		45B4249F19F1C61000D9B141 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -66,134 +88,149 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EFD4423D19EE148D0015990B = {
+		45B4247D19F1C61000D9B141 = {
 			isa = PBXGroup;
 			children = (
-				EFD4424819EE148E0015990B /* EmvCardReader */,
-				EFD4426219EE148E0015990B /* EmvCardReaderTests */,
-				EFD4424719EE148E0015990B /* Products */,
+				45B424B519F1CA2500D9B141 /* MMDrawerController */,
+				45B4248819F1C61000D9B141 /* EMVCardReader */,
+				45B424A519F1C61000D9B141 /* EMVCardReaderTests */,
+				45B4248719F1C61000D9B141 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		EFD4424719EE148E0015990B /* Products */ = {
+		45B4248719F1C61000D9B141 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4424619EE148E0015990B /* EmvCardReader.app */,
-				EFD4425F19EE148E0015990B /* EmvCardReaderTests.xctest */,
+				45B4248619F1C61000D9B141 /* EMVCardReader.app */,
+				45B424A219F1C61000D9B141 /* EMVCardReaderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EFD4424819EE148E0015990B /* EmvCardReader */ = {
+		45B4248819F1C61000D9B141 /* EMVCardReader */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4424D19EE148E0015990B /* AppDelegate.h */,
-				EFD4424E19EE148E0015990B /* AppDelegate.m */,
-				EFD4427419EE6F1F0015990B /* NavigationController.h */,
-				EFD4427519EE6F1F0015990B /* NavigationController.m */,
-				EFD4427619EE6F1F0015990B /* MainViewController.h */,
-				EFD4427719EE6F1F0015990B /* MainViewController.m */,
-				EFD4427219EE6DC80015990B /* Main.storyboard */,
-				EFD4427F19EE97750015990B /* CustomRightView */,
-				EFD4425619EE148E0015990B /* Images.xcassets */,
-				EFD4425819EE148E0015990B /* LaunchScreen.xib */,
-				EFD4424919EE148E0015990B /* Supporting Files */,
+				45B4248D19F1C61000D9B141 /* AppDelegate.h */,
+				45B4248E19F1C61000D9B141 /* AppDelegate.m */,
+				45B424B219F1C79F00D9B141 /* MainViewController.h */,
+				45B424B319F1C79F00D9B141 /* MainViewController.m */,
+				45B4249019F1C61000D9B141 /* FirstViewController.h */,
+				45B4249119F1C61000D9B141 /* FirstViewController.m */,
+				45B4249319F1C61000D9B141 /* SecondViewController.h */,
+				45B4249419F1C61000D9B141 /* SecondViewController.m */,
+				45B424C319F1D11D00D9B141 /* LeftMenuView.h */,
+				45B424C419F1D11D00D9B141 /* LeftMenuView.m */,
+				4514C63919F1D8CD0006EB1D /* ConfigurationViewController.h */,
+				4514C63A19F1D8CD0006EB1D /* ConfigurationViewController.m */,
+				4514C63C19F1D8EB0006EB1D /* AboutViewController.h */,
+				4514C63D19F1D8EB0006EB1D /* AboutViewController.m */,
+				45B4249619F1C61000D9B141 /* Main.storyboard */,
+				45B4249919F1C61000D9B141 /* Images.xcassets */,
+				45B4249B19F1C61000D9B141 /* LaunchScreen.xib */,
+				45B4248919F1C61000D9B141 /* Supporting Files */,
 			);
-			path = EmvCardReader;
+			path = EMVCardReader;
 			sourceTree = "<group>";
 		};
-		EFD4424919EE148E0015990B /* Supporting Files */ = {
+		45B4248919F1C61000D9B141 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4424A19EE148E0015990B /* Info.plist */,
-				EFD4424B19EE148E0015990B /* main.m */,
+				45B4248A19F1C61000D9B141 /* Info.plist */,
+				45B4248B19F1C61000D9B141 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EFD4426219EE148E0015990B /* EmvCardReaderTests */ = {
+		45B424A519F1C61000D9B141 /* EMVCardReaderTests */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4426519EE148E0015990B /* EmvCardReaderTests.m */,
-				EFD4426319EE148E0015990B /* Supporting Files */,
+				45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */,
+				45B424A619F1C61000D9B141 /* Supporting Files */,
 			);
-			path = EmvCardReaderTests;
+			path = EMVCardReaderTests;
 			sourceTree = "<group>";
 		};
-		EFD4426319EE148E0015990B /* Supporting Files */ = {
+		45B424A619F1C61000D9B141 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4426419EE148E0015990B /* Info.plist */,
+				45B424A719F1C61000D9B141 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EFD4427F19EE97750015990B /* CustomRightView */ = {
+		45B424B519F1CA2500D9B141 /* MMDrawerController */ = {
 			isa = PBXGroup;
 			children = (
-				EFD4427C19EE976C0015990B /* CustomRightViewController.h */,
-				EFD4427D19EE976C0015990B /* CustomRightViewController.m */,
+				45B424B619F1CA2500D9B141 /* MMDrawerBarButtonItem.h */,
+				45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */,
+				45B424B819F1CA2500D9B141 /* MMDrawerController+Subclass.h */,
+				45B424B919F1CA2500D9B141 /* MMDrawerController.h */,
+				45B424BA19F1CA2500D9B141 /* MMDrawerController.m */,
+				45B424BB19F1CA2500D9B141 /* MMDrawerVisualState.h */,
+				45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */,
+				45B424BD19F1CA2500D9B141 /* UIViewController+MMDrawerController.h */,
+				45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */,
 			);
-			name = CustomRightView;
+			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EFD4424519EE148E0015990B /* EmvCardReader */ = {
+		45B4248519F1C61000D9B141 /* EMVCardReader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD4426919EE148E0015990B /* Build configuration list for PBXNativeTarget "EmvCardReader" */;
+			buildConfigurationList = 45B424AC19F1C61000D9B141 /* Build configuration list for PBXNativeTarget "EMVCardReader" */;
 			buildPhases = (
-				EFD4424219EE148E0015990B /* Sources */,
-				EFD4424319EE148E0015990B /* Frameworks */,
-				EFD4424419EE148E0015990B /* Resources */,
+				45B4248219F1C61000D9B141 /* Sources */,
+				45B4248319F1C61000D9B141 /* Frameworks */,
+				45B4248419F1C61000D9B141 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = EmvCardReader;
-			productName = EmvCardReader;
-			productReference = EFD4424619EE148E0015990B /* EmvCardReader.app */;
+			name = EMVCardReader;
+			productName = EMVCardReader;
+			productReference = 45B4248619F1C61000D9B141 /* EMVCardReader.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EFD4425E19EE148E0015990B /* EmvCardReaderTests */ = {
+		45B424A119F1C61000D9B141 /* EMVCardReaderTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EFD4426C19EE148E0015990B /* Build configuration list for PBXNativeTarget "EmvCardReaderTests" */;
+			buildConfigurationList = 45B424AF19F1C61000D9B141 /* Build configuration list for PBXNativeTarget "EMVCardReaderTests" */;
 			buildPhases = (
-				EFD4425B19EE148E0015990B /* Sources */,
-				EFD4425C19EE148E0015990B /* Frameworks */,
-				EFD4425D19EE148E0015990B /* Resources */,
+				45B4249E19F1C61000D9B141 /* Sources */,
+				45B4249F19F1C61000D9B141 /* Frameworks */,
+				45B424A019F1C61000D9B141 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EFD4426119EE148E0015990B /* PBXTargetDependency */,
+				45B424A419F1C61000D9B141 /* PBXTargetDependency */,
 			);
-			name = EmvCardReaderTests;
-			productName = EmvCardReaderTests;
-			productReference = EFD4425F19EE148E0015990B /* EmvCardReaderTests.xctest */;
+			name = EMVCardReaderTests;
+			productName = EMVCardReaderTests;
+			productReference = 45B424A219F1C61000D9B141 /* EMVCardReaderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		EFD4423E19EE148D0015990B /* Project object */ = {
+		45B4247E19F1C61000D9B141 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = "Flomio, Inc.";
+				ORGANIZATIONNAME = LLT;
 				TargetAttributes = {
-					EFD4424519EE148E0015990B = {
-						CreatedOnToolsVersion = 6.0.1;
+					45B4248519F1C61000D9B141 = {
+						CreatedOnToolsVersion = 6.0;
 					};
-					EFD4425E19EE148E0015990B = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = EFD4424519EE148E0015990B;
+					45B424A119F1C61000D9B141 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 45B4248519F1C61000D9B141;
 					};
 				};
 			};
-			buildConfigurationList = EFD4424119EE148D0015990B /* Build configuration list for PBXProject "EmvCardReader" */;
+			buildConfigurationList = 45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EMVCardReader" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -201,29 +238,29 @@
 				en,
 				Base,
 			);
-			mainGroup = EFD4423D19EE148D0015990B;
-			productRefGroup = EFD4424719EE148E0015990B /* Products */;
+			mainGroup = 45B4247D19F1C61000D9B141;
+			productRefGroup = 45B4248719F1C61000D9B141 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EFD4424519EE148E0015990B /* EmvCardReader */,
-				EFD4425E19EE148E0015990B /* EmvCardReaderTests */,
+				45B4248519F1C61000D9B141 /* EMVCardReader */,
+				45B424A119F1C61000D9B141 /* EMVCardReaderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EFD4424419EE148E0015990B /* Resources */ = {
+		45B4248419F1C61000D9B141 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFD4425A19EE148E0015990B /* LaunchScreen.xib in Resources */,
-				EFD4425719EE148E0015990B /* Images.xcassets in Resources */,
-				EFD4427319EE6DC80015990B /* Main.storyboard in Resources */,
+				45B4249819F1C61000D9B141 /* Main.storyboard in Resources */,
+				45B4249D19F1C61000D9B141 /* LaunchScreen.xib in Resources */,
+				45B4249A19F1C61000D9B141 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EFD4425D19EE148E0015990B /* Resources */ = {
+		45B424A019F1C61000D9B141 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -233,41 +270,56 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EFD4424219EE148E0015990B /* Sources */ = {
+		45B4248219F1C61000D9B141 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFD4427819EE6F1F0015990B /* NavigationController.m in Sources */,
-				EFD4424F19EE148E0015990B /* AppDelegate.m in Sources */,
-				EFD4427919EE6F1F0015990B /* MainViewController.m in Sources */,
-				EFD4427E19EE976C0015990B /* CustomRightViewController.m in Sources */,
-				EFD4424C19EE148E0015990B /* main.m in Sources */,
+				45B4249519F1C61000D9B141 /* SecondViewController.m in Sources */,
+				45B424BF19F1CA2500D9B141 /* MMDrawerBarButtonItem.m in Sources */,
+				4514C63B19F1D8CD0006EB1D /* ConfigurationViewController.m in Sources */,
+				45B424C019F1CA2500D9B141 /* MMDrawerController.m in Sources */,
+				45B4248F19F1C61000D9B141 /* AppDelegate.m in Sources */,
+				45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */,
+				4514C63E19F1D8EB0006EB1D /* AboutViewController.m in Sources */,
+				45B424C119F1CA2500D9B141 /* MMDrawerVisualState.m in Sources */,
+				45B4249219F1C61000D9B141 /* FirstViewController.m in Sources */,
+				45B424C219F1CA2500D9B141 /* UIViewController+MMDrawerController.m in Sources */,
+				45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */,
+				45B4248C19F1C61000D9B141 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EFD4425B19EE148E0015990B /* Sources */ = {
+		45B4249E19F1C61000D9B141 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFD4426619EE148E0015990B /* EmvCardReaderTests.m in Sources */,
+				45B424A919F1C61000D9B141 /* EMVCardReaderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EFD4426119EE148E0015990B /* PBXTargetDependency */ = {
+		45B424A419F1C61000D9B141 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EFD4424519EE148E0015990B /* EmvCardReader */;
-			targetProxy = EFD4426019EE148E0015990B /* PBXContainerItemProxy */;
+			target = 45B4248519F1C61000D9B141 /* EMVCardReader */;
+			targetProxy = 45B424A319F1C61000D9B141 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EFD4425819EE148E0015990B /* LaunchScreen.xib */ = {
+		45B4249619F1C61000D9B141 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EFD4425919EE148E0015990B /* Base */,
+				45B4249719F1C61000D9B141 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		45B4249B19F1C61000D9B141 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45B4249C19F1C61000D9B141 /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -275,7 +327,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		EFD4426719EE148E0015990B /* Debug */ = {
+		45B424AA19F1C61000D9B141 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -309,15 +361,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		EFD4426819EE148E0015990B /* Release */ = {
+		45B424AB19F1C61000D9B141 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -345,37 +396,34 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		EFD4426A19EE148E0015990B /* Debug */ = {
+		45B424AD19F1C61000D9B141 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = EmvCardReader/Info.plist;
+				INFOPLIST_FILE = EMVCardReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		EFD4426B19EE148E0015990B /* Release */ = {
+		45B424AE19F1C61000D9B141 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = EmvCardReader/Info.plist;
+				INFOPLIST_FILE = EMVCardReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
-		EFD4426D19EE148E0015990B /* Debug */ = {
+		45B424B019F1C61000D9B141 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -387,14 +435,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = EmvCardReaderTests/Info.plist;
+				INFOPLIST_FILE = EMVCardReaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EmvCardReader.app/EmvCardReader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMVCardReader.app/EMVCardReader";
 			};
 			name = Debug;
 		};
-		EFD4426E19EE148E0015990B /* Release */ = {
+		45B424B119F1C61000D9B141 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -402,42 +450,44 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = EmvCardReaderTests/Info.plist;
+				INFOPLIST_FILE = EMVCardReaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EmvCardReader.app/EmvCardReader";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMVCardReader.app/EMVCardReader";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EFD4424119EE148D0015990B /* Build configuration list for PBXProject "EmvCardReader" */ = {
+		45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EMVCardReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EFD4426719EE148E0015990B /* Debug */,
-				EFD4426819EE148E0015990B /* Release */,
+				45B424AA19F1C61000D9B141 /* Debug */,
+				45B424AB19F1C61000D9B141 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EFD4426919EE148E0015990B /* Build configuration list for PBXNativeTarget "EmvCardReader" */ = {
+		45B424AC19F1C61000D9B141 /* Build configuration list for PBXNativeTarget "EMVCardReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EFD4426A19EE148E0015990B /* Debug */,
-				EFD4426B19EE148E0015990B /* Release */,
+				45B424AD19F1C61000D9B141 /* Debug */,
+				45B424AE19F1C61000D9B141 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		EFD4426C19EE148E0015990B /* Build configuration list for PBXNativeTarget "EmvCardReaderTests" */ = {
+		45B424AF19F1C61000D9B141 /* Build configuration list for PBXNativeTarget "EMVCardReaderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EFD4426D19EE148E0015990B /* Debug */,
-				EFD4426E19EE148E0015990B /* Release */,
+				45B424B019F1C61000D9B141 /* Debug */,
+				45B424B119F1C61000D9B141 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = EFD4423E19EE148D0015990B /* Project object */;
+	rootObject = 45B4247E19F1C61000D9B141 /* Project object */;
 }

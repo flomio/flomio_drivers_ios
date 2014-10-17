@@ -1,82 +1,79 @@
-//  File: MainViewController.m
-//  Abstract: The application's main (initial) view controller.
 //
-//  Created by Richard Grundy on 10/14/14.
-//  Copyright (c) 2014 Flomio, Inc. All rights reserved.
+//  MainViewController.m
+//  EMVCardReader
 //
- 
+//  Created by Boris  on 10/17/14.
+//  Copyright (c) 2014 LLT. All rights reserved.
+//
+
 #import "MainViewController.h"
 
-@interface MainViewController () <UIActionSheetDelegate>
-@end
+@interface MainViewController ()
 
+@end
 
 @implementation MainViewController
 
-//| ----------------------------------------------------------------------------
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view
+    [self createLeftMenu];
+
 }
 
-
-//| ----------------------------------------------------------------------------
-//  Unwind action that is targeted by the demos which present a modal view
-//  controller, to return to the main screen.
-- (IBAction)unwindToMainViewController:(UIStoryboardSegue*)sender
-{ }
-
-#pragma mark -
-#pragma mark Style Action Sheet
-
-//| ----------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    // Change the navigation bar style
-	switch (buttonIndex)
-	{
-		case 0: // "Default"
-			self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
-            // Bars are translucent by default.
-            self.navigationController.navigationBar.translucent = YES;
-            // Reset the bar's tint color to the system default.
-            self.navigationController.navigationBar.tintColor = nil;
-			break;
-		case 1: // "Black Opaque"
-			self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-            self.navigationController.navigationBar.translucent = NO;
-            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-			break;
-		case 2: // "Black Translucent"
-			self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-            self.navigationController.navigationBar.translucent = YES;
-            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-			break;
-	}
+- (void)createLeftMenu {
     
-    // Ask the system to re-query our -preferredStatusBarStyle.
-    [self setNeedsStatusBarAppearanceUpdate];
+    leftMenu = [[LeftMenuView alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
+    leftMenu.backgroundColor = [UIColor grayColor];
+    leftMenu.alpha = 0.7;
+    leftMenu.navigationController = self.navigationController;
+    [self.view addSubview:leftMenu];
 }
 
-
-//| ----------------------------------------------------------------------------
-//! IBAction for the 'Style' bar button item.
-- (IBAction)styleAction:(id)sender
-{
-	UIActionSheet *styleAlert = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose a UIBarStyle:", @"")
-                                                            delegate:self
-                                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-                                              destructiveButtonTitle:nil
-                                                   otherButtonTitles:NSLocalizedString(@"Default", @""),
-																	 NSLocalizedString(@"Black Opaque", @""),
-																	 NSLocalizedString(@"Black Translucent", @""),
-																	 nil];
-	
-	// use the same style as the nav bar
-	styleAlert.actionSheetStyle = (UIActionSheetStyle)self.navigationController.navigationBar.barStyle;
-	
-	[styleAlert showInView:self.view];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)Next:(id)sender {
+    
+    UITabBarController *tbc = [self.storyboard instantiateViewControllerWithIdentifier:@"tab"];
+    [self.navigationController pushViewController:tbc animated:YES];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [touches anyObject];
+    startPosition = [touch locationInView:self.view];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint endPosition = [touch locationInView:self.view];
+    
+    if (startPosition.x < endPosition.x) {
+        // Right swipe
+        [leftMenu open];
+        
+    } else {
+        // Left swipe
+        [leftMenu close];
+        
+    }
+    
+    
+}
+
 
 @end
-

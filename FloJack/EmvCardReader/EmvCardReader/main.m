@@ -1,9 +1,9 @@
 //
 //  main.m
-//  EmvCardReader
+//  EMVCardReader
 //
-//  Created by Richard Grundy on 10/14/14.
-//  Copyright (c) 2014 Flomio, Inc. All rights reserved.
+//  Created by Boris  on 10/17/14.
+//  Copyright (c) 2014 LLT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

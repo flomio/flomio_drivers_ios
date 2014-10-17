@@ -1,19 +1,19 @@
 //
-//  EmvCardReaderTests.m
-//  EmvCardReaderTests
+//  EMVCardReaderTests.m
+//  EMVCardReaderTests
 //
-//  Created by Richard Grundy on 10/14/14.
-//  Copyright (c) 2014 Flomio, Inc. All rights reserved.
+//  Created by Boris  on 10/17/14.
+//  Copyright (c) 2014 LLT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface EmvCardReaderTests : XCTestCase
+@interface EMVCardReaderTests : XCTestCase
 
 @end
 
-@implementation EmvCardReaderTests
+@implementation EMVCardReaderTests
 
 - (void)setUp {
     [super setUp];
