@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagReadWriteViewController">
@@ -135,18 +135,6 @@
                     </state>
                     <connections>
                         <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchDown" id="880"/>
-                    </connections>
-                </button>
-                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="876">
-                    <rect key="frame" x="169" y="64" width="61" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <state key="normal" title="HW Ver">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchDown" id="881"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="882">
@@ -289,6 +277,18 @@
                         <action selector="switchWasFlippedForConfig:" destination="-1" eventType="valueChanged" id="928"/>
                     </connections>
                 </switch>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="876">
+                    <rect key="frame" x="166" y="64" width="61" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <state key="normal" title="HW Ver">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchDown" id="881"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <accessibility key="accessibilityConfiguration" label="FloJack Example"/>
@@ -298,11 +298,16 @@
             <attributedString key="userComments">
                 <fragment content="FloJack Example">
                     <attributes>
-                        <font key="NSFont" metaFont="toolTip"/>
+                        <font key="NSFont" metaFont="smallSystem"/>
                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                     </attributes>
                 </fragment>
             </attributedString>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>

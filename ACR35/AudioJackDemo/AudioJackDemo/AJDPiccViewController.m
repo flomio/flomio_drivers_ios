@@ -195,7 +195,8 @@
             case 3: // Command APDU.
             case 4: // Response APDU.
             case 5: // RF configuration.
-                labelSize = [labels[indexPath.row].text sizeWithFont:labels[indexPath.row].font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:labels[indexPath.row].lineBreakMode];
+//                labelSize = [labels[indexPath.row].text sizeWithFont:labels[indexPath.row].font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:labels[indexPath.row].lineBreakMode];
+                labelSize = CGSizeMake(0,94);
                 height += labelSize.height;
                 break;
 

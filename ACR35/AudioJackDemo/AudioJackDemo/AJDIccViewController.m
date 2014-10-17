@@ -456,7 +456,8 @@
     if (label != nil) {
 
         // Adjust the cell height.
-        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
+//        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
+        CGSize labelSize = CGSizeMake(0,94);
         height += labelSize.height;
     }
 

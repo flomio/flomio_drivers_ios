@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -20,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-1" y="64"/>
         </scene>
-        <!--Master View Controller - Master-->
+        <!--Master-->
         <scene sceneID="18">
             <objects>
                 <tableViewController title="Master" id="12" customClass="AJDMasterViewController" sceneMemberID="viewController">
@@ -667,7 +666,7 @@
             </objects>
             <point key="canvasLocation" x="454" y="64"/>
         </scene>
-        <!--Reader View Controller - About Reader-->
+        <!--About Reader-->
         <scene sceneID="Gad-1A-OKN">
             <objects>
                 <tableViewController id="45s-Eb-Lth" customClass="AJDReaderViewController" sceneMemberID="viewController">
@@ -824,7 +823,7 @@
             </objects>
             <point key="canvasLocation" x="-1" y="752"/>
         </scene>
-        <!--Id View Controller - Reader ID-->
+        <!--Reader ID-->
         <scene sceneID="5PL-Kh-2hM">
             <objects>
                 <tableViewController id="Nam-fX-Fh3" customClass="AJDIdViewController" sceneMemberID="viewController">
@@ -956,7 +955,7 @@
             </objects>
             <point key="canvasLocation" x="454" y="752"/>
         </scene>
-        <!--Keys View Controller - Cryptographic Keys-->
+        <!--Cryptographic Keys-->
         <scene sceneID="RS8-C1-yVI">
             <objects>
                 <tableViewController id="YvB-er-UTC" customClass="AJDKeysViewController" sceneMemberID="viewController">
@@ -1113,7 +1112,7 @@
             </objects>
             <point key="canvasLocation" x="917" y="752"/>
         </scene>
-        <!--Dukpt View Controller - DUKPT Setup-->
+        <!--DUKPT Setup-->
         <scene sceneID="DyN-4N-EmO">
             <objects>
                 <tableViewController id="eug-6j-lsP" customClass="AJDDukptViewController" sceneMemberID="viewController">
@@ -1283,7 +1282,7 @@
             </objects>
             <point key="canvasLocation" x="1354" y="752"/>
         </scene>
-        <!--Picc View Controller - PICC-->
+        <!--PICC-->
         <scene sceneID="y7v-JB-Qi0">
             <objects>
                 <tableViewController id="59N-48-l82" customClass="AJDPiccViewController" sceneMemberID="viewController">
@@ -1294,7 +1293,7 @@
                         <sections>
                             <tableViewSection id="bac-l0-zxN">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="AEE-X4-pPJ" detailTextLabel="GHa-4K-6VS" style="IBUITableViewCellStyleSubtitle" id="EsD-8r-JOi">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="AEE-X4-pPJ" detailTextLabel="GHa-4K-6VS" rowHeight="96" style="IBUITableViewCellStyleSubtitle" id="EsD-8r-JOi">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EsD-8r-JOi" id="TR2-Rs-IMd">
@@ -1318,7 +1317,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Timeout" textLabel="z0a-I1-3im" detailTextLabel="VjL-4r-4Mc" style="IBUITableViewCellStyleSubtitle" id="yVh-kh-tuY">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Timeout" textLabel="z0a-I1-3im" detailTextLabel="VjL-4r-4Mc" rowHeight="98" style="IBUITableViewCellStyleSubtitle" id="yVh-kh-tuY">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yVh-kh-tuY" id="G8E-Ga-bX1">
@@ -1342,7 +1341,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardType" textLabel="zff-oS-GYl" detailTextLabel="UlX-bt-m81" style="IBUITableViewCellStyleSubtitle" id="baZ-ex-aOp">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardType" textLabel="zff-oS-GYl" detailTextLabel="UlX-bt-m81" rowHeight="83" style="IBUITableViewCellStyleSubtitle" id="baZ-ex-aOp">
                                         <rect key="frame" x="0.0" y="187" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="baZ-ex-aOp" id="tOp-fu-h3c">
@@ -1366,7 +1365,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandApdu" textLabel="1gg-YI-KAP" detailTextLabel="rKt-ps-XdH" style="IBUITableViewCellStyleSubtitle" id="6kv-dp-6CQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommandApdu" textLabel="1gg-YI-KAP" detailTextLabel="rKt-ps-XdH" rowHeight="96" style="IBUITableViewCellStyleSubtitle" id="6kv-dp-6CQ">
                                         <rect key="frame" x="0.0" y="231" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6kv-dp-6CQ" id="ZMo-KI-kLL">
@@ -1390,7 +1389,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="IQ7-Be-yfk" detailTextLabel="Z5p-3V-2dP" style="IBUITableViewCellStyleSubtitle" id="B4b-II-J8c">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="IQ7-Be-yfk" detailTextLabel="Z5p-3V-2dP" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="B4b-II-J8c">
                                         <rect key="frame" x="0.0" y="275" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B4b-II-J8c" id="eBx-bm-z2m">
@@ -1414,7 +1413,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RfConfig" textLabel="xsB-lZ-eEE" detailTextLabel="i3Z-hQ-9aH" style="IBUITableViewCellStyleSubtitle" id="vRR-18-Bgn">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RfConfig" textLabel="xsB-lZ-eEE" detailTextLabel="i3Z-hQ-9aH" rowHeight="107" style="IBUITableViewCellStyleSubtitle" id="vRR-18-Bgn">
                                         <rect key="frame" x="0.0" y="319" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vRR-18-Bgn" id="FOf-rs-Ugs">
@@ -1549,7 +1548,7 @@
             </objects>
             <point key="canvasLocation" x="-1" y="1424"/>
         </scene>
-        <!--Icc View Controller - ICC-->
+        <!--ICC-->
         <scene sceneID="r4f-nv-cxq">
             <objects>
                 <tableViewController id="bIM-Fo-cai" customClass="AJDIccViewController" sceneMemberID="viewController">
@@ -1933,7 +1932,7 @@
             </objects>
             <point key="canvasLocation" x="454" y="1424"/>
         </scene>
-        <!--Track Data View Controller - Track Data Setup-->
+        <!--Track Data Setup-->
         <scene sceneID="Szc-qv-3qa">
             <objects>
                 <tableViewController id="VMW-Pf-nZF" customClass="AJDTrackDataViewController" sceneMemberID="viewController">
@@ -2103,7 +2102,7 @@
             </objects>
             <point key="canvasLocation" x="917" y="1424"/>
         </scene>
-        <!--Icc Power Action View Controller - Power Action-->
+        <!--Power Action-->
         <scene sceneID="MPk-IW-D8L">
             <objects>
                 <tableViewController id="nKt-x0-OB7" customClass="AJDIccPowerActionViewController" sceneMemberID="viewController">
@@ -2179,7 +2178,7 @@
             </objects>
             <point key="canvasLocation" x="454" y="2090"/>
         </scene>
-        <!--Icc Protocol View Controller - Protocol-->
+        <!--Protocol-->
         <scene sceneID="Q2Z-K8-dQI">
             <objects>
                 <tableViewController id="UQ6-7v-tmc" customClass="AJDIccProtocolViewController" sceneMemberID="viewController">
