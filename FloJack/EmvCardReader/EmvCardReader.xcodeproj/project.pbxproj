@@ -18,10 +18,6 @@
 		45B4249D19F1C61000D9B141 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B4249B19F1C61000D9B141 /* LaunchScreen.xib */; };
 		45B424A919F1C61000D9B141 /* EMVCardReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */; };
 		45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424B319F1C79F00D9B141 /* MainViewController.m */; };
-		45B424BF19F1CA2500D9B141 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */; };
-		45B424C019F1CA2500D9B141 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BA19F1CA2500D9B141 /* MMDrawerController.m */; };
-		45B424C119F1CA2500D9B141 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */; };
-		45B424C219F1CA2500D9B141 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */; };
 		45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424C419F1D11D00D9B141 /* LeftMenuView.m */; };
 /* End PBXBuildFile section */
 
@@ -57,15 +53,6 @@
 		45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMVCardReaderTests.m; sourceTree = "<group>"; };
 		45B424B219F1C79F00D9B141 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		45B424B319F1C79F00D9B141 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		45B424B619F1CA2500D9B141 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
-		45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
-		45B424B819F1CA2500D9B141 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
-		45B424B919F1CA2500D9B141 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
-		45B424BA19F1CA2500D9B141 /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
-		45B424BB19F1CA2500D9B141 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
-		45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
-		45B424BD19F1CA2500D9B141 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
-		45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
 		45B424C319F1D11D00D9B141 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
 		45B424C419F1D11D00D9B141 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +78,6 @@
 		45B4247D19F1C61000D9B141 = {
 			isa = PBXGroup;
 			children = (
-				45B424B519F1CA2500D9B141 /* MMDrawerController */,
 				45B4248819F1C61000D9B141 /* EMVCardReader */,
 				45B424A519F1C61000D9B141 /* EMVCardReaderTests */,
 				45B4248719F1C61000D9B141 /* Products */,
@@ -156,22 +142,6 @@
 				45B424A719F1C61000D9B141 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		45B424B519F1CA2500D9B141 /* MMDrawerController */ = {
-			isa = PBXGroup;
-			children = (
-				45B424B619F1CA2500D9B141 /* MMDrawerBarButtonItem.h */,
-				45B424B719F1CA2500D9B141 /* MMDrawerBarButtonItem.m */,
-				45B424B819F1CA2500D9B141 /* MMDrawerController+Subclass.h */,
-				45B424B919F1CA2500D9B141 /* MMDrawerController.h */,
-				45B424BA19F1CA2500D9B141 /* MMDrawerController.m */,
-				45B424BB19F1CA2500D9B141 /* MMDrawerVisualState.h */,
-				45B424BC19F1CA2500D9B141 /* MMDrawerVisualState.m */,
-				45B424BD19F1CA2500D9B141 /* UIViewController+MMDrawerController.h */,
-				45B424BE19F1CA2500D9B141 /* UIViewController+MMDrawerController.m */,
-			);
-			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,15 +245,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B4249519F1C61000D9B141 /* SecondViewController.m in Sources */,
-				45B424BF19F1CA2500D9B141 /* MMDrawerBarButtonItem.m in Sources */,
 				4514C63B19F1D8CD0006EB1D /* ConfigurationViewController.m in Sources */,
-				45B424C019F1CA2500D9B141 /* MMDrawerController.m in Sources */,
 				45B4248F19F1C61000D9B141 /* AppDelegate.m in Sources */,
 				45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */,
 				4514C63E19F1D8EB0006EB1D /* AboutViewController.m in Sources */,
-				45B424C119F1CA2500D9B141 /* MMDrawerVisualState.m in Sources */,
 				45B4249219F1C61000D9B141 /* FirstViewController.m in Sources */,
-				45B424C219F1CA2500D9B141 /* UIViewController+MMDrawerController.m in Sources */,
 				45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */,
 				45B4248C19F1C61000D9B141 /* main.m in Sources */,
 			);
