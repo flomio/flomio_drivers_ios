@@ -23,7 +23,8 @@
 		EF5F5CE419F4112900D4B7B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5F5CE319F4112900D4B7B4 /* UIKit.framework */; };
 		EF5F5CE619F4113600D4B7B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */; };
 		EF5F5CEC19F4137100D4B7B4 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF5F5CEB19F4137100D4B7B4 /* scan_sound.mp3 */; };
-		EF5F5CEE19F414B700D4B7B4 /* dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = EF5F5CED19F414B700D4B7B4 /* dummy.mm */; };
+		EF5F5CEE19F414B700D4B7B4 /* Dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = EF5F5CED19F414B700D4B7B4 /* Dummy.mm */; };
+		EF5F5CF219F45DFC00D4B7B4 /* FJAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5F5CF119F45DFC00D4B7B4 /* FJAudioPlayer.m */; };
 		EFD4428E19F1E0D20015990B /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4428D19F1E0D20015990B /* libAudioJack.a */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +67,9 @@
 		EF5F5CE319F4112900D4B7B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EF5F5CEB19F4137100D4B7B4 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
-		EF5F5CED19F414B700D4B7B4 /* dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dummy.mm; sourceTree = "<group>"; };
+		EF5F5CED19F414B700D4B7B4 /* Dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Dummy.mm; sourceTree = "<group>"; };
+		EF5F5CF019F45DFC00D4B7B4 /* FJAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJAudioPlayer.h; sourceTree = "<group>"; };
+		EF5F5CF119F45DFC00D4B7B4 /* FJAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJAudioPlayer.m; sourceTree = "<group>"; };
 		EFD4428119F1E0D20015990B /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
 		EFD4428219F1E0D20015990B /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
 		EFD4428319F1E0D20015990B /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
@@ -106,8 +109,7 @@
 		45B4247D19F1C61000D9B141 = {
 			isa = PBXGroup;
 			children = (
-				EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */,
-				EF5F5CE319F4112900D4B7B4 /* UIKit.framework */,
+				EF5F5CEF19F45C3500D4B7B4 /* Frameworks */,
 				EFD4428019F1E0D20015990B /* AudioJack */,
 				45B4248819F1C61000D9B141 /* EMVCardReader */,
 				45B424A519F1C61000D9B141 /* EMVCardReaderTests */,
@@ -127,11 +129,13 @@
 		45B4248819F1C61000D9B141 /* EMVCardReader */ = {
 			isa = PBXGroup;
 			children = (
-				EF5F5CED19F414B700D4B7B4 /* dummy.mm */,
+				EF5F5CED19F414B700D4B7B4 /* Dummy.mm */,
 				EF5F5CE019F40CB300D4B7B4 /* AJDHex.h */,
 				EF5F5CE119F40CB300D4B7B4 /* AJDHex.m */,
 				45B4248D19F1C61000D9B141 /* AppDelegate.h */,
 				45B4248E19F1C61000D9B141 /* AppDelegate.m */,
+				EF5F5CF019F45DFC00D4B7B4 /* FJAudioPlayer.h */,
+				EF5F5CF119F45DFC00D4B7B4 /* FJAudioPlayer.m */,
 				45B424B219F1C79F00D9B141 /* MainViewController.h */,
 				45B424B319F1C79F00D9B141 /* MainViewController.m */,
 				45B4249019F1C61000D9B141 /* FirstViewController.h */,
@@ -177,6 +181,15 @@
 				45B424A719F1C61000D9B141 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF5F5CEF19F45C3500D4B7B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */,
+				EF5F5CE319F4112900D4B7B4 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EFD4428019F1E0D20015990B /* AudioJack */ = {
@@ -306,9 +319,10 @@
 				45B4248F19F1C61000D9B141 /* AppDelegate.m in Sources */,
 				45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */,
 				4514C63E19F1D8EB0006EB1D /* AboutViewController.m in Sources */,
-				EF5F5CEE19F414B700D4B7B4 /* dummy.mm in Sources */,
+				EF5F5CEE19F414B700D4B7B4 /* Dummy.mm in Sources */,
 				45B4249219F1C61000D9B141 /* FirstViewController.m in Sources */,
 				45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */,
+				EF5F5CF219F45DFC00D4B7B4 /* FJAudioPlayer.m in Sources */,
 				45B4248C19F1C61000D9B141 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

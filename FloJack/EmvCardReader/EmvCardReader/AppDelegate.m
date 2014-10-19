@@ -10,14 +10,19 @@
 #import "MainViewController.h"
 
 @interface AppDelegate ()
-
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    FJAudioPlayer       *_fjAudioPlayer;
+    NSString            *_scanSoundPath;
+}
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
+
     return YES;
 }
 
