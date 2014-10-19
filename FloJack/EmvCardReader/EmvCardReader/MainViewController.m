@@ -542,6 +542,13 @@
             
             // TODO: Show the sleep request queue error (this should only happen when App goes to background so perhaps a Nitification?).
             
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reader Error"
+                                                            message:@"The reader couldn't be set to sleep"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            
         } else {
             
             // This is simply a place holder for the Successful Sleep state. Not needed for this app.
