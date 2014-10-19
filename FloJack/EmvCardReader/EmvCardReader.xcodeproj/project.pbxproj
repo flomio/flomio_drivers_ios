@@ -19,6 +19,12 @@
 		45B424A919F1C61000D9B141 /* EMVCardReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424A819F1C61000D9B141 /* EMVCardReaderTests.m */; };
 		45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424B319F1C79F00D9B141 /* MainViewController.m */; };
 		45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B424C419F1D11D00D9B141 /* LeftMenuView.m */; };
+		EF5F5CE219F40CB300D4B7B4 /* AJDHex.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5F5CE119F40CB300D4B7B4 /* AJDHex.m */; };
+		EF5F5CE419F4112900D4B7B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5F5CE319F4112900D4B7B4 /* UIKit.framework */; };
+		EF5F5CE619F4113600D4B7B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */; };
+		EF5F5CEC19F4137100D4B7B4 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF5F5CEB19F4137100D4B7B4 /* scan_sound.mp3 */; };
+		EF5F5CEE19F414B700D4B7B4 /* dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = EF5F5CED19F414B700D4B7B4 /* dummy.mm */; };
+		EFD4428E19F1E0D20015990B /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD4428D19F1E0D20015990B /* libAudioJack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +61,25 @@
 		45B424B319F1C79F00D9B141 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		45B424C319F1D11D00D9B141 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
 		45B424C419F1D11D00D9B141 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuView.m; sourceTree = "<group>"; };
+		EF5F5CE019F40CB300D4B7B4 /* AJDHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDHex.h; sourceTree = "<group>"; };
+		EF5F5CE119F40CB300D4B7B4 /* AJDHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDHex.m; sourceTree = "<group>"; };
+		EF5F5CE319F4112900D4B7B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EF5F5CEB19F4137100D4B7B4 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
+		EF5F5CED19F414B700D4B7B4 /* dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dummy.mm; sourceTree = "<group>"; };
+		EFD4428119F1E0D20015990B /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
+		EFD4428219F1E0D20015990B /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
+		EFD4428319F1E0D20015990B /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
+		EFD4428419F1E0D20015990B /* ACRDukptReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptReceiver.h; sourceTree = "<group>"; };
+		EFD4428519F1E0D20015990B /* ACRDukptTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptTrackData.h; sourceTree = "<group>"; };
+		EFD4428619F1E0D20015990B /* ACRResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRResult.h; sourceTree = "<group>"; };
+		EFD4428719F1E0D20015990B /* ACRStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRStatus.h; sourceTree = "<group>"; };
+		EFD4428819F1E0D20015990B /* ACRTrack1Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack1Data.h; sourceTree = "<group>"; };
+		EFD4428919F1E0D20015990B /* ACRTrack2Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack2Data.h; sourceTree = "<group>"; };
+		EFD4428A19F1E0D20015990B /* ACRTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrackData.h; sourceTree = "<group>"; };
+		EFD4428B19F1E0D20015990B /* AudioJack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJack.h; sourceTree = "<group>"; };
+		EFD4428C19F1E0D20015990B /* AudioJackErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJackErrors.h; sourceTree = "<group>"; };
+		EFD4428D19F1E0D20015990B /* libAudioJack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAudioJack.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF5F5CE619F4113600D4B7B4 /* AudioToolbox.framework in Frameworks */,
+				EF5F5CE419F4112900D4B7B4 /* UIKit.framework in Frameworks */,
+				EFD4428E19F1E0D20015990B /* libAudioJack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +106,9 @@
 		45B4247D19F1C61000D9B141 = {
 			isa = PBXGroup;
 			children = (
+				EF5F5CE519F4113600D4B7B4 /* AudioToolbox.framework */,
+				EF5F5CE319F4112900D4B7B4 /* UIKit.framework */,
+				EFD4428019F1E0D20015990B /* AudioJack */,
 				45B4248819F1C61000D9B141 /* EMVCardReader */,
 				45B424A519F1C61000D9B141 /* EMVCardReaderTests */,
 				45B4248719F1C61000D9B141 /* Products */,
@@ -96,6 +127,9 @@
 		45B4248819F1C61000D9B141 /* EMVCardReader */ = {
 			isa = PBXGroup;
 			children = (
+				EF5F5CED19F414B700D4B7B4 /* dummy.mm */,
+				EF5F5CE019F40CB300D4B7B4 /* AJDHex.h */,
+				EF5F5CE119F40CB300D4B7B4 /* AJDHex.m */,
 				45B4248D19F1C61000D9B141 /* AppDelegate.h */,
 				45B4248E19F1C61000D9B141 /* AppDelegate.m */,
 				45B424B219F1C79F00D9B141 /* MainViewController.h */,
@@ -121,6 +155,7 @@
 		45B4248919F1C61000D9B141 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF5F5CEB19F4137100D4B7B4 /* scan_sound.mp3 */,
 				45B4248A19F1C61000D9B141 /* Info.plist */,
 				45B4248B19F1C61000D9B141 /* main.m */,
 			);
@@ -142,6 +177,26 @@
 				45B424A719F1C61000D9B141 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFD4428019F1E0D20015990B /* AudioJack */ = {
+			isa = PBXGroup;
+			children = (
+				EFD4428119F1E0D20015990B /* ACRAesTrackData.h */,
+				EFD4428219F1E0D20015990B /* ACRAudioJackReader.h */,
+				EFD4428319F1E0D20015990B /* ACRCRC16.h */,
+				EFD4428419F1E0D20015990B /* ACRDukptReceiver.h */,
+				EFD4428519F1E0D20015990B /* ACRDukptTrackData.h */,
+				EFD4428619F1E0D20015990B /* ACRResult.h */,
+				EFD4428719F1E0D20015990B /* ACRStatus.h */,
+				EFD4428819F1E0D20015990B /* ACRTrack1Data.h */,
+				EFD4428919F1E0D20015990B /* ACRTrack2Data.h */,
+				EFD4428A19F1E0D20015990B /* ACRTrackData.h */,
+				EFD4428B19F1E0D20015990B /* AudioJack.h */,
+				EFD4428C19F1E0D20015990B /* AudioJackErrors.h */,
+				EFD4428D19F1E0D20015990B /* libAudioJack.a */,
+			);
+			path = AudioJack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +255,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EMVCardReader" */;
+			buildConfigurationList = 45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EmvCardReader" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -225,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B4249819F1C61000D9B141 /* Main.storyboard in Resources */,
+				EF5F5CEC19F4137100D4B7B4 /* scan_sound.mp3 in Resources */,
 				45B4249D19F1C61000D9B141 /* LaunchScreen.xib in Resources */,
 				45B4249A19F1C61000D9B141 /* Images.xcassets in Resources */,
 			);
@@ -245,10 +301,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B4249519F1C61000D9B141 /* SecondViewController.m in Sources */,
+				EF5F5CE219F40CB300D4B7B4 /* AJDHex.m in Sources */,
 				4514C63B19F1D8CD0006EB1D /* ConfigurationViewController.m in Sources */,
 				45B4248F19F1C61000D9B141 /* AppDelegate.m in Sources */,
 				45B424C519F1D11D00D9B141 /* LeftMenuView.m in Sources */,
 				4514C63E19F1D8EB0006EB1D /* AboutViewController.m in Sources */,
+				EF5F5CEE19F414B700D4B7B4 /* dummy.mm in Sources */,
 				45B4249219F1C61000D9B141 /* FirstViewController.m in Sources */,
 				45B424B419F1C79F00D9B141 /* MainViewController.m in Sources */,
 				45B4248C19F1C61000D9B141 /* main.m in Sources */,
@@ -375,7 +433,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = EMVCardReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioJack",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -386,7 +450,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				INFOPLIST_FILE = EMVCardReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioJack",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -428,7 +498,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EMVCardReader" */ = {
+		45B4248119F1C61000D9B141 /* Build configuration list for PBXProject "EmvCardReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45B424AA19F1C61000D9B141 /* Debug */,

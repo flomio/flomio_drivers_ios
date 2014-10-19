@@ -21,13 +21,15 @@
       "scale" : "3x"
     },
     {
-      "idiom" : "iphone",
       "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "Official_Flomio_Spark_Black_Icon60x60@2x.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
       "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "Official_Flomio_Spark_Black_Icon60x60@3x.png",
       "scale" : "3x"
     }
   ],
