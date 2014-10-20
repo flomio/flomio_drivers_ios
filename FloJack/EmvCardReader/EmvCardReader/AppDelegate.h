@@ -15,9 +15,10 @@
     MainViewController *mvc;
 }
 
-- (FJAudioPlayer *)getFJAudioPlayer;
+@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) NSMutableDictionary *cardData;
 
-@property (strong, nonatomic) UIWindow          *window;
+- (FJAudioPlayer *)getFJAudioPlayer;
 
 @end
 

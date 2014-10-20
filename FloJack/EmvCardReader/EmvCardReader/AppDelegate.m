@@ -17,6 +17,7 @@
     NSString            *_scanSoundPath;
 }
 
+@synthesize cardData;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -24,6 +25,7 @@
     _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
     
     mvc = [[MainViewController alloc] init];
+    cardData = [[NSMutableDictionary alloc] init];
     return YES;
 }
 
