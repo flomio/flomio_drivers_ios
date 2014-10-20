@@ -10,7 +10,7 @@
 #import "LeftMenuView.h"
 #import "AppDelegate.h"
 
-@interface MainViewController : UIViewController <ACRAudioJackReaderDelegate> {
+@interface MainViewController : UIViewController <ACRAudioJackReaderDelegate>{
     
     LeftMenuView *leftMenu;
     CGPoint startPosition;

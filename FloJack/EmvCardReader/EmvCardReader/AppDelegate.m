@@ -8,13 +8,12 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import <AudioToolbox/AudioServices.h>
 
 @interface AppDelegate ()
 @end
 
 @implementation AppDelegate {
-    FJAudioPlayer       *_fjAudioPlayer;
-    NSString            *_scanSoundPath;
 }
 
 @synthesize cardData;
@@ -22,8 +21,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
-    
     mvc = [[MainViewController alloc] init];
     cardData = [[NSMutableDictionary alloc] init];
     return YES;
@@ -44,6 +41,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [mvc resetReader];
+    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
 
 }
 
