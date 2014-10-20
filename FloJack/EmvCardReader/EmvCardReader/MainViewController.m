@@ -8,6 +8,7 @@
 #import "MainViewController.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "AJDHex.h"  // TODO: this file shouldn't be needed as functions are duplicated here.
+#import "AppDelegate.h"
 
 @implementation MainViewController {
     
@@ -86,7 +87,6 @@
     
     [self setLogFile];
     
-    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     // Do any additional setup after loading the view, typically from a nib.
     
     // Initialize ACRAudioJackReader object.
@@ -875,6 +875,7 @@ cleanup:
     dispatch_async(dispatch_get_main_queue(), ^{
         
         //Set hex value to Gloval Variable
+        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate.cardData setObject:hexString forKey:@"hex"];
         
         //Wrtite to Log

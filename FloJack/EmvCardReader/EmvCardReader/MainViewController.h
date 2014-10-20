@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "AudioJack.h"
 #import "LeftMenuView.h"
-#import "AppDelegate.h"
 
 @interface MainViewController : UIViewController <ACRAudioJackReaderDelegate>{
     
@@ -16,9 +15,10 @@
     CGPoint startPosition;
 
     //Application Delegate
-    AppDelegate *appDelegate;
+    //AppDelegate *appDelegate;
     NSString  *filePath;
 }
+
 
 - (void)resetReader;
 - (void)setSleep;

@@ -12,6 +12,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     MainViewController *mvc;
+    
 }
 
 @property (strong, nonatomic) UIWindow *window;
