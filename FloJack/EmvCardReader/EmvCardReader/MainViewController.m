@@ -87,6 +87,9 @@
     
     [self setLogFile];
     
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.mvc = self;
+    
     // Do any additional setup after loading the view, typically from a nib.
     
     // Initialize ACRAudioJackReader object.

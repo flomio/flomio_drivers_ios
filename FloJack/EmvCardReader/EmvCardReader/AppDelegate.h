@@ -11,12 +11,13 @@
 #import "MainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
-    MainViewController *mvc;
+    
     
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSMutableDictionary *cardData;
+@property (weak, nonatomic) MainViewController *mvc;
 
 @end
 
