@@ -42,6 +42,15 @@
                                     <action selector="Next:" destination="8kF-z6-7XO" eventType="touchUpInside" id="X9N-Dp-6LE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFN-dn-k0y">
+                                <rect key="frame" x="143" y="370" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetReader_b:" destination="8kF-z6-7XO" eventType="touchUpInside" id="h8M-ha-Y6v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
