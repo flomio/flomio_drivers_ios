@@ -64,12 +64,29 @@
     UIAlertView *_trackDataAlert;
 }
 
+- (void)setLogFile {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSString *docDirPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    filePath = [NSString stringWithFormat:@"%@/log/log.txt", docDirPath];
+    
+    if (![fileManager fileExistsAtPath:filePath]){
+        [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
+    }
+    
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setLogFile];
+    
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     // Do any additional setup after loading the view, typically from a nib.
     
     // Initialize ACRAudioJackReader object.
@@ -857,6 +874,15 @@ cleanup:
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
+        //Set hex value to Gloval Variable
+        [appDelegate.cardData setObject:hexString forKey:@"hex"];
+        
+        //Wrtite to Log
+        NSString *logEntry = [NSString stringWithFormat:@"Reader sent data:%@",hexString];
+        [logEntry writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+        
+        NSLog(@"LOG_HEX%@",hexString);
         // TODO: This is where I need to display the hexString into the Card Details/Log Console views.
           // self.dataReceivedLabel.text = hexString;
           // [self.tableView reloadData];
