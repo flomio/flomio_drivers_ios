@@ -13,6 +13,10 @@
     
     LeftMenuView *leftMenu;
     CGPoint startPosition;
+
 }
+
+- (void)resetReader;
+- (void)setSleep;
 
 @end
