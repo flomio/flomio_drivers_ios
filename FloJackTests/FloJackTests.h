@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
 
-@interface FloJackTests : SenTestCase {
+@interface FloJackTests : XCTestCase {
     FJNDEFMessage *ndefMessage_;
 }
 

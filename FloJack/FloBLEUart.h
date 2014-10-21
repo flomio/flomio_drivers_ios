@@ -26,7 +26,7 @@
 //- (void) didReadHardwareRevisionString:(NSString *) string;
 @end
 
-@interface FloBLEUart : FJNFCService <CBCentralManagerDelegate>
+@interface FloBLEUart : FJNFCService <CBCentralManagerDelegate,CBPeripheralDelegate>
 {
     CBCentralManager * myCentralManager;
     CBPeripheral *activePeripheral;
@@ -44,7 +44,7 @@
 @property (strong, nonatomic) CBCharacteristic * serialPortH2fCharacteristic;
 @property (copy, nonatomic) NSMutableArray * rfUid;
 @property (retain, nonatomic) NSTimer * bleTimer;
-@property (assign, nonatomic) id<FloBLEUartDelegate> delegate;
+@property id<FloBLEUartDelegate> delegate;
 
 //@property (strong, nonatomic) NSArray * myServiceUUIDs;
 //@property (strong, nonatomic) NSArray * myCharacteristicUUIDs;

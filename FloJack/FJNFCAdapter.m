@@ -7,7 +7,7 @@
 //
 
 #import "FJNFCAdapter.h"
-#import "ViewController.h"
+//#import "ViewController.h"
 
 @implementation FJNFCAdapter {
     id <FJNFCAdapterDelegate>       _delegate;
@@ -32,6 +32,8 @@
 - (id)init {
     self = [super init];
     if (self) {
+        NSLog(@"FJNFCAdapter init");
+
 //        _nfcService = [[FJNFCService alloc] init];
         _nfcService = [[FloBLEUart alloc] init];
         [_nfcService setDelegate:self];
@@ -45,7 +47,7 @@
         _standaloneMode = false;
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
+//        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
         
     }      
     return self;

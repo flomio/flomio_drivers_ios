@@ -118,7 +118,7 @@
         
         FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUID andData:tagData andType:tagType.intValue];
         
-        STAssertTrue(([tag type2ParseMemoryForNdefTLVLocation] == tagNDEFTLVLocation.intValue)
+        XCTAssertTrue(([tag type2ParseMemoryForNdefTLVLocation] == tagNDEFTLVLocation.intValue)
                      , @"NDEF TLV location incorrect.");
     }
 }

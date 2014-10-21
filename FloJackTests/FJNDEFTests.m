@@ -63,7 +63,7 @@
     NSData *data = [[NSData alloc] initWithBytes:bytes length:bytesLength];
     _ndefRecords = [FJNDEFRecord parseData:data andIgnoreMbMe:FALSE];
     
-    STAssertTrue(([_ndefRecords count] == 2)
+    XCTAssertTrue(([_ndefRecords count] == 2)
                  , @"Incorrect number of NDEF Records");
 }
 
