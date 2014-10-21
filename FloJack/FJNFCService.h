@@ -25,7 +25,7 @@
 
 @protocol FJNFCServiceDelegate;
 
-@interface FJNFCService : NSObject 
+@interface FJNFCService : NSObject
 
 @property id <FJNFCServiceDelegate>	delegate;
 @property (nonatomic) dispatch_semaphore_t messageTXLock;
@@ -40,6 +40,7 @@
 - (BOOL)sendMessageDataToHost:(NSData *)messageData;
 - (void)setOutputAmplitudeHigh;
 - (void)setOutputAmplitudeNormal;
+- (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
 
 + (UInt8)getDeviceInterByteDelay;
 + (UInt8)getDeviceLogicOneValue;

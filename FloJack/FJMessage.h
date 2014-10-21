@@ -150,7 +150,7 @@ typedef enum
     FLOMIO_LED_PULSE
 } flomio_led_action_t;
 
-typedef struct
+typedef struct  
 {
     flomio_led_activity_t led_activity;
     flomio_led_select_t   led_select;

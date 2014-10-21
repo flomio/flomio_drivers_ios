@@ -7,10 +7,12 @@
 //
 
 #import "FJNFCAdapter.h"
+#import "ViewController.h"
 
 @implementation FJNFCAdapter {
     id <FJNFCAdapterDelegate>       _delegate;
-    FJNFCService                    *_nfcService;
+//    FJNFCService                    *_nfcService;
+    FloBLEUart                    *_nfcService;
     NSMutableData                   *_lastMessageSent;
 }
 
@@ -20,6 +22,7 @@
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
 @synthesize standaloneMode = _standaloneMode;
+;
 
 /**
  Designated intializer of FJNFCAdapter.  Should be overloaded by Client App to have custom config context in place.
@@ -29,7 +32,8 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _nfcService = [[FJNFCService alloc] init];
+//        _nfcService = [[FJNFCService alloc] init];
+        _nfcService = [[FloBLEUart alloc] init];
         [_nfcService setDelegate:self];
         [_nfcService checkIfVolumeLevelMaxAndNotifyDelegate];
         
@@ -39,8 +43,12 @@
         _pollFor15693Tags =  false;
         _pollForFelicaTags =  false;
         _standaloneMode = false;
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
+        
     }      
-    return self;    
+    return self;
 }
 
 /**
@@ -62,6 +70,7 @@
                                                                 andSubOpcode:FLOMIO_STATUS_SW_REV
                                                                 andData:nil];
     [self sendMessageDataToHost:flojackMessage.bytes];
+    NSLog(@"getFirmwareVersion");
 }
 
 /**
@@ -601,6 +610,7 @@
 - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage; {
     if(theMessage != nil || theMessage.length > 0) {
         [self parseMessage:theMessage];
+        NSLog(@"Received message %@",theMessage);
     }
 }
 

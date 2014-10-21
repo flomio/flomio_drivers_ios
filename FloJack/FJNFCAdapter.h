@@ -14,6 +14,8 @@
 #import "FJNFCService.h"
 #import "FJNFCTag.h"
 #import "Logging.h"
+#import "FloBLEUart.h"
+
 
 @protocol FJNFCAdapterDelegate;
 

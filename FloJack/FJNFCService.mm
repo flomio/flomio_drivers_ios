@@ -43,7 +43,6 @@ enum uart_state {
 };
 
 @interface FJNFCService()
-- (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
 - (void)sendFloJackConnectedStatusToDelegate;
 - (void)clearMessageBuffer;
 @end
@@ -540,7 +539,7 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
             if (_remoteIODCFilter) delete[] _remoteIODCFilter;
         }
         
-
+        NSLog(@"Inited FJNCServices");
     }
     return self;
 }
@@ -687,21 +686,23 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     // Before anything else carry out error handling
     if (not parityGood) {
         // last byte was corrupted, dump this entire message
-        LogTrace(@" --- Parity Bad: dumping message.");
+//        LogTrace(@" --- Parity Bad: dumping message.");
+        NSLog(@" --- Parity Bad: dumping message.");
         [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         return;
     }
     else if (not _messageValid and not (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT)) {
         // byte is ok but we're still receiving a corrupt message, dump it.
-        LogTrace(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
-        [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
+//        LogTrace(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
+        NSLog(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
         return;
     }
     else if (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT) {       
         // sweet! timeout has passed, let's get cranking on this valid message
         if (_messageReceiveBuffer.length > 0) {
-            LogError(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
-            
+//            LogError(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
+            NSLog(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
+           
             if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
                 dispatch_async(_backgroundQueue, ^(void) {
                     [_delegate nfcService:self didHaveError:FLOMIO_STATUS_MESSAGE_CORRUPT_ERROR];
@@ -709,7 +710,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
             }
         }
         
-        LogTrace(@" ++ Message Valid: byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
+//        LogTrace(@" ++ Message Valid: byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
+        NSLog(@" ++ Message Valid: byte is part of a new message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
         [self markCurrentMessageValidAtTime:timestamp];
         [self clearMessageBuffer];
     }
@@ -730,7 +732,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         _messageLength = length;
         if (_messageLength < MIN_MESSAGE_LENGTH || _messageLength > MAX_MESSAGE_LENGTH)
         {
-            LogError(@"Invalid message length, ignoring current message.");
+ //           LogError(@"Invalid message length, ignoring current message.");
+            NSLog(@"Invalid message length, ignoring current message.");
             [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         }
     }
@@ -742,7 +745,8 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         // Check CRC
         if (_messageCRC == CORRECT_CRC_VALUE) {
             // Well formed message received, pass it to the delegate
-            LogInfo(@"FJNFCService: Complete message, send to delegate.");
+//            LogInfo(@"FJNFCService: Complete message, send to delegate.");
+            NSLog(@"FJNFCService: Complete message, send to delegate.");
             
             if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
                 NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
@@ -756,8 +760,9 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
         }
         else {
             //TODO: plumb this through to delegate
-            LogError(@"Bad CRC, ignoring current message.");
-            [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
+//            LogError(@"Bad CRC, ignoring current message.");
+            NSLog(@"Bad CRC, ignoring current message.");
+           [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         }
     }
 }
@@ -873,11 +878,13 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
  @return void
  */
 - (BOOL)sendMessageDataToHost:(NSData *)messageData {
+// chuck
+/*
     if (!self.floJackConnected) {
         [self sendFloJackConnectedStatusToDelegate];
         return false;
     }
-    
+ 
     [NSThread sleepForTimeInterval:0.010];
     
     UInt8 *theMessage = (UInt8 *)messageData.bytes;
@@ -897,7 +904,25 @@ static OSStatus	floJackAURenderCallback(void						*inRefCon,
     while (self->_byteQueuedForTX == TRUE) [NSThread sleepForTimeInterval:.025];
     _currentlySendingMessage = FALSE;
     dispatch_semaphore_signal(_messageTXLock);
+ */
+    UInt8 * uartByte = (UInt8*)messageData.bytes;
+    int len = [messageData length];
+    NSMutableString * string = [[NSMutableString alloc]init];
     
+    for (int i = 0; i < len-1; i++)
+    {
+        [string appendString:[NSString stringWithFormat:@"%2.2x:",uartByte[i]]];
+    }
+    [string appendString:[NSString stringWithFormat:@"%2.2x",uartByte[len-1]]];
+    NSLog(@"JFNFCservice sendMessageDataToHost %@",string);
+    
+
+    for (int i = 0; i < len; i++)
+    {
+        BOOL parityGood = YES;
+       [self handleReceivedByte:uartByte[i] withParity:parityGood atTimestamp:CACurrentMediaTime()];
+    }
+
     return true;
 }
 
