@@ -1,0 +1,501 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0535511C19E7A80600CA302A /* libFT_aR530.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0535511B19E7A80600CA302A /* libFT_aR530.a */; };
+		EA10AF85194E915A0060D9ED /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABE83DE194ADBC7006113D3 /* MediaPlayer.framework */; };
+		EA10AFD1194EF05A0060D9ED /* FTMifareBinaryBlockViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA10AFCC194EF05A0060D9ED /* FTMifareBinaryBlockViewController.mm */; };
+		EA10AFD2194EF05A0060D9ED /* FTMifareClassicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA10AFCE194EF05A0060D9ED /* FTMifareClassicViewController.mm */; };
+		EA10AFD3194EF05A0060D9ED /* FTmifareValueBlockViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA10AFD0194EF05A0060D9ED /* FTmifareValueBlockViewController.mm */; };
+		EA2CFF18194FE7F700C32164 /* AutocompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2CFF17194FE7F700C32164 /* AutocompletionTableView.m */; };
+		EA2CFF1C1950115100C32164 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA2CFF1B1950115100C32164 /* utils.cpp */; };
+		EA849D67194956B600A92B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA849D66194956B600A92B65 /* Foundation.framework */; };
+		EA849D69194956B600A92B65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA849D68194956B600A92B65 /* CoreGraphics.framework */; };
+		EA849D6B194956B600A92B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA849D6A194956B600A92B65 /* UIKit.framework */; };
+		EA849D71194956B600A92B65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA849D6F194956B600A92B65 /* InfoPlist.strings */; };
+		EA849D73194956B600A92B65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA849D72194956B600A92B65 /* main.m */; };
+		EA849D77194956B600A92B65 /* FTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA849D76194956B600A92B65 /* FTAppDelegate.m */; };
+		EA849D7A194956B600A92B65 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA849D78194956B600A92B65 /* Main_iPhone.storyboard */; };
+		EA849D7D194956B600A92B65 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA849D7B194956B600A92B65 /* Main_iPad.storyboard */; };
+		EA849D80194956B600A92B65 /* FTViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA849D7F194956B600A92B65 /* FTViewController.mm */; };
+		EA849D82194956B600A92B65 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA849D81194956B600A92B65 /* Images.xcassets */; };
+		EABE83DB194ADB81006113D3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABE83DA194ADB81006113D3 /* ExternalAccessory.framework */; };
+		EABE83DD194ADBBE006113D3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EABE83DC194ADBBE006113D3 /* AudioToolbox.framework */; };
+		EAD64C5C194978C6004B7109 /* icon_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD64C58194978C6004B7109 /* icon_iPad.png */; };
+		EAD64C5D194978C6004B7109 /* icon_iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD64C59194978C6004B7109 /* icon_iPad@2x.png */; };
+		EAD64C5E194978C6004B7109 /* icon_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD64C5A194978C6004B7109 /* icon_iPhone.png */; };
+		EAD64C5F194978C6004B7109 /* icon_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD64C5B194978C6004B7109 /* icon_iPhone@2x.png */; };
+		EAD64C731949CD6C004B7109 /* FTCardReaderInfoTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAD64C721949CD6C004B7109 /* FTCardReaderInfoTableViewController.mm */; };
+		EAD64C761949CD80004B7109 /* FTnfcConnectionTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAD64C751949CD80004B7109 /* FTnfcConnectionTableViewController.mm */; };
+		EAEA171519495E330048074A /* FTnfcTransmitViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAEA171419495E330048074A /* FTnfcTransmitViewController.mm */; };
+		EAEA1718194973C80048074A /* FTDeviceNotFoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEA1717194973C80048074A /* FTDeviceNotFoundViewController.m */; };
+		EAEA171F194974280048074A /* Warning.png in Resources */ = {isa = PBXBuildFile; fileRef = EAEA171C194974280048074A /* Warning.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0535511B19E7A80600CA302A /* libFT_aR530.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFT_aR530.a; sourceTree = "<group>"; };
+		EA10AFCB194EF05A0060D9ED /* FTMifareBinaryBlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMifareBinaryBlockViewController.h; sourceTree = "<group>"; };
+		EA10AFCC194EF05A0060D9ED /* FTMifareBinaryBlockViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTMifareBinaryBlockViewController.mm; sourceTree = "<group>"; };
+		EA10AFCD194EF05A0060D9ED /* FTMifareClassicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMifareClassicViewController.h; sourceTree = "<group>"; };
+		EA10AFCE194EF05A0060D9ED /* FTMifareClassicViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTMifareClassicViewController.mm; sourceTree = "<group>"; };
+		EA10AFCF194EF05A0060D9ED /* FTmifareValueBlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTmifareValueBlockViewController.h; sourceTree = "<group>"; };
+		EA10AFD0194EF05A0060D9ED /* FTmifareValueBlockViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTmifareValueBlockViewController.mm; sourceTree = "<group>"; };
+		EA2CFF16194FE7F700C32164 /* AutocompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompletionTableView.h; sourceTree = "<group>"; };
+		EA2CFF17194FE7F700C32164 /* AutocompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompletionTableView.m; sourceTree = "<group>"; };
+		EA2CFF1B1950115100C32164 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		EA849D63194956B600A92B65 /* FT_aR530Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FT_aR530Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA849D66194956B600A92B65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EA849D68194956B600A92B65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EA849D6A194956B600A92B65 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EA849D6E194956B600A92B65 /* FT_aR530Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FT_aR530Example-Info.plist"; sourceTree = "<group>"; };
+		EA849D70194956B600A92B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA849D72194956B600A92B65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EA849D74194956B600A92B65 /* FT_aR530Example-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FT_aR530Example-Prefix.pch"; sourceTree = "<group>"; };
+		EA849D75194956B600A92B65 /* FTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTAppDelegate.h; sourceTree = "<group>"; };
+		EA849D76194956B600A92B65 /* FTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FTAppDelegate.m; sourceTree = "<group>"; };
+		EA849D79194956B600A92B65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		EA849D7C194956B600A92B65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		EA849D7E194956B600A92B65 /* FTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTViewController.h; sourceTree = "<group>"; };
+		EA849D7F194956B600A92B65 /* FTViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FTViewController.mm; sourceTree = "<group>"; };
+		EA849D81194956B600A92B65 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EA849D88194956B600A92B65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EABE83D6194ADB6F006113D3 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		EABE83D8194ADB7B006113D3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		EABE83DA194ADB81006113D3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		EABE83DC194ADBBE006113D3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EABE83DE194ADBC7006113D3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EAD64C58194978C6004B7109 /* icon_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_iPad.png; sourceTree = "<group>"; };
+		EAD64C59194978C6004B7109 /* icon_iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_iPad@2x.png"; sourceTree = "<group>"; };
+		EAD64C5A194978C6004B7109 /* icon_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_iPhone.png; sourceTree = "<group>"; };
+		EAD64C5B194978C6004B7109 /* icon_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_iPhone@2x.png"; sourceTree = "<group>"; };
+		EAD64C6D194983CB004B7109 /* DUKPT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DUKPT.h; sourceTree = "<group>"; };
+		EAD64C6E194983CB004B7109 /* FT_aR530.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FT_aR530.h; sourceTree = "<group>"; };
+		EAD64C6F194983CB004B7109 /* FTType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTType.h; sourceTree = "<group>"; };
+		EAD64C70194983CB004B7109 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		EAD64C711949CD6C004B7109 /* FTCardReaderInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCardReaderInfoTableViewController.h; sourceTree = "<group>"; };
+		EAD64C721949CD6C004B7109 /* FTCardReaderInfoTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTCardReaderInfoTableViewController.mm; sourceTree = "<group>"; };
+		EAD64C741949CD80004B7109 /* FTnfcConnectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTnfcConnectionTableViewController.h; sourceTree = "<group>"; };
+		EAD64C751949CD80004B7109 /* FTnfcConnectionTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTnfcConnectionTableViewController.mm; sourceTree = "<group>"; };
+		EAEA171319495E330048074A /* FTnfcTransmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTnfcTransmitViewController.h; sourceTree = "<group>"; };
+		EAEA171419495E330048074A /* FTnfcTransmitViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FTnfcTransmitViewController.mm; sourceTree = "<group>"; };
+		EAEA1716194973C80048074A /* FTDeviceNotFoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDeviceNotFoundViewController.h; sourceTree = "<group>"; };
+		EAEA1717194973C80048074A /* FTDeviceNotFoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDeviceNotFoundViewController.m; sourceTree = "<group>"; };
+		EAEA171C194974280048074A /* Warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Warning.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA849D60194956B600A92B65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABE83DB194ADB81006113D3 /* ExternalAccessory.framework in Frameworks */,
+				EA10AF85194E915A0060D9ED /* MediaPlayer.framework in Frameworks */,
+				EABE83DD194ADBBE006113D3 /* AudioToolbox.framework in Frameworks */,
+				0535511C19E7A80600CA302A /* libFT_aR530.a in Frameworks */,
+				EA849D69194956B600A92B65 /* CoreGraphics.framework in Frameworks */,
+				EA849D6B194956B600A92B65 /* UIKit.framework in Frameworks */,
+				EA849D67194956B600A92B65 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA10AFCA194EF05A0060D9ED /* mifare */ = {
+			isa = PBXGroup;
+			children = (
+				EA10AFCB194EF05A0060D9ED /* FTMifareBinaryBlockViewController.h */,
+				EA10AFCC194EF05A0060D9ED /* FTMifareBinaryBlockViewController.mm */,
+				EA10AFCD194EF05A0060D9ED /* FTMifareClassicViewController.h */,
+				EA10AFCE194EF05A0060D9ED /* FTMifareClassicViewController.mm */,
+				EA10AFCF194EF05A0060D9ED /* FTmifareValueBlockViewController.h */,
+				EA10AFD0194EF05A0060D9ED /* FTmifareValueBlockViewController.mm */,
+			);
+			path = mifare;
+			sourceTree = "<group>";
+		};
+		EA2CFF15194FE7F700C32164 /* AutoCompletionTableView */ = {
+			isa = PBXGroup;
+			children = (
+				EA2CFF16194FE7F700C32164 /* AutocompletionTableView.h */,
+				EA2CFF17194FE7F700C32164 /* AutocompletionTableView.m */,
+			);
+			path = AutoCompletionTableView;
+			sourceTree = "<group>";
+		};
+		EA849D5A194956B600A92B65 = {
+			isa = PBXGroup;
+			children = (
+				0535511B19E7A80600CA302A /* libFT_aR530.a */,
+				EAD64C6C194983CB004B7109 /* include */,
+				EAEA1719194974280048074A /* image */,
+				EA849D6C194956B600A92B65 /* FT_aR530Example */,
+				EA849D65194956B600A92B65 /* Frameworks */,
+				EA849D64194956B600A92B65 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA849D64194956B600A92B65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA849D63194956B600A92B65 /* FT_aR530Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA849D65194956B600A92B65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EABE83DE194ADBC7006113D3 /* MediaPlayer.framework */,
+				EABE83DC194ADBBE006113D3 /* AudioToolbox.framework */,
+				EABE83DA194ADB81006113D3 /* ExternalAccessory.framework */,
+				EABE83D8194ADB7B006113D3 /* CoreMedia.framework */,
+				EABE83D6194ADB6F006113D3 /* CoreAudio.framework */,
+				EA849D66194956B600A92B65 /* Foundation.framework */,
+				EA849D68194956B600A92B65 /* CoreGraphics.framework */,
+				EA849D6A194956B600A92B65 /* UIKit.framework */,
+				EA849D88194956B600A92B65 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EA849D6C194956B600A92B65 /* FT_aR530Example */ = {
+			isa = PBXGroup;
+			children = (
+				EA2CFF15194FE7F700C32164 /* AutoCompletionTableView */,
+				EA10AFCA194EF05A0060D9ED /* mifare */,
+				EA849D75194956B600A92B65 /* FTAppDelegate.h */,
+				EA849D76194956B600A92B65 /* FTAppDelegate.m */,
+				EA849D78194956B600A92B65 /* Main_iPhone.storyboard */,
+				EA849D7B194956B600A92B65 /* Main_iPad.storyboard */,
+				EA849D7E194956B600A92B65 /* FTViewController.h */,
+				EA849D7F194956B600A92B65 /* FTViewController.mm */,
+				EA849D81194956B600A92B65 /* Images.xcassets */,
+				EA849D6D194956B600A92B65 /* Supporting Files */,
+				EAEA171319495E330048074A /* FTnfcTransmitViewController.h */,
+				EAEA171419495E330048074A /* FTnfcTransmitViewController.mm */,
+				EAEA1716194973C80048074A /* FTDeviceNotFoundViewController.h */,
+				EAEA1717194973C80048074A /* FTDeviceNotFoundViewController.m */,
+				EAD64C711949CD6C004B7109 /* FTCardReaderInfoTableViewController.h */,
+				EAD64C721949CD6C004B7109 /* FTCardReaderInfoTableViewController.mm */,
+				EAD64C741949CD80004B7109 /* FTnfcConnectionTableViewController.h */,
+				EAD64C751949CD80004B7109 /* FTnfcConnectionTableViewController.mm */,
+			);
+			path = FT_aR530Example;
+			sourceTree = "<group>";
+		};
+		EA849D6D194956B600A92B65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA849D6E194956B600A92B65 /* FT_aR530Example-Info.plist */,
+				EA849D6F194956B600A92B65 /* InfoPlist.strings */,
+				EA849D72194956B600A92B65 /* main.m */,
+				EA849D74194956B600A92B65 /* FT_aR530Example-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EAD64C6C194983CB004B7109 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				EA2CFF1B1950115100C32164 /* utils.cpp */,
+				EAD64C6D194983CB004B7109 /* DUKPT.h */,
+				EAD64C6E194983CB004B7109 /* FT_aR530.h */,
+				EAD64C6F194983CB004B7109 /* FTType.h */,
+				EAD64C70194983CB004B7109 /* utils.h */,
+			);
+			name = include;
+			path = FT_aR530Example/include;
+			sourceTree = "<group>";
+		};
+		EAEA1719194974280048074A /* image */ = {
+			isa = PBXGroup;
+			children = (
+				EAD64C58194978C6004B7109 /* icon_iPad.png */,
+				EAD64C59194978C6004B7109 /* icon_iPad@2x.png */,
+				EAD64C5A194978C6004B7109 /* icon_iPhone.png */,
+				EAD64C5B194978C6004B7109 /* icon_iPhone@2x.png */,
+				EAEA171C194974280048074A /* Warning.png */,
+			);
+			name = image;
+			path = FT_aR530Example/image;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA849D62194956B600A92B65 /* FT_aR530Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA849D98194956B600A92B65 /* Build configuration list for PBXNativeTarget "FT_aR530Example" */;
+			buildPhases = (
+				EA849D5F194956B600A92B65 /* Sources */,
+				EA849D60194956B600A92B65 /* Frameworks */,
+				EA849D61194956B600A92B65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FT_aR530Example;
+			productName = FT_aR530Example;
+			productReference = EA849D63194956B600A92B65 /* FT_aR530Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA849D5B194956B600A92B65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = FT;
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = FTSafe;
+			};
+			buildConfigurationList = EA849D5E194956B600A92B65 /* Build configuration list for PBXProject "FT_aR530Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA849D5A194956B600A92B65;
+			productRefGroup = EA849D64194956B600A92B65 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA849D62194956B600A92B65 /* FT_aR530Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA849D61194956B600A92B65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAD64C5D194978C6004B7109 /* icon_iPad@2x.png in Resources */,
+				EAEA171F194974280048074A /* Warning.png in Resources */,
+				EA849D7D194956B600A92B65 /* Main_iPad.storyboard in Resources */,
+				EAD64C5F194978C6004B7109 /* icon_iPhone@2x.png in Resources */,
+				EAD64C5C194978C6004B7109 /* icon_iPad.png in Resources */,
+				EA849D82194956B600A92B65 /* Images.xcassets in Resources */,
+				EAD64C5E194978C6004B7109 /* icon_iPhone.png in Resources */,
+				EA849D7A194956B600A92B65 /* Main_iPhone.storyboard in Resources */,
+				EA849D71194956B600A92B65 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA849D5F194956B600A92B65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA849D77194956B600A92B65 /* FTAppDelegate.m in Sources */,
+				EA10AFD1194EF05A0060D9ED /* FTMifareBinaryBlockViewController.mm in Sources */,
+				EA10AFD3194EF05A0060D9ED /* FTmifareValueBlockViewController.mm in Sources */,
+				EA2CFF1C1950115100C32164 /* utils.cpp in Sources */,
+				EA849D73194956B600A92B65 /* main.m in Sources */,
+				EAEA171519495E330048074A /* FTnfcTransmitViewController.mm in Sources */,
+				EA2CFF18194FE7F700C32164 /* AutocompletionTableView.m in Sources */,
+				EAEA1718194973C80048074A /* FTDeviceNotFoundViewController.m in Sources */,
+				EAD64C731949CD6C004B7109 /* FTCardReaderInfoTableViewController.mm in Sources */,
+				EA849D80194956B600A92B65 /* FTViewController.mm in Sources */,
+				EA10AFD2194EF05A0060D9ED /* FTMifareClassicViewController.mm in Sources */,
+				EAD64C761949CD80004B7109 /* FTnfcConnectionTableViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EA849D6F194956B600A92B65 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA849D70194956B600A92B65 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA849D78194956B600A92B65 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA849D79194956B600A92B65 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		EA849D7B194956B600A92B65 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA849D7C194956B600A92B65 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA849D96194956B600A92B65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA849D97194956B600A92B65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA849D99194956B600A92B65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FT_aR530Example/FT_aR530Example-Prefix.pch";
+				INFOPLIST_FILE = "FT_aR530Example/FT_aR530Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FT_aR530-apweibouqozxfhhchkqbilbbmzcn/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FT_aR530Example/mifare",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EA849D9A194956B600A92B65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FT_aR530Example/FT_aR530Example-Prefix.pch";
+				INFOPLIST_FILE = "FT_aR530Example/FT_aR530Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/FT_aR530-apweibouqozxfhhchkqbilbbmzcn/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FT_aR530Example/mifare",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA849D5E194956B600A92B65 /* Build configuration list for PBXProject "FT_aR530Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA849D96194956B600A92B65 /* Debug */,
+				EA849D97194956B600A92B65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA849D98194956B600A92B65 /* Build configuration list for PBXNativeTarget "FT_aR530Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA849D99194956B600A92B65 /* Debug */,
+				EA849D9A194956B600A92B65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA849D5B194956B600A92B65 /* Project object */;
+}
