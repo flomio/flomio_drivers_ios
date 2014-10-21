@@ -18,7 +18,6 @@
 -(IBAction)play:(id)sender {
     // Construct URL to sound file
     
-    NSLog(@"LOCo");
     NSString *path = [[NSBundle mainBundle] pathForResource:@"notification" ofType:@"mp3"];
     NSURL *soundUrl = [NSURL fileURLWithPath:path];
     
@@ -28,7 +27,7 @@
     self.audioPlayer.numberOfLoops = 1;
     
     if (self.audioPlayer == nil)
-        NSLog([error description]);
+        NSLog(@"%@",[error description]);
     else
         [self.audioPlayer play];
 
