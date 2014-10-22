@@ -7,7 +7,7 @@
 //
 
 #import "FJNFCAdapter.h"
-#import "ViewController.h"
+//#import "ViewController.h"
 
 @implementation FJNFCAdapter {
     id <FJNFCAdapterDelegate>       _delegate;
@@ -45,7 +45,7 @@
         _standaloneMode = false;
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
+//        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
         
     }      
     return self;

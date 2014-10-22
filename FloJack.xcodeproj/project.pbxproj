@@ -20,7 +20,6 @@
 		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15379C8E16E574A2006195F0 /* FJMessageTests.m */; };
 		15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */; };
-		1559F29016517FF100B43633 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
 		1559F29116517FF100B43633 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1559F26E16517F8C00B43633 /* CoreGraphics.framework */; };
 		1559F29816517FF100B43633 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1559F29616517FF100B43633 /* InfoPlist.strings */; };
@@ -53,7 +52,6 @@
 		15B48C06164D663800043A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
 		15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C41DD31677B57100D98A8D /* MediaPlayer.framework */; };
 		15C4B2D015C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
-		15C4B2DF15C832E0009DE0E5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */; };
 		15C4B2E115C832E0009DE0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
 		15C4B2E215C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		15C4B2EB15C832E0009DE0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15C4B2E915C832E0009DE0E5 /* InfoPlist.strings */; };
@@ -77,6 +75,9 @@
 		15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2EFFC16288072008FD352 /* FJNDEFMessage.h */; };
 		15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
 		15F2F00416288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
+		B700BCE919F6EF8300A67204 /* FloBLEUart.m in Sources */ = {isa = PBXBuildFile; fileRef = B700BCE819F6EF8300A67204 /* FloBLEUart.m */; };
+		B700BCEB19F6F43400A67204 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B700BCEA19F6F43400A67204 /* CoreBluetooth.framework */; };
+		B700BCF019F6FEF900A67204 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B700BCEF19F6FEF900A67204 /* UIKit.framework */; };
 		EF38A7E717B82A7900684263 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7DF17B82A7900684263 /* Icon-72.png */; };
 		EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E017B82A7900684263 /* Icon-72@2x.png */; };
 		EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E117B82A7900684263 /* Icon-Small-50.png */; };
@@ -166,7 +167,6 @@
 		15C4B2CF15C832E0009DE0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJack-Prefix.pch"; sourceTree = "<group>"; };
 		15C4B2DD15C832E0009DE0E5 /* FloJackTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloJackTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		15C4B2E015C832E0009DE0E5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		15C4B2E815C832E0009DE0E5 /* FloJackTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FloJackTests-Info.plist"; sourceTree = "<group>"; };
 		15C4B2EA15C832E0009DE0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -198,6 +198,10 @@
 		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FJNDEFRecord.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		15F2F00216288A50008FD352 /* FJNDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNDEFRecord.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		B700BCE719F6EF8300A67204 /* FloBLEUart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloBLEUart.h; sourceTree = "<group>"; };
+		B700BCE819F6EF8300A67204 /* FloBLEUart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloBLEUart.m; sourceTree = "<group>"; };
+		B700BCEA19F6F43400A67204 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		B700BCEF19F6FEF900A67204 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EF38A7DF17B82A7900684263 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		EF38A7E017B82A7900684263 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		EF38A7E117B82A7900684263 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B700BCF019F6FEF900A67204 /* UIKit.framework in Frameworks */,
+				B700BCEB19F6F43400A67204 /* CoreBluetooth.framework in Frameworks */,
 				15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */,
 				15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */,
 				1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */,
@@ -220,7 +226,6 @@
 				1559F2B51651889B00B43633 /* CoreAudio.framework in Frameworks */,
 				1559F2B41651889400B43633 /* AudioToolbox.framework in Frameworks */,
 				1559F2B31651881400B43633 /* libFloJack.a in Frameworks */,
-				1559F29016517FF100B43633 /* UIKit.framework in Frameworks */,
 				1559F29116517FF100B43633 /* Foundation.framework in Frameworks */,
 				1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -245,7 +250,6 @@
 				15B48C06164D663800043A4E /* QuartzCore.framework in Frameworks */,
 				15B48C04164D65E800043A4E /* AudioToolbox.framework in Frameworks */,
 				15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */,
-				15C4B2DF15C832E0009DE0E5 /* SenTestingKit.framework in Frameworks */,
 				15C4B2E115C832E0009DE0E5 /* UIKit.framework in Frameworks */,
 				15C4B2E215C832E0009DE0E5 /* Foundation.framework in Frameworks */,
 			);
@@ -287,7 +291,11 @@
 		155D4F6E15D48F4900CF45FD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				155D4F7115D492D900CF45FD /* Lib */,
+				B700BCE719F6EF8300A67204 /* FloBLEUart.h */,
+				B700BCE819F6EF8300A67204 /* FloBLEUart.m */,
+				151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */,
+				151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */,
+				155D4F8415D5FDA800CF45FD /* Logging.h */,
 				15ACA75E170F5EDA00563CD4 /* FJAudioPlayer.h */,
 				15ACA75F170F5EDA00563CD4 /* FJAudioPlayer.m */,
 				157C812C15DBFF2C00760BF2 /* FJMessage.h */,
@@ -304,6 +312,9 @@
 				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
 				15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */,
 				1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */,
+				155D4F7115D492D900CF45FD /* Lib */,
+				155D4F7015D4926C00CF45FD /* AurioTouch2 */,
+				15C4B45D15C85DB6009DE0E5 /* CoreAduio */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -320,11 +331,6 @@
 		155D4F7115D492D900CF45FD /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				151A4EBD17132DC60090CDF1 /* FJAudioSessionHelper.h */,
-				151A4EBE17132DC60090CDF1 /* FJAudioSessionHelper.m */,
-				155D4F8415D5FDA800CF45FD /* Logging.h */,
-				155D4F7015D4926C00CF45FD /* AurioTouch2 */,
-				15C4B45D15C85DB6009DE0E5 /* CoreAduio */,
 			);
 			name = Lib;
 			sourceTree = "<group>";
@@ -355,6 +361,8 @@
 		15C4B2CE15C832E0009DE0E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B700BCEF19F6FEF900A67204 /* UIKit.framework */,
+				B700BCEA19F6F43400A67204 /* CoreBluetooth.framework */,
 				15C41DD31677B57100D98A8D /* MediaPlayer.framework */,
 				15B046F6165322C3000FF892 /* AVFoundation.framework */,
 				15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */,
@@ -362,7 +370,6 @@
 				15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */,
 				155D4F8615D7044B00CF45FD /* QuartzCore.framework */,
 				15C4B2CF15C832E0009DE0E5 /* Foundation.framework */,
-				15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */,
 				15C4B2E015C832E0009DE0E5 /* UIKit.framework */,
 				1559F26E16517F8C00B43633 /* CoreGraphics.framework */,
 				1559F27016517F8C00B43633 /* CoreData.framework */,
@@ -518,7 +525,7 @@
 			name = FloJackTests;
 			productName = FloJackTests;
 			productReference = 15C4B2DD15C832E0009DE0E5 /* FloJackTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -526,8 +533,14 @@
 		15C4B2C315C832DF009DE0E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastTestingUpgradeCheck = 0600;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "John Bullard";
+				TargetAttributes = {
+					1559F28D16517FF100B43633 = {
+						DevelopmentTeam = ZENR4VYLA9;
+					};
+				};
 			};
 			buildConfigurationList = 15C4B2C615C832DF009DE0E5 /* Build configuration list for PBXProject "FloJack" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -624,6 +637,7 @@
 				15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */,
 				15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */,
 				1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */,
+				B700BCE919F6EF8300A67204 /* FloBLEUart.m in Sources */,
 				15ACA760170F5EDA00563CD4 /* FJAudioPlayer.m in Sources */,
 				151A4EBF17132DC60090CDF1 /* FJAudioSessionHelper.m in Sources */,
 			);
@@ -689,7 +703,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Richard Grundy (87Q5372TB5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -698,9 +712,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A7DBFAC-438E-4E5E-B8B0-C29464D1C32D";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -711,7 +725,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Richard Grundy (87Q5372TB5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -720,10 +734,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A7DBFAC-438E-4E5E-B8B0-C29464D1C32D";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -733,14 +747,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
@@ -752,11 +769,15 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -771,23 +792,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -802,7 +829,6 @@
 		15C4B2F215C832E0009DE0E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
@@ -833,7 +859,6 @@
 		15C4B2F315C832E0009DE0E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
@@ -870,6 +895,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
@@ -877,7 +903,6 @@
 				GCC_PREFIX_HEADER = "FloJack/FloJack-Prefix.pch";
 				INFOPLIST_FILE = "FloJackTests/FloJackTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -889,6 +914,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
@@ -896,7 +922,6 @@
 				GCC_PREFIX_HEADER = "FloJack/FloJack-Prefix.pch";
 				INFOPLIST_FILE = "FloJackTests/FloJackTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

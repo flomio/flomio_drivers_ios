@@ -291,10 +291,10 @@
         FJNDEFMessage *ndefMessage = [[FJNDEFMessage alloc] initWithByteBuffer:ndefData];
         NSData *ndefMessageDataDecoded = [ndefMessage asByteBuffer];
         
-        STAssertTrue(([ndefDataDecoded isEqualToData:ndefMessageDataDecoded] ||
+        XCTAssertTrue(([ndefDataDecoded isEqualToData:ndefMessageDataDecoded] ||
                       (ndefDataDecoded == nil && ndefMessageDataDecoded == nil))
                         , @"FJNDEFMessage decoded data is incorrect.");
-        STAssertTrue((ndefMessage.ndefRecords.count == ndefRecordCount.intValue)
+        XCTAssertTrue((ndefMessage.ndefRecords.count == ndefRecordCount.intValue)
                         , @"FJNDEFMessage has incorrect number of NDEF records.");
     }
 }
@@ -310,12 +310,12 @@
         NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
         FJNDEFRecord *ndefRecord = [ndefRecords objectAtIndexedSubscript:0];
         
-        STAssertTrue(([ndefRecords count] == ndefRecordCount.intValue)
+        XCTAssertTrue(([ndefRecords count] == ndefRecordCount.intValue)
                      , @"FJNDEFRecord has incorrect number of NDEF Records.");
-        STAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
+        XCTAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
                       (ndefRecord.asByteBuffer == nil && ndefDataDecoded == nil))
                      , @"FJNDEFRecord decoded byte stream incorrect.");
-        STAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
+        XCTAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
                       (ndefRecord == nil && url == nil))
                      , @"FJNDEFRecord decoded URI is incorrect.");
     }
@@ -330,9 +330,9 @@
         
         FJNDEFMessage *ndefMessage = [FJNDEFMessage createURIWithString:url.absoluteString];
                 
-        STAssertTrue((ndefMessage.ndefRecords.count == ndefRecordCount.intValue)
+        XCTAssertTrue((ndefMessage.ndefRecords.count == ndefRecordCount.intValue)
                      , @"FJNDEFMessage encoded incorrect number of NDEF Records.");
-        STAssertTrue(([ndefMessage.asByteBuffer isEqualToData:ndefDataDecoded] ||
+        XCTAssertTrue(([ndefMessage.asByteBuffer isEqualToData:ndefDataDecoded] ||
                       (ndefMessage.asByteBuffer == nil && ndefDataDecoded == nil))
                      , @"FJNDEFMessage encoded byte stream incorrect.");
         
@@ -347,19 +347,19 @@
         
         FJNDEFRecord *ndefRecord = [FJNDEFRecord createURIWithString:url.absoluteString];
         
-        STAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
+        XCTAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
                       (ndefRecord.asByteBuffer == nil && ndefDataDecoded == nil))
                      , @"FJNDEFRecord decoded byte stream incorrect.");
-        STAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
+        XCTAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
                       (ndefRecord == nil && url == nil))
                      , @"FJNDEFRecord decoded URI is incorrect.");
         
         ndefRecord = [FJNDEFRecord createURIWithURL:url];
         
-        STAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
+        XCTAssertTrue(([ndefRecord.asByteBuffer isEqualToData:ndefDataDecoded] ||
                       (ndefRecord.asByteBuffer == nil && ndefDataDecoded == nil))
                      , @"FJNDEFRecord decoded byte stream incorrect.");
-        STAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
+        XCTAssertTrue(([ndefRecord.getUriFromPayload isEqual:url] ||
                       (ndefRecord == nil && url == nil))
                      , @"FJNDEFRecord decoded URI is incorrect.");
     }

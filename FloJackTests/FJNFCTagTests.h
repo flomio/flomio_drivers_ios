@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "FJMessage.h"
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
@@ -17,7 +17,7 @@
  Purposefuly excludes testing NDEF Message and NDEF Record objects. We have dedicated tests for that. 
  
  */
-@interface FJNFCTagTests : SenTestCase
+@interface FJNFCTagTests : XCTestCase
 
 @property NSMutableArray *tagTestData;
 

@@ -48,7 +48,7 @@
     FJNDEFMessage *ndefMessage = [[FJNDEFMessage alloc] initWithByteBuffer:ndefMessageData];
     NSData *ndefMessageDataDecoded = [ndefMessage asByteBuffer];
     
-    STAssertTrue(([ndefMessageData isEqualToData:ndefMessageDataDecoded])
+    XCTAssertTrue(([ndefMessageData isEqualToData:ndefMessageDataDecoded])
                  , @"Data does not match!");
 }
 
@@ -71,7 +71,7 @@
     NSData *data = [[NSData alloc] initWithBytes:bytes length:bytesLength];                  
     NSArray *ndefRecords = [FJNDEFRecord parseData:data andIgnoreMbMe:FALSE];
     
-    STAssertTrue(([ndefRecords count] == 1)
+    XCTAssertTrue(([ndefRecords count] == 1)
                  , @"Incorrect number of NDEF Records");
 }
 
@@ -140,7 +140,7 @@
     NSData *data = [[NSData alloc] initWithBytes:bytes length:bytesLength];
     NSArray *ndefRecords = [FJNDEFRecord parseData:data andIgnoreMbMe:FALSE];
     
-    STAssertTrue(([ndefRecords count] == 2)
+    XCTAssertTrue(([ndefRecords count] == 2)
                  , @"Incorrect number of NDEF Records");
 }
 

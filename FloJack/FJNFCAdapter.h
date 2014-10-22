@@ -19,7 +19,7 @@
 
 @protocol FJNFCAdapterDelegate;
 
-@interface FJNFCAdapter : NSObject<FJNFCServiceDelegate>
+@interface FJNFCAdapter : NSObject<FloBLEUartDelegate,FJNFCServiceDelegate>
 
 @property (nonatomic, strong) id <FJNFCAdapterDelegate>	 delegate;
 @property (nonatomic) BOOL                               deviceHasVolumeCap;

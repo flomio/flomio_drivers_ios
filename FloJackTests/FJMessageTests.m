@@ -39,7 +39,7 @@ Tests the parsing of a byte stream and creation of an FJMessage object.
                                                                 andSubOpcode:FLOMIO_ENABLE
                                                                      andData:nil];
     
-    STAssertTrue(([_flojackMessage.bytes isEqualToData:ack_enable_msg])
+    XCTAssertTrue(([_flojackMessage.bytes isEqualToData:ack_enable_msg])
                  , @"FloJack Message parsed incorrectly.");
 }
 
@@ -58,7 +58,7 @@ Tests the parsing of a byte stream and creation of an FJMessage object.
                                                                 andSubOpcode:FLOMIO_BYTE_DELAY
                                                                      andData:data];
     
-    STAssertTrue(([_flojackMessage.bytes isEqualToData:inter_byte_delay_ipad2_msg])
+    XCTAssertTrue(([_flojackMessage.bytes isEqualToData:inter_byte_delay_ipad2_msg])
                  , @"FloJack Message parsed incorrectly.");
 }
 

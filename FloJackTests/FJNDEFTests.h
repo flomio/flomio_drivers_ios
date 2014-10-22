@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "FJMessage.h"
 #import "FJNDEFMessage.h"
 #import "FJNDEFRecord.h"
@@ -68,7 +68,7 @@
      [22..64] Payload
      2, 101, 110, 90, 58, 56, 58, 84, 97, 115, 107, 32, 56, 59, 112, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 59, 111, 58, 53, 54, 49, 51, 48, 57, 57, 51, 51, 52, 58, 121, 101, 115
  */
-@interface FJNDEFTests : SenTestCase {
+@interface FJNDEFTests : XCTestCase {
     NSArray *_ndefRecords;
 }
 
