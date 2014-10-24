@@ -18,6 +18,8 @@
 -(IBAction)play:(id)sender {
     // Construct URL to sound file
     
+    //[self configureAVAudioSession];
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"notification" ofType:@"mp3"];
     NSURL *soundUrl = [NSURL fileURLWithPath:path];
     
@@ -38,43 +40,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self configureAVAudioSession];
     
     
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) configureAVAudioSession
-{
-    //get your app's audioSession singleton object
-    AVAudioSession* session = [AVAudioSession sharedInstance];
-    
-    //error handling
-    BOOL success;
-    NSError* error;
-    
-    //set the audioSession category.
-    //Needs to be Record or PlayAndRecord to use audioRouteOverride:
-    
-    success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
-                             error:&error];
-    
-    if (!success)  NSLog(@"AVAudioSession error setting category:%@",error);
-    
-    //set the audioSession override
-    success = [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
-                                         error:&error];
-    if (!success)  NSLog(@"AVAudioSession error overrideOutputAudioPort:%@",error);
-    
-    //activate the audio session
-    success = [session setActive:YES error:&error];
-    if (!success) NSLog(@"AVAudioSession error activating: %@",error);
-    else NSLog(@"audioSession active");
-    
 }
 
 @end
