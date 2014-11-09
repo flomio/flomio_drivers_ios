@@ -542,26 +542,94 @@
     [_reader resetWithCompletion:^{
         
         // Hide the progress.
+        [self transmit:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert dismissWithClickedButtonIndex:0 animated:YES];
+            
+            
         });
+        
+        
     }];
 }
 
 - (IBAction)resetReader_b:(id)sender {
     
-    // Show the progress.
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Resetting the reader..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [self resetReader];
+}
+
+- (IBAction)transmit:(id)sender {
+    
+        // Transmit the command APDU.
+        _piccResponseApduReady = NO;
+        _resultReady = NO;
+        
+        NSData *commandApdu = nil;
+        commandApdu = [AJDHex byteArrayFromHexString:@"FF CA 00 00 00"];
+        if (![_reader piccTransmitWithTimeout:9.0 commandApdu:[commandApdu bytes] length:[commandApdu length]]) {
+            
+            // Show the request queue error.
+            [self showRequestQueueError];
+            
+        } else {
+            
+            // Show the PICC response APDU.
+            //[self showPiccResponseApdu:piccViewController];
+           
+            self.observingMessages = YES;
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            self.timerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+            dispatch_source_set_timer(self.timerSource, dispatch_walltime(NULL, 0), 2ull * NSEC_PER_SEC, 1ull * NSEC_PER_SEC);
+            dispatch_source_set_event_handler(self.timerSource, ^{
+                if (self.isObservingMessages) {
+                    [self powerOn];
+                }
+            });
+            dispatch_resume(self.timerSource);
+
+     
+        }
+    
+    
+    
+}
+
+-(void)powerOn {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Powering on the PICC..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
     
-    // Reset the reader.
-    [_reader resetWithCompletion:^{
+    // Clear the ATR.
+
+    // Power on the PICC.
+    _piccAtrReady = NO;
+    _resultReady = NO;
+    if (![_reader piccPowerOnWithTimeout:_piccTimeout cardType:_piccCardType]) {
         
-        // Hide the progress.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [alert dismissWithClickedButtonIndex:0 animated:YES];
-        });
-    }];
+        // Show the request queue error.
+        [self showRequestQueueError];
+        
+    } else {
+        
+        NSLog(@"Success");
+        // Show the PICC ATR.
+        //[self showPiccAtr:piccViewController];
+    }
+    
+    
+    
+    
+}
+
+
+- (void)showRequestQueueError {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // Show the result.
+        UIAlertView *resultAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The request cannot be queued." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [resultAlert show];
+    });
 }
 
 - (void)setSleep {
@@ -597,7 +665,7 @@
     });
 }
 
-#pragma mark - Audio Jack Reader
+#pragma mark - Audio Jack Reader Delegate
 
 - (void)reader:(ACRAudioJackReader *)reader didNotifyResult:(ACRResult *)result {
     
@@ -949,6 +1017,7 @@ cleanup:
     
     [_responseCondition lock];
     _piccAtr = [NSData dataWithBytes:atr length:length];
+    NSLog(@"FF:%@",[self toHexString:[_piccAtr bytes] length:[_piccAtr length]]);
     _piccAtrReady = YES;
     [_responseCondition signal];
     [_responseCondition unlock];
@@ -956,11 +1025,17 @@ cleanup:
 
 - (void)reader:(ACRAudioJackReader *)reader didSendPiccResponseApdu:(const uint8_t *)responseApdu length:(NSUInteger)length {
     
+    NSLog(@"SDE");
     [_responseCondition lock];
     _piccResponseApdu = [NSData dataWithBytes:responseApdu length:length];
     _piccResponseApduReady = YES;
     [_responseCondition signal];
     [_responseCondition unlock];
+}
+
+- (void)readerDidReset:(ACRAudioJackReader *)reader {
+    
+    NSLog(@"LOCo");
 }
 
 #pragma mark - Private Methods

@@ -19,6 +19,8 @@
     NSString  *filePath;
 }
 
+@property (nonatomic, strong) dispatch_source_t timerSource;
+@property (getter = isObservingMessages) BOOL observingMessages;
 
 - (void)resetReader;
 - (void)setSleep;

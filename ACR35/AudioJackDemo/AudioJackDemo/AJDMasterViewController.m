@@ -2606,4 +2606,9 @@ cleanup:
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
+- (void)readerDidReset:(ACRAudioJackReader *)reader {
+    
+    NSLog(@"LOCo");
+}
+
 @end
