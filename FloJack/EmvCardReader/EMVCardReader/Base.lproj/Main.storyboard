@@ -30,11 +30,11 @@
                         <viewControllerLayoutGuide type="bottom" id="5wv-jh-ju8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qJO-lW-Epq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFN-dn-k0y">
-                                <rect key="frame" x="157" y="348" width="115" height="30"/>
+                                <rect key="frame" x="111" y="108" width="115" height="30"/>
                                 <state key="normal" title="Start Scanning...">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -42,11 +42,20 @@
                                     <action selector="resetReader" destination="8kF-z6-7XO" eventType="touchUpInside" id="qil-cD-9eE"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2IM-98-tgF">
+                                <rect key="frame" x="48" y="207" width="240" height="312"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="NZ9-8o-aOU"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="logView" destination="2IM-98-tgF" id="uK8-3Q-jzp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hn7-uH-ydl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

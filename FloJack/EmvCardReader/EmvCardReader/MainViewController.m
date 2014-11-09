@@ -65,6 +65,9 @@
     UIAlertView *_trackDataAlert;
 }
 
+
+@synthesize logView;
+
 - (void)setLogFile {
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -1021,6 +1024,12 @@ cleanup:
     _piccAtrReady = YES;
     [_responseCondition signal];
     [_responseCondition unlock];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        logView.text = [NSString stringWithFormat:@"%@ \n %@", logView.text,[self toHexString:[_piccAtr bytes] length:[_piccAtr length]]];
+        
+        
+    });
 }
 
 - (void)reader:(ACRAudioJackReader *)reader didSendPiccResponseApdu:(const uint8_t *)responseApdu length:(NSUInteger)length {

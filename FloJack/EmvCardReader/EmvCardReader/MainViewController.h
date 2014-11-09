@@ -22,6 +22,8 @@
 @property (nonatomic, strong) dispatch_source_t timerSource;
 @property (getter = isObservingMessages) BOOL observingMessages;
 
+@property (nonatomic, strong) IBOutlet UITextView *logView;
+
 - (void)resetReader;
 - (void)setSleep;
 
