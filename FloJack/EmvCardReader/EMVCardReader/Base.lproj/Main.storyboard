@@ -33,31 +33,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgZ-of-Z3G">
-                                <rect key="frame" x="150" y="323" width="32" height="30"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Next:" destination="8kF-z6-7XO" eventType="touchUpInside" id="X9N-Dp-6LE"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFN-dn-k0y">
-                                <rect key="frame" x="142" y="370" width="40" height="30"/>
-                                <state key="normal" title="Reset">
+                                <rect key="frame" x="157" y="348" width="115" height="30"/>
+                                <state key="normal" title="Start Scanning...">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="resetReader" destination="8kF-z6-7XO" eventType="touchUpInside" id="qil-cD-9eE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPc-DL-WLG">
-                                <rect key="frame" x="142" y="399" width="59" height="30"/>
-                                <state key="normal" title="Transmit">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="transmit:" destination="8kF-z6-7XO" eventType="touchUpInside" id="Dgd-D0-fW3"/>
                                 </connections>
                             </button>
                         </subviews>
