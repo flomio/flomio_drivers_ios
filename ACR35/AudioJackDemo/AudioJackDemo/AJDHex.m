@@ -87,11 +87,7 @@
         }
 
         // Create the byte array.
-        byteArray = [NSData dataWithBytes:buffer length:length];
-        
-        // Free the buffer.
-        free(buffer);
-        buffer = NULL;
+        byteArray = [NSData dataWithBytesNoCopy:buffer length:length];
     }
     
     return byteArray;

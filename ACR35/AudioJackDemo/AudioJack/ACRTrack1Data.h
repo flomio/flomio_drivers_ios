@@ -23,6 +23,11 @@
 @property (nonatomic, readonly) NSString *jis2Data;
 
 /**
+ * Returns the track 1 string.
+ */
+@property (nonatomic, readonly) NSString *track1String;
+
+/**
  * Returns the primary account number.
  */
 @property (nonatomic, readonly) NSString *primaryAccountNumber;

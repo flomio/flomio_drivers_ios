@@ -5,15 +5,16 @@ var interface_a_c_r_audio_jack_reader =
     [ "createFrame:length:", "interface_a_c_r_audio_jack_reader.html#a49f37baa36259bf8aa9a8bb8d48f5bee", null ],
     [ "delegate", "interface_a_c_r_audio_jack_reader.html#a83791cdf5a2342cbf488950a6f332e4f", null ],
     [ "getAtrWithSlotNumber:", "interface_a_c_r_audio_jack_reader.html#ae4be584d785b7d9d353c461be8fd04c0", null ],
+    [ "getCardStateWithSlotNumber:", "interface_a_c_r_audio_jack_reader.html#aff99ac474bb55c0671e1385913badc46", null ],
     [ "getCustomId", "interface_a_c_r_audio_jack_reader.html#ad03856f3d8ce191f6227fe8fdda36101", null ],
     [ "getDeviceId", "interface_a_c_r_audio_jack_reader.html#a96bf82b62f283959c1c5e440ff5621f3", null ],
     [ "getDukptOption", "interface_a_c_r_audio_jack_reader.html#a757a136c6860cae39b31447eb71371d0", null ],
     [ "getFirmwareVersion", "interface_a_c_r_audio_jack_reader.html#a27852c460cd808939e9fbc5912525cdb", null ],
     [ "getProtocolWithSlotNumber:", "interface_a_c_r_audio_jack_reader.html#ab1ba6016abf86ed7f39e973e8c175e21", null ],
-    [ "getStateWithSlotNumber:", "interface_a_c_r_audio_jack_reader.html#a5f18a747c0cadc4ff410629f6b298045", null ],
     [ "getStatus", "interface_a_c_r_audio_jack_reader.html#af32c613b5408ff9beea354eec3e3485d", null ],
     [ "getTrackDataOption", "interface_a_c_r_audio_jack_reader.html#aa1cb3610a17efd81ecdaee87a411e0d2", null ],
     [ "initializeDukptWithIksn:iksnLength:ipek:ipekLength:", "interface_a_c_r_audio_jack_reader.html#a4e548b76a6c58f85286536ce1fda5965", null ],
+    [ "initWithMute:", "interface_a_c_r_audio_jack_reader.html#af2bc3d9ee9215c6214cda2deb4ca0160", null ],
     [ "piccPowerOff", "interface_a_c_r_audio_jack_reader.html#af7f22a208e19968ae17beb1c9e39652a", null ],
     [ "piccPowerOnWithTimeout:cardType:", "interface_a_c_r_audio_jack_reader.html#ae3a13bb6b220d2162fb42c19bf47f177", null ],
     [ "piccTransmitWithTimeout:commandApdu:length:", "interface_a_c_r_audio_jack_reader.html#ae0b09dd64cdf333aa6428135d3938053", null ],
@@ -36,5 +37,7 @@ var interface_a_c_r_audio_jack_reader =
     [ "transmitApdu:slotNum:timeout:error:", "interface_a_c_r_audio_jack_reader.html#a96ec092a1ef1d5446252584322751c61", null ],
     [ "transmitControlCommand:controlCode:slotNum:timeout:error:", "interface_a_c_r_audio_jack_reader.html#a64fc9d1188485d35ac47b51c43cab36d", null ],
     [ "transmitControlCommand:length:controlCode:slotNum:timeout:error:", "interface_a_c_r_audio_jack_reader.html#a66f173875e6e145d2cdd40f483bf23f4", null ],
-    [ "verifyData:length:", "interface_a_c_r_audio_jack_reader.html#a7d45a593abd062669b02f006d88f9aa2", null ]
+    [ "updateCardStateWithSlotNumber:timeout:error:", "interface_a_c_r_audio_jack_reader.html#a093754a10381ea19532d9e77fadaf43e", null ],
+    [ "verifyData:length:", "interface_a_c_r_audio_jack_reader.html#a7d45a593abd062669b02f006d88f9aa2", null ],
+    [ "mute", "interface_a_c_r_audio_jack_reader.html#ab876fa862e5ebac72ab2ae1150b0995e", null ]
 ];

@@ -5,5 +5,6 @@ var interface_a_c_r_track2_data =
     [ "discretionaryData", "interface_a_c_r_track2_data.html#a73a3027d5d0f98f2ea8149d6762a0e31", null ],
     [ "expirationDate", "interface_a_c_r_track2_data.html#a4f20ffcc3560a4c4caa74e44427ca911", null ],
     [ "primaryAccountNumber", "interface_a_c_r_track2_data.html#a96ac43ae8c2766315978ac268a14d33e", null ],
-    [ "serviceCode", "interface_a_c_r_track2_data.html#a000522e0621f94859388eabc9ac44352", null ]
+    [ "serviceCode", "interface_a_c_r_track2_data.html#a000522e0621f94859388eabc9ac44352", null ],
+    [ "track2String", "interface_a_c_r_track2_data.html#a3ffd303cf7095f7faa989b8a428901fe", null ]
 ];

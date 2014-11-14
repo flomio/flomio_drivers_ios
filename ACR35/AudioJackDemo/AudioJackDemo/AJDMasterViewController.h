@@ -8,7 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "AudioJack/AudioJack.h"
+#import <AudioJack/AudioJack.h>
 #import "AJDReaderViewController.h"
 #import "AJDIdViewController.h"
 #import "AJDKeysViewController.h"

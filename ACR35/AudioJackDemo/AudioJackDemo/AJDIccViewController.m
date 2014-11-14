@@ -8,7 +8,7 @@
  */
 
 #import "AJDIccViewController.h"
-#import "AudioJack/AudioJack.h"
+#import <AudioJack/AudioJack.h>
 #import "AJDHex.h"
 
 @interface AJDIccViewController ()
@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *atrLabel;
 @property (weak, nonatomic) IBOutlet UILabel *powerActionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *waitTimeoutLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cardStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *protocolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *activeProtocolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commandApduLabel;
@@ -72,7 +73,7 @@
 
         _powerAction = ACRCardWarmReset;
     }
-    self.powerActionLabel.text = [self AJD_toPowerActionString:_powerAction];
+    self.powerActionLabel.text = [self AJD_stringFromPowerAction:_powerAction];
 
     // Load the wait timeout.
     NSNumber *waitTimeout = [_defaults objectForKey:@"IccWaitTimeout"];
@@ -96,7 +97,7 @@
     } else {
         _protocols = ACRProtocolT0 | ACRProtocolT1;
     }
-    self.protocolLabel.text = [self AJD_toProtocolString:_protocols];
+    self.protocolLabel.text = [self AJD_stringFromProtocols:_protocols];
 
     // Load the command APDU.
     _commandApdu = [_defaults dataForKey:@"IccCommandApdu"];
@@ -129,6 +130,7 @@
     self.activeProtocolLabel.text = @"";
     self.responseApduLabel.text = @"";
     self.controlResponseLabel.text = @"";
+    self.cardStateLabel.text = @"";
 
     self.atrLabel.numberOfLines = 0;
     self.commandApduLabel.numberOfLines = 0;
@@ -251,16 +253,18 @@
 
                     // Show the error.
                     [self AJD_showError:error];
+                }
 
-                } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
 
                     // Show the ATR.
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    self.atrLabel.text = [AJDHex hexStringFromByteArray:atr];
 
-                        self.atrLabel.text = [AJDHex hexStringFromByteArray:atr];
-                        [self.tableView reloadData];
-                    });
-                }
+                    // Show the card state.
+                    self.cardStateLabel.text = [self AJD_stringFromCardState:[self.reader getCardStateWithSlotNumber:0]];
+
+                    [self.tableView reloadData];
+                });
             }
             @catch (NSException *exception) {
                 [self AJD_showException:exception];
@@ -295,30 +299,31 @@
 
                     // Show the error.
                     [self AJD_showError:error];
+                }
 
-                } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
 
                     // Show the active protocol.
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    switch (activeProtocol) {
 
-                        switch (activeProtocol) {
+                        case ACRProtocolT0:
+                            self.activeProtocolLabel.text = @"T=0";
+                            break;
 
-                            case ACRProtocolT0:
-                                self.activeProtocolLabel.text = @"T=0";
-                                break;
+                        case ACRProtocolT1:
+                            self.activeProtocolLabel.text = @"T=1";
+                            break;
 
-                            case ACRProtocolT1:
-                                self.activeProtocolLabel.text = @"T=1";
-                                break;
+                        default:
+                            self.activeProtocolLabel.text = @"Unknown";
+                            break;
+                    }
 
-                            default:
-                                self.activeProtocolLabel.text = @"Unknown";
-                                break;
-                        }
+                    // Show the card state.
+                    self.cardStateLabel.text = [self AJD_stringFromCardState:[self.reader getCardStateWithSlotNumber:0]];
 
-                        [self.tableView reloadData];
-                    });
-                }
+                    [self.tableView reloadData];
+                });
             }
             @catch (NSException *exception) {
                 [self AJD_showException:exception];
@@ -353,16 +358,18 @@
 
                     // Show the error.
                     [self AJD_showError:error];
+                }
 
-                } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
 
                     // Show the response APDU.
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    self.responseApduLabel.text = [AJDHex hexStringFromByteArray:responseApdu];
 
-                        self.responseApduLabel.text = [AJDHex hexStringFromByteArray:responseApdu];
-                        [self.tableView reloadData];
-                    });
-                }
+                    // Show the card state.
+                    self.cardStateLabel.text = [self AJD_stringFromCardState:[self.reader getCardStateWithSlotNumber:0]];
+
+                    [self.tableView reloadData];
+                });
             }
             @catch (NSException *exception) {
                 [self AJD_showException:exception];
@@ -417,6 +424,48 @@
                 [alert dismissWithClickedButtonIndex:0 animated:YES];
             });
         });
+
+    } else if ([cell.reuseIdentifier isEqualToString:@"UpdateCardState"]) {
+
+        // Show the progress.
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Updating the card state..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [alert show];
+
+        // Clear the card state.
+        self.cardStateLabel.text = @"";
+        [self.tableView reloadData];
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            NSError *error = nil;
+
+            @try {
+
+                // Update the card state.
+                [self.reader updateCardStateWithSlotNumber:0 timeout:_waitTimeout error:&error];
+                if (error != nil) {
+
+                    // Show the error.
+                    [self AJD_showError:error];
+                }
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    // Show the card state.
+                    self.cardStateLabel.text = [self AJD_stringFromCardState:[self.reader getCardStateWithSlotNumber:0]];
+
+                    [self.tableView reloadData];
+                });
+            }
+            @catch (NSException *exception) {
+                [self AJD_showException:exception];
+            }
+
+            // Hide the progress.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [alert dismissWithClickedButtonIndex:0 animated:YES];
+            });
+        });
     }
 }
 
@@ -456,8 +505,13 @@
     if (label != nil) {
 
         // Adjust the cell height.
-//        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
-        CGSize labelSize = CGSizeMake(0,94);
+        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
+
+        // Set the row height to 44 if it is less than zero (iOS 8.0).
+        if (height < 0) {
+            height = 44;
+        }
+
         height += labelSize.height;
     }
 
@@ -471,7 +525,7 @@
     if (_powerAction != powerAction) {
 
         _powerAction = powerAction;
-        self.powerActionLabel.text = [self AJD_toPowerActionString:_powerAction];
+        self.powerActionLabel.text = [self AJD_stringFromPowerAction:_powerAction];
 
         // Save the power action.
         [_defaults setObject:[NSNumber numberWithUnsignedInteger:_powerAction] forKey:@"IccPowerAction"];
@@ -486,7 +540,7 @@
     if (_protocols != protocols) {
 
         _protocols = protocols;
-        self.protocolLabel.text = [self AJD_toProtocolString:_protocols];
+        self.protocolLabel.text = [self AJD_stringFromProtocols:_protocols];
 
         // Save the protocols.
         [_defaults setObject:[NSNumber numberWithUnsignedInteger:_protocols] forKey:@"IccProtocols"];
@@ -576,7 +630,7 @@
  * @param powerAction the power action.
  * @return the power action string.
  */
-- (NSString *)AJD_toPowerActionString:(NSUInteger)powerAction {
+- (NSString *)AJD_stringFromPowerAction:(NSUInteger)powerAction {
 
     NSString *powerActionString = @"";
 
@@ -606,7 +660,7 @@
  * @param protocols the protocols.
  * @return the protocol string.
  */
-- (NSString *)AJD_toProtocolString:(NSUInteger)protocols {
+- (NSString *)AJD_stringFromProtocols:(NSUInteger)protocols {
 
     NSString *protocolString = @"";
 
@@ -623,7 +677,58 @@
         protocolString = [protocolString stringByAppendingString:@"T=1"];
     }
 
+    if ([protocolString length] == 0) {
+        protocolString = @"Unknown";
+    }
+
     return protocolString;
+}
+
+/**
+ * Converts the card state to string.
+ * @param cardState the card state.
+ * @return the card state string.
+ */
+- (NSString *)AJD_stringFromCardState:(ACRCardState)cardState {
+
+    NSString *cardStateString = nil;
+
+    switch (cardState) {
+
+        case ACRCardUnknown:
+            cardStateString = @"Unknown";
+            break;
+
+        case ACRCardAbsent:
+            cardStateString = @"Absent";
+            break;
+
+        case ACRCardPresent:
+            cardStateString = @"Present";
+            break;
+
+        case ACRCardSwallowed:
+            cardStateString = @"Swallowed";
+            break;
+
+        case ACRCardPowered:
+            cardStateString = @"Powered";
+            break;
+
+        case ACRCardNegotiable:
+            cardStateString = @"Negotiable";
+            break;
+
+        case ACRCardSpecific:
+            cardStateString = @"Specific";
+            break;
+
+        default:
+            cardStateString = @"Unknown";
+            break;
+    }
+
+    return cardStateString;
 }
 
 /**

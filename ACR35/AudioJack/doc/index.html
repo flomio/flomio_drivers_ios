@@ -113,7 +113,7 @@ MyViewController.h</h2>
 <div class="line"><span class="comment">//</span></div>
 <div class="line"></div>
 <div class="line"><span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#import &quot;<a class="code" href="_audio_jack_8h.html">AudioJack/AudioJack.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#import &lt;<a class="code" href="_audio_jack_8h.html">AudioJack/AudioJack.h</a>&gt;</span></div>
 <div class="line"></div>
 <div class="line">...</div>
 <div class="line"></div>
@@ -181,7 +181,7 @@ Resetting the reader</h2>
 <div class="line">...</div>
 </div><!-- fragment --><h2><a class="anchor" id="sleepmode"></a>
 Controlling the sleep mode</h2>
-<p>You can enable the sleep mode by calling <a class="el" href="interface_a_c_r_audio_jack_reader.html#aa1af8e85a03692c5ee7c153ae3d6b1a5" title="Sends a sleep request to the reader. ">sleep (ACRAudioJackReader)</a> method. If your delegate object implements <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ab8fe480d3dc5cf02861e979a9c3aed6e" title="Tells the delegate that the reader notified the result. ">reader:didNotifyResult: (ACRAudioJackReaderDelegate-p)</a> method, it will receive a notification after the operation is completed.</p>
+<p>You can enable the sleep mode by calling <a class="el" href="interface_a_c_r_audio_jack_reader.html#aa1af8e85a03692c5ee7c153ae3d6b1a5" title="Sets the reader to sleep. ">sleep (ACRAudioJackReader)</a> method. If your delegate object implements <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ab8fe480d3dc5cf02861e979a9c3aed6e" title="Tells the delegate that the reader notified the result. ">reader:didNotifyResult: (ACRAudioJackReaderDelegate-p)</a> method, it will receive a notification after the operation is completed.</p>
 <div class="fragment"><div class="line">...</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Enable the sleep mode.</span></div>
@@ -223,7 +223,7 @@ Setting the sleep timeout</h2>
 <div class="line">...</div>
 </div><!-- fragment --><h2><a class="anchor" id="firmware"></a>
 Getting the firmware version</h2>
-<p>To get the firmware version, your application should call <a class="el" href="interface_a_c_r_audio_jack_reader.html#a27852c460cd808939e9fbc5912525cdb" title="Sends a firmware version request to the reader. ">getFirmwareVersion (ACRAudioJackReader)</a> method. Your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ab85a081181a5b1aaf1c21b6d9d0d767c" title="Tells the delegate that the reader sent the firmware version. ">reader:didSendFirmwareVersion: (ACRAudioJackReaderDelegate-p)</a> method in order to receive the firmware version.</p>
+<p>To get the firmware version, your application should call <a class="el" href="interface_a_c_r_audio_jack_reader.html#a27852c460cd808939e9fbc5912525cdb" title="Gets the firmware version. ">getFirmwareVersion (ACRAudioJackReader)</a> method. Your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ab85a081181a5b1aaf1c21b6d9d0d767c" title="Tells the delegate that the reader sent the firmware version. ">reader:didSendFirmwareVersion: (ACRAudioJackReaderDelegate-p)</a> method in order to receive the firmware version.</p>
 <div class="fragment"><div class="line">...</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Get the firmware version.</span></div>
@@ -245,7 +245,7 @@ Getting the firmware version</h2>
 <div class="line">...</div>
 </div><!-- fragment --><h2><a class="anchor" id="status"></a>
 Getting the status</h2>
-<p>To get the status, your application should call <a class="el" href="interface_a_c_r_audio_jack_reader.html#af32c613b5408ff9beea354eec3e3485d" title="Sends a status request to the reader. ">getStatus (ACRAudioJackReader)</a> method. Your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#a365903a1e25b15c68ccca9fd09f77f66" title="Tells the delegate that the reader sent the status. ">reader:didSendStatus: (ACRAudioJackReaderDelegate-p)</a> method in order to receive the status.</p>
+<p>To get the status, your application should call <a class="el" href="interface_a_c_r_audio_jack_reader.html#af32c613b5408ff9beea354eec3e3485d" title="Gets the status. ">getStatus (ACRAudioJackReader)</a> method. Your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#a365903a1e25b15c68ccca9fd09f77f66" title="Tells the delegate that the reader sent the status. ">reader:didSendStatus: (ACRAudioJackReaderDelegate-p)</a> method in order to receive the status.</p>
 <div class="fragment"><div class="line">...</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Get the status.</span></div>
@@ -266,12 +266,20 @@ Getting the status</h2>
 <div class="line">...</div>
 </div><!-- fragment --><h2><a class="anchor" id="track"></a>
 Receiving the track data</h2>
-<p>When you swipe a card, the reader sends a track data through an audio channel to your iOS device. Your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ae92481cba41cc22f9218f26afbc0aa89" title="Tells the delegate that the reader sent the track data. ">reader:didSendTrackData: (ACRAudioJackReaderDelegate-p)</a> method in order to receive the track data. You can check the track error using <a class="el" href="interface_a_c_r_track_data.html#aa68bdf20940a65a189c6ec68f9a33777" title="Track 1 error code. ">ACRTrackData::track1ErrorCode</a> and <a class="el" href="interface_a_c_r_track_data.html#a3352d4f9e55047cae89611f28932a312" title="Track 2 error code. ">ACRTrackData::track2ErrorCode</a> properties. Note that the received <a class="el" href="interface_a_c_r_track_data.html" title="The ACRTrackData class represents the track data after swiping a card from the reader. ">ACRTrackData</a> object will be the instance of <a class="el" href="interface_a_c_r_aes_track_data.html" title="The ACRAesTrackData class represents the track data after swiping a card from the reader using AES mo...">ACRAesTrackData</a> or <a class="el" href="interface_a_c_r_dukpt_track_data.html" title="The ACRDukptTrackData class represents the track data after swiping a card from the reader using DUKP...">ACRDukptTrackData</a> according to the settings. You must check the type of instance before accessing the object.</p>
+<p>When you swipe a card, the reader notifies a track data and sends it through an audio channel to your iOS device. To receive the notification and the track data, your delegate object should implement <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#aafb1beb6d3d9ba225e886c677b4be05e" title="Tells the delegate that the reader notified the track data. ">readerDidNotifyTrackData: (ACRAudioJackReaderDelegate-p)</a> and <a class="el" href="protocol_a_c_r_audio_jack_reader_delegate-p.html#ae92481cba41cc22f9218f26afbc0aa89" title="Tells the delegate that the reader sent the track data. ">reader:didSendTrackData: (ACRAudioJackReaderDelegate-p)</a> method. You can check the track error using <a class="el" href="interface_a_c_r_track_data.html#aa68bdf20940a65a189c6ec68f9a33777" title="Track 1 error code. ">ACRTrackData::track1ErrorCode</a> and <a class="el" href="interface_a_c_r_track_data.html#a3352d4f9e55047cae89611f28932a312" title="Track 2 error code. ">ACRTrackData::track2ErrorCode</a> properties. Note that the received <a class="el" href="interface_a_c_r_track_data.html" title="The ACRTrackData class represents the track data after swiping a card from the reader. ">ACRTrackData</a> object will be the instance of <a class="el" href="interface_a_c_r_aes_track_data.html" title="The ACRAesTrackData class represents the track data after swiping a card from the reader using AES mo...">ACRAesTrackData</a> or <a class="el" href="interface_a_c_r_dukpt_track_data.html" title="The ACRDukptTrackData class represents the track data after swiping a card from the reader using DUKP...">ACRDukptTrackData</a> according to the settings. You must check the type of instance before accessing the object.</p>
 <p>You can get the track data using <a class="el" href="interface_a_c_r_aes_track_data.html#aaa8a942e5119a6a4e236f7455f31dc99" title="Track data. ">ACRAesTrackData::trackData</a>, <a class="el" href="interface_a_c_r_dukpt_track_data.html#ae285d2765da04ccc26fafa3fcb1a6c25" title="Track 1 data. ">ACRDukptTrackData::track1Data</a> and <a class="el" href="interface_a_c_r_dukpt_track_data.html#ab9ae42e30961faabc90b1719733d934d" title="Track 2 data. ">ACRDukptTrackData::track2Data</a> properties. Note that the track data of <a class="el" href="interface_a_c_r_aes_track_data.html" title="The ACRAesTrackData class represents the track data after swiping a card from the reader using AES mo...">ACRAesTrackData</a> object is encrypted by AES while the track data of <a class="el" href="interface_a_c_r_dukpt_track_data.html" title="The ACRDukptTrackData class represents the track data after swiping a card from the reader using DUKP...">ACRDukptTrackData</a> object is encrypted by Triple DES. You must decrypt it before accessing the original track data.</p>
 <p>After decrypting the track data of <a class="el" href="interface_a_c_r_aes_track_data.html" title="The ACRAesTrackData class represents the track data after swiping a card from the reader using AES mo...">ACRAesTrackData</a> object, you can use <a class="el" href="interface_a_c_r_track1_data.html#a872938f5c74393d1f0eec4e7bd19fa68" title="Returns an initialized ACRTrack1Data object from a given buffer of bytes. ">initWithBytes:length: (ACRTrack1Data)</a> and <a class="el" href="interface_a_c_r_track2_data.html#a4c0758ccfbe5fb1c1eb3eee87c34eca1" title="Returns an initialized ACRTrack2Data object from a given buffer of bytes. ">initWithBytes:length: (ACRTrack2Data)</a> methods to decode the track data into fields. For the track data or masked track data of <a class="el" href="interface_a_c_r_dukpt_track_data.html" title="The ACRDukptTrackData class represents the track data after swiping a card from the reader using DUKP...">ACRDukptTrackData</a> object, you can use <a class="el" href="interface_a_c_r_track1_data.html#ab5d450430962bbb8d8f5cc7362d7c177" title="Returns an initialized ACRTrack1Data object from a given string. ">initWithString: (ACRTrack1Data)</a> and <a class="el" href="interface_a_c_r_track2_data.html#af9e7ed59ce64647d3f8ed10c5a6da0f3" title="Returns an initialized ACRTrack2Data object from a given string. ">initWithString: (ACRTrack2Data)</a> methods.</p>
 <div class="fragment"><div class="line">...</div>
 <div class="line"></div>
 <div class="line">#pragma mark - Audio Jack Reader</div>
+<div class="line"></div>
+<div class="line">...</div>
+<div class="line"></div>
+<div class="line">- (void)readerDidNotifyTrackData:(<a class="code" href="interface_a_c_r_audio_jack_reader.html">ACRAudioJackReader</a> *)reader {</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// TODO: Add your code here to process the notification.</span></div>
+<div class="line">    ...</div>
+<div class="line">}</div>
 <div class="line"></div>
 <div class="line">...</div>
 <div class="line"></div>
@@ -332,8 +340,9 @@ Working with the ICC</h2>
 <li><a class="el" href="interface_a_c_r_audio_jack_reader.html#a42481668373a11bb7b54bfcba7597716" title="Transmits the APDU. ">transmitApdu:length:slotNum:timeout:error: (ACRAudioJackReader)</a></li>
 <li><a class="el" href="interface_a_c_r_audio_jack_reader.html#a64fc9d1188485d35ac47b51c43cab36d" title="Transmits the control command. ">transmitControlCommand:controlCode:slotNum:timeout:error: (ACRAudioJackReader)</a></li>
 <li><a class="el" href="interface_a_c_r_audio_jack_reader.html#a66f173875e6e145d2cdd40f483bf23f4" title="Transmits the control command. ">transmitControlCommand:length:controlCode:slotNum:timeout:error: (ACRAudioJackReader)</a></li>
+<li><a class="el" href="interface_a_c_r_audio_jack_reader.html#a093754a10381ea19532d9e77fadaf43e" title="Updates the card state. ">updateCardStateWithSlotNumber:timeout:error: (ACRAudioJackReader)</a></li>
 <li><a class="el" href="interface_a_c_r_audio_jack_reader.html#ae4be584d785b7d9d353c461be8fd04c0" title="Gets the ATR string. ">getAtrWithSlotNumber: (ACRAudioJackReader)</a></li>
-<li><a class="el" href="interface_a_c_r_audio_jack_reader.html#a5f18a747c0cadc4ff410629f6b298045" title="Gets the card state. ">getStateWithSlotNumber: (ACRAudioJackReader)</a></li>
+<li><a class="el" href="interface_a_c_r_audio_jack_reader.html#aff99ac474bb55c0671e1385913badc46" title="Gets the card state. ">getCardStateWithSlotNumber: (ACRAudioJackReader)</a></li>
 <li><a class="el" href="interface_a_c_r_audio_jack_reader.html#ab1ba6016abf86ed7f39e973e8c175e21" title="Gets the active protocol. ">getProtocolWithSlotNumber: (ACRAudioJackReader)</a></li>
 </ul>
 <p>Before transmitting the APDU, you need to reset the card using <a class="el" href="interface_a_c_r_audio_jack_reader.html#a832c9c34cdbe8089ce897e7e5e73b67b" title="Performs the power action on the card. ">powerCardWithAction:slotNum:timeout:error: (ACRAudioJackReader)</a> method. The ATR string will be returned if the card is operated normally. Otherwise, it will return the error code.</p>
@@ -452,7 +461,7 @@ Working with the PICC</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Sep 4 2014 13:56:07 for ACS Audio Jack iOS Library by
+    <li class="footer">Generated on Thu Nov 13 2014 12:04:03 for ACS Audio Jack iOS Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

@@ -24,8 +24,8 @@ To install the library to your development environment, see the section
 Release Notes
 -------------
 
-Version:      1.0.0 Preview 8
-Release Date: 4/9/2014
+Version:      1.0.0 Preview 10
+Release Date: 13/11/2014
 
 This preview library is subject to change. It may or may not work with your iOS
 device.
@@ -37,7 +37,7 @@ System Requirements
 
 Development Environment
 
-- Xcode 5.1.1 or above.
+- Xcode 6.1 or above.
 
 Supported Readers
 
@@ -55,7 +55,7 @@ Installation
 
 2. Select Build Settings tab in the Targets.
 
-3. Add "$(SRCROOT)/**" to the User Header Search Paths.
+3. Add "$(PROJECT_DIR)" to the Header Search Paths.
 
 4. Add "-ObjC" to Other Linker Flags.
 
@@ -66,9 +66,25 @@ Installation
 
 
 History
-----------
+-------
 
 Library
+
+v1.0.0 Preview 10 (13/11/2014)
+- Add mute property to ACRAudioJackReader class.
+- Add initWithMute: method to ACRAudioJackReader class.
+- Add track1String property to ACRTrack1Data class.
+- Add track2String property to ACRTrack2Data class.
+
+v1.0.0 Preview 9 (15/10/2014)
+- Add the following methods to ACRAudioJackReader class:
+  updateCardStateWithSlotNumber:timeout:error:
+- Rename getStateWithSlotNumber: to getCardStateWithSlotNumber: of
+  ACRAudioJackReader class.
+- Update the documentation.
+- Use the received message length to return the firmware version in
+  ACRAudioJackReader class.
+- Change "..." to <...> in AudioJack.h.
 
 v1.0.0 Preview 8 (4/9/2014)
 - Add the following methods to ACRAudioJackReaderDelegate protocol:
@@ -182,9 +198,61 @@ v1.0.0 Preview 1 (6/5/2013)
 
 Demo
 
+v1.0.0 Preview 9 (13/11/2014)
+- Mute the audio output if the reader is unplugged in AJDMasterViewController
+  class.
+- Wait 1 second before reset in idViewController:didSetCustomId:,
+  keysViewControllerDidSetMasterKey:, keysViewControllerDidSetAesKey:,
+  dukptViewController:didSetDukptOption:, dukptViewControllerDidInitializeDukpt:
+  and trackDataViewController:didSetTrackDataOption: method of
+  AJDMasterViewController class.
+- Update the build to 9.
+
+v1.0.0 Preview 8 (15/10/2014)
+- Add the following methods to AJDIccViewController class:
+  AJD_stringFromCardState:
+- Update the UI for ICC card state.
+- Update the card state in tableView:didSelectRowAtIndexPath: of AJDIccViewController.
+- Show the card state after doing the power action, setting the protocol and
+  transmitting the APDU in tableView:didSelectRowAtIndexPath: of
+  AJDIccViewController class.
+- Add About bar button item to AJDMasterViewController in
+  MainStoryboard.storyboard.
+- Add the following methods to AJDMasterViewController class:
+  showVersionInfo:
+- Set the row height to 44 if it is less than zero (iOS 8.0) in
+  tableView:heightForRowAtIndexPath:.
+- Replace toHexString:length: with hexStringFromByteArray:length method in
+  AJDMasterViewController class.
+- Remove the following methods from AJDMasterViewController class:
+  toHexString:length:
+  toByteArray:
+- Replace toByteArray: with byteArrayFromHexString: method in
+  AJDMasterViewController class.
+- Rename AJD_toPowerActionString: to AJD_stringFromPowerAction: method of
+  AJDIccViewController class.
+- Rename AJD_toProtocolString: to AJD_stringFromProtocols: method of
+  AJDIccViewController class.
+- Set the string to Unknown if no protocol is selected in
+  AJD_stringFromProtocols: method of AJDIccViewController class.
+- Add UITableViewCell+IOS8DetailCellFix.m to fix the detail label display
+  problem on iOS 8.
+- Let NSData to free the buffer automatically in byteArrayFromHexString: method
+  of AJDHex class.
+- Update the version to 1.0.0 and the build to 8.
+- Clear the firmware version in readerViewControllerDidGetFirmwareVersion:
+  method of AJDMasterViewController class.
+- Clear the battery level and the sleep timeout in
+  readerViewControllerDidGetStatus: method of AJDMasterViewController class.
+- Clear the custom ID in idViewControllerDidGetCustomId: method of
+  AJDMasterViewController class.
+- Clear the device ID in idViewControllerDidGetDeviceId: method of
+  AJDMasterViewController class.
+- Change "..." to <...> for AudioJack header file.
+
 v1.0.0 Preview 7 (4/9/2014)
 - Show the track error of each track and continue to show it if it contains any
-  error in reader:didSendTrackData: of AJDMasterViewController.
+  error in reader:didSendTrackData: method of AJDMasterViewController class.
 - Show the track data alert.
 
 v1.0.0 Preview 6 (10/4/2014)

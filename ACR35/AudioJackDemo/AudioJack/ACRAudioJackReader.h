@@ -180,6 +180,20 @@ typedef NSUInteger ACRTrackDataOption;
 @interface ACRAudioJackReader : NSObject
 
 /**
+ * <code>YES</code> to mute the audio output, otherwise <code>NO</code>.
+ */
+@property BOOL mute;
+
+/**
+ * Returns an initialized <code>ACRAudioJackReader</code> object with mute
+ * option.
+ * @param mute <code>YES</code> to mute the audio output, otherwise
+ *             <code>NO</code>.
+ * @return an initialized <code>ACRAudioJackReader</code> object.
+ */
+- (id)initWithMute:(BOOL)mute;
+
+/**
  * Gets the delegate.
  */
 - (id)delegate;
@@ -202,27 +216,31 @@ typedef NSUInteger ACRTrackDataOption;
 - (void)resetWithCompletion:(void (^)(void))completion;
 
 /**
- * Sends a sleep request to the reader.
- * @return true if the request is queued successfully.
+ * Sets the reader to sleep.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)sleep;
 
 /**
- * Sends a firmware version request to the reader.
- * @return true if the request is queued successfully.
+ * Gets the firmware version.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)getFirmwareVersion;
 
 /**
- * Sends a status request to the reader.
- * @return true if the request is queued successfully.
+ * Gets the status.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)getStatus;
 
 /**
  * Sets the sleep timeout.
  * @param timeout the timeout value in seconds.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)setSleepTimeout:(NSUInteger)timeout;
 
@@ -245,7 +263,8 @@ typedef NSUInteger ACRTrackDataOption;
 
 /**
  * Gets the custom ID from the reader.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)getCustomId;
 
@@ -255,60 +274,71 @@ typedef NSUInteger ACRTrackDataOption;
  * method.
  * @param customId the custom ID.
  * @param length   the custom ID length must be 10 bytes.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)setCustomId:(const uint8_t *)customId length:(NSUInteger)length;
 
 /**
  * Gets the device ID from the reader.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)getDeviceId;
 
 /**
  * Sets the master key to the reader. In order to proceed this operation, your
- * reader must be authenticated using ACRAudioJackReader::authenticate:length:
- * method.
+ * reader must be authenticated.
  * @param masterKey the master key.
  * @param length    the master key length must be 16 bytes.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:completion:
  */
 - (BOOL)setMasterKey:(const uint8_t *)masterKey length:(NSUInteger)length;
 
 /**
  * Sets the AES key to the reader. In order to proceed this operation, your
- * reader must be authenticated using ACRAudioJackReader::authenticate:length:
- * method.
+ * reader must be authenticated.
  * @param aesKey the AES key.
  * @param length the AES key length must be 16 bytes.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:completion:
  */
 - (BOOL)setAesKey:(const uint8_t *)aesKey length:(NSUInteger)length;
 
 /**
  * Gets the DUKPT option from the reader.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)getDukptOption;
 
 /**
  * Sets the DUKPT option to the reader. In order to proceed this operation, your
- * reader must be authenticated using ACRAudioJackReader::authenticate:length:
- * method.
+ * reader must be authenticated.
  * @param enabled set to true to enable DUKPT. Otherwise, set to false.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:completion:
  */
 - (BOOL)setDukptOption:(BOOL)enabled;
 
 /**
  * Initializes DUKPT to the reader. In order to proceed this operation, your
- * reader must be authenticated using ACRAudioJackReader::authenticate:length:
- * method.
+ * reader must be authenticated.
  * @param iksn       the initial key serial number (IKSN).
  * @param iksnLength the IKSN length must be 10 bytes.
  * @param ipek       the initial PIN encryption key (IPEK).
  * @param ipekLength the IPEK length must be 16 bytes.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:
+ * @see ACRAudioJackReader::authenticateWithMasterKey:length:completion:
  */
 - (BOOL)initializeDukptWithIksn:(const uint8_t *)iksn iksnLength:(NSUInteger)iksnLength ipek:(const uint8_t *)ipek ipekLength:(NSUInteger)ipekLength;
 
@@ -339,7 +369,8 @@ typedef NSUInteger ACRTrackDataOption;
  * @param timeout  the timeout value in seconds.
  * @param cardType the card type. See {@link #ACRPiccCardType}. It can be
  *                 combined with OR operation.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)piccPowerOnWithTimeout:(NSUInteger)timeout cardType:(NSUInteger)cardType;
 
@@ -348,13 +379,15 @@ typedef NSUInteger ACRTrackDataOption;
  * @param timeout     the timeout value in seconds.
  * @param commandApdu the command APDU.
  * @param length      the command APDU length.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)piccTransmitWithTimeout:(NSUInteger)timeout commandApdu:(const uint8_t *)commandApdu length:(NSUInteger)length;
 
 /**
  * Powers off the PICC.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)piccPowerOff;
 
@@ -362,7 +395,8 @@ typedef NSUInteger ACRTrackDataOption;
  * Sets the PICC RF configuration.
  * @param rfConfig the RF configuration. The length must be 19 bytes.
  * @param length   the RF configuration length.
- * @return true if the request is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)setPiccRfConfig:(const uint8_t *)rfConfig length:(NSUInteger)length;
 
@@ -447,6 +481,15 @@ typedef NSUInteger ACRTrackDataOption;
 - (NSData *)transmitControlCommand:(const uint8_t *)command length:(NSUInteger)length controlCode:(NSUInteger)controlCode slotNum:(NSUInteger)slotNum timeout:(NSTimeInterval)timeout error:(NSError **)errorPtr;
 
 /**
+ * Updates the card state.
+ * @param slotNum  the slot number.
+ * @param timeout  the maximum time to wait in seconds.
+ * @param errorPtr if there is an error, upon return contains an
+ *                 <code>NSError</code> object that describes the problem.
+ */
+- (void)updateCardStateWithSlotNumber:(NSUInteger)slotNum timeout:(NSTimeInterval)timeout error:(NSError **)errorPtr;
+
+/**
  * Gets the ATR string.
  * @param slotNum the slot number.
  * @return the ATR string.
@@ -458,7 +501,7 @@ typedef NSUInteger ACRTrackDataOption;
  * @param slotNum the slot number.
  * @return the card state. See ::ACRCardState.
  */
-- (ACRCardState)getStateWithSlotNumber:(NSUInteger)slotNum;
+- (ACRCardState)getCardStateWithSlotNumber:(NSUInteger)slotNum;
 
 /**
  * Gets the active protocol.
@@ -471,7 +514,8 @@ typedef NSUInteger ACRTrackDataOption;
  * Sends a command to the reader.
  * @param buffer the buffer.
  * @param length the buffer length.
- * @return true if the command is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)sendCommand:(const void *)buffer length:(NSUInteger)length;
 
@@ -486,7 +530,8 @@ typedef NSUInteger ACRTrackDataOption;
 /**
  * Sends a frame to the reader.
  * @param frameData the frame data.
- * @return true if the command is queued successfully.
+ * @return <code>YES</code> if the request is queued successfully, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)sendFrame:(NSData *)frameData;
 
@@ -495,7 +540,8 @@ typedef NSUInteger ACRTrackDataOption;
  * bytes of data.
  * @param buffer the buffer.
  * @param length the buffer length.
- * @return true if the checksum is correct.
+ * @return <code>YES</code> if the checksum is correct, otherwise
+ *         <code>NO</code>.
  */
 - (BOOL)verifyData:(const void *)buffer length:(NSUInteger)length;
 

@@ -18,6 +18,11 @@
 @interface ACRTrack2Data : NSObject
 
 /**
+ * Returns the track 2 string.
+ */
+@property (nonatomic, readonly) NSString *track2String;
+
+/**
  * Returns the primary account number.
  */
 @property (nonatomic, readonly) NSString *primaryAccountNumber;

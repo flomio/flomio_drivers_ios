@@ -19,7 +19,7 @@
 		5609540D16AFC86B004DB9EE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5609540B16AFC86B004DB9EE /* MainStoryboard.storyboard */; };
 		5609541016AFC86B004DB9EE /* AJDMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5609540F16AFC86B004DB9EE /* AJDMasterViewController.m */; };
 		562F93401855B63600812027 /* AJDPiccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 562F933F1855B63600812027 /* AJDPiccViewController.m */; };
-		568D3F2119B838330042071C /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568D3F2019B838330042071C /* libAudioJack.a */; };
+		568C7BE51A1461B8003FAAC0 /* libAudioJack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 568C7BE41A1461B8003FAAC0 /* libAudioJack.a */; };
 		56AB84AF17B0EAD60055A643 /* dummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56AB84AE17B0EAD60055A643 /* dummy.mm */; };
 		56C04C91181E6D3D00869140 /* AJDReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C04C90181E6D3D00869140 /* AJDReaderViewController.m */; };
 		56C04C94181E6DE800869140 /* AJDIdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C04C93181E6DE800869140 /* AJDIdViewController.m */; };
@@ -30,6 +30,7 @@
 		56E5D1F618B3102100FF02CE /* AJDIccViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1F518B3102100FF02CE /* AJDIccViewController.m */; };
 		56E5D1F918B316CC00FF02CE /* AJDIccPowerActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1F818B316CC00FF02CE /* AJDIccPowerActionViewController.m */; };
 		56E5D1FC18B316DF00FF02CE /* AJDIccProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E5D1FB18B316DF00FF02CE /* AJDIccProtocolViewController.m */; };
+		56EB17BC19EBA73E009B582B /* UITableViewCell+IOS8DetailCellFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 56EB17BB19EBA73E009B582B /* UITableViewCell+IOS8DetailCellFix.m */; };
 		56F7077816B3CB7200D9E6B4 /* ACSIcon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 56F7077716B3CB7200D9E6B4 /* ACSIcon_57x57.png */; };
 		56F7077A16B3CB7B00D9E6B4 /* ACSIcon_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 56F7077916B3CB7B00D9E6B4 /* ACSIcon_114x114.png */; };
 		56FC204F16B0CBD6001BDE40 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FC204E16B0CBD6001BDE40 /* AudioToolbox.framework */; };
@@ -54,19 +55,19 @@
 		5609540F16AFC86B004DB9EE /* AJDMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AJDMasterViewController.m; sourceTree = "<group>"; };
 		562F933E1855B63600812027 /* AJDPiccViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDPiccViewController.h; sourceTree = "<group>"; };
 		562F933F1855B63600812027 /* AJDPiccViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDPiccViewController.m; sourceTree = "<group>"; };
-		568D3F1419B838330042071C /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
-		568D3F1519B838330042071C /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
-		568D3F1619B838330042071C /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
-		568D3F1719B838330042071C /* ACRDukptReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptReceiver.h; sourceTree = "<group>"; };
-		568D3F1819B838330042071C /* ACRDukptTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptTrackData.h; sourceTree = "<group>"; };
-		568D3F1919B838330042071C /* ACRResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRResult.h; sourceTree = "<group>"; };
-		568D3F1A19B838330042071C /* ACRStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRStatus.h; sourceTree = "<group>"; };
-		568D3F1B19B838330042071C /* ACRTrack1Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack1Data.h; sourceTree = "<group>"; };
-		568D3F1C19B838330042071C /* ACRTrack2Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack2Data.h; sourceTree = "<group>"; };
-		568D3F1D19B838330042071C /* ACRTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrackData.h; sourceTree = "<group>"; };
-		568D3F1E19B838330042071C /* AudioJack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJack.h; sourceTree = "<group>"; };
-		568D3F1F19B838330042071C /* AudioJackErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJackErrors.h; sourceTree = "<group>"; };
-		568D3F2019B838330042071C /* libAudioJack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAudioJack.a; sourceTree = "<group>"; };
+		568C7BD81A1461B8003FAAC0 /* ACRAesTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAesTrackData.h; sourceTree = "<group>"; };
+		568C7BD91A1461B8003FAAC0 /* ACRAudioJackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRAudioJackReader.h; sourceTree = "<group>"; };
+		568C7BDA1A1461B8003FAAC0 /* ACRCRC16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRCRC16.h; sourceTree = "<group>"; };
+		568C7BDB1A1461B8003FAAC0 /* ACRDukptReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptReceiver.h; sourceTree = "<group>"; };
+		568C7BDC1A1461B8003FAAC0 /* ACRDukptTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRDukptTrackData.h; sourceTree = "<group>"; };
+		568C7BDD1A1461B8003FAAC0 /* ACRResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRResult.h; sourceTree = "<group>"; };
+		568C7BDE1A1461B8003FAAC0 /* ACRStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRStatus.h; sourceTree = "<group>"; };
+		568C7BDF1A1461B8003FAAC0 /* ACRTrack1Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack1Data.h; sourceTree = "<group>"; };
+		568C7BE01A1461B8003FAAC0 /* ACRTrack2Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrack2Data.h; sourceTree = "<group>"; };
+		568C7BE11A1461B8003FAAC0 /* ACRTrackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACRTrackData.h; sourceTree = "<group>"; };
+		568C7BE21A1461B8003FAAC0 /* AudioJack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJack.h; sourceTree = "<group>"; };
+		568C7BE31A1461B8003FAAC0 /* AudioJackErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioJackErrors.h; sourceTree = "<group>"; };
+		568C7BE41A1461B8003FAAC0 /* libAudioJack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAudioJack.a; sourceTree = "<group>"; };
 		56AB84AE17B0EAD60055A643 /* dummy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dummy.mm; sourceTree = "<group>"; };
 		56C04C8F181E6D3D00869140 /* AJDReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDReaderViewController.h; sourceTree = "<group>"; };
 		56C04C90181E6D3D00869140 /* AJDReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDReaderViewController.m; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		56E5D1F818B316CC00FF02CE /* AJDIccPowerActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDIccPowerActionViewController.m; sourceTree = "<group>"; };
 		56E5D1FA18B316DF00FF02CE /* AJDIccProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDIccProtocolViewController.h; sourceTree = "<group>"; };
 		56E5D1FB18B316DF00FF02CE /* AJDIccProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDIccProtocolViewController.m; sourceTree = "<group>"; };
+		56EB17BB19EBA73E009B582B /* UITableViewCell+IOS8DetailCellFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+IOS8DetailCellFix.m"; sourceTree = "<group>"; };
 		56F7077716B3CB7200D9E6B4 /* ACSIcon_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ACSIcon_57x57.png; sourceTree = "<group>"; };
 		56F7077916B3CB7B00D9E6B4 /* ACSIcon_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ACSIcon_114x114.png; sourceTree = "<group>"; };
 		56FC204E16B0CBD6001BDE40 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -100,7 +102,7 @@
 				560953F416AFC86B004DB9EE /* UIKit.framework in Frameworks */,
 				560953F616AFC86B004DB9EE /* Foundation.framework in Frameworks */,
 				560953F816AFC86B004DB9EE /* CoreGraphics.framework in Frameworks */,
-				568D3F2119B838330042071C /* libAudioJack.a in Frameworks */,
+				568C7BE51A1461B8003FAAC0 /* libAudioJack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +114,7 @@
 			children = (
 				56F7077916B3CB7B00D9E6B4 /* ACSIcon_114x114.png */,
 				56F7077716B3CB7200D9E6B4 /* ACSIcon_57x57.png */,
-				568D3F1319B838330042071C /* AudioJack */,
+				568C7BD71A1461B8003FAAC0 /* AudioJack */,
 				560953F916AFC86B004DB9EE /* AudioJackDemo */,
 				560953F216AFC86B004DB9EE /* Frameworks */,
 				560953F016AFC86B004DB9EE /* Products */,
@@ -168,6 +170,7 @@
 				56AB84AE17B0EAD60055A643 /* dummy.mm */,
 				5609540B16AFC86B004DB9EE /* MainStoryboard.storyboard */,
 				560953FA16AFC86B004DB9EE /* Supporting Files */,
+				56EB17BB19EBA73E009B582B /* UITableViewCell+IOS8DetailCellFix.m */,
 			);
 			path = AudioJackDemo;
 			sourceTree = "<group>";
@@ -186,22 +189,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		568D3F1319B838330042071C /* AudioJack */ = {
+		568C7BD71A1461B8003FAAC0 /* AudioJack */ = {
 			isa = PBXGroup;
 			children = (
-				568D3F1419B838330042071C /* ACRAesTrackData.h */,
-				568D3F1519B838330042071C /* ACRAudioJackReader.h */,
-				568D3F1619B838330042071C /* ACRCRC16.h */,
-				568D3F1719B838330042071C /* ACRDukptReceiver.h */,
-				568D3F1819B838330042071C /* ACRDukptTrackData.h */,
-				568D3F1919B838330042071C /* ACRResult.h */,
-				568D3F1A19B838330042071C /* ACRStatus.h */,
-				568D3F1B19B838330042071C /* ACRTrack1Data.h */,
-				568D3F1C19B838330042071C /* ACRTrack2Data.h */,
-				568D3F1D19B838330042071C /* ACRTrackData.h */,
-				568D3F1E19B838330042071C /* AudioJack.h */,
-				568D3F1F19B838330042071C /* AudioJackErrors.h */,
-				568D3F2019B838330042071C /* libAudioJack.a */,
+				568C7BD81A1461B8003FAAC0 /* ACRAesTrackData.h */,
+				568C7BD91A1461B8003FAAC0 /* ACRAudioJackReader.h */,
+				568C7BDA1A1461B8003FAAC0 /* ACRCRC16.h */,
+				568C7BDB1A1461B8003FAAC0 /* ACRDukptReceiver.h */,
+				568C7BDC1A1461B8003FAAC0 /* ACRDukptTrackData.h */,
+				568C7BDD1A1461B8003FAAC0 /* ACRResult.h */,
+				568C7BDE1A1461B8003FAAC0 /* ACRStatus.h */,
+				568C7BDF1A1461B8003FAAC0 /* ACRTrack1Data.h */,
+				568C7BE01A1461B8003FAAC0 /* ACRTrack2Data.h */,
+				568C7BE11A1461B8003FAAC0 /* ACRTrackData.h */,
+				568C7BE21A1461B8003FAAC0 /* AudioJack.h */,
+				568C7BE31A1461B8003FAAC0 /* AudioJackErrors.h */,
+				568C7BE41A1461B8003FAAC0 /* libAudioJack.a */,
 			);
 			path = AudioJack;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				5609540016AFC86B004DB9EE /* main.m in Sources */,
 				56C04C94181E6DE800869140 /* AJDIdViewController.m in Sources */,
 				5609540416AFC86B004DB9EE /* AJDAppDelegate.m in Sources */,
+				56EB17BC19EBA73E009B582B /* UITableViewCell+IOS8DetailCellFix.m in Sources */,
 				5609541016AFC86B004DB9EE /* AJDMasterViewController.m in Sources */,
 				56AB84AF17B0EAD60055A643 /* dummy.mm in Sources */,
 			);
@@ -369,15 +373,18 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AudioJackDemo/AudioJackDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/AudioJackDemo/AudioJackDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioJack",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AudioJackDemo;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -387,15 +394,18 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AudioJackDemo/AudioJackDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/AudioJackDemo/AudioJackDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioJack",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AudioJackDemo;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

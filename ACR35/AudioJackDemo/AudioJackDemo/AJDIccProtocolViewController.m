@@ -8,7 +8,7 @@
  */
 
 #import "AJDIccProtocolViewController.h"
-#import "AudioJack/AudioJack.h"
+#import <AudioJack/AudioJack.h>
 
 @interface AJDIccProtocolViewController ()
 

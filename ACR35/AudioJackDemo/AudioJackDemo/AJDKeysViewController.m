@@ -158,8 +158,13 @@
     if (label != nil) {
 
         // Adjust the cell height.
-//        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
-        CGSize labelSize = CGSizeMake(0,94);
+        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
+
+        // Set the row height to 44 if it is less than zero (iOS 8.0).
+        if (height < 0) {
+            height = 44;
+        }
+
         height += labelSize.height;
     }
     

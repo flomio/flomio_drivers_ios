@@ -7,5 +7,6 @@ var interface_a_c_r_track1_data =
     [ "jis2Data", "interface_a_c_r_track1_data.html#aee2add1cf883de24d4326387dad6e0e5", null ],
     [ "name", "interface_a_c_r_track1_data.html#a6426195d0fae8f623dbd6973288d646b", null ],
     [ "primaryAccountNumber", "interface_a_c_r_track1_data.html#a627e1551cbb92b66193de8cb92c2a9c4", null ],
-    [ "serviceCode", "interface_a_c_r_track1_data.html#a077b64d5fdf70b0e01bbddd77512c8ca", null ]
+    [ "serviceCode", "interface_a_c_r_track1_data.html#a077b64d5fdf70b0e01bbddd77512c8ca", null ],
+    [ "track1String", "interface_a_c_r_track1_data.html#adf1d5cc0f38bc88da64527c2b3cf7944", null ]
 ];

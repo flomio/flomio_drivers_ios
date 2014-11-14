@@ -8,7 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "AudioJack/AudioJack.h"
+#import <AudioJack/AudioJack.h>
 
 /**
  * The <code>AJDTrackDataViewController</code> class shows the track data

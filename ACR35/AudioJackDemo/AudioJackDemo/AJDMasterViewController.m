@@ -9,6 +9,7 @@
 
 #import "AJDMasterViewController.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "AJDHex.h"
 
 @interface AJDMasterViewController ()
@@ -33,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *track2DiscretionaryDataLabel;
 
 - (IBAction)clearData:(id)sender;
+- (IBAction)showVersionInfo:(id)sender;
 
 @end
 
@@ -102,8 +104,14 @@
 	// Do any additional setup after loading the view, typically from a nib.
 
     // Initialize ACRAudioJackReader object.
-    _reader = [[ACRAudioJackReader alloc] init];
+    _reader = [[ACRAudioJackReader alloc] initWithMute:YES];
     [_reader setDelegate:self];
+
+    // Set mute to YES if the reader is unplugged, otherwise NO.
+    _reader.mute = !AJDIsReaderPlugged();
+
+    // Listen the audio route change.
+    AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, AJDAudioRouteChangeListener, (__bridge void *) self);
 
     _swipeCount = 0;
 
@@ -189,8 +197,8 @@
     uint8_t cardType[] = { 0 };
     [self toByteArray:_piccCardTypeString buffer:cardType bufferSize:sizeof(cardType)];
     _piccCardType = cardType[0];
-    _piccCommandApdu = [self toByteArray:_piccCommandApduString];
-    _piccRfConfig = [self toByteArray:_piccRfConfigString];
+    _piccCommandApdu = [AJDHex byteArrayFromHexString:_piccCommandApduString];
+    _piccRfConfig = [AJDHex byteArrayFromHexString:_piccRfConfigString];
 
     self.swipeCountLabel.text = @"0";
     self.batteryStatusLabel.text = @"";
@@ -239,22 +247,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSString *)toHexString:(const uint8_t *)buffer length:(size_t)length {
-
-    NSString *hexString = @"";
-    size_t i = 0;
-
-    for (i = 0; i < length; i++) {
-        if (i == 0) {
-            hexString = [hexString stringByAppendingFormat:@"%02X", buffer[i]];
-        } else {
-            hexString = [hexString stringByAppendingFormat:@" %02X", buffer[i]];
-        }
-    }
-
-    return hexString;
-}
-
 - (NSUInteger)toByteArray:(NSString *)hexString buffer:(uint8_t *)buffer bufferSize:(NSUInteger)bufferSize {
 
     NSUInteger length = 0;
@@ -297,73 +289,6 @@
     }
 
     return length;
-}
-
-- (NSData *)toByteArray:(NSString *)hexString {
-
-    NSData *byteArray = nil;
-    uint8_t *buffer = NULL;
-    NSUInteger i = 0;
-    unichar c = 0;
-    NSUInteger count = 0;
-    int num = 0;
-    BOOL first = YES;
-    NSUInteger length = 0;
-
-    // Count the number of HEX characters.
-    for (i = 0; i < [hexString length]; i++) {
-
-        c = [hexString characterAtIndex:i];
-        if (((c >= '0') && (c <= '9')) ||
-            ((c >= 'A') && (c <= 'F')) ||
-            ((c >= 'a') && (c <= 'f'))) {
-            count++;
-        }
-    }
-
-    // Allocate the buffer.
-    buffer = (uint8_t *) malloc((count + 1) / 2);
-
-    if (buffer != NULL) {
-
-        for (i = 0; i < [hexString length]; i++) {
-
-            c = [hexString characterAtIndex:i];
-            if ((c >= '0') && (c <= '9')) {
-                num = c - '0';
-            } else if ((c >= 'A') && (c <= 'F')) {
-                num = c - 'A' + 10;
-            } else if ((c >= 'a') && (c <= 'f')) {
-                num = c - 'a' + 10;
-            } else {
-                num = -1;
-            }
-
-            if (num >= 0) {
-
-                if (first) {
-
-                    buffer[length] = num << 4;
-
-                } else {
-                    
-                    buffer[length] |= num;
-                    length++;
-                }
-                
-                first = !first;
-            }
-        }
-
-        // Create the byte array.
-        byteArray = [[NSData alloc] initWithBytes:buffer length:length];
-
-        // Free the buffer.
-        free(buffer);
-        buffer = NULL;
-    }
-
-    return byteArray;
 }
 
 - (NSString *)toBatteryLevelString:(NSUInteger)batteryLevel {
@@ -487,6 +412,17 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)showVersionInfo:(id)sender {
+
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+    NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"About %@", name] message:[NSString stringWithFormat:@"Version %@ (%@)", version, build] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - Table View
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -534,9 +470,9 @@
         piccViewController.atrString = @"";
         piccViewController.timeout = _piccTimeout;
         piccViewController.cardTypeString = [NSString stringWithFormat:@"%02lX", (unsigned long)_piccCardType];
-        piccViewController.commandApduString = [self toHexString:[_piccCommandApdu bytes] length:[_piccCommandApdu length]];
+        piccViewController.commandApduString = [AJDHex hexStringFromByteArray:[_piccCommandApdu bytes] length:[_piccCommandApdu length]];
         piccViewController.responseApduString = @"";
-        piccViewController.rfConfigString = [self toHexString:[_piccRfConfig bytes] length:[_piccRfConfig length]];
+        piccViewController.rfConfigString = [AJDHex hexStringFromByteArray:[_piccRfConfig bytes] length:[_piccRfConfig length]];
     }
 }
 
@@ -648,8 +584,13 @@
     if (label != nil) {
 
         // Adjust the cell height.
-//        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
-        CGSize labelSize = CGSizeMake(0,94);
+        CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(tableView.frame.size.width - 40.0, MAXFLOAT) lineBreakMode:label.lineBreakMode];
+
+        // Set the row height to 44 if it is less than zero (iOS 8.0).
+        if (height < 0) {
+            height = 44;
+        }
+
         height += labelSize.height;
     }
     
@@ -946,7 +887,7 @@ cleanup:
 
 - (void)reader:(ACRAudioJackReader *)reader didSendRawData:(const uint8_t *)rawData length:(NSUInteger)length {
 
-    NSString *hexString = [self toHexString:rawData length:length];
+    NSString *hexString = [AJDHex hexStringFromByteArray:rawData length:length];
 
     hexString = [hexString stringByAppendingString:[_reader verifyData:rawData length:length] ? @" (Checksum OK)" : @" (Checksum Error)"];
 
@@ -1019,6 +960,10 @@ cleanup:
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Getting the firmware version..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
 
+    // Clear the firmware version.
+    readerViewController.firmwareVersionLabel.text = @"";
+    [readerViewController.tableView reloadData];
+
     // Reset the reader.
     [_reader resetWithCompletion:^{
 
@@ -1048,6 +993,11 @@ cleanup:
     // Show the progress.
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Getting the status..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
+
+    // Clear the battery level and the sleep timeout.
+    readerViewController.batteryLevelLabel.text = @"";
+    readerViewController.sleepTimeoutLabel.text = @"";
+    [readerViewController.tableView reloadData];
 
     // Reset the reader.
     [_reader resetWithCompletion:^{
@@ -1266,6 +1216,10 @@ cleanup:
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Getting the custom ID..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
 
+    // Clear the custom ID.
+    idViewController.customIdLabel.text = @"";
+    [idViewController.tableView reloadData];
+
     // Reset the reader.
     [_reader resetWithCompletion:^{
 
@@ -1339,6 +1293,9 @@ cleanup:
                             [self showResult];
                         }
 
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
+
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
 
@@ -1398,6 +1355,10 @@ cleanup:
     // Show the progress.
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Getting the device ID..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
+
+    // Clear the device ID.
+    idViewController.deviceIdLabel.text = @"";
+    [idViewController.tableView reloadData];
 
     // Reset the reader.
     [_reader resetWithCompletion:^{
@@ -1484,7 +1445,7 @@ cleanup:
         dispatch_async(dispatch_get_main_queue(), ^{
 
             // Show the device ID.
-            idViewController.deviceIdLabel.text = [self toHexString:[_deviceId bytes] length:[_deviceId length]];
+            idViewController.deviceIdLabel.text = [AJDHex hexStringFromByteArray:[_deviceId bytes] length:[_deviceId length]];
             [idViewController.tableView reloadData];
         });
 
@@ -1624,6 +1585,9 @@ cleanup:
                             [self showResult];
                         }
 
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
+
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
 
@@ -1706,6 +1670,9 @@ cleanup:
                             // Show the result.
                             [self showResult];
                         }
+
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
 
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
@@ -1880,6 +1847,9 @@ cleanup:
                             [self showResult];
                         }
 
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
+
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
 
@@ -1976,6 +1946,9 @@ cleanup:
                             // Show the result.
                             [self showResult];
                         }
+
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
 
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
@@ -2139,6 +2112,9 @@ cleanup:
                             [self showResult];
                         }
 
+                        // Wait 1 second.
+                        [NSThread sleepForTimeInterval:1];
+
                         // Reset the reader to take effect.
                         [_reader resetWithCompletion:^{
 
@@ -2237,12 +2213,12 @@ cleanup:
 
 - (void)piccViewController:(AJDPiccViewController *)piccViewController didChangeCommandApdu:(NSString *)commandApduString {
 
-    NSData *commandApdu = [self toByteArray:commandApduString];
+    NSData *commandApdu = [AJDHex byteArrayFromHexString:commandApduString];
 
     if (![commandApdu isEqualToData:_piccCommandApdu]) {
 
         _piccCommandApdu = commandApdu;
-        _piccCommandApduString = [self toHexString:[commandApdu bytes] length:[commandApdu length]];
+        _piccCommandApduString = [AJDHex hexStringFromByteArray:[commandApdu bytes] length:[commandApdu length]];
         piccViewController.commandApduString = _piccCommandApduString;
         piccViewController.commandApduLabel.text = _piccCommandApduString;
         [piccViewController.tableView reloadData];
@@ -2253,7 +2229,7 @@ cleanup:
 
 - (void)piccViewController:(AJDPiccViewController *)piccViewController didChangeRfConfig:(NSString *)rfConfigString {
 
-    NSData *rfConfig = [self toByteArray:rfConfigString];
+    NSData *rfConfig = [AJDHex byteArrayFromHexString:rfConfigString];
 
     if ([rfConfig length] != 19) {
 
@@ -2265,7 +2241,7 @@ cleanup:
         if (![rfConfig isEqualToData:_piccRfConfig]) {
 
             _piccRfConfig = rfConfig;
-            _piccRfConfigString = [self toHexString:[rfConfig bytes] length:[rfConfig length]];
+            _piccRfConfigString = [AJDHex hexStringFromByteArray:[rfConfig bytes] length:[rfConfig length]];
             piccViewController.rfConfigString = _piccRfConfigString;
             piccViewController.rfConfigLabel.text = _piccRfConfigString;
             [piccViewController.tableView reloadData];
@@ -2328,7 +2304,7 @@ cleanup:
         dispatch_async(dispatch_get_main_queue(), ^{
 
             // Show the PICC ATR.
-            piccViewController.atrLabel.text = [self toHexString:[_piccAtr bytes] length:[_piccAtr length]];
+            piccViewController.atrLabel.text = [AJDHex hexStringFromByteArray:[_piccAtr bytes] length:[_piccAtr length]];
             [piccViewController.tableView reloadData];
         });
 
@@ -2434,7 +2410,7 @@ cleanup:
         dispatch_async(dispatch_get_main_queue(), ^{
 
             // Show the PICC response APDU.
-            piccViewController.responseApduLabel.text = [self toHexString:[_piccResponseApdu bytes] length:[_piccResponseApdu length]];
+            piccViewController.responseApduLabel.text = [AJDHex hexStringFromByteArray:[_piccResponseApdu bytes] length:[_piccResponseApdu length]];
             [piccViewController.tableView reloadData];
         });
 
@@ -2606,9 +2582,40 @@ cleanup:
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-- (void)readerDidReset:(ACRAudioJackReader *)reader {
-    
-    NSLog(@"LOCo");
+#pragma mark - Private Functions
+
+/**
+ * Returns <code>YES</code> if the reader is plugged, otherwise <code>NO</code>.
+ */
+static BOOL AJDIsReaderPlugged() {
+
+    BOOL plugged = NO;
+    CFStringRef route = NULL;
+    UInt32 routeSize = sizeof(route);
+
+    if (AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &routeSize, &route) == kAudioSessionNoError) {
+        if (CFStringCompare(route, CFSTR("HeadsetInOut"), kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+            plugged = YES;
+        }
+    }
+
+    return plugged;
+}
+
+/**
+ * Listens the audio route change.
+ * @param inClientData the <code>AJDMasterViewController</code> object.
+ * @param inID         the <code>kAudioSessionProperty_AudioRoute</code>
+ *                     constant.
+ * @param inDataSize   the property size.
+ * @param inData       the property.
+ */
+static void AJDAudioRouteChangeListener(void *inClientData, AudioSessionPropertyID inID, UInt32 inDataSize, const void *inData) {
+
+    AJDMasterViewController *viewController = (__bridge AJDMasterViewController *) inClientData;
+
+    // Set mute to YES if the reader is unplugged, otherwise NO.
+    viewController->_reader.mute = !AJDIsReaderPlugged();
 }
 
 @end

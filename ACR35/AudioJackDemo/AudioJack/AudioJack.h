@@ -7,17 +7,17 @@
  * of the license agreement you entered into with ACS.
  */
 
-#import "AudioJack/ACRCRC16.h"
-#import "AudioJack/ACRAudioJackReader.h"
-#import "AudioJack/ACRResult.h"
-#import "AudioJack/ACRStatus.h"
-#import "AudioJack/ACRTrack1Data.h"
-#import "AudioJack/ACRTrack2Data.h"
-#import "AudioJack/ACRTrackData.h"
-#import "AudioJack/ACRAesTrackData.h"
-#import "AudioJack/ACRDukptTrackData.h"
-#import "AudioJack/ACRDukptReceiver.h"
-#import "AudioJack/AudioJackErrors.h"
+#import <AudioJack/ACRCRC16.h>
+#import <AudioJack/ACRAudioJackReader.h>
+#import <AudioJack/ACRResult.h>
+#import <AudioJack/ACRStatus.h>
+#import <AudioJack/ACRTrack1Data.h>
+#import <AudioJack/ACRTrack2Data.h>
+#import <AudioJack/ACRTrackData.h>
+#import <AudioJack/ACRAesTrackData.h>
+#import <AudioJack/ACRDukptTrackData.h>
+#import <AudioJack/ACRDukptReceiver.h>
+#import <AudioJack/AudioJackErrors.h>
 
 /**
 @mainpage
@@ -45,7 +45,7 @@ protocol.
 //
 
 #import <UIKit/UIKit.h>
-#import "AudioJack/AudioJack.h"
+#import <AudioJack/AudioJack.h>
 
 ...
 
@@ -238,14 +238,15 @@ status.
 
 @subsection track Receiving the track data
 
-When you swipe a card, the reader sends a track data through an audio channel to
-your iOS device. Your delegate object should implement
-ACRAudioJackReaderDelegate::reader:didSendTrackData: method in order to receive
-the track data. You can check the track error using
-ACRTrackData::track1ErrorCode and ACRTrackData::track2ErrorCode properties. Note
-that the received ACRTrackData object will be the instance of ACRAesTrackData or
-ACRDukptTrackData according to the settings. You must check the type of instance
-before accessing the object.
+When you swipe a card, the reader notifies a track data and sends it through an
+audio channel to your iOS device. To receive the notification and the track
+data, your delegate object should implement
+ACRAudioJackReaderDelegate::readerDidNotifyTrackData: and
+ACRAudioJackReaderDelegate::reader:didSendTrackData: method. You can check the
+track error using ACRTrackData::track1ErrorCode and
+ACRTrackData::track2ErrorCode properties. Note that the received ACRTrackData
+object will be the instance of ACRAesTrackData or ACRDukptTrackData according to
+the settings. You must check the type of instance before accessing the object.
 
 You can get the track data using ACRAesTrackData::trackData,
 ACRDukptTrackData::track1Data and ACRDukptTrackData::track2Data properties. Note
@@ -263,6 +264,14 @@ ACRTrack2Data::initWithString: methods.
 ...
 
 #pragma mark - Audio Jack Reader
+
+...
+
+- (void)readerDidNotifyTrackData:(ACRAudioJackReader *)reader {
+
+    // TODO: Add your code here to process the notification.
+    ...
+}
 
 ...
 
@@ -333,8 +342,9 @@ following methods:
 - ACRAudioJackReader::transmitApdu:length:slotNum:timeout:error:
 - ACRAudioJackReader::transmitControlCommand:controlCode:slotNum:timeout:error:
 - ACRAudioJackReader::transmitControlCommand:length:controlCode:slotNum:timeout:error:
+- ACRAudioJackReader::updateCardStateWithSlotNumber:timeout:error:
 - ACRAudioJackReader::getAtrWithSlotNumber:
-- ACRAudioJackReader::getStateWithSlotNumber:
+- ACRAudioJackReader::getCardStateWithSlotNumber:
 - ACRAudioJackReader::getProtocolWithSlotNumber:
 
 Before transmitting the APDU, you need to reset the card using

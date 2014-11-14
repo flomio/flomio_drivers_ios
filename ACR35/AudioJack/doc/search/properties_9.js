@@ -12,9 +12,5 @@ var searchData=
   ['track2mac',['track2Mac',['../interface_a_c_r_dukpt_track_data.html#a794c2bcc24c3b9fa99eeec6ae066368e',1,'ACRDukptTrackData']]],
   ['track2maskeddata',['track2MaskedData',['../interface_a_c_r_dukpt_track_data.html#a1de243f60ab4e329f4e54d6a30d4c311',1,'ACRDukptTrackData']]],
   ['track2string',['track2String',['../interface_a_c_r_track2_data.html#a3ffd303cf7095f7faa989b8a428901fe',1,'ACRTrack2Data']]],
-  ['trackdata',['trackData',['../interface_a_c_r_aes_track_data.html#aaa8a942e5119a6a4e236f7455f31dc99',1,'ACRAesTrackData']]],
-  ['transmitapdu_3alength_3aslotnum_3atimeout_3aerror_3a',['transmitApdu:length:slotNum:timeout:error:',['../interface_a_c_r_audio_jack_reader.html#a42481668373a11bb7b54bfcba7597716',1,'ACRAudioJackReader']]],
-  ['transmitapdu_3aslotnum_3atimeout_3aerror_3a',['transmitApdu:slotNum:timeout:error:',['../interface_a_c_r_audio_jack_reader.html#a96ec092a1ef1d5446252584322751c61',1,'ACRAudioJackReader']]],
-  ['transmitcontrolcommand_3acontrolcode_3aslotnum_3atimeout_3aerror_3a',['transmitControlCommand:controlCode:slotNum:timeout:error:',['../interface_a_c_r_audio_jack_reader.html#a64fc9d1188485d35ac47b51c43cab36d',1,'ACRAudioJackReader']]],
-  ['transmitcontrolcommand_3alength_3acontrolcode_3aslotnum_3atimeout_3aerror_3a',['transmitControlCommand:length:controlCode:slotNum:timeout:error:',['../interface_a_c_r_audio_jack_reader.html#a66f173875e6e145d2cdd40f483bf23f4',1,'ACRAudioJackReader']]]
+  ['trackdata',['trackData',['../interface_a_c_r_aes_track_data.html#aaa8a942e5119a6a4e236f7455f31dc99',1,'ACRAesTrackData']]]
 ];
