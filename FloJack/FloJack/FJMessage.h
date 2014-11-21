@@ -228,6 +228,19 @@ typedef enum
     FLOMIO_STATUS_FLOJACK_DISCONNECTED     = 5,
 } flomio_nfc_adapter_status_codes_t;
 
+// FloBLE LED Status States
+typedef enum {
+    LED_POWER_UP,
+    LED_SLOW_SNIFF,
+    LED_ADVERTISING,
+    LED_FAST_SNIFF,
+    LED_SCANNING_TAG,
+    LED_VERIFING_TAG,
+    LED_TAG_SUCCESS,
+    LED_TAG_ERROR,
+    LED_OFF
+} ledStatus_t;
+
 // FloJack protocol messages {opcode, length, data[] } - Used for messages that don't have 
 const static UInt8 status_hw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};
 const static UInt8 status_sw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SW_REV,0x07};

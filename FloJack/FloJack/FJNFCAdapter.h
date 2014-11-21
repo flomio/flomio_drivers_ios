@@ -20,6 +20,9 @@
 @protocol FJNFCAdapterDelegate;
 
 @interface FJNFCAdapter : NSObject<FloBLEUartDelegate,FJNFCServiceDelegate>
+{
+    ledStatus_t ledMode;
+}
 
 @property (nonatomic, strong) id <FJNFCAdapterDelegate>	 delegate;
 @property (nonatomic) BOOL                               deviceHasVolumeCap;
@@ -52,7 +55,7 @@
 - (void)setDecrementSnifferThreshold:(UInt16)decrementAmount;
 - (void)sendResetSnifferThreshold;  // method for last Sniffer Threshold command (no argument)
 - (void)setMaxSnifferThreshold:(UInt16)maxThreshold;
-                                      
+- (void)setLedMode:(UInt16)ledMode;
 @end
 
 #pragma mark - NFC Adapter Protocol

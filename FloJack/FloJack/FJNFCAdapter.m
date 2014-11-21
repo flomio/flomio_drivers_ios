@@ -238,6 +238,8 @@
                     }
                     LogInfo(@"FLOMIO_ACK_BAD ");
                     LogInfo(@"(TX) resendLastMessageSent ");
+                    NSLog(@"FLOMIO_ACK_BAD ");
+
                     [self resendLastMessageSent];
                     break;
                 case FLOMIO_ACK_GOOD:
@@ -600,6 +602,18 @@
     [self sendMessageDataToHost:flojackMessage.bytes];
 }
 
+/*
+ Set the LED mode (manually).  Acceptable range is defined in typedef led_status_t.
+ @return void
+ */
+- (void)setLedMode:(UInt16)ledMode
+{
+    FJMessage *flojackMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_LED_CONTROL_OP
+                                                                andSubOpcode:(unsigned char)ledMode
+                                                                     andData:nil];
+    [self sendMessageDataToHost:flojackMessage.bytes];
+}
+
 #pragma mark - NFC Service Delegate
 
 /**
@@ -612,7 +626,7 @@
 - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage; {
     if(theMessage != nil || theMessage.length > 0) {
         [self parseMessage:theMessage];
-        NSLog(@"Received message %@",theMessage);
+        NSLog(@"nfcService received message %@",theMessage);
     }
 }
 

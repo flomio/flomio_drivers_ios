@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *switchPolling15693;
 @property (weak, nonatomic) IBOutlet UISwitch *switchPollingFelica;
 @property (weak, nonatomic) IBOutlet UISwitch *switchStandaloneMode;
+@property (weak, nonatomic) IBOutlet UITextField *ledConfigTextField;
 
 - (IBAction)buttonWasPressedForPollingRate:(id)sender;
 - (IBAction)buttonWasPressedForReadTag:(id)sender;
@@ -41,5 +42,6 @@
 - (IBAction)buttonWasPressedForWriteTag:(id)sender;
 - (IBAction)switchWasFlippedForConfig:(id)sender;
 - (IBAction)buttonWasPressedForSendConfig:(id)sender;
+- (IBAction)buttonWasPressedForLEDConfig:(id)sender;
 
 @end

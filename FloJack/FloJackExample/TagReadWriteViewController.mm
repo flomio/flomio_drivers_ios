@@ -114,8 +114,16 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EU Mode" message:@"Warning: May damage the FloJack device. Only enable for volume limited devices. See http://flomio.com/volume-limit" delegate:self cancelButtonTitle:@"Enable" otherButtonTitles:@"Cancel", nil];
             [alert show];
             break;
+            
     }
 }
+
+- (IBAction)buttonWasPressedForLEDConfig:(id)sender
+{
+    [_appDelegate.nfcAdapter setLedMode:[self.ledConfigTextField.text intValue]];
+    [self.view endEditing:YES];
+}
+
 
 // TODO Need to clean up button action because the _urlInputField "Send" keyboard action
 // is a duplicate of this
@@ -224,6 +232,7 @@
 
 - (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
+    NSLog(statusCodeString);
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Status %@", statusCodeString];
     [self updateLogTextViewWithString:textUpdate];
     [self updateStatusTextViewWithStatus:statusCode];
