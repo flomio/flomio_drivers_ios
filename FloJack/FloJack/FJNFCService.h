@@ -6,19 +6,10 @@
 //  Licensed under the New BSD Licensce (http://opensource.org/licenses/BSD-3-Clause)
 //
 
-#import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
-#import <dispatch/dispatch.h>
-#import <Foundation/Foundation.h>
-#import <MediaPlayer/MediaPlayer.h>
-#import <UIKit/UIKit.h>
-#import <QuartzCore/CAAnimation.h>
+//#import <dispatch/dispatch.h>
 #import <sys/utsname.h>
-#import "AudioUnit/AudioUnit.h"
-#import "aurio_helper.h"
-#import "CAStreamBasicDescription.h"
-#import "CAXException.h"
-#import "FJAudioSessionHelper.h"
+
+#import <Foundation/Foundation.h>
 #import "FJMessage.h"
 #import "NSData+FJStringDisplay.h"
 #import "Logging.h"
@@ -26,25 +17,19 @@
 @protocol FJNFCServiceDelegate;
 
 @interface FJNFCService : NSObject
+{
+//    BOOL deviceConnected;
+}
 
 @property id <FJNFCServiceDelegate>	delegate;
-@property (nonatomic) dispatch_semaphore_t messageTXLock;
+//@property (nonatomic) dispatch_semaphore_t messageTXLock;
 @property (readonly) BOOL	floJackConnected;
-@property (readonly) UInt32	outputAmplitude;
+@property (assign) BOOL deviceConnected;
 
 - (id)init;
-- (BOOL)checkIfVolumeLevelMaxAndNotifyDelegate;
-- (BOOL)disableDeviceSpeakerPlayback;
-- (BOOL)enableDeviceSpeakerPlayback;
 - (void)sendByteToHost:(UInt8)theByte;
 - (BOOL)sendMessageDataToHost:(NSData *)messageData;
-- (void)setOutputAmplitudeHigh;
-- (void)setOutputAmplitudeNormal;
 - (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
-
-+ (UInt8)getDeviceInterByteDelay;
-+ (UInt8)getDeviceLogicOneValue;
-+ (UInt8)getDeviceLogicZeroValue;
 
 @end
 

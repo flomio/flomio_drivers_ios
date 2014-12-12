@@ -8,6 +8,20 @@
 
 #import "TagReadWriteViewController.h"
 
+@interface TagReadWriteViewController ()
+{
+    NSString *_scanSoundPath;
+    NSNotificationCenter * deviceStateNotification;
+}
+
+@property (strong, nonatomic)NSString *_scanSoundPath;
+@property (strong, nonatomic)NSNotificationCenter * deviceStateNotification;
+
+
+- (void) handleDeviceStateNotification:(NSNotification*)note;
+
+@end
+
 @implementation TagReadWriteViewController
 
 @synthesize appDelegate                     = _appDelegate;
@@ -28,6 +42,7 @@
 @synthesize switchPolling15693              = _switchPolling15693;
 @synthesize switchPollingFelica             = _switchPollingFelica;
 @synthesize switchStandaloneMode            = _switchStandaloneMode;
+@synthesize connectionStatusTextField       = _connectionStatusTextField;
 
 #pragma mark - UI View Controller
 
@@ -39,10 +54,16 @@
     _statusErrorCount = 0;
     _scrollView.contentSize = CGSizeMake(320, 1000);
     _appDelegate = (AppDelegate *) UIApplication.sharedApplication.delegate;
+    
+    [self connectionStatusTextField].text = [NSString stringWithFormat:@"Off"];
+
+    deviceStateNotification = [NSNotificationCenter defaultCenter];
+    [deviceStateNotification addObserver:self selector:@selector(handleDeviceStateNotification:) name:floBLEConnectionStatusChangeNotification object:nil];
+
 }
 
 #pragma mark - UI Input
-
+#if 0
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0){
         [_appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
@@ -53,7 +74,7 @@
         [self updateLogTextViewWithString:[NSString stringWithFormat:@":::Device Volume Cap = False"]];
     }
 }
-
+#endif
 // TODO Need to clean up button action because the self.pollingRateTextField "Send" keyboard action
 // is a duplicate of this
 - (IBAction)buttonWasPressedForPollingRate:(id)sender {
@@ -175,6 +196,43 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.outputTextView.text = [NSString stringWithFormat:@"%@ \n%@", updateString, self.outputTextView.text];
     });
+}
+
+- (void) handleDeviceStateNotification:(NSNotification*)note
+{
+    NSData * info = [[note userInfo]objectForKey:@"state"];
+    //    NSInteger state;[info getBytes:&state length:1];
+    NSUInteger * infoBytes = (NSUInteger*)info.bytes;
+    deviceState_t state = (deviceState_t)infoBytes[0];
+    
+    NSString * stateText;
+    switch (state)
+    {
+        case Off:
+            stateText = @"Off";
+            break;
+        case On:
+            stateText = @"On";
+            break;
+        case Disconnected:
+            stateText = @"Disconnected";
+            break;
+        case Scanning:
+            stateText = @"Scanning";
+            break;
+        case PeripheralDetected:
+            stateText = @"Peripheral Detected";
+            break;
+        case Connected:
+            stateText = @"Connected";
+            break;
+        default:
+            stateText = @"Unknown";
+            break;
+    }
+    
+    [self connectionStatusTextField].text = [NSString stringWithFormat:@"%@",stateText];
+    NSLog(@"handleDeviceStateNotification - DeviceState %@",stateText);
 }
 
 - (void)updateStatusTextViewWithStatus:(NSInteger)statusCode {

@@ -7,23 +7,33 @@
 //
 
 #import "FloBLEUart.h"
+#import "FloProtocolsCommon.h"
+
+NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsStatusChange";
+
+@interface FloBLEUart ()
+{
+    NSNotificationCenter * flobleDeviceStateNotification;
+}
+
+@property (nonatomic, strong) NSNotificationCenter * flobleDeviceStateNotification;
+
+
+@end
 
 @implementation FloBLEUart
 
-
-//NSString * myServiceUUIDString = GLOBAL_SERIAL_PASS_SERVICE_UUID;
-//NSString * myCharacteristicUUIDString = GLOBAL_SERIAL_PASS_CHARACTERISTIC_UUID;
-
 @synthesize myCentralManager;
 @synthesize activePeripheral;
-//@synthesize myServiceUUIDs;
 @synthesize rfUid;
-//@synthesize serialPortCharacteristic;
 @synthesize serialPortF2hCharacteristic;
 @synthesize serialPortH2fCharacteristic;
+@synthesize serialF2hPortBlockCharacteristic;
+@synthesize serialH2fPortBlockCharacteristic;
 @synthesize bleTimer;
-//@synthesize delegate;
-@dynamic delegate;
+@synthesize deviceState = _deviceState;
+@synthesize flobleDeviceStateNotification;
+@dynamic delegate; //@synthesize delegate;
 
 
 
@@ -43,6 +53,16 @@
     return [CBUUID UUIDWithString:@"6e400003-b5a3-f393-e0a9-e50e24dcca9e"];
 }
 
++ (CBUUID *) f2HBlockcharacteristicUUID
+{
+    return [CBUUID UUIDWithString:@"6e400004-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) h2FBlockcharacteristicUUID
+{
+    return [CBUUID UUIDWithString:@"6e400005-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
 + (CBUUID *) deviceInformationServiceUUID
 {
     return [CBUUID UUIDWithString:@"180A"];
@@ -53,6 +73,12 @@
     return [CBUUID UUIDWithString:@"2A27"];
 }
 
+- (protocolType_t)protocolType
+{
+    protocolType_t selfProtocol = FloBLE;
+    return selfProtocol;
+}
+
 - (id)init
 {
     self = [super init];
@@ -61,6 +87,9 @@
         myCentralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:nil];
         rfUid = [[NSMutableArray alloc]initWithCapacity:30];
     }
+    [self setDeviceState:Off];
+    flobleDeviceStateNotification = [NSNotificationCenter defaultCenter];
+
     return self;
 }
 
@@ -69,59 +98,25 @@
     self = [self init];
     if (self)
     {
-// super calls will init this       delegate = floBleDelegate;
+        // super calls will init this       delegate = floBleDelegate;
     }
     return self;
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
-    NSLog(@"FloBLE UART applicationDidFinishLaunching");
-    return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 #pragma mark BLE callbacks
 /*------------------------------*/
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"centralManagerDidUpdateState supports %d",[central state]);
+    NSLog(@"centralManagerDidUpdateState supports %ld",(long)[central state]);
     if([central state] == CBCentralManagerStatePoweredOn)
     {
-        myState = YES;
+       [self setDeviceState:On];
 //        [self.delegate updateLog:@"BLE Enabled\n"];
         [self startScanningForCBUUID:[FloBLEUart floBLEserviceUUID]];
     }
     else
     {
-        myState = NO;
+        [self setDeviceState:Off];
     }
 
 }
@@ -130,28 +125,18 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI;
 {
     
-//    if([[peripheral name] isEqualToString:@"Bean"]) // Bean
-        //    if([[peripheral name] isEqualToString:@"Simple BLE Peripher"]) // Simple BLE Peripher
-//    {
-//    [self.delegate updateLog:[NSString stringWithFormat:@"Disconnected %@\n",[peripheral name]]];
-
         NSLog(@"discovered peripheral %@",[peripheral name]);
-        NSLog(@"discovered dictionary %@",advertisementData);
+//        NSLog(@"discovered dictionary %@",advertisementData);
         
         [myCentralManager stopScan];
-//    [self.delegate updateLog:[NSString stringWithFormat:@"Stopped Scanning.\n"]];
+       [self setDeviceState:PeripheralDetected];
         NSLog(@"Scanning stopped");
         
         activePeripheral = peripheral;
         
         [myCentralManager connectPeripheral:peripheral options:nil];
-        
-//    }
-//    else if([peripheral name])
-//    {
-        NSLog(@"discovered peripheral %@",[peripheral name]);
- //   }
 }
+
 /*------------------------------*/
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
@@ -160,8 +145,8 @@
     NSLog(@"didConnectPeripheral peripheral %@",[peripheral name]);
     peripheral.delegate = self;
     [peripheral discoverServices:nil];
-//    [self discoverServicesForUUIDString:peripheral uuidString:myServiceUUIDString];
     [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEUart floBLEserviceUUID]];
+    [self setDeviceState:Connected];
 }
 /*------------------------------*/
 
@@ -174,35 +159,27 @@
 
 - (void)peripheral:(CBPeripheral *)central didDiscoverServices:(NSError *)error;
 {
-//    NSLog(@"------------------");
 //    [self.delegate updateLog:[NSString stringWithFormat:@"Discovered Services\n"]];
 //    NSLog(@"didDiscoverServices peripheral %@",[activePeripheral name]);
     for (CBService *service in activePeripheral.services) {
         //        NSLog(@"Discovered service %@\n", service);
         [activePeripheral discoverCharacteristics:nil forService:service];
-//        NSLog(@"------------------");
-        
     }
     
 }
-/*------------------------------*/
 
 - (void)peripheral:(CBPeripheral *)central didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     int i = 0;
-//    CBUUID* myCharacteristicCUUID = [CBUUID UUIDWithString:myCharacteristicUUIDString];
     CBUUID* myCharacteristicCUUID = [FloBLEUart f2HcharacteristicUUID];
     
 //    NSLog(@"Discovered service %@\n", service);
     for (CBCharacteristic *characteristic in service.characteristics)
     {
-//        NSLog(@"------------------");
-//        NSLog(@"Discovered characteristic %@\n", characteristic);
         if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Serial Port
-//            NSLog(@"Discovered Serial Port Characteristic %@",[characteristic UUID]);
+            NSLog(@"Discovered f2Hcharacteristic %@",[characteristic UUID]);
             serialPortF2hCharacteristic = characteristic;
             [activePeripheral readValueForCharacteristic:characteristic];
-            //            [peripheral setNotifyValue:YES forCharacteristic:serial_pass_characteristic];
             [activePeripheral setNotifyValue:YES forCharacteristic:serialPortF2hCharacteristic];
             
         }
@@ -212,34 +189,67 @@
     myCharacteristicCUUID = [FloBLEUart h2FhcharacteristicUUID];
     for (CBCharacteristic *characteristic in service.characteristics)
     {
-        //        NSLog(@"------------------");
-        //        NSLog(@"Discovered characteristic %@\n", characteristic);
+//        NSLog(@"Discovered characteristic %@\n", characteristic);
         if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Serial Port
-            //            NSLog(@"Discovered Serial Port Characteristic %@",[characteristic UUID]);
+          NSLog(@"Discovered h2Fhcharacteristic %@",[characteristic UUID]);
             serialPortH2fCharacteristic = characteristic;
             [activePeripheral readValueForCharacteristic:characteristic];
-            //            [peripheral setNotifyValue:YES forCharacteristic:serial_pass_characteristic];
- //           [activePeripheral setNotifyValue:YES forCharacteristic:serialPortH2fCharacteristic];
+ //         [activePeripheral setNotifyValue:YES forCharacteristic:serialPortH2fCharacteristic];
             
         }
         i += 1;
     }
-    //    [activePeripheral readValueForCharacteristic:(CBCharacteristic *)]
+
+    myCharacteristicCUUID = [FloBLEUart f2HBlockcharacteristicUUID];
+    for (CBCharacteristic *characteristic in service.characteristics)
+    {
+//                NSLog(@"Discovered characteristic %@\n", characteristic);
+        if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Serial Port
+            NSLog(@"Discovered f2HBlockcharacteristic %@",[characteristic UUID]);
+            serialF2hPortBlockCharacteristic = characteristic;
+            [activePeripheral readValueForCharacteristic:characteristic];
+            [activePeripheral setNotifyValue:YES forCharacteristic:serialF2hPortBlockCharacteristic];
+            
+        }
+        i += 1;
+    }
+
+    myCharacteristicCUUID = [FloBLEUart h2FBlockcharacteristicUUID];
+    for (CBCharacteristic *characteristic in service.characteristics)
+    {
+        //                NSLog(@"Discovered characteristic %@\n", characteristic);
+        if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Serial Port
+            NSLog(@"Discovered h2FBlockcharacteristic %@",[characteristic UUID]);
+            serialH2fPortBlockCharacteristic = characteristic;
+            [activePeripheral readValueForCharacteristic:characteristic];
+            [activePeripheral setNotifyValue:NO forCharacteristic:serialH2fPortBlockCharacteristic];
+            
+        }
+        i += 1;
+    }
+//    [activePeripheral readValueForCharacteristic:(CBCharacteristic *)]
     
 }
 /*------------------------------*/
 
 - (void)peripheral:(CBPeripheral *)aPeripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"didUpdateNotificationStateForCharacteristic");
-    if(!error)
+//    NSLog(@"didUpdateNotificationStateForCharacteristic");
+    if(1)//!error)
     {
         if([characteristic isEqual:serialPortF2hCharacteristic])
         {
-            //            NSLog(@"characteristic isEqual:serialPortCharacteristic");
+            NSLog(@"notified characteristic isEqual:serialPortF2hCharacteristic");
 //            [activePeripheral readValueForCharacteristic:characteristic];
         }
-    }else
+        else if([characteristic isEqual:serialF2hPortBlockCharacteristic])
+        {
+                        NSLog(@"notified characteristic serialF2hPortBlockCharacteristic");
+//                        [activePeripheral readValueForCharacteristic:characteristic];
+        }
+
+    }
+    else
     {
     }
 }
@@ -261,75 +271,41 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
 {
-    static NSUInteger len = 30, count = 0, theChar[1];
-    static BOOL logThee = NO;
+//    static NSUInteger len = 30, count = 0;
     
     NSData *myData = [characteristic value];
-    //    NSLog(@"----------------------");
         NSLog(@"Characteristic value %@ ",[characteristic value]);
     //    NSLog(@"Characteristic isBroadcasted %hhd,",[characteristic isBroadcasted]);
     //    NSLog(@"Characteristic isNotifying %hhd,",[characteristic isNotifying]);
-    //    NSLog(@"----------------------");
     
     if([characteristic isEqual:serialPortF2hCharacteristic] && myData)
     {
        UInt8 * uartByte = (UInt8*)myData.bytes;
        BOOL parityGood = YES;
-       [self handleReceivedByte:uartByte[0] withParity:parityGood atTimestamp:CACurrentMediaTime()];
-        NSLog(@"handleReceivedByte %2.2x,",uartByte[0]);
+       [self handleReceivedByte:uartByte[0] withParity:parityGood atTimestamp:[NSDate timeIntervalSinceReferenceDate]];
+       NSLog(@"handleReceivedByte %2.2x,",uartByte[0]);
+    }
+    else if([characteristic isEqual:serialF2hPortBlockCharacteristic] && myData)
+    {
+        UInt8 * uartByte = (UInt8*)myData.bytes;
+        BOOL parityGood = YES;
+        for(int i = 0; i < myData.length; i++)
+        {
+            [self handleReceivedByte:uartByte[i] withParity:parityGood atTimestamp:[NSDate timeIntervalSinceReferenceDate]];
+        }
+        //       [self handleReceivedByte:uartByte[0] withParity:parityGood atTimestamp:[NSDate timeIntervalSinceReferenceDate]];
+               NSLog(@"handleReceivedBlock %2@,",myData);
     }
     else
     {
-        NSLog(@"NULL received byte or wrong characteristic");
-    }
-    
-#if 0
-    if([peripheral identifier] == [activePeripheral identifier])
-    {
-//        NSLog(@"uuid %@",[peripheral identifier]);
-    
-    
-        if(logThee)
-        {
-            if(len == 30)
-            {
-                myData = [characteristic value];
-                [myData getBytes:theChar length:1];
-                len = theChar[0];
-                NSLog(@"Length %d",len);
-            }
-            else
-            {
-                [rfUid addObject:[characteristic value]];
-                count++;
-            }
+        if (myData == nil) {
+            NSLog(@"NULL value characteristic");
         }
-        else if([characteristic value])
+        else
         {
-            //       [rfUid addObject:[characteristic value]];
-            myData = [characteristic value];
-            [myData getBytes:theChar length:1];
-        
-            if(theChar[0] == 0x01)
-            {
-                NSLog(@"0x01");
-               /logThee = YES;
-            }
-        }
-
-        if(count >= len)
-        {
-            logThee = NO;
-            len = 30;
-            count = 0;
-//            [self.delegate updateLog:[NSString stringWithFormat:@"RFID UID = %@:%@:%@:%@:%@:%@:%@\n",[rfUid objectAtIndex:0],[rfUid objectAtIndex:1],[rfUid objectAtIndex:2],[rfUid objectAtIndex:3],[rfUid objectAtIndex:4],[rfUid objectAtIndex:5],[rfUid objectAtIndex:6]]];
-
-            NSLog(@"RFID UID = %@:%@:%@:%@:%@:%@:%@",[rfUid objectAtIndex:0],[rfUid objectAtIndex:1],[rfUid objectAtIndex:2],[rfUid objectAtIndex:3],[rfUid objectAtIndex:4],[rfUid objectAtIndex:5],[rfUid objectAtIndex:6]);
-            [self disconnectPeripheral:peripheral];
-//            [self restartScanMode];
+           NSLog(@"Wrong characteristic");
         }
     }
-#endif
 }
 /*------------------------------*/
 
@@ -338,6 +314,8 @@
 //    [self.delegate updateLog:[NSString stringWithFormat:@"Disconnected peripheral %@\n",[peripheral name]]];
     NSLog(@"Disconnected peripheral %@",[peripheral name]);
 //    [self performSelectorInBackground:@selector(restartScanMode) withObject:nil];
+
+    [self setDeviceState:Disconnected];
     [self restartScanMode];
 }
 
@@ -346,11 +324,11 @@
 
 - (void)startScan
 {
-    if(myState)
+    if([self deviceState])
     {
         [myCentralManager scanForPeripheralsWithServices:nil options:nil];
-        NSLog(@"starting scan");
-
+        NSLog(@"cc - starting scan\n");
+        [self setDeviceState:Scanning];
     }
 }
 
@@ -359,6 +337,7 @@
 - (void)disconnectPeripheral:(CBPeripheral*)peripheral
 {
     [myCentralManager cancelPeripheralConnection:peripheral];
+    [self setDeviceState:Disconnected];
 }
 
 /*------------------------------*/
@@ -367,11 +346,12 @@
 {
     NSLog(@"starting scan %@",uuidString);
     NSArray			*uuidArray	= [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];
-    //	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
 //    [self.delegate updateLog:@"Scanning for devices....\n"];
     
-    [myCentralManager scanForPeripheralsWithServices:uuidArray options:nil];
-    //    [myCentralManager scanForPeripheralsWithServices:uuidArray options:options];
+//    [myCentralManager scanForPeripheralsWithServices:uuidArray options:nil];
+    [myCentralManager scanForPeripheralsWithServices:uuidArray options:options];
+    [self setDeviceState:Scanning];
 }
 /*------------------------------*/
 
@@ -379,12 +359,13 @@
 {
     NSLog(@"starting scan %@",uuid);
     NSArray			*uuidArray	= [NSArray arrayWithObjects:uuid, nil];
-    //	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     
 //    [self.delegate updateLog:@"Scanning for devices....\n"];
 
-    [myCentralManager scanForPeripheralsWithServices:uuidArray options:nil];
-    //    [myCentralManager scanForPeripheralsWithServices:uuidArray options:options];
+//    [myCentralManager scanForPeripheralsWithServices:uuidArray options:nil];
+    [myCentralManager scanForPeripheralsWithServices:uuidArray options:options];
+    [self setDeviceState:Scanning];
     
 }
 /*------------------------------*/
@@ -424,6 +405,13 @@
 }
 
 /*------------------------------*/
+- (void)writeBlockToPeriperalWithOutResponse:(UInt8*)dataToWrite ofLength:(UInt8)len
+{
+    NSData * value = [NSData dataWithBytes:(void*)dataToWrite length:len];
+    [activePeripheral writeValue:value forCharacteristic:[self serialH2fPortBlockCharacteristic] type:CBCharacteristicWriteWithoutResponse];
+}
+
+/*------------------------------*/
 
 - (void)restartScanMode // background call
 {
@@ -439,6 +427,7 @@
 - (void)dealloc
 {
     [myCentralManager stopScan];
+     [self setDeviceState:Off];
     NSLog(@"dealloc");
     //    [self.disconectPeripheral:activePeripheral];
     //    [super dealloc];
@@ -472,16 +461,41 @@
     [string appendString:[NSString stringWithFormat:@"%2.2x",uartByte[len-1]]];
     NSLog(@"Floble sendMessageDataToHost %@",string);
 
-    
-     for (int i = 0; i < len; i++)
-     {
-     BOOL parityGood = YES;
+//    BOOL parityGood = YES;
+   
+//     for (int i = 0; i < len; i++)
+//     {
 //     [self writePeriperalWithResponse:&uartByte[i]];
-         [self writePeriperalWithOutResponse:&uartByte[i]];
-     }
+//       [self writePeriperalWithOutResponse:&uartByte[i]];
+
+//     }
+    [self writeBlockToPeriperalWithOutResponse:uartByte ofLength:len];
 
     
     return true;
 }
+
+- (void)setDeviceState:(deviceState_t)deviceState
+{
+    _deviceState = deviceState;
+    NSData * state = [NSData dataWithBytes:(const void*)&_deviceState length:1];
+    NSDictionary * d = [NSDictionary dictionaryWithObject:state forKey:@"state"];
+    [flobleDeviceStateNotification postNotificationName:floBLEConnectionStatusChangeNotification object:self userInfo:d];
+
+    if(_deviceState == Connected)
+    {
+        super.deviceConnected = YES;
+    }
+    else
+    {
+        super.deviceConnected = NO;
+    }
+}
+
+- (deviceState_t)deviceState
+{
+    return _deviceState;
+}
+
 
 @end

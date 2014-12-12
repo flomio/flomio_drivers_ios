@@ -8,16 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import <UIKit/UIKit.h>
 #import "FJNFCService.h"
 #import "FloBLEUart.h"
+#import "FloNotifications.h"
+#import "FloProtocolsCommon.h"
 
-//#define PUNCHTHROUGHDESIGN_128_UUID(uuid16) @"A495" uuid16 @"-C5B1-4B44-B512-1370F02D74DE"
-//#define GLOBAL_SERIAL_PASS_SERVICE_UUID                    PUNCHTHROUGHDESIGN_128_UUID(@"FF10")
-//#define GLOBAL_SERIAL_PASS_CHARACTERISTIC_UUID             PUNCHTHROUGHDESIGN_128_UUID(@"FF11")
+extern NSString * const floBLEConnectionStatusChangeNotification;
 
-//extern NSString * myServiceUUIDString;
-//extern NSString * myCharacteristicUUIDString;
 @protocol FloBLEUartDelegate <NSObject,FJNFCServiceDelegate>
 //- (void) didReceiveData:(NSString *) string;
 @optional
@@ -30,24 +27,26 @@
 {
     CBCentralManager * myCentralManager;
     CBPeripheral *activePeripheral;
-//    CBCharacteristic * serialPortCharacteristic;
     CBCharacteristic * serialF2hPortCharacteristic;
     CBCharacteristic * serialPortH2fCharacteristic;
-    BOOL myState;
+    CBCharacteristic * serialF2hPortBlockCharacteristic;
+    CBCharacteristic * serialH2fPortBlockCharacteristic;
     NSMutableArray * rfUid;
     NSTimer * bleTimer;
+    deviceState_t deviceState;
 }
 
+@property (assign) deviceState_t deviceState;
+@property (assign) BOOL isConnected;
 @property (strong, nonatomic) CBCentralManager * myCentralManager;
 @property (strong, nonatomic) CBPeripheral *activePeripheral;
 @property (strong, nonatomic) CBCharacteristic * serialPortF2hCharacteristic;
 @property (strong, nonatomic) CBCharacteristic * serialPortH2fCharacteristic;
+@property (strong, nonatomic) CBCharacteristic * serialF2hPortBlockCharacteristic;
+@property (strong, nonatomic) CBCharacteristic * serialH2fPortBlockCharacteristic;
 @property (copy, nonatomic) NSMutableArray * rfUid;
 @property (retain, nonatomic) NSTimer * bleTimer;
 @property id<FloBLEUartDelegate> delegate;
-
-//@property (strong, nonatomic) NSArray * myServiceUUIDs;
-//@property (strong, nonatomic) NSArray * myCharacteristicUUIDs;
 
 - (id)init;
 - (void)startScan;
@@ -60,4 +59,7 @@
 - (id)initWithDelegate:(id<FloBLEUartDelegate>)floBleDelegate;
 - (void)writePeriperalWithResponse:(UInt8*)dataToWrite;
 - (void)writePeriperalWithOutResponse:(UInt8*)dataToWrite;
+- (void)writeBlockToPeriperalWithOutResponse:(UInt8*)dataToWrite ofLength:(UInt8)len;
+- (protocolType_t)protocolType;
+
 @end

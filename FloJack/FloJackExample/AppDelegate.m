@@ -10,7 +10,7 @@
 #import "TagReadWriteViewController.h"
 
 @implementation AppDelegate {
-    FJAudioPlayer       *_fjAudioPlayer;
+//    FJAudioPlayer       *_fjAudioPlayer;
     NSString            *_scanSoundPath;
 }
 
@@ -27,8 +27,8 @@
     [self.nfcAdapter setDelegate:self];
     
     _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
-    _fjAudioPlayer = [self.nfcAdapter getFJAudioPlayer];
-    
+    //    _scanSound = [[NSSound alloc]initWithContentsOfFile:_scanSoundPath byReference:YES];
+
     TagReadWriteViewController *tagReadWriteViewController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         tagReadWriteViewController = [[TagReadWriteViewController alloc] initWithNibName:@"TagReadWriteViewController~iphone" bundle:nil];
@@ -44,9 +44,18 @@
 }
 
 #pragma mark - FJNFCAdapterDelegate
+- (void)playTagReadSound
+{
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:_scanSoundPath], &soundID);
+    AudioServicesPlaySystemSound(soundID);
+}
 
 - (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
-    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
+// Play Tag Read Sound
+    [self playTagReadSound];
+    
+    //    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
     
     if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
         [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didScanTag:theNfcTag];        
@@ -60,7 +69,7 @@
 }
 
 - (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
-    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
+//    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
     
     if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didWriteTagAndStatusWas:)]) {
         [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didWriteTagAndStatusWas:statusCode];

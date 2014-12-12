@@ -16,6 +16,7 @@
 
 @interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UILabel *connectionStatusTextField;
 @property (nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) IBOutlet UITextField *pollingRateTextField;
 @property (strong, nonatomic) IBOutlet UITextView *outputTextView;

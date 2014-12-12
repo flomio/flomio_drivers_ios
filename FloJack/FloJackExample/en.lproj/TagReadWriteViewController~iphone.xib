@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagReadWriteViewController">
             <connections>
+                <outlet property="connectionStatusTextField" destination="y61-H7-JYA" id="Lmx-O6-Irq"/>
                 <outlet property="ledConfigTextField" destination="qH5-PM-Iro" id="Tc4-Xa-roe"/>
                 <outlet property="maxThresholdTextField" destination="890" id="893"/>
                 <outlet property="outputTextView" destination="858" id="864"/>
                 <outlet property="statusErrorTextView" destination="832" id="866"/>
                 <outlet property="statusNACKTextView" destination="833" id="868"/>
                 <outlet property="statusPingPongTextView" destination="849" id="869"/>
-                <outlet property="statusVolumeLowErrorTextView" destination="831" id="867"/>
                 <outlet property="tweakThresholdTextField" destination="888" id="892"/>
                 <outlet property="urlInputField" destination="850" id="870"/>
                 <outlet property="view" destination="830" id="865"/>
@@ -96,25 +96,19 @@
                     </connections>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Msgs: 0" id="849">
-                    <rect key="frame" x="22" y="332" width="76" height="34"/>
+                    <rect key="frame" x="13" y="339" width="76" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Issues: 0" id="833">
-                    <rect key="frame" x="97" y="332" width="80" height="34"/>
+                    <rect key="frame" x="73" y="339" width="80" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="ERR: 0" id="832">
-                    <rect key="frame" x="176" y="332" width="69" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="831" userLabel="VolumeLow">
-                    <rect key="frame" x="244" y="332" width="60" height="34"/>
+                    <rect key="frame" x="145" y="339" width="60" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -257,7 +251,7 @@
                         <action selector="switchWasFlippedForConfig:" destination="-1" eventType="valueChanged" id="926"/>
                     </connections>
                 </switch>
-                <switch opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="914">
+                <switch opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="914">
                     <rect key="frame" x="104" y="242" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <connections>
@@ -304,6 +298,13 @@
                         <action selector="buttonWasPressedForLEDConfig:" destination="-1" eventType="touchUpInside" id="467-cO-AZf"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y61-H7-JYA">
+                    <rect key="frame" x="205" y="345" width="99" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <accessibility key="accessibilityConfiguration" label="FloJack Example"/>

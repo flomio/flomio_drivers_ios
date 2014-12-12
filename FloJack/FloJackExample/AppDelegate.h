@@ -15,5 +15,8 @@
 
 @property (strong, nonatomic) UIWindow          *window;
 @property (strong, nonatomic) FJNFCAdapter      *nfcAdapter;
+//@property (strong, nonatomic) NSSound * scanSound;
+
+- (void)playTagReadSound;
 
 @end

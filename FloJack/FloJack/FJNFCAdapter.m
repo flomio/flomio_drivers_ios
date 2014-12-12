@@ -17,7 +17,6 @@
 }
 
 @synthesize delegate = _delegate;
-@synthesize deviceHasVolumeCap = _deviceHasVolumeCap;
 @synthesize pollFor14443aTags = _pollFor14443aTags;
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
@@ -37,29 +36,17 @@
 //        _nfcService = [[FJNFCService alloc] init];
         _nfcService = [[FloBLEUart alloc] init];
         [_nfcService setDelegate:self];
-        [_nfcService checkIfVolumeLevelMaxAndNotifyDelegate];
         
         _lastMessageSent = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
-        _deviceHasVolumeCap = false;
         _pollFor14443aTags =  true;
-        _pollFor15693Tags =  false;
+        _pollFor15693Tags =  true;
         _pollForFelicaTags =  false;
         _standaloneMode = false;
         
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//        [nc addObserver:self selector:@selector(getFirmwareVersion) name:viewControllerScanButtonPressed object:nil];
-        
-    }      
-    return self;
-}
+        NSLog(@"Protocol Type: %lu",[_nfcService protocolType]);
 
-/**
- Accessor for FloJack audio player helper. 
- 
- @return FJAudioPlayer
- */
--(FJAudioPlayer *)getFJAudioPlayer {
-    return [[FJAudioPlayer alloc] initWithNFCService:_nfcService];
+    }
+    return self;
 }
 
 /**
@@ -119,14 +106,17 @@
  
  @return void
  */
-- (void)initializeFloJackDevice {
+- (void)initializeFloJackDevice
+{
+#if 0
     UInt8 interByteDelay = [FJNFCService getDeviceInterByteDelay];
     FJMessage *configMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_COMMUNICATION_CONFIG_OP
                                                                 andSubOpcode:FLOMIO_BYTE_DELAY
                                                                 andData:[NSData dataWithBytes:&interByteDelay length:1]];
     [self sendMessageDataToHost:configMessage.bytes];
+#endif
 }
- 
+
 /**
  Determine if FloJack is connected.
  
@@ -315,6 +305,7 @@
     }
 }
 
+
 /**
  Resend the last transmitted message, typically used when NACK is returned.
  
@@ -438,26 +429,6 @@
  */
 - (void)setLastMessageDataSent:(NSData *)message {
     [_lastMessageSent setData:message];
-}
-
-/*
- Used to increase the output volume level for audio capped evices and resend config message.
- This is necessary for EU devices with audio caps at ~80dBA.
- The method first checks to see if the volume level is max before proceeding.
- 
- WARNING:   IMPROPER USE CAN DAMAGE THE FLOJACK DEVICE.
- DO NOT USE ON NON AUDIO CAPPED DEVICES.
- 
- @return void   
- */
-- (void)setDeviceHasVolumeCap:(BOOL)deviceHasVolumeCap {
-    _deviceHasVolumeCap = deviceHasVolumeCap;
-    if (deviceHasVolumeCap) {
-        [_nfcService setOutputAmplitudeHigh];
-    }
-    else {
-        [_nfcService setOutputAmplitudeNormal];
-    }
 }
 
 /*
