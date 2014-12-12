@@ -313,11 +313,12 @@
             <attributedString key="userComments">
                 <fragment content="FloJack Example">
                     <attributes>
-                        <font key="NSFont" metaFont="smallSystem"/>
+                        <font key="NSFont" metaFont="controlContent" size="11"/>
                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                     </attributes>
                 </fragment>
             </attributedString>
+            <point key="canvasLocation" x="120" y="343"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
