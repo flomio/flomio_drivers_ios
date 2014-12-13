@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="connectionStatusTextField" destination="y61-H7-JYA" id="Lmx-O6-Irq"/>
                 <outlet property="ledConfigTextField" destination="qH5-PM-Iro" id="Tc4-Xa-roe"/>
+                <outlet property="ledPicker" destination="2dV-jK-Tbb" id="FHp-6e-bF2"/>
                 <outlet property="maxThresholdTextField" destination="890" id="893"/>
                 <outlet property="outputTextView" destination="858" id="864"/>
                 <outlet property="statusErrorTextView" destination="832" id="866"/>
@@ -138,7 +139,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="877">
-                    <rect key="frame" x="18" y="86" width="61" height="32"/>
+                    <rect key="frame" x="8" y="66" width="61" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -201,18 +202,6 @@
                         <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchUpInside" id="895"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="886">
-                    <rect key="frame" x="161" y="145" width="69" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <state key="normal" title="Max Thr">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchUpInside" id="896"/>
-                    </connections>
-                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="decim" textAlignment="right" minimumFontSize="17" id="890">
                     <rect key="frame" x="160" y="185" width="61" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -223,7 +212,7 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="decim" textAlignment="right" minimumFontSize="17" id="qH5-PM-Iro">
-                    <rect key="frame" x="165" y="86" width="61" height="30"/>
+                    <rect key="frame" x="239" y="105" width="61" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="send"/>
@@ -266,7 +255,7 @@
                     </connections>
                 </switch>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="876">
-                    <rect key="frame" x="92" y="107" width="61" height="30"/>
+                    <rect key="frame" x="161" y="67" width="61" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -287,7 +276,7 @@
                     </connections>
                 </textField>
                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UMZ-p3-VKa">
-                    <rect key="frame" x="243" y="86" width="61" height="31"/>
+                    <rect key="frame" x="240" y="67" width="61" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81425927549999999" green="0.8777880213" blue="0.94376273779999997" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -305,6 +294,35 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="886">
+                    <rect key="frame" x="160" y="147" width="69" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <state key="normal" title="Max Thr">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchUpInside" id="896"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2R7-ps-9wL">
+                    <rect key="frame" x="255" y="106" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="-">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="ledPickerButtonWasPressed:" destination="-1" eventType="touchUpInside" id="oxC-nK-uyN"/>
+                    </connections>
+                </button>
+                <pickerView hidden="YES" contentMode="top" id="2dV-jK-Tbb" userLabel="ledPicker">
+                    <rect key="frame" x="0.0" y="46" width="320" height="93"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="YES"/>
+                    </accessibility>
+                </pickerView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <accessibility key="accessibilityConfiguration" label="FloJack Example"/>
@@ -314,7 +332,7 @@
             <attributedString key="userComments">
                 <fragment content="FloJack Example">
                     <attributes>
-                        <font key="NSFont" metaFont="controlContent" size="11"/>
+                        <font key="NSFont" metaFont="smallSystem"/>
                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                     </attributes>
                 </fragment>

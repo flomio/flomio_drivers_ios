@@ -12,10 +12,15 @@
 {
     NSString *_scanSoundPath;
     NSNotificationCenter * deviceStateNotification;
+    NSArray * ledPickerData;
+    NSUInteger ledPickedValue;
+    
 }
 
 @property (strong, nonatomic)NSString *_scanSoundPath;
 @property (strong, nonatomic)NSNotificationCenter * deviceStateNotification;
+@property (strong, nonatomic)NSArray * ledPickerData;
+@property (assign)NSUInteger ledPickedValue;
 
 
 - (void) handleDeviceStateNotification:(NSNotification*)note;
@@ -43,6 +48,9 @@
 @synthesize switchPollingFelica             = _switchPollingFelica;
 @synthesize switchStandaloneMode            = _switchStandaloneMode;
 @synthesize connectionStatusTextField       = _connectionStatusTextField;
+@synthesize ledPicker                       = _ledPicker;
+@synthesize ledPickerData                   = _ledPickerData;
+@synthesize ledPickedValue                  = _ledPickedValue;
 
 #pragma mark - UI View Controller
 
@@ -59,6 +67,69 @@
 
     deviceStateNotification = [NSNotificationCenter defaultCenter];
     [deviceStateNotification addObserver:self selector:@selector(handleDeviceStateNotification:) name:floBLEConnectionStatusChangeNotification object:nil];
+    
+    // init ledPicker data from floble LED States
+/*    typedef enum {
+        LED_POWER_UP,
+        LED_SLOW_SNIFF,
+        LED_ADVERTISING,
+        LED_FAST_SNIFF,
+        LED_SCANNING_TAG,
+        LED_VERIFING_TAG,
+        LED_TAG_SUCCESS,
+        LED_TAG_ERROR,
+        LED_OFF
+    } ledStatus_t; */
+
+    _ledPickerData = @[@"LED_POWER_UP 0",@"LED_SLOW_SNIFF 1",@"LED_ADVERTISING 2",@"LED_FAST_SNIFF 3",@"LED_SCANNING_TAG 4",@"LED_VERIFING_TAG 5",@"LED_TAG_SUCCESS 6",@"LED_TAG_ERROR 7",@"LED_OFF 8"];
+    self.ledPicker.dataSource = self;
+    self.ledPicker.delegate = self;
+    [self.ledPicker selectRow:0 inComponent:0 animated:NO];
+    ledPickedValue = 0;
+    
+    [self.view bringSubviewToFront:_ledPicker];
+    _ledPicker.hidden = YES;
+
+}
+
+#pragma mark - ledPicker
+// the number of columns in ledPicker
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// the number of rows in ledPicker
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+//    NSLog(@"ledPicker row count %d", _ledPickerData.count);
+
+    return _ledPickerData.count;
+}
+
+// the data to be returned in the rows and columns in the ledPicker
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return _ledPickerData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [self.ledPicker selectRow:row inComponent:component animated:NO];
+    [self.view bringSubviewToFront:_ledPicker];
+    _ledPicker.hidden = YES;
+    
+    _ledPickedValue = row;
+    [_ledConfigTextField setText:[NSString stringWithFormat:@"%d",_ledPickedValue]];
+
+    NSLog(@"ledPicker picked %d", row);
+}
+
+- (IBAction)ledPickerButtonWasPressed:(id)sender
+{
+    _ledPicker.hidden = NO;
+//    NSLog(@"Show Picker");
+    //    [_ledPicker setHidden:NO];
 
 }
 
@@ -141,10 +212,11 @@
 
 - (IBAction)buttonWasPressedForLEDConfig:(id)sender
 {
-    [_appDelegate.nfcAdapter setLedMode:[self.ledConfigTextField.text intValue]];
-    [self.view endEditing:YES];
-}
+//    [_appDelegate.nfcAdapter setLedMode:[self.ledConfigTextField.text intValue]];
+//    [self.view endEditing:YES];
 
+    [_appDelegate.nfcAdapter setLedMode:_ledPickedValue];
+}
 
 // TODO Need to clean up button action because the _urlInputField "Send" keyboard action
 // is a duplicate of this

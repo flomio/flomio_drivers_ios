@@ -14,8 +14,9 @@
 #import "FJNFCAdapter.h"
 #import "NSData+FJStringDisplay.h"
 
-@interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate>
+@interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UIPickerView *ledPicker;
 @property (strong, nonatomic) IBOutlet UILabel *connectionStatusTextField;
 @property (nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) IBOutlet UITextField *pollingRateTextField;
@@ -44,5 +45,6 @@
 - (IBAction)switchWasFlippedForConfig:(id)sender;
 - (IBAction)buttonWasPressedForSendConfig:(id)sender;
 - (IBAction)buttonWasPressedForLEDConfig:(id)sender;
+- (IBAction)ledPickerButtonWasPressed:(id)sender;
 
 @end
