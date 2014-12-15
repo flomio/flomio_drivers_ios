@@ -1,6 +1,6 @@
 //
-//  FJNDEFRecord.m
-//  FloJack
+//  NDEFRecord.m
+//  
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
@@ -8,10 +8,10 @@
 //  NOTE:   This file is a port of Android.nfc.NdefRecord code found in the The Android Open Source Project.
 //
 
-#import "FJNDEFRecord.h"
+#import "NDEFRecord.h"
 #import "Logging.h"
 
-@implementation FJNDEFRecord {
+@implementation NDEFRecord {
     char        flags_;
 }
 
@@ -228,9 +228,9 @@
  NDEF prefix encode the given url and return as an NSData object.
  
  @param uriString  String representation of URL to be encoded
- @return FJNDEFRecord
+ @return NDEFRecord
  */
-+ (FJNDEFRecord *)createURIWithString:(NSString *)uriString {
++ (NDEFRecord *)createURIWithString:(NSString *)uriString {
     if (uriString == nil) {
         return nil;
     }
@@ -250,7 +250,7 @@
     [payload appendBytes:&prefix length:1];
     [payload appendData:[uriString dataUsingEncoding:NSASCIIStringEncoding]];
     
-    FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:kTNFWellKnown andType:kRTDURI.copy andId:nil andPayload:payload];
+    NDEFRecord *ndefRecord = [[NDEFRecord alloc] initWithTnf:kTNFWellKnown andType:kRTDURI.copy andId:nil andPayload:payload];
     
     NSLog(@" ndefRecord: %@", ndefRecord.asByteBuffer);
     
@@ -261,13 +261,13 @@
  NDEF prefix encode the given url and return as an NSData object.
  
  @param url  URL to be encoded
- @return FJNDEFRecord
+ @return NDEFRecord
  */
-+ (FJNDEFRecord *)createURIWithURL:(NSURL *)url {
++ (NDEFRecord *)createURIWithURL:(NSURL *)url {
     if (url == nil) {
         return nil;
     }
-    return [FJNDEFRecord createURIWithString:url.absoluteString];
+    return [NDEFRecord createURIWithString:url.absoluteString];
 }
 
 /**
@@ -405,15 +405,15 @@
                 inChunk = false;
             }
             
-            NSString *error = [FJNDEFRecord validateTnf:tnf withType:type andRecordId:recordId andPayload:payload];
+            NSString *error = [NDEFRecord validateTnf:tnf withType:type andRecordId:recordId andPayload:payload];
             if (error != nil) {
                 // TODO , throw error
                 break;
             }
             
-            FJNDEFRecord *ndefRecord = [[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload];
+            NDEFRecord *ndefRecord = [[NDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload];
             if (ndefRecord != nil) {
-                [records addObject:[[FJNDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];            
+                [records addObject:[[NDEFRecord alloc] initWithTnf:tnf andType:type andId:recordId andPayload:payload]];            
             }
             
             

@@ -1,6 +1,6 @@
 //
-//  FJMessage.h
-//  FloJack
+//  NFCMessage.h
+//  
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
@@ -9,36 +9,36 @@
 #import <Foundation/Foundation.h>
 
 // Message Length Boundaries
-#define MIN_MESSAGE_LENGTH                       3   //todo change to 4
-#define MAX_MESSAGE_LENGTH                       255
+#define MIN_MESSAGE_LENGTH                   3   //todo change to 4
+#define MAX_MESSAGE_LENGTH                   255
 
-#define CORRECT_CRC_VALUE                        0   
+#define CORRECT_CRC_VALUE                    0
 
 // Message Protocol
-#define FLOJACK_MESSAGE_OPCODE_POSITION          0
-#define FLOJACK_MESSAGE_LENGTH_POSITION          1
-#define FLOJACK_MESSAGE_SUB_OPCODE_POSITION      2
-#define FLOJACK_MESSAGE_ENABLE_POSITION          3
+#define FLO_MESSAGE_OPCODE_POSITION          0
+#define FLO_MESSAGE_LENGTH_POSITION          1
+#define FLO_MESSAGE_SUB_OPCODE_POSITION      2
+#define FLO_MESSAGE_ENABLE_POSITION          3
 
-#define FJ_TAG_UID_DATA_POS                      3
-#define FJ_BLOCK_RW_MSG_DATA_LENGTH_POS          4
-#define FJ_BLOCK_RW_MSG_DATA_POS                 5
+#define FLO_TAG_UID_DATA_POS                 3
+#define FLO_BLOCK_RW_MSG_DATA_LENGTH_POS     4
+#define FLO_BLOCK_RW_MSG_DATA_POS            5
 
-#define FLOJACK_MESSAGE_OPCODE_LENGTH            1
-#define FLOJACK_MESSAGE_LENGTH_LENGTH            1
-#define FLOJACK_MESSAGE_SUB_OPCODE_LENGTH        1
-#define FLOJACK_MESSAGE_ENABLE_LENGTH            1
-#define FLOJACK_MESSAGE_CRC_LENGTH               1
+#define FLO_MESSAGE_OPCODE_LENGTH            1
+#define FLO_MESSAGE_LENGTH_LENGTH            1
+#define FLO_MESSAGE_SUB_OPCODE_LENGTH        1
+#define FLO_MESSAGE_ENABLE_LENGTH            1
+#define FLO_MESSAGE_CRC_LENGTH               1
 
-#define FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN          1
-#define FJ_BLOCK_RW_MSG_DATA_LEN                 1
+#define FLO_BLOCK_RW_MSG_DATA_LENGTH_LEN     1
+#define FLO_BLOCK_RW_MSG_DATA_LEN            1
 
 // Message Enable/Disable values
-#define FLOMIO_DISABLE                           0
-#define FLOMIO_ENABLE                            1
+#define FLOMIO_DISABLE                       0
+#define FLOMIO_ENABLE                        1
 
 // Tag Formatting
-#define NDEF_MESSAGE_HEADER                      0x03
+#define NDEF_MESSAGE_HEADER                  0x03
 
 //Flomio Accessory-Client Message Opcodes
 typedef enum
@@ -224,8 +224,8 @@ typedef enum
     FLOMIO_STATUS_PING_RECIEVED            = 1,
     FLOMIO_STATUS_ACK_RECIEVED             = 2,
     FLOMIO_STATUS_VOLUME_OK                = 3,
-    FLOMIO_STATUS_FLOJACK_CONNECTED        = 4,
-    FLOMIO_STATUS_FLOJACK_DISCONNECTED     = 5,
+    FLOMIO_STATUS_READER_CONNECTED        = 4,
+    FLOMIO_STATUS_READER_DISCONNECTED     = 5,
 } flomio_nfc_adapter_status_codes_t;
 
 // FloBLE LED Status States

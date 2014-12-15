@@ -7,18 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1507578515C98EA500FB2F71 /* CADebugMacros.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B45F15C85DF8009DE0E5 /* CADebugMacros.h */; };
-		1507578615C98EA500FB2F71 /* CADebugPrintf.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46215C85DF8009DE0E5 /* CADebugPrintf.h */; };
-		1507578715C98EA500FB2F71 /* CAMath.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46315C85DF8009DE0E5 /* CAMath.h */; };
-		1507578815C98EA500FB2F71 /* CAStreamBasicDescription.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46515C85DF8009DE0E5 /* CAStreamBasicDescription.h */; };
-		1507578915C98EA500FB2F71 /* CAXException.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B46715C85DF8009DE0E5 /* CAXException.h */; };
-		1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B2FB15C83482009DE0E5 /* aurio_helper.h */; };
-		150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */; };
-		150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2F00116288A50008FD352 /* FJNDEFRecord.h */; };
 		151E36EC16E2863C0005B739 /* FJNDEFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 151E36EB16E2863C0005B739 /* FJNDEFTests.m */; };
-		1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15379C8E16E574A2006195F0 /* FJMessageTests.m */; };
-		15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */; };
 		1559F29116517FF100B43633 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		1559F29216517FF100B43633 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1559F26E16517F8C00B43633 /* CoreGraphics.framework */; };
 		1559F29816517FF100B43633 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1559F29616517FF100B43633 /* InfoPlist.strings */; };
@@ -35,13 +25,7 @@
 		1559F2B51651889B00B43633 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
 		1559F2B6165188A400B43633 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */; };
 		1559F2B7165188AC00B43633 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
-		155D4F8515D604BB00CF45FD /* Logging.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D4F8415D5FDA800CF45FD /* Logging.h */; };
 		155D4F8715D7044B00CF45FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 155D4F8615D7044B00CF45FD /* QuartzCore.framework */; };
-		155E70CE15C865910025136D /* FJNFCTag.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */; };
-		155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */; };
-		157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
-		157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 157C812C15DBFF2C00760BF2 /* FJMessage.h */; };
-		15806A2516E40FFC00D98748 /* FJMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 157C812D15DBFF2C00760BF2 /* FJMessage.m */; };
 		158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 158EEF9E16B9E50500574748 /* scan_sound.mp3 */; };
 		15A367D9172DD602006F6CA7 /* FJNFCTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A367D8172DD602006F6CA7 /* FJNFCTagTests.m */; };
 		15B046F7165322C3000FF892 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B046F6165322C3000FF892 /* AVFoundation.framework */; };
@@ -55,29 +39,21 @@
 		15C4B2E215C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		15C4B2EB15C832E0009DE0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15C4B2E915C832E0009DE0E5 /* InfoPlist.strings */; };
 		15C4B2EE15C832E0009DE0E5 /* FloJackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B2ED15C832E0009DE0E5 /* FloJackTests.m */; };
-		15C4B31015C83482009DE0E5 /* aurio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B2FA15C83482009DE0E5 /* aurio_helper.cpp */; };
-		15C4B31515C83482009DE0E5 /* FJNFCAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B30A15C83482009DE0E5 /* FJNFCAdapter.m */; };
 		15C4B32015C83BCF009DE0E5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */; };
 		15C4B32215C83BDC009DE0E5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */; };
 		15C4B44C15C83F54009DE0E5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */; };
-		15C4B45C15C85BE0009DE0E5 /* FJNFCTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */; };
-		15C4B46815C85DF8009DE0E5 /* CADebugMacros.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46015C85DF8009DE0E5 /* CADebugMacros.mm */; };
-		15C4B46915C85DF8009DE0E5 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46115C85DF8009DE0E5 /* CADebugPrintf.cpp */; };
-		15C4B46A15C85DF8009DE0E5 /* CAStreamBasicDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46415C85DF8009DE0E5 /* CAStreamBasicDescription.mm */; };
-		15C4B46B15C85DF8009DE0E5 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B46615C85DF8009DE0E5 /* CAXException.cpp */; };
-		15C71B1616EE8AB600B92D07 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */; };
 		15DBE7BE16FD62E70001CB14 /* FJNDEFURITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */; };
-		15E188EB15DAC9E000AC0F72 /* FJNFCService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */; };
-		15E188ED15DAC9EF00AC0F72 /* FJNFCService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15E188E915DAC9E000AC0F72 /* FJNFCService.h */; };
-		15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFD16288072008FD352 /* FJNDEFMessage.m */; };
-		15F2EFFF16288072008FD352 /* FJNDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2EFFD16288072008FD352 /* FJNDEFMessage.m */; };
-		15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15F2EFFC16288072008FD352 /* FJNDEFMessage.h */; };
-		15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
-		15F2F00416288A50008FD352 /* FJNDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F2F00216288A50008FD352 /* FJNDEFRecord.m */; };
 		B734507219FB0AB60044A5A6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */; };
 		B734507419FB11AE0044A5A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507319FB11AE0044A5A6 /* UIKit.framework */; };
-		B734507719FB120A0044A5A6 /* FloBLEUart.m in Sources */ = {isa = PBXBuildFile; fileRef = B734507619FB120A0044A5A6 /* FloBLEUart.m */; };
 		B734507819FB15CA0044A5A6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */; };
+		B7C5C80D1A3F8111000ED368 /* FloBLEReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */; };
+		B7C5C80E1A3F8111000ED368 /* FLOReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7FB1A3F8111000ED368 /* FLOReader.m */; };
+		B7C5C80F1A3F8111000ED368 /* FLOReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */; };
+		B7C5C8101A3F8111000ED368 /* NFCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8031A3F8111000ED368 /* NFCMessage.m */; };
+		B7C5C8111A3F8111000ED368 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */; };
+		B7C5C8121A3F8111000ED368 /* FLOTag.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8081A3F8111000ED368 /* FLOTag.m */; };
+		B7C5C8131A3F8111000ED368 /* NDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C80A1A3F8111000ED368 /* NDEFMessage.m */; };
+		B7C5C8141A3F8111000ED368 /* NDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C80C1A3F8111000ED368 /* NDEFRecord.m */; };
 		EF38A7E717B82A7900684263 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7DF17B82A7900684263 /* Icon-72.png */; };
 		EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E017B82A7900684263 /* Icon-72@2x.png */; };
 		EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E117B82A7900684263 /* Icon-Small-50.png */; };
@@ -105,20 +81,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				150C5E911662EEB7005C22D6 /* FJNDEFRecord.h in CopyFiles */,
-				150C576C164C22150033AEC3 /* NSData+FJStringDisplay.h in CopyFiles */,
-				15F2F00016288A02008FD352 /* FJNDEFMessage.h in CopyFiles */,
-				157C812F15DBFFEB00760BF2 /* FJMessage.h in CopyFiles */,
-				15E188ED15DAC9EF00AC0F72 /* FJNFCService.h in CopyFiles */,
-				155D4F8515D604BB00CF45FD /* Logging.h in CopyFiles */,
-				1507578515C98EA500FB2F71 /* CADebugMacros.h in CopyFiles */,
-				1507578615C98EA500FB2F71 /* CADebugPrintf.h in CopyFiles */,
-				1507578715C98EA500FB2F71 /* CAMath.h in CopyFiles */,
-				1507578815C98EA500FB2F71 /* CAStreamBasicDescription.h in CopyFiles */,
-				1507578915C98EA500FB2F71 /* CAXException.h in CopyFiles */,
-				1507578A15C98EA500FB2F71 /* aurio_helper.h in CopyFiles */,
-				155E70CE15C865910025136D /* FJNFCTag.h in CopyFiles */,
-				155E70D015C865910025136D /* FJNFCAdapter.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +89,6 @@
 /* Begin PBXFileReference section */
 		151E36EA16E2863C0005B739 /* FJNDEFTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFTests.h; sourceTree = "<group>"; };
 		151E36EB16E2863C0005B739 /* FJNDEFTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFTests.m; sourceTree = "<group>"; };
-		15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
-		1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
 		15379C8D16E574A2006195F0 /* FJMessageTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJMessageTests.h; sourceTree = "<group>"; };
 		15379C8E16E574A2006195F0 /* FJMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJMessageTests.m; sourceTree = "<group>"; };
 		153ED1EF164D503A00CA3400 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -148,10 +108,7 @@
 		1559F2A616517FF100B43633 /* TagReadWriteViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = TagReadWriteViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1559F2A916517FF100B43633 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/TagReadWriteViewController~iphone.xib"; sourceTree = "<group>"; };
 		1559F2B11651811300B43633 /* TagReadWriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagReadWriteViewController.xib; sourceTree = "<group>"; };
-		155D4F8415D5FDA800CF45FD /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		155D4F8615D7044B00CF45FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		157C812C15DBFF2C00760BF2 /* FJMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FJMessage.h; sourceTree = "<group>"; };
-		157C812D15DBFF2C00760BF2 /* FJMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJMessage.m; sourceTree = "<group>"; };
 		158EEF9E16B9E50500574748 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scan_sound.mp3; path = FloJackExample/scan_sound.mp3; sourceTree = SOURCE_ROOT; };
 		15A367D7172DD602006F6CA7 /* FJNFCTagTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCTagTests.h; sourceTree = "<group>"; };
 		15A367D8172DD602006F6CA7 /* FJNFCTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNFCTagTests.m; sourceTree = "<group>"; };
@@ -169,38 +126,32 @@
 		15C4B2EA15C832E0009DE0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15C4B2EC15C832E0009DE0E5 /* FloJackTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloJackTests.h; sourceTree = "<group>"; };
 		15C4B2ED15C832E0009DE0E5 /* FloJackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloJackTests.m; sourceTree = "<group>"; };
-		15C4B2FA15C83482009DE0E5 /* aurio_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aurio_helper.cpp; sourceTree = "<group>"; };
-		15C4B2FB15C83482009DE0E5 /* aurio_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aurio_helper.h; sourceTree = "<group>"; };
-		15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCAdapter.h; sourceTree = "<group>"; };
-		15C4B30A15C83482009DE0E5 /* FJNFCAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FJNFCAdapter.m; sourceTree = "<group>"; };
 		15C4B31F15C83BCF009DE0E5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		15C4B32115C83BDC009DE0E5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FJNFCTag.h; path = FloJack/FJNFCTag.h; sourceTree = "<group>"; };
-		15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FJNFCTag.m; path = FloJack/FJNFCTag.m; sourceTree = "<group>"; };
-		15C4B45F15C85DF8009DE0E5 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
-		15C4B46015C85DF8009DE0E5 /* CADebugMacros.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CADebugMacros.mm; sourceTree = "<group>"; };
-		15C4B46115C85DF8009DE0E5 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
-		15C4B46215C85DF8009DE0E5 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
-		15C4B46315C85DF8009DE0E5 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
-		15C4B46415C85DF8009DE0E5 /* CAStreamBasicDescription.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CAStreamBasicDescription.mm; sourceTree = "<group>"; };
-		15C4B46515C85DF8009DE0E5 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
-		15C4B46615C85DF8009DE0E5 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
-		15C4B46715C85DF8009DE0E5 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFURITests.m; sourceTree = "<group>"; };
 		15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFURITests.h; sourceTree = "<group>"; };
-		15E188E915DAC9E000AC0F72 /* FJNFCService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCService.h; sourceTree = "<group>"; };
-		15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FJNFCService.mm; sourceTree = "<group>"; };
-		15F2EFFC16288072008FD352 /* FJNDEFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FJNDEFMessage.h; path = FloJack/FJNDEFMessage.h; sourceTree = "<group>"; };
-		15F2EFFD16288072008FD352 /* FJNDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FJNDEFMessage.m; path = FloJack/FJNDEFMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		15F2F00116288A50008FD352 /* FJNDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = FJNDEFRecord.h; path = FloJack/FJNDEFRecord.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		15F2F00216288A50008FD352 /* FJNDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = FJNDEFRecord.m; path = FloJack/FJNDEFRecord.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		B73008571A3B70890013F226 /* FloNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloNotifications.h; path = ../FloNotifications.h; sourceTree = "<group>"; };
-		B73008581A3B70890013F226 /* FloProtocolsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloProtocolsCommon.h; path = ../FloProtocolsCommon.h; sourceTree = "<group>"; };
 		B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B734507319FB11AE0044A5A6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		B734507519FB12000044A5A6 /* FloBLEUart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloBLEUart.h; sourceTree = "<group>"; };
-		B734507619FB120A0044A5A6 /* FloBLEUart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloBLEUart.m; sourceTree = "<group>"; };
+		B7C5C7F81A3F8111000ED368 /* FloBLEReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloBLEReader.h; sourceTree = "<group>"; };
+		B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloBLEReader.m; sourceTree = "<group>"; };
+		B7C5C7FA1A3F8111000ED368 /* FLOReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOReader.h; sourceTree = "<group>"; };
+		B7C5C7FB1A3F8111000ED368 /* FLOReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLOReader.m; sourceTree = "<group>"; };
+		B7C5C7FD1A3F8111000ED368 /* FloNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloNotifications.h; sourceTree = "<group>"; };
+		B7C5C7FE1A3F8111000ED368 /* FloProtocolsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloProtocolsCommon.h; sourceTree = "<group>"; };
+		B7C5C7FF1A3F8111000ED368 /* FLOReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOReaderManager.h; sourceTree = "<group>"; };
+		B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLOReaderManager.m; sourceTree = "<group>"; };
+		B7C5C8011A3F8111000ED368 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		B7C5C8021A3F8111000ED368 /* NFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCMessage.h; sourceTree = "<group>"; };
+		B7C5C8031A3F8111000ED368 /* NFCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFCMessage.m; sourceTree = "<group>"; };
+		B7C5C8041A3F8111000ED368 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
+		B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
+		B7C5C8071A3F8111000ED368 /* FLOTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOTag.h; sourceTree = "<group>"; };
+		B7C5C8081A3F8111000ED368 /* FLOTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLOTag.m; sourceTree = "<group>"; };
+		B7C5C8091A3F8111000ED368 /* NDEFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDEFMessage.h; sourceTree = "<group>"; };
+		B7C5C80A1A3F8111000ED368 /* NDEFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDEFMessage.m; sourceTree = "<group>"; };
+		B7C5C80B1A3F8111000ED368 /* NDEFRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDEFRecord.h; sourceTree = "<group>"; };
+		B7C5C80C1A3F8111000ED368 /* NDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDEFRecord.m; sourceTree = "<group>"; };
 		EF38A7DF17B82A7900684263 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		EF38A7E017B82A7900684263 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		EF38A7E117B82A7900684263 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -262,8 +213,6 @@
 		1559F29316517FF100B43633 /* FloJackExample */ = {
 			isa = PBXGroup;
 			children = (
-				B73008571A3B70890013F226 /* FloNotifications.h */,
-				B73008581A3B70890013F226 /* FloProtocolsCommon.h */,
 				1559F29C16517FF100B43633 /* AppDelegate.h */,
 				1559F29D16517FF100B43633 /* AppDelegate.m */,
 				1559F2A516517FF100B43633 /* TagReadWriteViewController.h */,
@@ -291,49 +240,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		155D4F6E15D48F4900CF45FD /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				B734507619FB120A0044A5A6 /* FloBLEUart.m */,
-				B734507519FB12000044A5A6 /* FloBLEUart.h */,
-				155D4F8415D5FDA800CF45FD /* Logging.h */,
-				155D4F7115D492D900CF45FD /* Lib */,
-				157C812C15DBFF2C00760BF2 /* FJMessage.h */,
-				157C812D15DBFF2C00760BF2 /* FJMessage.m */,
-				15C4B30915C83482009DE0E5 /* FJNFCAdapter.h */,
-				15C4B30A15C83482009DE0E5 /* FJNFCAdapter.m */,
-				15E188E915DAC9E000AC0F72 /* FJNFCService.h */,
-				15E188EA15DAC9E000AC0F72 /* FJNFCService.mm */,
-				15218489164B68A6009A2E17 /* NSData+FJStringDisplay.h */,
-				1521848A164B68A6009A2E17 /* NSData+FJStringDisplay.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		155D4F7015D4926C00CF45FD /* AurioTouch2 */ = {
-			isa = PBXGroup;
-			children = (
-				15C4B2FA15C83482009DE0E5 /* aurio_helper.cpp */,
-				15C4B2FB15C83482009DE0E5 /* aurio_helper.h */,
-			);
-			name = AurioTouch2;
-			sourceTree = "<group>";
-		};
-		155D4F7115D492D900CF45FD /* Lib */ = {
-			isa = PBXGroup;
-			children = (
-				155D4F7015D4926C00CF45FD /* AurioTouch2 */,
-				15C4B45D15C85DB6009DE0E5 /* CoreAduio */,
-			);
-			name = Lib;
-			sourceTree = "<group>";
-		};
 		15C4B2C115C832DF009DE0E5 = {
 			isa = PBXGroup;
 			children = (
-				B73008591A3B746C0013F226 /* Tag */,
 				1559F29316517FF100B43633 /* FloJackExample */,
-				15C4B2D115C832E0009DE0E5 /* FloJack */,
+				B7C5C7F71A3F8111000ED368 /* Reader Folder */,
+				B7C5C7FC1A3F8111000ED368 /* Services Folder */,
+				B7C5C8061A3F8111000ED368 /* Tag Folder */,
+				15C4B2D215C832E0009DE0E5 /* Supporting Files */,
 				15C4B2E615C832E0009DE0E5 /* Tests */,
 				15C4B2CE15C832E0009DE0E5 /* Frameworks */,
 				15C4B2CD15C832E0009DE0E5 /* Products */,
@@ -372,15 +286,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		15C4B2D115C832E0009DE0E5 /* FloJack */ = {
-			isa = PBXGroup;
-			children = (
-				155D4F6E15D48F4900CF45FD /* Classes */,
-				15C4B2D215C832E0009DE0E5 /* Supporting Files */,
-			);
-			path = FloJack;
-			sourceTree = "<group>";
-		};
 		15C4B2D215C832E0009DE0E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +293,7 @@
 				15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = FloJack;
 			sourceTree = "<group>";
 		};
 		15C4B2E615C832E0009DE0E5 /* Tests */ = {
@@ -418,30 +324,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		15C4B45D15C85DB6009DE0E5 /* CoreAduio */ = {
-			isa = PBXGroup;
-			children = (
-				15C4B45E15C85DCD009DE0E5 /* PublicUtility */,
-			);
-			path = CoreAduio;
-			sourceTree = "<group>";
-		};
-		15C4B45E15C85DCD009DE0E5 /* PublicUtility */ = {
-			isa = PBXGroup;
-			children = (
-				15C4B45F15C85DF8009DE0E5 /* CADebugMacros.h */,
-				15C4B46015C85DF8009DE0E5 /* CADebugMacros.mm */,
-				15C4B46115C85DF8009DE0E5 /* CADebugPrintf.cpp */,
-				15C4B46215C85DF8009DE0E5 /* CADebugPrintf.h */,
-				15C4B46315C85DF8009DE0E5 /* CAMath.h */,
-				15C4B46415C85DF8009DE0E5 /* CAStreamBasicDescription.mm */,
-				15C4B46515C85DF8009DE0E5 /* CAStreamBasicDescription.h */,
-				15C4B46615C85DF8009DE0E5 /* CAXException.cpp */,
-				15C4B46715C85DF8009DE0E5 /* CAXException.h */,
-			);
-			path = PublicUtility;
-			sourceTree = "<group>";
-		};
 		15D3F67E16B73116006D2A68 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,17 +333,44 @@
 			path = ../../flomio_client/mobile/ios/FlomioDemo;
 			sourceTree = "<group>";
 		};
-		B73008591A3B746C0013F226 /* Tag */ = {
+		B7C5C7F71A3F8111000ED368 /* Reader Folder */ = {
 			isa = PBXGroup;
 			children = (
-				15C4B45A15C85BDF009DE0E5 /* FJNFCTag.h */,
-				15C4B45B15C85BDF009DE0E5 /* FJNFCTag.m */,
-				15F2EFFC16288072008FD352 /* FJNDEFMessage.h */,
-				15F2EFFD16288072008FD352 /* FJNDEFMessage.m */,
-				15F2F00116288A50008FD352 /* FJNDEFRecord.h */,
-				15F2F00216288A50008FD352 /* FJNDEFRecord.m */,
+				B7C5C7F81A3F8111000ED368 /* FloBLEReader.h */,
+				B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */,
+				B7C5C7FA1A3F8111000ED368 /* FLOReader.h */,
+				B7C5C7FB1A3F8111000ED368 /* FLOReader.m */,
 			);
-			name = Tag;
+			path = "Reader Folder";
+			sourceTree = "<group>";
+		};
+		B7C5C7FC1A3F8111000ED368 /* Services Folder */ = {
+			isa = PBXGroup;
+			children = (
+				B7C5C7FD1A3F8111000ED368 /* FloNotifications.h */,
+				B7C5C7FE1A3F8111000ED368 /* FloProtocolsCommon.h */,
+				B7C5C7FF1A3F8111000ED368 /* FLOReaderManager.h */,
+				B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */,
+				B7C5C8011A3F8111000ED368 /* Logging.h */,
+				B7C5C8021A3F8111000ED368 /* NFCMessage.h */,
+				B7C5C8031A3F8111000ED368 /* NFCMessage.m */,
+				B7C5C8041A3F8111000ED368 /* NSData+FJStringDisplay.h */,
+				B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */,
+			);
+			path = "Services Folder";
+			sourceTree = "<group>";
+		};
+		B7C5C8061A3F8111000ED368 /* Tag Folder */ = {
+			isa = PBXGroup;
+			children = (
+				B7C5C8071A3F8111000ED368 /* FLOTag.h */,
+				B7C5C8081A3F8111000ED368 /* FLOTag.m */,
+				B7C5C8091A3F8111000ED368 /* NDEFMessage.h */,
+				B7C5C80A1A3F8111000ED368 /* NDEFMessage.m */,
+				B7C5C80B1A3F8111000ED368 /* NDEFRecord.h */,
+				B7C5C80C1A3F8111000ED368 /* NDEFRecord.m */,
+			);
+			path = "Tag Folder";
 			sourceTree = "<group>";
 		};
 		EF38A7EF17B82AF000684263 /* Icons */ = {
@@ -627,19 +536,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15C4B31015C83482009DE0E5 /* aurio_helper.cpp in Sources */,
-				15C4B31515C83482009DE0E5 /* FJNFCAdapter.m in Sources */,
-				15C4B45C15C85BE0009DE0E5 /* FJNFCTag.m in Sources */,
-				15C4B46815C85DF8009DE0E5 /* CADebugMacros.mm in Sources */,
-				15C4B46915C85DF8009DE0E5 /* CADebugPrintf.cpp in Sources */,
-				15C4B46A15C85DF8009DE0E5 /* CAStreamBasicDescription.mm in Sources */,
-				15C4B46B15C85DF8009DE0E5 /* CAXException.cpp in Sources */,
-				15E188EB15DAC9E000AC0F72 /* FJNFCService.mm in Sources */,
-				157C812E15DBFF2C00760BF2 /* FJMessage.m in Sources */,
-				15F2EFFE16288072008FD352 /* FJNDEFMessage.m in Sources */,
-				15F2F00316288A50008FD352 /* FJNDEFRecord.m in Sources */,
-				1521848B164B68A6009A2E17 /* NSData+FJStringDisplay.m in Sources */,
-				B734507719FB120A0044A5A6 /* FloBLEUart.m in Sources */,
+				B7C5C80F1A3F8111000ED368 /* FLOReaderManager.m in Sources */,
+				B7C5C80E1A3F8111000ED368 /* FLOReader.m in Sources */,
+				B7C5C8121A3F8111000ED368 /* FLOTag.m in Sources */,
+				B7C5C8141A3F8111000ED368 /* NDEFRecord.m in Sources */,
+				B7C5C8111A3F8111000ED368 /* NSData+FJStringDisplay.m in Sources */,
+				B7C5C8131A3F8111000ED368 /* NDEFMessage.m in Sources */,
+				B7C5C80D1A3F8111000ED368 /* FloBLEReader.m in Sources */,
+				B7C5C8101A3F8111000ED368 /* NFCMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,12 +552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15DBE7BE16FD62E70001CB14 /* FJNDEFURITests.m in Sources */,
-				15C71B1616EE8AB600B92D07 /* NSData+FJStringDisplay.m in Sources */,
-				15379C9016E5AB44006195F0 /* FJNFCTag.m in Sources */,
-				15806A2516E40FFC00D98748 /* FJMessage.m in Sources */,
 				15C4B2EE15C832E0009DE0E5 /* FloJackTests.m in Sources */,
-				15F2EFFF16288072008FD352 /* FJNDEFMessage.m in Sources */,
-				15F2F00416288A50008FD352 /* FJNDEFRecord.m in Sources */,
 				151E36EC16E2863C0005B739 /* FJNDEFTests.m in Sources */,
 				15379C8F16E574A2006195F0 /* FJMessageTests.m in Sources */,
 				15A367D9172DD602006F6CA7 /* FJNFCTagTests.m in Sources */,

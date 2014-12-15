@@ -1,27 +1,27 @@
 //
-//  FloBLEUart.m
+//  FloBLEReader.m
 //  Badanamu
 //
 //  Created by Chuck Carter on 10/13/14.
 //  Copyright (c) 2014 Flomio. All rights reserved.
 //
 
-#import "FloBLEUart.h"
+#import "FloBLEReader.h"
 #import "FloProtocolsCommon.h"
 
-NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsStatusChange";
+NSString * const floReaderConnectionStatusChangeNotification = @"FloReaderConnectionsStatusChange";
 
-@interface FloBLEUart ()
+@interface FloBLEReader ()
 {
-    NSNotificationCenter * flobleDeviceStateNotification;
+    NSNotificationCenter * floReaderDeviceStateNotification;
 }
 
-@property (nonatomic, strong) NSNotificationCenter * flobleDeviceStateNotification;
+@property (nonatomic, strong) NSNotificationCenter * floReaderDeviceStateNotification;
 
 
 @end
 
-@implementation FloBLEUart
+@implementation FloBLEReader
 
 @synthesize myCentralManager;
 @synthesize activePeripheral;
@@ -32,7 +32,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
 @synthesize serialH2fPortBlockCharacteristic;
 @synthesize bleTimer;
 @synthesize deviceState = _deviceState;
-@synthesize flobleDeviceStateNotification;
+@synthesize floReaderDeviceStateNotification;
 @dynamic delegate; //@synthesize delegate;
 
 
@@ -83,17 +83,17 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
 {
     self = [super init];
     if (self) {
-        NSLog(@"inited FloBLEUart");
+        NSLog(@"inited FloBLEReader");
         myCentralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:nil];
         rfUid = [[NSMutableArray alloc]initWithCapacity:30];
     }
     [self setDeviceState:Off];
-    flobleDeviceStateNotification = [NSNotificationCenter defaultCenter];
+    floReaderDeviceStateNotification = [NSNotificationCenter defaultCenter];
 
     return self;
 }
 
-- (id)initWithDelegate:(id<FloBLEUartDelegate>)floBleDelegate
+- (id)initWithDelegate:(id<FloBLEReaderDelegate>)floBleDelegate
 {
     self = [self init];
     if (self)
@@ -107,12 +107,12 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
 /*------------------------------*/
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"centralManagerDidUpdateState supports %ld",(long)[central state]);
+    NSLog(@"centralManagerDidUpdateState supports %ld",[central state]);
     if([central state] == CBCentralManagerStatePoweredOn)
     {
        [self setDeviceState:On];
 //        [self.delegate updateLog:@"BLE Enabled\n"];
-        [self startScanningForCBUUID:[FloBLEUart floBLEserviceUUID]];
+        [self startScanningForCBUUID:[FloBLEReader floBLEserviceUUID]];
     }
     else
     {
@@ -145,7 +145,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
     NSLog(@"didConnectPeripheral peripheral %@",[peripheral name]);
     peripheral.delegate = self;
     [peripheral discoverServices:nil];
-    [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEUart floBLEserviceUUID]];
+    [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader floBLEserviceUUID]];
     [self setDeviceState:Connected];
 }
 /*------------------------------*/
@@ -171,7 +171,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
 - (void)peripheral:(CBPeripheral *)central didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     int i = 0;
-    CBUUID* myCharacteristicCUUID = [FloBLEUart f2HcharacteristicUUID];
+    CBUUID* myCharacteristicCUUID = [FloBLEReader f2HcharacteristicUUID];
     
 //    NSLog(@"Discovered service %@\n", service);
     for (CBCharacteristic *characteristic in service.characteristics)
@@ -186,7 +186,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
         i += 1;
     }
 
-    myCharacteristicCUUID = [FloBLEUart h2FhcharacteristicUUID];
+    myCharacteristicCUUID = [FloBLEReader h2FhcharacteristicUUID];
     for (CBCharacteristic *characteristic in service.characteristics)
     {
 //        NSLog(@"Discovered characteristic %@\n", characteristic);
@@ -200,7 +200,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
         i += 1;
     }
 
-    myCharacteristicCUUID = [FloBLEUart f2HBlockcharacteristicUUID];
+    myCharacteristicCUUID = [FloBLEReader f2HBlockcharacteristicUUID];
     for (CBCharacteristic *characteristic in service.characteristics)
     {
 //                NSLog(@"Discovered characteristic %@\n", characteristic);
@@ -214,7 +214,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
         i += 1;
     }
 
-    myCharacteristicCUUID = [FloBLEUart h2FBlockcharacteristicUUID];
+    myCharacteristicCUUID = [FloBLEReader h2FBlockcharacteristicUUID];
     for (CBCharacteristic *characteristic in service.characteristics)
     {
         //                NSLog(@"Discovered characteristic %@\n", characteristic);
@@ -293,7 +293,6 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
         {
             [self handleReceivedByte:uartByte[i] withParity:parityGood atTimestamp:[NSDate timeIntervalSinceReferenceDate]];
         }
-        //       [self handleReceivedByte:uartByte[0] withParity:parityGood atTimestamp:[NSDate timeIntervalSinceReferenceDate]];
                NSLog(@"handleReceivedBlock %2@,",myData);
     }
     else
@@ -416,7 +415,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
 - (void)restartScanMode // background call
 {
 //    @autoreleasepool {
-//        [self performSelectorOnMainThread:@selector(startScanningForCBUUID:) withObject:[FloBLEUart floBLEserviceUUID] waitUntilDone:YES];
+//        [self performSelectorOnMainThread:@selector(startScanningForCBUUID:) withObject:[FloBLEReader floBLEserviceUUID] waitUntilDone:YES];
 //    }
     NSLog(@"starting delayStartScanTimerService");
     self.bleTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(delayStartScanTimerService:) userInfo:nil repeats:NO];
@@ -443,11 +442,11 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
     }
     else
     {
-       [self startScanningForCBUUID:[FloBLEUart floBLEserviceUUID]];
+       [self startScanningForCBUUID:[FloBLEReader floBLEserviceUUID]];
     }
 }
 
-#pragma mark - FJNFCService overridden methods
+#pragma mark - FLOReader overridden methods
 
 - (BOOL)sendMessageDataToHost:(NSData *)messageData {
     UInt8 * uartByte = (UInt8*)messageData.bytes;
@@ -461,7 +460,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
     [string appendString:[NSString stringWithFormat:@"%2.2x",uartByte[len-1]]];
     NSLog(@"Floble sendMessageDataToHost %@",string);
 
-//    BOOL parityGood = YES;
+    BOOL parityGood = YES;
    
 //     for (int i = 0; i < len; i++)
 //     {
@@ -480,7 +479,7 @@ NSString * const floBLEConnectionStatusChangeNotification = @"floBLEConnectionsS
     _deviceState = deviceState;
     NSData * state = [NSData dataWithBytes:(const void*)&_deviceState length:1];
     NSDictionary * d = [NSDictionary dictionaryWithObject:state forKey:@"state"];
-    [flobleDeviceStateNotification postNotificationName:floBLEConnectionStatusChangeNotification object:self userInfo:d];
+    [floReaderDeviceStateNotification postNotificationName:floReaderConnectionStatusChangeNotification object:self userInfo:d];
 
     if(_deviceState == Connected)
     {

@@ -1,6 +1,6 @@
 //
 //  HiJack.h
-//  FloJack
+//  
 //
 //  Originally created by Thomas Schmid on 8/4/11.
 //  Licensed under the New BSD Licensce (http://opensource.org/licenses/BSD-3-Clause)
@@ -10,20 +10,20 @@
 #import <sys/utsname.h>
 
 #import <Foundation/Foundation.h>
-#import "FJMessage.h"
+#import "NFCMessage.h"
 #import "NSData+FJStringDisplay.h"
 #import "Logging.h"
 
-@protocol FJNFCServiceDelegate;
+@protocol FLOReaderDelegate;
 
-@interface FJNFCService : NSObject
+@interface FLOReader : NSObject
 {
 //    BOOL deviceConnected;
 }
 
-@property id <FJNFCServiceDelegate>	delegate;
+@property id <FLOReaderDelegate>	delegate;
 //@property (nonatomic) dispatch_semaphore_t messageTXLock;
-@property (readonly) BOOL	floJackConnected;
+@property (readonly) BOOL	isDeviceConnected;
 @property (assign) BOOL deviceConnected;
 
 - (id)init;
@@ -35,9 +35,8 @@
 
 #pragma mark - NFC Service Protocol
 
-@protocol FJNFCServiceDelegate<NSObject>
+@protocol FLOReaderDelegate<NSObject>
  @required
-  - (void)nfcService:(FJNFCService *)nfcService didHaveError:(NSInteger)errorCode;
-  - (void)nfcService:(FJNFCService *)nfcService didReceiveMessage:(NSData *)theMessage;
-  - (void)nfcServiceDidReceiveFloJack:(FJNFCService *)nfcService connectedStatus:(BOOL)isFloJackConnected;
+  - (void)nfcService:(FLOReader *)nfcService didHaveError:(NSInteger)errorCode;
+  - (void)nfcService:(FLOReader *)nfcService didReceiveMessage:(NSData *)theMessage;
 @end

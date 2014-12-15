@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "FJNFCAdapter.h"
+#import "FLOReaderManager.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, FJNFCAdapterDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate>
 
 @property (strong, nonatomic) UIWindow          *window;
-@property (strong, nonatomic) FJNFCAdapter      *nfcAdapter;
+@property (strong, nonatomic) FLOReaderManager      *floReaderManager;
 //@property (strong, nonatomic) NSSound * scanSound;
 
 - (void)playTagReadSound;

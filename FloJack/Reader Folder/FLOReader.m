@@ -1,24 +1,23 @@
 //
-//  FJNFCService.m
-//  FloJack
+//  FLOReader.m
+//  
 //
 //  Originally created by Thomas Schmid on 8/4/11.
 //  Licensed under the New BSD Licensce (http://opensource.org/licenses/BSD-3-Clause)
 //
 
-#import "FJNFCService.h"
-#import "FloBLEUart.h"
+#import "FLOReader.h"
+#import "FloBLEReader.h"
 
 #define MESSAGE_SYNC_TIMEOUT        .500    // seconds
 
-@interface FJNFCService()
-- (void)sendFloJackConnectedStatusToDelegate;
+@interface FLOReader()
 - (void)clearMessageBuffer;
 @end
 
-@implementation FJNFCService
+@implementation FLOReader
 {
-    id <FJNFCServiceDelegate>	 _delegate;
+    id <FLOReaderDelegate>	 _delegate;
     dispatch_queue_t             _backgroundQueue;
     
     // NFC Service state variables
@@ -42,21 +41,18 @@
 #pragma mark - NFC Service (Objective C)
 
 /**
- Designated initializer for FJNFCService. Initializes decoder state
+ Designated initializer for FLOReader. Initializes decoder state
  and preps audio session for decoding process. 
  
- @return FJNFCService
+ @return FLOReader
  */
 - (id)init {
     self = [super init];
     if (self) {
         // Setup Grand Central Dispatch queue (thread pool)
-        _backgroundQueue = dispatch_queue_create("com.flomio.flojack", NULL);
+        _backgroundQueue = dispatch_queue_create("com.flomio.bg", NULL);
 // not supported with ARC        dispatch_retain(_backgroundQueue);
         
-        // Register an input callback function with an audio unit.
-//        _audioUnitRenderCallback.inputProc = floJackAURenderCallback;
-//        _audioUnitRenderCallback.inputProcRefCon = (__bridge_retained void*) self;
         
         // Initialize receive handler buffer
         _messageReceiveBuffer = [[NSMutableData alloc] initWithCapacity:MAX_MESSAGE_LENGTH];
@@ -87,31 +83,13 @@
 }
 
 /**
- Get current audio route description and determine if FloJack is connected.  This method is called VERY often.  Keep it light 
+ Get current audio route description and determine if reader is connected.  This method is called VERY often.  Keep it light
  and be concisous of memory leaks.
  
- @return BOOL    FloJack connected status
+ @return BOOL    Reader connected status
  */
-- (BOOL)floJackConnected
+- (BOOL)isDeviceConnected
 {
-    /*
-    CFDictionaryRef route;
-    UInt32 size = sizeof(route);
-    BOOL result = false; // assume FloJack is disconnected
-    
-    
-    XThrowIfError(AudioSessionGetProperty(kAudioSessionProperty_AudioRouteDescription, &size, &route), "couldn't get new sample rate");
-    
-    NSDictionary *inputRoutes = [(NSArray *)[(__bridge NSDictionary *)route objectForKey:@"RouteDetailedDescription_Inputs"] objectAtIndex:0];
-    NSDictionary *outputRoutes = [(NSArray *)[(__bridge NSDictionary *)route objectForKey:@"RouteDetailedDescription_Outputs"] objectAtIndex:0];
-    
-    if ([[inputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"MicrophoneWired"] &&
-        [[outputRoutes objectForKey:@"RouteDetailedDescription_PortType"] isEqual: @"Headphones"]) {
-        result = true;
-    }
-    
-    CFRelease(route);
-    */
     return _deviceConnected;
 }
 
@@ -131,14 +109,14 @@
      *  ERROR CHECKING 
      */
     // Before anything else carry out error handling
-    if (not parityGood) {
+    if (!parityGood) {
         // last byte was corrupted, dump this entire message
 //        LogTrace(@" --- Parity Bad: dumping message.");
         NSLog(@" --- Parity Bad: dumping message.");
         [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
         return;
     }
-    else if (not _messageValid and not (timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT)) {
+    else if (!_messageValid && !(timestamp - _lastByteReceivedAtTime >= MESSAGE_SYNC_TIMEOUT)) {
         // byte is ok but we're still receiving a corrupt message, dump it.
 //        LogTrace(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
         NSLog(@" --- Message Invalid: dumping message (timeout: %f)", (timestamp - _lastByteReceivedAtTime));
@@ -148,7 +126,7 @@
         // sweet! timeout has passed, let's get cranking on this valid message
         if (_messageReceiveBuffer.length > 0) {
 //            LogError(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
-            NSLog(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%lu", [_messageReceiveBuffer fj_asHexString], (unsigned long)_messageReceiveBuffer.length);
+            NSLog(@"Timeout reached. Dumping previous buffer. \n_messageReceiveBuffer:%@ \n_messageReceiveBuffer.length:%d", [_messageReceiveBuffer fj_asHexString], _messageReceiveBuffer.length);
            
             if([_delegate respondsToSelector:@selector(nfcService: didHaveError:)]) {
                 dispatch_async(_backgroundQueue, ^(void) {
@@ -174,8 +152,8 @@
     if (_messageReceiveBuffer.length == 2) {
         UInt8 length = 0;
         [_messageReceiveBuffer getBytes:&length
-                                      range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
-                                                        FLOJACK_MESSAGE_LENGTH_LENGTH)];
+                                      range:NSMakeRange(FLO_MESSAGE_LENGTH_POSITION,
+                                                        FLO_MESSAGE_LENGTH_LENGTH)];
         _messageLength = length;
         if (_messageLength < MIN_MESSAGE_LENGTH || _messageLength > MAX_MESSAGE_LENGTH)
         {
@@ -192,8 +170,8 @@
         // Check CRC
         if (_messageCRC == CORRECT_CRC_VALUE) {
             // Well formed message received, pass it to the delegate
-//            LogInfo(@"FJNFCService: Complete message, send to delegate.");
-            NSLog(@"FJNFCService: Complete message, send to delegate.");
+//            LogInfo(@"FLOReader: Complete message, send to delegate.");
+            NSLog(@"FLOReader: Complete message, send to delegate.");
             
             if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
                 NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
@@ -267,7 +245,7 @@
 }
 
 /**
- Send one byte across the audio jack to the FloJack.
+ Send one byte.
  
  @param theByte             The byte to be sent
  @return void
@@ -277,32 +255,14 @@
     while ([self send:theByte]);
 }
 
-/**
- Tell consuming app (by way of adapter) if the FloJack is plugged in
- 
- @return void
- */
-- (void)sendFloJackConnectedStatusToDelegate
-{
-    if([_delegate respondsToSelector:@selector(nfcServiceDidReceiveFloJack: connectedStatus:)]) {
-        dispatch_async(_backgroundQueue, ^(void) {
-            [_delegate nfcServiceDidReceiveFloJack:self connectedStatus:self.floJackConnected];
-        });
-    }
-}
 
 /**
- Send a message to the FloJack device. Message definitions can be found in device spec.
+ Send a message to the Reader device. Message definitions can be found in device spec.
  
  @param messageData        NSData representing the FJ Message
  @return void
  */
 - (BOOL)sendMessageDataToHost:(NSData *)messageData {
-
-    if (!self.floJackConnected) {
-        [self sendFloJackConnectedStatusToDelegate];
-        return false;
-    }
 
     UInt8 * uartByte = (UInt8*)messageData.bytes;
     int len = [messageData length];

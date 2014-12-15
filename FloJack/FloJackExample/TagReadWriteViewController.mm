@@ -66,7 +66,7 @@
     [self connectionStatusTextField].text = [NSString stringWithFormat:@"Off"];
 
     deviceStateNotification = [NSNotificationCenter defaultCenter];
-    [deviceStateNotification addObserver:self selector:@selector(handleDeviceStateNotification:) name:floBLEConnectionStatusChangeNotification object:nil];
+    [deviceStateNotification addObserver:self selector:@selector(handleDeviceStateNotification:) name:floReaderConnectionStatusChangeNotification object:nil];
     
     // init ledPicker data from floble LED States
 /*    typedef enum {
@@ -137,11 +137,11 @@
 #if 0
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0){
-        [_appDelegate.nfcAdapter setDeviceHasVolumeCap:true];
+        [_appDelegate.floReaderManager setDeviceHasVolumeCap:true];
         [self updateLogTextViewWithString:[NSString stringWithFormat:@":::Device Volume Cap = True"]];
     }
     else {
-        [_appDelegate.nfcAdapter setDeviceHasVolumeCap:false];
+        [_appDelegate.floReaderManager setDeviceHasVolumeCap:false];
         [self updateLogTextViewWithString:[NSString stringWithFormat:@":::Device Volume Cap = False"]];
     }
 }
@@ -150,7 +150,7 @@
 // is a duplicate of this
 - (IBAction)buttonWasPressedForPollingRate:(id)sender {
     int pollValue = [self.pollingRateTextField.text intValue];
-    _appDelegate.nfcAdapter.pollPeriod = pollValue;
+    _appDelegate.floReaderManager.pollPeriod = pollValue;
     
     [self.view endEditing:YES];
 }
@@ -158,13 +158,13 @@
 - (IBAction)buttonWasPressedForReadTag:(id)sender {
     switch (((UIButton *)sender).tag) {
         case 1:
-            [_appDelegate.nfcAdapter setModeReadTagUID];
+            [_appDelegate.floReaderManager setModeReadTagUID];
             break;
         case 2:
-            [_appDelegate.nfcAdapter setModeReadTagUIDAndNDEF];
+            [_appDelegate.floReaderManager setModeReadTagUIDAndNDEF];
             break;
         case 3:
-            [_appDelegate.nfcAdapter setModeReadTagData];
+            [_appDelegate.floReaderManager setModeReadTagData];
             break;
     }
 }
@@ -172,35 +172,35 @@
 - (IBAction)buttonWasPressedForUtilities:(id)sender {
     switch (((UIButton *)sender).tag) {
         case 1:
-            [_appDelegate.nfcAdapter initializeFloJackDevice];
+           // [_appDelegate.floReaderManager initializeFloJackDevice];
             break;
         case 2:
-            [_appDelegate.nfcAdapter getFirmwareVersion];
+            [_appDelegate.floReaderManager getFirmwareVersion];
             break;
         case 3:
-            [_appDelegate.nfcAdapter getHardwareVersion];
+            [_appDelegate.floReaderManager getHardwareVersion];
             break;
         case 4:
-            [_appDelegate.nfcAdapter getSnifferCalib];
+            [_appDelegate.floReaderManager getSnifferCalib];
             break;
         case 5:
             // TODO Need to clean up button action because the self.tweakThresholdTextField "Send" keyboard action
             // is a duplicate of this
-            [_appDelegate.nfcAdapter setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+            [_appDelegate.floReaderManager setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
             [self.view endEditing:YES];
             break;
         case 6:
-            [_appDelegate.nfcAdapter setDecrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+            [_appDelegate.floReaderManager setDecrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
             [self.view endEditing:YES];
             break;
         case 7:
             // TODO Need to clean up button action because the self.maxThresholdTextField "Send" keyboard action
             // is a duplicate of this
-            [_appDelegate.nfcAdapter setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
+            [_appDelegate.floReaderManager setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
             [self.view endEditing:YES];
             break;
         case 8:
-            [_appDelegate.nfcAdapter sendResetSnifferThreshold];
+            [_appDelegate.floReaderManager sendResetSnifferThreshold];
             break;
         case 9:
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"EU Mode" message:@"Warning: May damage the FloJack device. Only enable for volume limited devices. See http://flomio.com/volume-limit" delegate:self cancelButtonTitle:@"Enable" otherButtonTitles:@"Cancel", nil];
@@ -212,17 +212,17 @@
 
 - (IBAction)buttonWasPressedForLEDConfig:(id)sender
 {
-//    [_appDelegate.nfcAdapter setLedMode:[self.ledConfigTextField.text intValue]];
+//    [_appDelegate.floReaderManager setLedMode:[self.ledConfigTextField.text intValue]];
 //    [self.view endEditing:YES];
 
-    [_appDelegate.nfcAdapter setLedMode:_ledPickedValue];
+    [_appDelegate.floReaderManager setLedMode:_ledPickedValue];
 }
 
 // TODO Need to clean up button action because the _urlInputField "Send" keyboard action
 // is a duplicate of this
 - (IBAction)buttonWasPressedForWriteTag:(id)sender {
-    FJNDEFMessage *testMessage = [FJNDEFMessage createURIWithString:_urlInputField.text];
-    [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:testMessage];
+    NDEFMessage *testMessage = [NDEFMessage createURIWithString:_urlInputField.text];
+    [_appDelegate.floReaderManager setModeWriteTagWithNdefMessage:testMessage];
     [self.view endEditing:YES];
 }
 
@@ -230,25 +230,25 @@
     UISwitch *onOffSwitch = (UISwitch *) sender;
     switch (onOffSwitch.tag) {
         case 1:
-            _appDelegate.nfcAdapter.pollFor14443aTags = onOffSwitch.on;
+            _appDelegate.floReaderManager.pollFor14443aTags = onOffSwitch.on;
             break;
         case 2:
-            _appDelegate.nfcAdapter.pollFor15693Tags = onOffSwitch.on;
+            _appDelegate.floReaderManager.pollFor15693Tags = onOffSwitch.on;
             break;
         case 3:
-            _appDelegate.nfcAdapter.pollForFelicaTags = onOffSwitch.on;
+            _appDelegate.floReaderManager.pollForFelicaTags = onOffSwitch.on;
             break;
         case 4:
-            _appDelegate.nfcAdapter.standaloneMode = onOffSwitch.on;
+            _appDelegate.floReaderManager.standaloneMode = onOffSwitch.on;
             break;
     }
 }
 
 - (IBAction)buttonWasPressedForSendConfig:(id)sender {
-    [_appDelegate.nfcAdapter setStandaloneMode:_switchPolling14443A.isOn];
-    [_appDelegate.nfcAdapter setStandaloneMode:_switchPolling15693.isOn];
-    [_appDelegate.nfcAdapter setStandaloneMode:_switchPollingFelica.isOn];
-    [_appDelegate.nfcAdapter setStandaloneMode:_switchStandaloneMode.isOn];
+    [_appDelegate.floReaderManager setStandaloneMode:_switchPolling14443A.isOn];
+    [_appDelegate.floReaderManager setStandaloneMode:_switchPolling15693.isOn];
+    [_appDelegate.floReaderManager setStandaloneMode:_switchPollingFelica.isOn];
+    [_appDelegate.floReaderManager setStandaloneMode:_switchStandaloneMode.isOn];
 }
 
 #pragma mark - UI Output
@@ -335,16 +335,16 @@
     });
 }
 
-#pragma mark - FJNFCAdapter Delegate
+#pragma mark - FLOReaderManager Delegate
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didScanTag:(FJNFCTag *)theNfcTag {
     NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::Tag Read "];
     [textUpdate appendString:[NSString stringWithFormat:@"\n UID: %@", [theNfcTag.uid fj_asHexString]]];
     [textUpdate appendString:[NSString stringWithFormat:@"\n Type: %d", theNfcTag.nfcForumType]];
     [textUpdate appendString:[NSString stringWithFormat:@"\n Data: %@", [theNfcTag.data fj_asHexString]]];
 
     if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {
-        for (FJNDEFRecord *ndefRecord in theNfcTag.ndefMessage.ndefRecords) {
+        for (NDEFRecord *ndefRecord in theNfcTag.ndefMessage.ndefRecords) {
             [textUpdate appendString:@"\n:::NDEF Record Found"];
             [textUpdate appendString:[NSString stringWithFormat:@"\n TNF: %d",ndefRecord.tnf]];
             [textUpdate appendString:[NSString stringWithFormat:@"\n Type: %@",[ndefRecord.type fj_asHexString]]];
@@ -360,7 +360,7 @@
     [self showAlertWithTitle:@"Tag Read" andMessage:[theNfcTag.uid fj_asHexString]];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didHaveStatus:(NSInteger)statusCode {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didHaveStatus:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
     NSLog(statusCodeString);
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Status %@", statusCodeString];
@@ -368,42 +368,42 @@
     [self updateStatusTextViewWithStatus:statusCode];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didWriteTagAndStatusWas:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatTagWriteStatusToString:(flomio_tag_write_status_opcodes_t)statusCode];
     NSString *textUpdate = [NSString stringWithFormat:@":::Tag Write Status %@", statusCodeString];
     [self updateLogTextViewWithString:textUpdate];
     [self showAlertWithTitle:@"Tag Write Status" andMessage:statusCodeString];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveFirmwareVersion:(NSString *)theVersionNumber {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveFirmwareVersion:(NSString *)theVersionNumber {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Firmware Version %@", theVersionNumber];
     [self updateLogTextViewWithString:textUpdate];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveHardwareVersion:(NSString *)theVersionNumber; {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveHardwareVersion:(NSString *)theVersionNumber; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Hardware Version %@", theVersionNumber];
     [self updateLogTextViewWithString:textUpdate];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue; {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferThresh:(NSString *)theSnifferValue; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Threshold %@", theSnifferValue];
     [self updateLogTextViewWithString:textUpdate];
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)nfcAdapter didReceiveSnifferCalib:(NSString *)theCalibValues; {
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferCalib:(NSString *)theCalibValues; {
     NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Calibration Stats %@", theCalibValues];
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (bool)textFieldShouldReturn:(UITextField *)textField {
     if ([textField isEqual:_urlInputField]) {
-        [_appDelegate.nfcAdapter setModeWriteTagWithNdefMessage:[FJNDEFMessage createURIWithString:_urlInputField.text]];
+        [_appDelegate.floReaderManager setModeWriteTagWithNdefMessage:[NDEFMessage createURIWithString:_urlInputField.text]];
     } else if ([textField isEqual:_pollingRateTextField]) {
-            _appDelegate.nfcAdapter.pollPeriod = [self.pollingRateTextField.text intValue];
+            _appDelegate.floReaderManager.pollPeriod = [self.pollingRateTextField.text intValue];
     } else if ([textField isEqual:_tweakThresholdTextField]) {
-        [_appDelegate.nfcAdapter setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
+        [_appDelegate.floReaderManager setIncrementSnifferThreshold:[self.tweakThresholdTextField.text intValue]];
     } else if ([textField isEqual:_maxThresholdTextField]) {
-        [_appDelegate.nfcAdapter setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
+        [_appDelegate.floReaderManager setMaxSnifferThreshold:[self.maxThresholdTextField.text intValue]];
     }
     [self.view endEditing:YES];
     return YES;

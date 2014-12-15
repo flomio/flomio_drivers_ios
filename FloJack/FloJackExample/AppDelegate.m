@@ -14,7 +14,7 @@
     NSString            *_scanSoundPath;
 }
 
-@synthesize nfcAdapter;
+@synthesize floReaderManager;
 @synthesize window;
 
 #pragma mark - UIApplicationDelegate
@@ -23,8 +23,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.nfcAdapter = [[FJNFCAdapter alloc] init];
-    [self.nfcAdapter setDelegate:self];
+    self.floReaderManager = [[FLOReaderManager alloc] init];
+    [self.floReaderManager setDelegate:self];
     
     _scanSoundPath = [[NSBundle mainBundle] pathForResource:@"scan_sound" ofType:@"mp3"];
     //    _scanSound = [[NSSound alloc]initWithContentsOfFile:_scanSoundPath byReference:YES];
@@ -43,7 +43,7 @@
     return YES;
 }
 
-#pragma mark - FJNFCAdapterDelegate
+#pragma mark - FLOReaderManagerDelegate
 - (void)playTagReadSound
 {
     SystemSoundID soundID;
@@ -51,52 +51,52 @@
     AudioServicesPlaySystemSound(soundID);
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didScanTag:(FJNFCTag *)theNfcTag {
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didScanTag:(FJNFCTag *)theNfcTag {
 // Play Tag Read Sound
     [self playTagReadSound];
     
     //    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
     
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didScanTag:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didScanTag:theNfcTag];        
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didScanTag:theNfcTag];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didHaveStatus:(NSInteger)statusCode {
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didHaveStatus:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didHaveStatus:statusCode];
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didHaveStatus:(NSInteger)statusCode {
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didHaveStatus:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didHaveStatus:statusCode];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didWriteTagAndStatusWas:(NSInteger)statusCode {
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didWriteTagAndStatusWas:(NSInteger)statusCode {
 //    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];
     
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didWriteTagAndStatusWas:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didWriteTagAndStatusWas:statusCode];
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didWriteTagAndStatusWas:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didWriteTagAndStatusWas:statusCode];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveFirmwareVersion:(NSString*)theVersionNumber {
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveFirmwareVersion:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveFirmwareVersion:theVersionNumber];
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didReceiveFirmwareVersion:(NSString*)theVersionNumber {
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didReceiveFirmwareVersion:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didReceiveFirmwareVersion:theVersionNumber];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveHardwareVersion:(NSString*)theVersionNumber; {
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveHardwareVersion:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveHardwareVersion:theVersionNumber];
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didReceiveHardwareVersion:(NSString*)theVersionNumber; {
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didReceiveHardwareVersion:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didReceiveHardwareVersion:theVersionNumber];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveSnifferThresh:(NSString *)theSnifferValue; {
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveSnifferThresh:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveSnifferThresh:theSnifferValue];
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didReceiveSnifferThresh:(NSString *)theSnifferValue; {
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didReceiveSnifferThresh:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didReceiveSnifferThresh:theSnifferValue];
     }
 }
 
-- (void)nfcAdapter:(FJNFCAdapter *)theNfcAdapter didReceiveSnifferCalib:(NSString *)theCalibValues; {
-    if ([self.window.rootViewController respondsToSelector:@selector(nfcAdapter: didReceiveSnifferCalib:)]) {
-        [(id)self.window.rootViewController nfcAdapter:theNfcAdapter didReceiveSnifferCalib:theCalibValues];
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didReceiveSnifferCalib:(NSString *)theCalibValues; {
+    if ([self.window.rootViewController respondsToSelector:@selector(floReaderManager: didReceiveSnifferCalib:)]) {
+        [(id)self.window.rootViewController floReaderManager:theFloReaderManager didReceiveSnifferCalib:theCalibValues];
     }
 }
 @end

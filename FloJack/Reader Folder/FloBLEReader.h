@@ -1,5 +1,5 @@
 //
-//  FloBLEUart.h
+//  FloBLEReader.h
 //  Badanamu
 //
 //  Created by Chuck Carter on 10/13/14.
@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "FJNFCService.h"
-#import "FloBLEUart.h"
+#import "FLOReader.h"
+#import "FloBLEReader.h"
 #import "FloNotifications.h"
 #import "FloProtocolsCommon.h"
 
-extern NSString * const floBLEConnectionStatusChangeNotification;
+extern NSString * const floReaderConnectionStatusChangeNotification;
 
-@protocol FloBLEUartDelegate <NSObject,FJNFCServiceDelegate>
+@protocol FloBLEReaderDelegate <NSObject,FLOReaderDelegate>
 //- (void) didReceiveData:(NSString *) string;
 @optional
 - (void)handleReceivedByte:(UInt8)byte withParity:(BOOL)parityGood atTimestamp:(double)timestamp;
@@ -23,7 +23,7 @@ extern NSString * const floBLEConnectionStatusChangeNotification;
 //- (void) didReadHardwareRevisionString:(NSString *) string;
 @end
 
-@interface FloBLEUart : FJNFCService <CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface FloBLEReader : FLOReader <CBCentralManagerDelegate,CBPeripheralDelegate>
 {
     CBCentralManager * myCentralManager;
     CBPeripheral *activePeripheral;
@@ -46,7 +46,7 @@ extern NSString * const floBLEConnectionStatusChangeNotification;
 @property (strong, nonatomic) CBCharacteristic * serialH2fPortBlockCharacteristic;
 @property (copy, nonatomic) NSMutableArray * rfUid;
 @property (retain, nonatomic) NSTimer * bleTimer;
-@property id<FloBLEUartDelegate> delegate;
+@property id<FloBLEReaderDelegate> delegate;
 
 - (id)init;
 - (void)startScan;
@@ -56,7 +56,7 @@ extern NSString * const floBLEConnectionStatusChangeNotification;
 - (void) discoverServicesForUUIDString:(CBPeripheral *)peripheral uuidString:(NSString *)uuidString;
 - (void) discoverServicesForCBUUID:(CBPeripheral *)peripheral cbuuid:(CBUUID *)uuid;
 - (void)delayStartScanTimerService:(NSTimer*)aTimer;
-- (id)initWithDelegate:(id<FloBLEUartDelegate>)floBleDelegate;
+- (id)initWithDelegate:(id<FloBLEReaderDelegate>)floBleDelegate;
 - (void)writePeriperalWithResponse:(UInt8*)dataToWrite;
 - (void)writePeriperalWithOutResponse:(UInt8*)dataToWrite;
 - (void)writeBlockToPeriperalWithOutResponse:(UInt8*)dataToWrite ofLength:(UInt8)len;

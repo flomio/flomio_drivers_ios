@@ -1,12 +1,12 @@
 //
 //  NfcMessage.m
-//  FloJack
+//
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import "FJMessage.h"
+#import "NFCMessage.h"
 #import "NSData+FJStringDisplay.h"
 
 @implementation FJMessage 
@@ -29,7 +29,7 @@
 }
 
 - (id)initWithBytes:(UInt8 *)messageBytes; {
-    unsigned int messageLength = (unsigned int) messageBytes[FLOJACK_MESSAGE_LENGTH_POSITION];
+    unsigned int messageLength = (unsigned int) messageBytes[FLO_MESSAGE_LENGTH_POSITION];
     NSData *message = [[NSData alloc] initWithBytes:messageBytes length:messageLength];
     
     return [self initWithData:message];
@@ -56,9 +56,9 @@
 }
 
 /**
- Designated initializer. Initialize the FloJack Message from an NSData object.
+ Designated initializer. Initialize the Reader Message from an NSData object.
  
- @param theData        Data representing a FloJack message {opcode, length, ..., CRC}
+ @param theData        Data representing a Reader message {opcode, length, ..., CRC}
  
  @return id
  */
@@ -68,12 +68,12 @@
         if (theData != nil) {
             // Required message parameters
             _bytes = [theData copy];            
-            [theData getBytes:&_opcode range:NSMakeRange(FLOJACK_MESSAGE_OPCODE_POSITION,
-                                                         FLOJACK_MESSAGE_OPCODE_LENGTH)];
-            [theData getBytes:&_length range:NSMakeRange(FLOJACK_MESSAGE_LENGTH_POSITION,
-                                                            FLOJACK_MESSAGE_LENGTH_LENGTH)];
+            [theData getBytes:&_opcode range:NSMakeRange(FLO_MESSAGE_OPCODE_POSITION,
+                                                         FLO_MESSAGE_OPCODE_LENGTH)];
+            [theData getBytes:&_length range:NSMakeRange(FLO_MESSAGE_LENGTH_POSITION,
+                                                            FLO_MESSAGE_LENGTH_LENGTH)];
             [theData getBytes:&_crc range:NSMakeRange((theData.length - 1),
-                                                      FLOJACK_MESSAGE_CRC_LENGTH)];
+                                                      FLO_MESSAGE_CRC_LENGTH)];
             
             // Optional message parameters
             _subOpcode = [FJMessage getMessageSubOpcode:theData];
@@ -81,7 +81,7 @@
             _subOpcodeLSN = _subOpcode & 0x0F;
             
             // variable declarations
-            UInt8 flojackMessageEnable = 0;
+            UInt8 floMessageEnable = 0;
             
             // Parse the message
             switch (_opcode) {
@@ -94,16 +94,16 @@
                         case FLOMIO_STATUS_HW_REV:  {
                             _name = @"FLOMIO_STATUS_HW_REV";
                             
-                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            NSRange dataRange = NSMakeRange((FLO_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLO_MESSAGE_SUB_OPCODE_POSITION + 2));
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                         }
                         case FLOMIO_STATUS_SW_REV: {
                             _name = @"FLOMIO_STATUS_SW_REV";
                             
-                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            NSRange dataRange = NSMakeRange((FLO_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLO_MESSAGE_SUB_OPCODE_POSITION + 2));
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                         }
@@ -113,16 +113,16 @@
                         case FLOMIO_STATUS_SNIFFTHRESH:  {
                             _name = @"FLOMIO_STATUS_SNIFFTHRESH";
                             
-                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            NSRange dataRange = NSMakeRange((FLO_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLO_MESSAGE_SUB_OPCODE_POSITION + 2));
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                         }
                         case FLOMIO_STATUS_SNIFFCALIB:  {
                             _name = @"FLOMIO_STATUS_SNIFFCALIB";
 
-                            NSRange dataRange = NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                            theData.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2));
+                            NSRange dataRange = NSMakeRange((FLO_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                            theData.length - (FLO_MESSAGE_SUB_OPCODE_POSITION + 2));
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                         }
@@ -131,11 +131,11 @@
                     }
                     break;                
                 case FLOMIO_PROTO_ENABLE_OP:
-                    [theData getBytes:&flojackMessageEnable range:NSMakeRange(FLOJACK_MESSAGE_ENABLE_POSITION,
-                                                                              FLOJACK_MESSAGE_ENABLE_LENGTH)];
+                    [theData getBytes:&floMessageEnable range:NSMakeRange(FLO_MESSAGE_ENABLE_POSITION,
+                                                                              FLO_MESSAGE_ENABLE_LENGTH)];
                     switch (_subOpcode) {
                         case FLOMIO_PROTO_14443A:
-                            switch (flojackMessageEnable) {
+                            switch (floMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     _name = @"FLOMIO_PROTO_14443A_ENABLE";
                                     _enable = TRUE;
@@ -147,7 +147,7 @@
                             }
                             break;
                         case FLOMIO_PROTO_14443B:
-                            switch (flojackMessageEnable) {
+                            switch (floMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     _name = @"FLOMIO_PROTO_14443B_ENABLE";
                                     _enable = TRUE;
@@ -159,7 +159,7 @@
                             }
                             break;
                         case FLOMIO_PROTO_15693:
-                            switch (flojackMessageEnable) {
+                            switch (floMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     _name = @"FLOMIO_PROTO_15693_ENABLE";
                                     _enable = TRUE;
@@ -171,7 +171,7 @@
                             }
                             break;
                         case FLOMIO_PROTO_FELICA:
-                            switch (flojackMessageEnable) {
+                            switch (floMessageEnable) {
                                 case FLOMIO_ENABLE:
                                     _name = @"FLOMIO_PORTO_FELICA_ENABLE";
                                     _enable = TRUE;
@@ -187,9 +187,9 @@
                     }                    
                     break;
                 case FLOMIO_POLLING_ENABLE_OP:
-                    [theData getBytes:&flojackMessageEnable range:NSMakeRange(FLOJACK_MESSAGE_ENABLE_POSITION,
-                                                                              FLOJACK_MESSAGE_ENABLE_LENGTH)];
-                    switch (flojackMessageEnable) {
+                    [theData getBytes:&floMessageEnable range:NSMakeRange(FLO_MESSAGE_ENABLE_POSITION,
+                                                                              FLO_MESSAGE_ENABLE_LENGTH)];
+                    switch (floMessageEnable) {
                         case FLOMIO_ENABLE:
                             _name = @"FLOMIO_POLLING_ENABLE_OP_ENABLE";
                             _enable = TRUE;
@@ -229,7 +229,7 @@
                     }
                     break;
                 case FLOMIO_STANDALONE_OP:
-                    switch (flojackMessageEnable) {
+                    switch (floMessageEnable) {
                         case FLOMIO_ENABLE:
                             _name = @"FLOMIO_STANDALONE_OP_ENABLE";
                             _enable = TRUE;
@@ -256,7 +256,7 @@
                 case FLOMIO_TAG_READ_OP: {
                     _name = @"FLOMIO_TAG_READ_OP";
                                         
-                    NSRange dataRange = NSMakeRange(FJ_TAG_UID_DATA_POS, (theData.length - 4));
+                    NSRange dataRange = NSMakeRange(FLO_TAG_UID_DATA_POS, (theData.length - 4));
                     _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];                    
                     break;
                 }
@@ -266,9 +266,9 @@
                             _name = @"FLOMIO_READ_BLOCK";
                             
                             int dataLength = 0;
-                            [theData getBytes:&dataLength range:NSMakeRange(FJ_BLOCK_RW_MSG_DATA_LENGTH_POS,
-                                                                            FJ_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
-                            NSRange dataRange = NSMakeRange((FJ_BLOCK_RW_MSG_DATA_POS), dataLength);
+                            [theData getBytes:&dataLength range:NSMakeRange(FLO_BLOCK_RW_MSG_DATA_LENGTH_POS,
+                                                                            FLO_BLOCK_RW_MSG_DATA_LENGTH_LEN)];
+                            NSRange dataRange = NSMakeRange((FLO_BLOCK_RW_MSG_DATA_POS), dataLength);
                             _data = [[NSData alloc] initWithData:[theData subdataWithRange:dataRange]];
                             break;
                     }
@@ -308,12 +308,12 @@
 - (NSData *)getDataFromMessage:(NSData *)message withSubOpcode:(BOOL)messageHasSubOpcode {
     if (messageHasSubOpcode) {
         // Pop opcode, length, sub-opcode and remove CRC from end.
-        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 1),
-                                                                                  message.length - (FLOJACK_MESSAGE_SUB_OPCODE_POSITION + 2))]];
+        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLO_MESSAGE_SUB_OPCODE_POSITION + 1),
+                                                                                  message.length - (FLO_MESSAGE_SUB_OPCODE_POSITION + 2))]];
     } else {
         // Pop opcode, length, and remove CRC from end.
-        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLOJACK_MESSAGE_LENGTH_POSITION + 1),
-                                                                                  message.length - (FLOJACK_MESSAGE_LENGTH_POSITION + 2))]];
+        return [[NSData alloc] initWithData:[message subdataWithRange:NSMakeRange((FLO_MESSAGE_LENGTH_POSITION + 1),
+                                                                                  message.length - (FLO_MESSAGE_LENGTH_POSITION + 2))]];
     }
 }
 
@@ -321,36 +321,36 @@
 /**
  Return the message sub-opcode if it has one
  
- @param theMessage     The FloJack message
+ @param theMessage     The FLO message
  
  @return UInt8         The sub-opcode or nil. 
  */
 + (UInt8)getMessageSubOpcode:(NSData *)theMessage; {
-    UInt8 flojackMessageOpcode = 0;
-    [theMessage getBytes:&flojackMessageOpcode range:NSMakeRange(FLOJACK_MESSAGE_OPCODE_POSITION,
-                                                              FLOJACK_MESSAGE_OPCODE_LENGTH)];
+    UInt8 floMessageOpcode = 0;
+    [theMessage getBytes:&floMessageOpcode range:NSMakeRange(FLO_MESSAGE_OPCODE_POSITION,
+                                                              FLO_MESSAGE_OPCODE_LENGTH)];
     
-    if (flojackMessageOpcode == FLOMIO_STATUS_OP ||
-            flojackMessageOpcode == FLOMIO_PROTO_ENABLE_OP ||
-            //flojackMessageOpcode == FLOMIO_POLLING_ENABLE_OP ||
-            //flojackMessageOpcode == FLOMIO_POLLING_RATE_OP ||
-            flojackMessageOpcode == FLOMIO_TAG_READ_OP ||
-            flojackMessageOpcode == FLOMIO_ACK_ENABLE_OP ||
-            flojackMessageOpcode == FLOMIO_STANDALONE_OP ||
-            //flojackMessageOpcode == FLOMIO_STANDALONE_TIMEOUT_OP ||
-            //flojackMessageOpcode == FLOMIO_DUMP_LOG_OP ||
-            flojackMessageOpcode == FLOMIO_LED_CONTROL_OP ||
-            //flojackMessageOpcode == FLOMIO_TI_HOST_COMMAND_OP ||
-            flojackMessageOpcode == FLOMIO_COMMUNICATION_CONFIG_OP ||
-            flojackMessageOpcode == FLOMIO_PING_OP ||
-            flojackMessageOpcode == FLOMIO_OPERATION_MODE_OP ||
-            flojackMessageOpcode == FLOMIO_BLOCK_READ_WRITE_OP ||
-            flojackMessageOpcode == FLOMIO_TAG_WRITE_OP)
+    if (floMessageOpcode == FLOMIO_STATUS_OP ||
+            floMessageOpcode == FLOMIO_PROTO_ENABLE_OP ||
+            //floMessageOpcode == FLOMIO_POLLING_ENABLE_OP ||
+            //floMessageOpcode == FLOMIO_POLLING_RATE_OP ||
+            floMessageOpcode == FLOMIO_TAG_READ_OP ||
+            floMessageOpcode == FLOMIO_ACK_ENABLE_OP ||
+            floMessageOpcode == FLOMIO_STANDALONE_OP ||
+            //floMessageOpcode == FLOMIO_STANDALONE_TIMEOUT_OP ||
+            //floMessageOpcode == FLOMIO_DUMP_LOG_OP ||
+            floMessageOpcode == FLOMIO_LED_CONTROL_OP ||
+            //floMessageOpcode == FLOMIO_TI_HOST_COMMAND_OP ||
+            floMessageOpcode == FLOMIO_COMMUNICATION_CONFIG_OP ||
+            floMessageOpcode == FLOMIO_PING_OP ||
+            floMessageOpcode == FLOMIO_OPERATION_MODE_OP ||
+            floMessageOpcode == FLOMIO_BLOCK_READ_WRITE_OP ||
+            floMessageOpcode == FLOMIO_TAG_WRITE_OP)
     {
-        UInt8 flojackMessageSubOpcode = 0;
-        [theMessage getBytes:&flojackMessageSubOpcode range:NSMakeRange(FLOJACK_MESSAGE_SUB_OPCODE_POSITION,
-                                                                        FLOJACK_MESSAGE_SUB_OPCODE_LENGTH)];
-        return flojackMessageSubOpcode;
+        UInt8 floMessageSubOpcode = 0;
+        [theMessage getBytes:&floMessageSubOpcode range:NSMakeRange(FLO_MESSAGE_SUB_OPCODE_POSITION,
+                                                                        FLO_MESSAGE_SUB_OPCODE_LENGTH)];
+        return floMessageSubOpcode;
         
     } else {
         return nil;
@@ -361,9 +361,9 @@
  calculateCRCForIncompleteMessage()
  Calculate the CRC for the given byte array
  
- @param message             Byte array representing a FloJack message {opcode, length, ...}.
+ @param message             Byte array representing a Reader message {opcode, length, ...}.
  Does not include CRC byte.
- @param messageLength       Length of the FloJack message
+ @param messageLength       Length of the Reader message
  
  @return void
  */
@@ -413,11 +413,11 @@
         case FLOMIO_STATUS_VOLUME_OK:
             result = @"VOLUME_OK";
             break;
-        case FLOMIO_STATUS_FLOJACK_CONNECTED:
-            result = @"FLOJACK_CONNECTED";
+        case FLOMIO_STATUS_READER_CONNECTED:
+            result = @"READER_CONNECTED";
             break;
-        case FLOMIO_STATUS_FLOJACK_DISCONNECTED:
-            result = @"FLOJACK_DISCONNECTED";
+        case FLOMIO_STATUS_READER_DISCONNECTED:
+            result = @"READER_DISCONNECTED";
             break;
         default:
             result = @"STATUS_UNKNOWN";

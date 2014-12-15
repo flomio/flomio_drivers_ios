@@ -1,6 +1,6 @@
 //
-//  FJNDEFRecord.h
-//  FloJack
+//  NDEFRecord.h
+//  
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSData+FJStringDisplay.h"
-#import "FJNDEFMessage.h"
+#import "NDEFMessage.h"
 
 //    Indicates no type, id, or payload is associated with this NDEF Record.
 //    Type, id and payload fields must all be empty to be a valid TNF_EMPTY
@@ -111,7 +111,7 @@ static __unused NSArray *kUriPrefixMap = nil;
 // The underlying record representation may be chunked across several NDEF records when the payload is large.
 // This is an immutable data class.
 //
-@interface FJNDEFRecord : NSObject
+@interface NDEFRecord : NSObject
 
 @property(nonatomic, readonly) short tnf;
 @property(nonatomic, readonly) NSData *type;
@@ -127,7 +127,7 @@ static __unused NSArray *kUriPrefixMap = nil;
 - (NSURL *)getUriFromPayload;
 
 // Creates an NDEF record payload of well known type URI.
-+ (FJNDEFRecord *)createURIWithURL:(NSURL *)url;
-+ (FJNDEFRecord *)createURIWithString:(NSString *)uriString;
++ (NDEFRecord *)createURIWithURL:(NSURL *)url;
++ (NDEFRecord *)createURIWithString:(NSString *)uriString;
 
 @end

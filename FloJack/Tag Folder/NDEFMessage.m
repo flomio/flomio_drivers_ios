@@ -1,6 +1,6 @@
 //
-//  FJNDEFMessage.m
-//  FloJack
+//  NDEFMessage.m
+//  
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
@@ -8,9 +8,9 @@
 //  NOTE:   This file is a port of Android.nfc.NdefMessage code found in the The Android Open Source Project.
 //
 
-#import "FJNDEFMessage.h"
+#import "NDEFMessage.h"
 
-@implementation FJNDEFMessage {
+@implementation NDEFMessage {
     NSArray     *_ndefRecords;
 }
 
@@ -26,7 +26,7 @@
     if (byteBuffer == nil)
         [NSException raise:@"Invalid value" format:@"Byte buffer is nil"];
     
-    return [self initWithNdefRecords:[FJNDEFRecord parseData:byteBuffer andIgnoreMbMe:FALSE]];
+    return [self initWithNdefRecords:[NDEFRecord parseData:byteBuffer andIgnoreMbMe:FALSE]];
 }
 
 /**
@@ -35,7 +35,7 @@
  @param ndefRecord Single NDEF record to initialize message with.
  @return id
  */
-- (id)initWithNdefRecord:(FJNDEFRecord *)ndefRecord {
+- (id)initWithNdefRecord:(NDEFRecord *)ndefRecord {
     return [self initWithNdefRecords:[[NSArray alloc] initWithObjects:ndefRecord,nil]];
 }
 
@@ -65,7 +65,7 @@
         return nil;
     }
     
-    [_ndefRecords enumerateObjectsUsingBlock:^(FJNDEFRecord *ndefRecord, NSUInteger i, BOOL *stop) {
+    [_ndefRecords enumerateObjectsUsingBlock:^(NDEFRecord *ndefRecord, NSUInteger i, BOOL *stop) {
         
         NSMutableData *ndefRecordData = [[NSMutableData alloc] initWithData:[ndefRecord asByteBuffer]];
         
@@ -106,12 +106,12 @@
  @params uriString String representation of URI to encode. 
  @return NSData
  */
-+ (FJNDEFMessage *)createURIWithString:(NSString *)uriString {
++ (NDEFMessage *)createURIWithString:(NSString *)uriString {
     if (uriString == nil) {
         return nil;
     }
-    FJNDEFRecord *uriRecord = [FJNDEFRecord createURIWithString:uriString];
-    return [[FJNDEFMessage alloc] initWithNdefRecord:uriRecord];
+    NDEFRecord *uriRecord = [NDEFRecord createURIWithString:uriString];
+    return [[NDEFMessage alloc] initWithNdefRecord:uriRecord];
 }
 
 @end

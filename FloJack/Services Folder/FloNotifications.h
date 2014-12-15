@@ -12,4 +12,4 @@
 
 #endif
 
-extern NSString * const floBLEConnectionStatusChangeNotification;
+extern NSString * const floReaderConnectionStatusChangeNotification;

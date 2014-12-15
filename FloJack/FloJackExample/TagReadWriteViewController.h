@@ -11,10 +11,10 @@
 #import <dispatch/dispatch.h>
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#import "FJNFCAdapter.h"
+#import "FLOReaderManager.h"
 #import "NSData+FJStringDisplay.h"
 
-@interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FJNFCAdapterDelegate, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FLOReaderManagerDelegate, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIPickerView *ledPicker;
 @property (strong, nonatomic) IBOutlet UILabel *connectionStatusTextField;

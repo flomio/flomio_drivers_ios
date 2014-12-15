@@ -1,12 +1,12 @@
 //
 //  FJNFCTag.m
-//  FloJack
+//  
 //
 //  Created by John Bullard on 9/21/12.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
 
-#import "FJNFCTag.h"
+#import "FLOTag.h"
 
 @implementation FJNFCTag {
     NSData      *_uid;
@@ -65,9 +65,9 @@
 /**
  Searches for an NDEF message in the tag data. 
  
- @return FJNDEFMessage
+ @return NDEFMessage
  */
-- (FJNDEFMessage *)parseMemoryForNdefMessage; {
+- (NDEFMessage *)parseMemoryForNdefMessage; {
     switch (_nfcForumType) {
         case NFC_FORUM_TYPE_1:
         case NFC_FORUM_TYPE_2:
@@ -82,9 +82,9 @@
 /**
  Returns the location of the NDEF message.
  
- @return FJNDEFMessage
+ @return NDEFMessage
  */
-- (FJNDEFMessage *)type2ParseMemoryForNdefMessage; {
+- (NDEFMessage *)type2ParseMemoryForNdefMessage; {
     if (_data == nil || _uid == nil) {
         return nil;
     }
@@ -95,9 +95,9 @@
     
     NSData *ndefData = [_data subdataWithRange:NSMakeRange(ndefBegin, ndefLen)];
     
-    NSArray *ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
+    NSArray *ndefRecords = [NDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
     if (ndefRecords != nil) {
-        return [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
+        return [[NDEFMessage alloc] initWithNdefRecords:ndefRecords];
     }
     
     
@@ -147,8 +147,8 @@
     if (ndefTLVLength > 0 && (_data.length >= (ndefTLVLocation + 2 + ndefTLVLength))) {
         ndefData = [_data subdataWithRange:NSMakeRange(ndefTLVLocation + 2, ndefTLVLength)];
         
-        ndefRecords = [FJNDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
-        return [[FJNDEFMessage alloc] initWithNdefRecords:ndefRecords];
+        ndefRecords = [NDEFRecord parseData:ndefData andIgnoreMbMe:FALSE];
+        return [[NDEFMessage alloc] initWithNdefRecords:ndefRecords];
     }
     else {
         NSLog(@"NDEF TLV found but length is zero");
