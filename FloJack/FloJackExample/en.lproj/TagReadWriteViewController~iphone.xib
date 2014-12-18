@@ -220,7 +220,7 @@
                         <outlet property="delegate" destination="-1" id="qf9-px-dIW"/>
                     </connections>
                 </textField>
-                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="891">
+                <button opaque="NO" tag="8" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="891">
                     <rect key="frame" x="235" y="185" width="69" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>

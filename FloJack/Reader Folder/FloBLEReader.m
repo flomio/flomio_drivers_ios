@@ -345,7 +345,7 @@ NSString * const floReaderConnectionStatusChangeNotification = @"FloReaderConnec
 {
     NSLog(@"starting scan %@",uuidString);
     NSArray			*uuidArray	= [NSArray arrayWithObjects:[CBUUID UUIDWithString:uuidString], nil];
-    	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
+    	NSDictionary	*options	= [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
 //    [self.delegate updateLog:@"Scanning for devices....\n"];
     
 //    [myCentralManager scanForPeripheralsWithServices:uuidArray options:nil];

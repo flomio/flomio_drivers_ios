@@ -131,6 +131,8 @@
 		15C4B44B15C83F53009DE0E5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		15DBE7BB16FD60770001CB14 /* FJNDEFURITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNDEFURITests.m; sourceTree = "<group>"; };
 		15DBE7BC16FD608F0001CB14 /* FJNDEFURITests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNDEFURITests.h; sourceTree = "<group>"; };
+		B701C8901A4354D100D4FEDB /* FloJack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FloJack-Prefix.pch"; sourceTree = "<group>"; };
+		B701C8911A4354D100D4FEDB /* HiJack_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiJack_Prefix.pch; sourceTree = "<group>"; };
 		B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B734507319FB11AE0044A5A6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B7C5C7F81A3F8111000ED368 /* FloBLEReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloBLEReader.h; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		15C4B2C115C832DF009DE0E5 = {
 			isa = PBXGroup;
 			children = (
+				B701C88F1A4354D100D4FEDB /* PreComplied Headers */,
 				1559F29316517FF100B43633 /* FloJackExample */,
 				B7C5C7F71A3F8111000ED368 /* Reader Folder */,
 				B7C5C7FC1A3F8111000ED368 /* Services Folder */,
@@ -331,6 +334,16 @@
 			);
 			name = Sounds;
 			path = ../../flomio_client/mobile/ios/FlomioDemo;
+			sourceTree = "<group>";
+		};
+		B701C88F1A4354D100D4FEDB /* PreComplied Headers */ = {
+			isa = PBXGroup;
+			children = (
+				B701C8901A4354D100D4FEDB /* FloJack-Prefix.pch */,
+				B701C8911A4354D100D4FEDB /* HiJack_Prefix.pch */,
+			);
+			name = "PreComplied Headers";
+			path = FloJack;
 			sourceTree = "<group>";
 		};
 		B7C5C7F71A3F8111000ED368 /* Reader Folder */ = {
