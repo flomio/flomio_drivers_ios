@@ -211,7 +211,7 @@
                         <outlet property="delegate" destination="-1" id="900"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="decim" textAlignment="right" minimumFontSize="17" id="qH5-PM-Iro">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="decim" textAlignment="right" minimumFontSize="17" id="qH5-PM-Iro">
                     <rect key="frame" x="239" y="105" width="61" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
