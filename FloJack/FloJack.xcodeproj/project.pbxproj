@@ -465,6 +465,11 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "John Bullard";
+				TargetAttributes = {
+					1559F28D16517FF100B43633 = {
+						DevelopmentTeam = ZENR4VYLA9;
+					};
+				};
 			};
 			buildConfigurationList = 15C4B2C615C832DF009DE0E5 /* Build configuration list for PBXProject "FloJack" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -615,7 +620,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Richard Grundy (87Q5372TB5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -626,7 +631,7 @@
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A7DBFAC-438E-4E5E-B8B0-C29464D1C32D";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -637,7 +642,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Richard Grundy (87Q5372TB5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -649,7 +654,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A7DBFAC-438E-4E5E-B8B0-C29464D1C32D";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};

@@ -112,6 +112,7 @@
     UInt8 floMessageOpcode = floMessage.opcode;
     UInt8 floMessageSubOpcode = floMessage.subOpcode;
     NSData *messageData = [floMessage.data copy];
+    UInt8 floMessageLen = floMessage.length;
     
     switch (floMessageOpcode) {
         case FLOMIO_STATUS_OP: {
@@ -217,6 +218,8 @@
             LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
             if (floMessage.subOpcodeLSN == FLOMIO_UID_ONLY) {
                 // Tag UID Only
+                NSLog(@"Tag UID Only");
+
                 if ([_delegate respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
                     FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[floMessage.data copy] andData:nil andType:floMessage.subOpcodeMSN];
                     [_delegate floReaderManager:self didScanTag:tag];
@@ -241,7 +244,14 @@
                 }                
                 NSRange tagUidRange = NSMakeRange(0, tagUidLen);
                 NSData *tagUid = [[NSData alloc] initWithData:[floMessage.data subdataWithRange:tagUidRange]];
-                
+                NSLog(@"Tag w/ UID and Data - UID:: %@",tagUid);
+//                if((floMessageLen - tagUidLen)>0)
+//                {
+//                    NSRange tagDataRange = NSMakeRange(tagUidLen,floMessageLen - tagUidLen);
+//                    NSData *tagData = [[NSData alloc] initWithData:[floMessage.data subdataWithRange:tagDataRange]];
+//                    NSLog(@"Tag w/ UID and Data - DATA:: %@",tagData);
+//                }
+               
                 if ([_delegate respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
                     FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[floMessage.data copy] andType:floMessage.subOpcodeMSN];
                     [_delegate floReaderManager:self didScanTag:tag];

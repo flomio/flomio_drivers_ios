@@ -18,7 +18,9 @@ typedef enum : NSUInteger {
     Disconnected,
     Scanning,
     PeripheralDetected,
-    Connected
+    Connected,
+    Services,
+    Badanamu
 } deviceState_t;
 
 typedef enum : NSUInteger {

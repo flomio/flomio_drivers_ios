@@ -90,6 +90,12 @@
     [self.view bringSubviewToFront:_ledPicker];
     _ledPicker.hidden = YES;
 
+//    [_consoleTextView insertText:[NSString stringWithFormat:@"FloBLE OSX\n"]];
+    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.3]\n"];
+//    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
+//    [self updateLogTextViewWithString:textUpdate];
+
+
 }
 
 #pragma mark - ledPicker
@@ -278,6 +284,7 @@
     deviceState_t state = (deviceState_t)infoBytes[0];
     
     NSString * stateText;
+    BOOL gref = NO;
     switch (state)
     {
         case Off:
@@ -298,6 +305,13 @@
         case Connected:
             stateText = @"Connected";
             break;
+        case Services:
+            stateText = @"Connected w/ Services";
+            break;
+        case Badanamu:
+            stateText = @"Connected w/ Badanamu";
+            gref = YES;
+            break;
         default:
             stateText = @"Unknown";
             break;
@@ -305,6 +319,12 @@
     
     [self connectionStatusTextField].text = [NSString stringWithFormat:@"%@",stateText];
     NSLog(@"handleDeviceStateNotification - DeviceState %@",stateText);
+    if (gref)
+    {
+        gref = NO;
+        NSLog(@"uidButton");
+        [_appDelegate.floReaderManager setModeReadTagUID];
+    }
 }
 
 - (void)updateStatusTextViewWithStatus:(NSInteger)statusCode {
@@ -363,7 +383,7 @@
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didHaveStatus:(NSInteger)statusCode {
     NSString *statusCodeString = [FJMessage formatStatusCodesToString:(flomio_nfc_adapter_status_codes_t)statusCode];
     NSLog(statusCodeString);
-    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Status %@", statusCodeString];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Status %@", statusCodeString];
     [self updateLogTextViewWithString:textUpdate];
     [self updateStatusTextViewWithStatus:statusCode];
 }
@@ -376,22 +396,22 @@
 }
 
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveFirmwareVersion:(NSString *)theVersionNumber {
-    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Firmware Version %@", theVersionNumber];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Firmware Version %@", theVersionNumber];
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveHardwareVersion:(NSString *)theVersionNumber; {
-    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Hardware Version %@", theVersionNumber];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferThresh:(NSString *)theSnifferValue; {
-    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Threshold %@", theSnifferValue];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Sniffer Threshold %@", theSnifferValue];
     [self updateLogTextViewWithString:textUpdate];
 }
 
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferCalib:(NSString *)theCalibValues; {
-    NSString *textUpdate = [NSString stringWithFormat:@":::FloJack Sniffer Calibration Stats %@", theCalibValues];
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Sniffer Calibration Stats %@", theCalibValues];
     [self updateLogTextViewWithString:textUpdate];
 }
 

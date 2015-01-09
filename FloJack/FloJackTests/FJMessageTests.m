@@ -40,7 +40,7 @@ Tests the parsing of a byte stream and creation of an FJMessage object.
                                                                      andData:nil];
     
     XCTAssertTrue(([_flojackMessage.bytes isEqualToData:ack_enable_msg])
-                 , @"FloJack Message parsed incorrectly.");
+                 , @"FloBLE Message parsed incorrectly.");
 }
 
 /**
@@ -59,7 +59,7 @@ Tests the parsing of a byte stream and creation of an FJMessage object.
                                                                      andData:data];
     
     XCTAssertTrue(([_flojackMessage.bytes isEqualToData:inter_byte_delay_ipad2_msg])
-                 , @"FloJack Message parsed incorrectly.");
+                 , @"FloBLE Message parsed incorrectly.");
 }
 
 @end
