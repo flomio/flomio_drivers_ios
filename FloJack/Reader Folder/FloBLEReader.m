@@ -37,7 +37,7 @@ NSInteger  nDiscoveredChars;
 @dynamic delegate; //@synthesize delegate;
 
 
-
+#pragma - mark CBUUID Definitions
 
 + (CBUUID *) floBLEserviceUUID
 {
@@ -143,7 +143,7 @@ NSInteger  nDiscoveredChars;
 //    [self.delegate updateLog:[NSString stringWithFormat:@"Connected to %@\n",[peripheral name]]];
     NSLog(@"::didConnectPeripheral peripheral %@",[peripheral name]);
     peripheral.delegate = self;
-    [peripheral discoverServices:nil];
+//    [peripheral discoverServices:nil];
     [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader floBLEserviceUUID]];
     [self setDeviceState:Connected];
     [myCentralManager stopScan];

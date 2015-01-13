@@ -91,7 +91,7 @@
     _ledPicker.hidden = YES;
 
 //    [_consoleTextView insertText:[NSString stringWithFormat:@"FloBLE OSX\n"]];
-    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.3]\n"];
+    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.4]\n"];
 //    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
 //    [self updateLogTextViewWithString:textUpdate];
 
