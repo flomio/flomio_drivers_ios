@@ -235,6 +235,9 @@
                     case FLOMIO_ALL_MEM_UID_LEN_SEVEN:
                         tagUidLen = 7;
                         break;
+                    case FLOMIO_ALL_MEM_UID_LEN_EIGHT:
+                        tagUidLen = 8;
+                        break;
                     case FLOMIO_ALL_MEM_UID_LEN_TEN:
                         tagUidLen = 10;
                         break;

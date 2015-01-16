@@ -80,6 +80,7 @@ typedef enum
     FLOMIO_UID_ONLY = 0,                // UID only. Length varies
     FLOMIO_ALL_MEM_UID_LEN_FOUR,		// All memory including four byte UID
     FLOMIO_ALL_MEM_UID_LEN_SEVEN,		// All memory including seven byte UID
+    FLOMIO_ALL_MEM_UID_LEN_EIGHT,		// All memory including eight byte UID (15693)
     FLOMIO_ALL_MEM_UID_LEN_TEN,			// All memory including ten byte UID
 } flomio_tag_uid_opcodes_t;
 
@@ -241,7 +242,7 @@ typedef enum {
     LED_OFF
 } ledStatus_t;
 
-// FloBLE protocol messages {opcode, length, data[] } - Used for messages that don't have 
+// FloJack protocol messages {opcode, length, data[] } - Used for messages that don't have 
 const static UInt8 status_hw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};
 const static UInt8 status_sw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SW_REV,0x07};
 const static UInt8 status_sniffthresh_msg[] =    {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SNIFFTHRESH,0x01};

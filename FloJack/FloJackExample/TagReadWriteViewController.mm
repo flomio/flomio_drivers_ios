@@ -14,13 +14,14 @@
     NSNotificationCenter * deviceStateNotification;
     NSArray * ledPickerData;
     NSUInteger ledPickedValue;
-    
+    NSArray * tagTypeStrings;
 }
 
 @property (strong, nonatomic)NSString *_scanSoundPath;
 @property (strong, nonatomic)NSNotificationCenter * deviceStateNotification;
 @property (strong, nonatomic)NSArray * ledPickerData;
 @property (assign)NSUInteger ledPickedValue;
+@property (strong, nonatomic) NSArray * tagTypeStrings;
 
 
 - (void) handleDeviceStateNotification:(NSNotification*)note;
@@ -51,6 +52,7 @@
 @synthesize ledPicker                       = _ledPicker;
 @synthesize ledPickerData                   = _ledPickerData;
 @synthesize ledPickedValue                  = _ledPickedValue;
+@synthesize tagTypeStrings                  = _tagTypeStrings;;
 
 #pragma mark - UI View Controller
 
@@ -91,10 +93,11 @@
     _ledPicker.hidden = YES;
 
 //    [_consoleTextView insertText:[NSString stringWithFormat:@"FloBLE OSX\n"]];
-    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.4]\n"];
+    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.5]\n"];
 //    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
 //    [self updateLogTextViewWithString:textUpdate];
 
+    tagTypeStrings = @[@"UNKNOWN_TAG_TYPE", @"NFC_FORUM_TYPE_1", @"NFC_FORUM_TYPE_2", @"NFC_FORUM_TYPE_3", @"NFC_FORUM_TYPE_4", @"MIFARE_CLASSIC",@"TYPE_V"];  // this needs to equal the enum nfc_tag_types_t in floble.
 
 }
 
@@ -360,7 +363,8 @@
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didScanTag:(FJNFCTag *)theNfcTag {
     NSMutableString *textUpdate = [NSMutableString stringWithFormat:@":::Tag Read "];
     [textUpdate appendString:[NSString stringWithFormat:@"\n UID: %@", [theNfcTag.uid fj_asHexString]]];
-    [textUpdate appendString:[NSString stringWithFormat:@"\n Type: %d", theNfcTag.nfcForumType]];
+//    [textUpdate appendString:[NSString stringWithFormat:@"\n Type: %d", theNfcTag.nfcForumType]];
+    [textUpdate appendString:[NSString stringWithFormat:@"\n Type: %@", [tagTypeStrings objectAtIndex:theNfcTag.nfcForumType]]];
     [textUpdate appendString:[NSString stringWithFormat:@"\n Data: %@", [theNfcTag.data fj_asHexString]]];
 
     if (theNfcTag.ndefMessage != nil && theNfcTag.ndefMessage.ndefRecords != nil) {
