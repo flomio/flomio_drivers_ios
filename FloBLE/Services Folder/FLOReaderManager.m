@@ -43,7 +43,7 @@
         _pollForFelicaTags =  false;
         _standaloneMode = false;
         
-        NSLog(@"Protocol Type: %ld",[_nfcService protocolType]);
+        NSLog(@"Protocol Type: %u",[_nfcService protocolType]);
 
     }
     return self;
@@ -98,6 +98,7 @@
                                                                 andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
 }
+
 
 
 /**
@@ -570,6 +571,26 @@
                                                                 andSubOpcode:(unsigned char)ledMode
                                                                      andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
+}
+
+/**
+ Send command for floBLE to disconnect.
+ 
+ @return void
+ */
+- (void)disconnectDevice
+{
+     FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_DISCONNECT_OP
+     andSubOpcode:0
+     andData:nil];
+     [self sendMessageDataToHost:floMessage.bytes];
+    
+
+    if([self->_nfcService activePeripheral])
+    {
+        [self->_nfcService disconnectPeripheral:[self->_nfcService activePeripheral]];
+    }
+    NSLog(@"disconnectPeripheral:activePeripheral");
 }
 
 #pragma mark - NFC Service Delegate

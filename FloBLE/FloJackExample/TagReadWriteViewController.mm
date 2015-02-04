@@ -93,7 +93,7 @@
     _ledPicker.hidden = YES;
 
 //    [_consoleTextView insertText:[NSString stringWithFormat:@"FloBLE OSX\n"]];
-    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.5]\n"];
+    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.6]\n"];
 //    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
 //    [self updateLogTextViewWithString:textUpdate];
 
@@ -129,9 +129,9 @@
     _ledPicker.hidden = YES;
     
     _ledPickedValue = row;
-    [_ledConfigTextField setText:[NSString stringWithFormat:@"%d",_ledPickedValue]];
+    [_ledConfigTextField setText:[NSString stringWithFormat:@"%lu",(unsigned long)_ledPickedValue]];
 
-    NSLog(@"ledPicker picked %d", row);
+    NSLog(@"ledPicker picked %ld", (long)row);
 }
 
 - (IBAction)ledPickerButtonWasPressed:(id)sender
@@ -139,6 +139,13 @@
     _ledPicker.hidden = NO;
 //    NSLog(@"Show Picker");
     //    [_ledPicker setHidden:NO];
+
+}
+
+- (IBAction)disconnectButton:(id)sender
+{
+    NSLog(@"disconnectButton");
+    [_appDelegate.floReaderManager disconnectDevice];
 
 }
 

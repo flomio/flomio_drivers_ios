@@ -59,7 +59,8 @@ typedef enum
     FLOMIO_OPERATION_MODE_OP,           // 14
     FLOMIO_BLOCK_READ_WRITE_OP,         // 15
     FLOMIO_TAG_WRITE_OP,				// 16
-    FLOMIO_SNIFFER_CONFIG_OP            // 17
+    FLOMIO_SNIFFER_CONFIG_OP,           // 17
+    FLOMIO_DISCONNECT_OP                // 18
 } flomio_opcode_t;
 
 // FLOMIO_TAG_READ_OP sub opcode indicating tag type (most significant nibble)

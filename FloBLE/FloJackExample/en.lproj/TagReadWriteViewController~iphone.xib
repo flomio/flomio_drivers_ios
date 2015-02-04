@@ -132,7 +132,7 @@
                         <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchDown" id="883"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="877">
+                <button clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="877">
                     <rect key="frame" x="8" y="66" width="61" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81425927547227772" green="0.87778802129303546" blue="0.94376273777173914" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
@@ -244,7 +244,7 @@
                         <action selector="switchWasFlippedForConfig:" destination="-1" eventType="valueChanged" id="927"/>
                     </connections>
                 </switch>
-                <switch opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="915">
+                <switch clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="915">
                     <rect key="frame" x="185" y="242" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration">
@@ -317,7 +317,7 @@
                     </connections>
                 </button>
                 <pickerView hidden="YES" contentMode="top" id="2dV-jK-Tbb" userLabel="ledPicker">
-                    <rect key="frame" x="0.0" y="46" width="320" height="93"/>
+                    <rect key="frame" x="90" y="46" width="230" height="93"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="YES"/>
@@ -329,6 +329,22 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pot-YL-NY9">
+                    <rect key="frame" x="11" y="105" width="61" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81425927549999999" green="0.8777880213" blue="0.94376273779999997" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <state key="normal" title="Disc">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonWasPressedForUtilities:" destination="-1" eventType="touchDown" id="fi1-oa-9CW"/>
+                        <action selector="disconnectButton:" destination="-1" eventType="touchUpInside" id="hc6-r6-4De"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <accessibility key="accessibilityConfiguration" label="FloJack Example"/>
@@ -338,13 +354,26 @@
             <attributedString key="userComments">
                 <fragment content="FloJack Example">
                     <attributes>
-                        <font key="NSFont" metaFont="smallSystem"/>
+                        <font key="NSFont" metaFont="controlContent" size="11"/>
                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                     </attributes>
                 </fragment>
             </attributedString>
             <point key="canvasLocation" x="120" y="343"/>
         </view>
+        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1hy-m1-fDD">
+            <rect key="frame" x="0.0" y="0.0" width="61" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.81425927549999999" green="0.8777880213" blue="0.94376273779999997" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+            <accessibility key="accessibilityConfiguration">
+                <bool key="isElement" value="NO"/>
+            </accessibility>
+            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+            <state key="normal" title="Init">
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <point key="canvasLocation" x="10.5" y="222"/>
+        </button>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

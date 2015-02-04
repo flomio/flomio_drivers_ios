@@ -292,6 +292,10 @@
                             break;
                     }
                     break;
+                case FLOMIO_DISCONNECT_OP:
+                    _name = @"FLOMIO_DISCONNECT";
+                    break;
+
             }
         } else {
             _opcode = nil;

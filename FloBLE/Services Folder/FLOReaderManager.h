@@ -49,6 +49,8 @@
 - (void)sendResetSnifferThreshold;  // method for last Sniffer Threshold command (no argument)
 - (void)setMaxSnifferThreshold:(UInt16)maxThreshold;
 - (void)setLedMode:(UInt16)ledMode;
+- (void)disconnectDevice;
+
 @end
 
 #pragma mark - NFC Adapter Protocol

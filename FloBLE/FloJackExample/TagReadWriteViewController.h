@@ -46,5 +46,6 @@
 - (IBAction)buttonWasPressedForSendConfig:(id)sender;
 - (IBAction)buttonWasPressedForLEDConfig:(id)sender;
 - (IBAction)ledPickerButtonWasPressed:(id)sender;
+- (IBAction)disconnectButton:(id)sender;
 
 @end
