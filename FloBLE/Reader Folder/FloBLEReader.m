@@ -500,7 +500,22 @@ NSInteger  nDiscoveredChars;
 //       [self writePeriperalWithOutResponse:&uartByte[i]];
 
 //     }
-    [self writeBlockToPeriperalWithOutResponse:uartByte ofLength:len];
+#define maxTxBlockSize 20 // we have to break up long messages due to issue with TI BLE stack
+    int ptr = 0;
+    while (len)
+    {
+        if (len <= maxTxBlockSize)
+        {
+            [self writeBlockToPeriperalWithOutResponse:&uartByte[ptr] ofLength:len];
+            len = 0;
+        }
+        else
+        {
+            [self writeBlockToPeriperalWithOutResponse:&uartByte[ptr] ofLength:maxTxBlockSize];
+            ptr += maxTxBlockSize;
+            len -= maxTxBlockSize;
+        }
+    }
 
     
     return true;
