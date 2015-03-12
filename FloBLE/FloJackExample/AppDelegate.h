@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <CoreLocation/CoreLocation.h>
 #import "FLOReaderManager.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow          *window;
 @property (strong, nonatomic) FLOReaderManager      *floReaderManager;
 //@property (strong, nonatomic) NSSound * scanSound;
 
 - (void)playTagReadSound;
+
 
 @end
