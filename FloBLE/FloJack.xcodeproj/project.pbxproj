@@ -35,7 +35,6 @@
 		15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C41DD31677B57100D98A8D /* MediaPlayer.framework */; };
 		15C4B2D015C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		15C4B2DF15C832E0009DE0E5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */; };
-		15C4B2E115C832E0009DE0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2E015C832E0009DE0E5 /* UIKit.framework */; };
 		15C4B2E215C832E0009DE0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C4B2CF15C832E0009DE0E5 /* Foundation.framework */; };
 		15C4B2EB15C832E0009DE0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15C4B2E915C832E0009DE0E5 /* InfoPlist.strings */; };
 		15C4B2EE15C832E0009DE0E5 /* FloJackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C4B2ED15C832E0009DE0E5 /* FloJackTests.m */; };
@@ -65,6 +64,7 @@
 		EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E417B82A7900684263 /* Icon-Small@2x.png */; };
 		EF38A7ED17B82A7900684263 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E517B82A7900684263 /* Icon.png */; };
 		EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E617B82A7900684263 /* Icon@2x.png */; };
+		EFCB082F1AB18AF800EEDCA8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCB082E1AB18AF800EEDCA8 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +97,7 @@
 		153ED1EF164D503A00CA3400 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1559F26E16517F8C00B43633 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1559F27016517F8C00B43633 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1559F28E16517FF100B43633 /* FloJackExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloJackExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1559F28E16517FF100B43633 /* FloBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1559F29516517FF100B43633 /* FloJackExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FloJackExample-Info.plist"; sourceTree = "<group>"; };
 		1559F29716517FF100B43633 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1559F29916517FF100B43633 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -116,15 +116,12 @@
 		15A367D7172DD602006F6CA7 /* FJNFCTagTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJNFCTagTests.h; sourceTree = "<group>"; };
 		15A367D8172DD602006F6CA7 /* FJNFCTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJNFCTagTests.m; sourceTree = "<group>"; };
 		15B046F6165322C3000FF892 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		15B046F9165323CE000FF892 /* scan_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scan_sound.mp3; sourceTree = "<group>"; };
 		15B62D01164D6A7F002B04AD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		15C41DD31677B57100D98A8D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		15C4B2CC15C832E0009DE0E5 /* libFloJack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFloJack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		15C4B2CF15C832E0009DE0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FloJack-Prefix.pch"; sourceTree = "<group>"; };
 		15C4B2DD15C832E0009DE0E5 /* FloJackTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloJackTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		15C4B2E015C832E0009DE0E5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		15C4B2E815C832E0009DE0E5 /* FloJackTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FloJackTests-Info.plist"; sourceTree = "<group>"; };
 		15C4B2EA15C832E0009DE0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		15C4B2EC15C832E0009DE0E5 /* FloJackTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloJackTests.h; sourceTree = "<group>"; };
@@ -170,6 +167,7 @@
 		EF38A7E417B82A7900684263 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		EF38A7E517B82A7900684263 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		EF38A7E617B82A7900684263 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		EFCB082E1AB18AF800EEDCA8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFCB082F1AB18AF800EEDCA8 /* CoreLocation.framework in Frameworks */,
 				B734507819FB15CA0044A5A6 /* CoreBluetooth.framework in Frameworks */,
 				B734507419FB11AE0044A5A6 /* UIKit.framework in Frameworks */,
 				15C41DD41677B57100D98A8D /* MediaPlayer.framework in Frameworks */,
@@ -212,7 +211,6 @@
 				15B48C04164D65E800043A4E /* AudioToolbox.framework in Frameworks */,
 				15B48C03164D65BB00043A4E /* CoreAudio.framework in Frameworks */,
 				15C4B2DF15C832E0009DE0E5 /* SenTestingKit.framework in Frameworks */,
-				15C4B2E115C832E0009DE0E5 /* UIKit.framework in Frameworks */,
 				15C4B2E215C832E0009DE0E5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,7 +261,6 @@
 				B7C5C7F71A3F8111000ED368 /* Reader Folder */,
 				B7C5C7FC1A3F8111000ED368 /* Services Folder */,
 				B7C5C8061A3F8111000ED368 /* Tag Folder */,
-				15C4B2D215C832E0009DE0E5 /* Supporting Files */,
 				15C4B2E615C832E0009DE0E5 /* Tests */,
 				15C4B2CE15C832E0009DE0E5 /* Frameworks */,
 				15C4B2CD15C832E0009DE0E5 /* Products */,
@@ -277,7 +274,7 @@
 			children = (
 				15C4B2CC15C832E0009DE0E5 /* libFloJack.a */,
 				15C4B2DD15C832E0009DE0E5 /* FloJackTests.octest */,
-				1559F28E16517FF100B43633 /* FloJackExample.app */,
+				1559F28E16517FF100B43633 /* FloBLE.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,6 +282,7 @@
 		15C4B2CE15C832E0009DE0E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFCB082E1AB18AF800EEDCA8 /* CoreLocation.framework */,
 				B734507319FB11AE0044A5A6 /* UIKit.framework */,
 				B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */,
 				15C41DD31677B57100D98A8D /* MediaPlayer.framework */,
@@ -295,21 +293,10 @@
 				155D4F8615D7044B00CF45FD /* QuartzCore.framework */,
 				15C4B2CF15C832E0009DE0E5 /* Foundation.framework */,
 				15C4B2DE15C832E0009DE0E5 /* SenTestingKit.framework */,
-				15C4B2E015C832E0009DE0E5 /* UIKit.framework */,
 				1559F26E16517F8C00B43633 /* CoreGraphics.framework */,
 				1559F27016517F8C00B43633 /* CoreData.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		15C4B2D215C832E0009DE0E5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				15B046F9165323CE000FF892 /* scan_sound.mp3 */,
-				15C4B2D315C832E0009DE0E5 /* FloJack-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			path = FloJack;
 			sourceTree = "<group>";
 		};
 		15C4B2E615C832E0009DE0E5 /* Tests */ = {
@@ -417,9 +404,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1559F28D16517FF100B43633 /* FloJackExample */ = {
+		1559F28D16517FF100B43633 /* FloBLE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloJackExample" */;
+			buildConfigurationList = 1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloBLE" */;
 			buildPhases = (
 				1559F28A16517FF100B43633 /* Sources */,
 				1559F28B16517FF100B43633 /* Frameworks */,
@@ -429,9 +416,9 @@
 			);
 			dependencies = (
 			);
-			name = FloJackExample;
+			name = FloBLE;
 			productName = FloJackExample;
-			productReference = 1559F28E16517FF100B43633 /* FloJackExample.app */;
+			productReference = 1559F28E16517FF100B43633 /* FloBLE.app */;
 			productType = "com.apple.product-type.application";
 		};
 		15C4B2CB15C832DF009DE0E5 /* FloJack */ = {
@@ -480,7 +467,7 @@
 				ORGANIZATIONNAME = "John Bullard";
 				TargetAttributes = {
 					1559F28D16517FF100B43633 = {
-						DevelopmentTeam = ZENR4VYLA9;
+						DevelopmentTeam = Q338UYGFZ8;
 					};
 				};
 			};
@@ -498,7 +485,7 @@
 			targets = (
 				15C4B2CB15C832DF009DE0E5 /* FloJack */,
 				15C4B2DC15C832E0009DE0E5 /* FloJackTests */,
-				1559F28D16517FF100B43633 /* FloJackExample */,
+				1559F28D16517FF100B43633 /* FloBLE */,
 			);
 		};
 /* End PBXProject section */
@@ -645,7 +632,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -667,7 +654,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FloJackExample/FloJackExample-Prefix.pch";
 				INFOPLIST_FILE = "FloJackExample/FloJackExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -825,6 +812,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -844,6 +832,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -861,7 +850,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloJackExample" */ = {
+		1559F2AE16517FF100B43633 /* Build configuration list for PBXNativeTarget "FloBLE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1559F2AF16517FF100B43633 /* Debug */,

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "FLOReader.h"
-#import "FloBLEReader.h"
 #import "FloNotifications.h"
 #import "FloProtocolsCommon.h"
 
@@ -80,5 +79,13 @@ extern NSString * const floReaderConnectionStatusChangeNotification;
 - (void)writeBlockToOadImageIdentifyWithOutResponse:(UInt8*)dataToWrite ofLength:(UInt8)len;
 - (void)writeBlockToOadImageBlockTransferWithOutResponse:(UInt8*)dataToWrite ofLength:(UInt8)len;
 - (protocolType_t)protocolType;
+
++ (CBUUID *) floBLEserviceUUID;
++ (CBUUID *) f2HcharacteristicUUID;
++ (CBUUID *) h2FhcharacteristicUUID;
++ (CBUUID *) f2HBlockcharacteristicUUID;
++ (CBUUID *) h2FBlockcharacteristicUUID;
++ (CBUUID *) deviceInformationServiceUUID;
++ (CBUUID *) hardwareRevisionStringUUID;
 
 @end

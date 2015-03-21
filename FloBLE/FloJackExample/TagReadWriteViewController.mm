@@ -411,7 +411,6 @@
         }
     }
     [self updateLogTextViewWithString:textUpdate];
-    [self showAlertWithTitle:@"Tag Read" andMessage:[theNfcTag.uid fj_asHexString]];
 }
 
 - (void)floReaderManager:(FLOReaderManager *)floReaderManager didHaveStatus:(NSInteger)statusCode {

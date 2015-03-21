@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <CoreLocation/CoreLocation.h>
 #import "FLOReaderManager.h"
 #import "OadFile.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate, OadFileDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate, OadFileDelegate, CLLocationManagerDelegate>
 {
     OadFile * oadFile;
 }
@@ -26,5 +27,6 @@
 - (void)playTagReadSound;
 - (void)updateButtonPress;
 - (void)connectionLostNotification;
+
 
 @end
