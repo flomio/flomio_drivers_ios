@@ -13,8 +13,12 @@
 #import "AppDelegate.h"
 #import "FLOReaderManager.h"
 #import "NSData+FJStringDisplay.h"
+#import "OadScreenViewController.h"
 
 @interface TagReadWriteViewController : UIViewController <AVAudioPlayerDelegate, FLOReaderManagerDelegate, UIScrollViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+{
+    OadScreenViewController *oadScreenViewController;
+}
 
 @property (strong, nonatomic) IBOutlet UIPickerView *ledPicker;
 @property (strong, nonatomic) IBOutlet UILabel *connectionStatusTextField;
@@ -37,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *switchPollingFelica;
 @property (weak, nonatomic) IBOutlet UISwitch *switchStandaloneMode;
 @property (weak, nonatomic) IBOutlet UITextField *ledConfigTextField;
+@property (strong, nonatomic) OadScreenViewController *oadScreenViewController;
 
 - (IBAction)buttonWasPressedForPollingRate:(id)sender;
 - (IBAction)buttonWasPressedForReadTag:(id)sender;

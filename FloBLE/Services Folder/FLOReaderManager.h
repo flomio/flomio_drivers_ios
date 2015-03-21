@@ -19,6 +19,7 @@
 @interface FLOReaderManager : NSObject<FloBLEReaderDelegate,FLOReaderDelegate>
 {
     ledStatus_t ledMode;
+    FloBLEReader                    *_nfcService;
 }
 
 @property (nonatomic, strong) id <FLOReaderManagerDelegate>	 delegate;
@@ -26,6 +27,7 @@
 @property (nonatomic) BOOL                               pollFor15693Tags;
 @property (nonatomic) BOOL                               pollForFelicaTags;
 @property (nonatomic) BOOL                               standaloneMode;
+@property (strong, nonatomic)FloBLEReader*  nfcService;
 
 // Set the tag polling rate in milliseconds. Value must be in range [0, 6375] and an increment of 25.
 @property (nonatomic) NSInteger                          pollPeriod;
@@ -50,6 +52,7 @@
 - (void)setMaxSnifferThreshold:(UInt16)maxThreshold;
 - (void)setLedMode:(UInt16)ledMode;
 - (void)disconnectDevice;
+- (void)didReceiveServiceFirmwareVersion:(NSString *)theVersionNumber;
 
 @end
 
@@ -65,4 +68,7 @@
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveHardwareVersion:(NSString *)theVersionNumber;
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferThresh:(NSString *)theSnifferValue;
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferCalib:(NSString *)theCalibValues;
+  - (void)didReceiveServiceFirmwareVersion:(NSString *)theVersionNumber;
+  - (void)didReceivedImageBlockTransferCharacteristic:(NSData*)imageBlockCharacteristic;
+  - (void)didReceivedImageIdentifyCharacteristic:(NSData*)imageBlockCharacteristic;
 @end

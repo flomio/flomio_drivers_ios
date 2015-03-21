@@ -39,4 +39,5 @@
  @required
   - (void)nfcService:(FLOReader *)nfcService didHaveError:(NSInteger)errorCode;
   - (void)nfcService:(FLOReader *)nfcService didReceiveMessage:(NSData *)theMessage;
+@optional
 @end

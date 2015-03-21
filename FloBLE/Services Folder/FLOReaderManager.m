@@ -12,7 +12,7 @@
 @implementation FLOReaderManager {
     id <FLOReaderManagerDelegate>       _delegate;
 //    FLOReader                    *_nfcService;
-    FloBLEReader                    *_nfcService;
+//    FloBLEReader                    *_nfcService;
     NSMutableData                   *_lastMessageSent;
 }
 
@@ -21,7 +21,7 @@
 @synthesize pollFor15693Tags = _pollFor15693Tags;
 @synthesize pollForFelicaTags = _pollForFelicaTags;
 @synthesize standaloneMode = _standaloneMode;
-;
+@synthesize nfcService = _nfcService;
 
 /**
  Designated intializer of FLOReaderManager.  Should be overloaded by Client App to have custom config context in place.
@@ -43,7 +43,7 @@
         _pollForFelicaTags =  false;
         _standaloneMode = false;
         
-        NSLog(@"Protocol Type: %u",[_nfcService protocolType]);
+        NSLog(@"Protocol Type: %ld",[_nfcService protocolType]);
 
     }
     return self;
@@ -219,7 +219,7 @@
             LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
             if (floMessage.subOpcodeLSN == FLOMIO_UID_ONLY) {
                 // Tag UID Only
-                NSLog(@"Tag UID Only");
+                //NSLog(@"Tag UID Only");
 
                 if ([_delegate respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
                     FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[floMessage.data copy] andData:nil andType:floMessage.subOpcodeMSN];
@@ -580,6 +580,7 @@
  */
 - (void)disconnectDevice
 {
+    
      FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_DISCONNECT_OP
      andSubOpcode:0
      andData:nil];
@@ -591,6 +592,7 @@
         [self->_nfcService disconnectPeripheral:[self->_nfcService activePeripheral]];
     }
     NSLog(@"disconnectPeripheral:activePeripheral");
+
 }
 
 #pragma mark - NFC Service Delegate
@@ -634,6 +636,23 @@
     if ([_delegate respondsToSelector:@selector(floReaderManager: didHaveStatus:)]) {
         [_delegate floReaderManager:self didHaveStatus:errorCode];
     }
+}
+
+#pragma mark - FloBLEReader Delegate
+- (void)didReceiveServiceFirmwareVersion:(NSString *)theVersionNumber
+{
+    [_delegate didReceiveServiceFirmwareVersion:theVersionNumber];
+//    NSLog(@"FlOReaderManager didReceiveServiceFirmwareVersion %@",theVersionNumber);
+}
+- (void)didReceivedImageBlockTransferCharacteristic:(NSData*)imageBlockCharacteristic
+{
+    [_delegate didReceivedImageBlockTransferCharacteristic:imageBlockCharacteristic];
+    
+}
+- (void)didReceivedImageIdentifyCharacteristic:(NSData*)imageBlockCharacteristic
+{
+    [_delegate didReceivedImageIdentifyCharacteristic:imageBlockCharacteristic];
+    
 }
 
 

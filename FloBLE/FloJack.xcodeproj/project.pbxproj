@@ -46,6 +46,9 @@
 		B734507219FB0AB60044A5A6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */; };
 		B734507419FB11AE0044A5A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507319FB11AE0044A5A6 /* UIKit.framework */; };
 		B734507819FB15CA0044A5A6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */; };
+		B7974AF41AB4CE8B00C3529E /* OadScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7974AF21AB4CE8B00C3529E /* OadScreenViewController.m */; };
+		B7974AF51AB4CE8B00C3529E /* OadScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7974AF31AB4CE8B00C3529E /* OadScreenViewController.xib */; };
+		B7974AF81AB4D71A00C3529E /* OadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B7974AF71AB4D71A00C3529E /* OadFile.m */; };
 		B7C5C80D1A3F8111000ED368 /* FloBLEReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */; };
 		B7C5C80E1A3F8111000ED368 /* FLOReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7FB1A3F8111000ED368 /* FLOReader.m */; };
 		B7C5C80F1A3F8111000ED368 /* FLOReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */; };
@@ -135,6 +138,11 @@
 		B701C8911A4354D100D4FEDB /* HiJack_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiJack_Prefix.pch; sourceTree = "<group>"; };
 		B734507119FB0AB60044A5A6 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B734507319FB11AE0044A5A6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B7974AF11AB4CE8B00C3529E /* OadScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OadScreenViewController.h; sourceTree = "<group>"; };
+		B7974AF21AB4CE8B00C3529E /* OadScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OadScreenViewController.m; sourceTree = "<group>"; };
+		B7974AF31AB4CE8B00C3529E /* OadScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OadScreenViewController.xib; sourceTree = "<group>"; };
+		B7974AF61AB4D71A00C3529E /* OadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OadFile.h; sourceTree = "<group>"; };
+		B7974AF71AB4D71A00C3529E /* OadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OadFile.m; sourceTree = "<group>"; };
 		B7C5C7F81A3F8111000ED368 /* FloBLEReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloBLEReader.h; sourceTree = "<group>"; };
 		B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloBLEReader.m; sourceTree = "<group>"; };
 		B7C5C7FA1A3F8111000ED368 /* FLOReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOReader.h; sourceTree = "<group>"; };
@@ -222,6 +230,11 @@
 				1559F2A816517FF100B43633 /* TagReadWriteViewController~iphone.xib */,
 				1559F2B11651811300B43633 /* TagReadWriteViewController.xib */,
 				1559F29416517FF100B43633 /* Supporting Files */,
+				B7974AF11AB4CE8B00C3529E /* OadScreenViewController.h */,
+				B7974AF21AB4CE8B00C3529E /* OadScreenViewController.m */,
+				B7974AF31AB4CE8B00C3529E /* OadScreenViewController.xib */,
+				B7974AF61AB4D71A00C3529E /* OadFile.h */,
+				B7974AF71AB4D71A00C3529E /* OadFile.m */,
 			);
 			path = FloJackExample;
 			sourceTree = "<group>";
@@ -510,6 +523,7 @@
 				EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */,
 				EF38A7ED17B82A7900684263 /* Icon.png in Resources */,
 				EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */,
+				B7974AF51AB4CE8B00C3529E /* OadScreenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +561,8 @@
 				1559F29A16517FF100B43633 /* main.m in Sources */,
 				1559F29E16517FF100B43633 /* AppDelegate.m in Sources */,
 				1559F2A716517FF100B43633 /* TagReadWriteViewController.mm in Sources */,
+				B7974AF41AB4CE8B00C3529E /* OadScreenViewController.m in Sources */,
+				B7974AF81AB4D71A00C3529E /* OadFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -53,8 +53,10 @@
 @synthesize ledPickerData                   = _ledPickerData;
 @synthesize ledPickedValue                  = _ledPickedValue;
 @synthesize tagTypeStrings                  = _tagTypeStrings;;
+@synthesize oadScreenViewController         = _oadScreenViewController;
 
 #pragma mark - UI View Controller
+
 
 - (void)viewDidLoad
 {
@@ -93,7 +95,7 @@
     _ledPicker.hidden = YES;
 
 //    [_consoleTextView insertText:[NSString stringWithFormat:@"FloBLE OSX\n"]];
-    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.7]\n"];
+    [self updateLogTextViewWithString:@"FloBLE IOS [alpha 0.8]\n"];
 //    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Hardware Version %@", theVersionNumber];
 //    [self updateLogTextViewWithString:textUpdate];
 
@@ -185,10 +187,16 @@
     }
 }
 
-- (IBAction)buttonWasPressedForUtilities:(id)sender {
+- (IBAction)buttonWasPressedForUtilities:(id)sender
+    {
+
     switch (((UIButton *)sender).tag) {
         case 1:
            // [_appDelegate.floReaderManager initializeFloJackDevice];
+            
+//            [delegate FirmwareUpdate];
+            self.oadScreenViewController = [[OadScreenViewController alloc] initWithNibName:@"OadScreenViewController" bundle:nil];
+            [self.navigationController pushViewController:self.oadScreenViewController animated:YES];
             break;
         case 2:
             [_appDelegate.floReaderManager getFirmwareVersion];
@@ -294,32 +302,47 @@
     deviceState_t state = (deviceState_t)infoBytes[0];
     
     NSString * stateText;
+    NSString * name;
     BOOL gref = NO;
     switch (state)
     {
         case Off:
             stateText = @"Off";
+            [_appDelegate.oadFile setConnectedState:NO];
             break;
         case On:
             stateText = @"On";
+            [_appDelegate.oadFile setConnectedState:NO];
             break;
         case Disconnected:
             stateText = @"Disconnected";
+            [_appDelegate.oadFile setConnectedState:NO];
             break;
         case Scanning:
             stateText = @"Scanning";
+            [_appDelegate.oadFile setConnectedState:NO];
             break;
         case PeripheralDetected:
             stateText = @"Peripheral Detected";
+            [_appDelegate.oadFile setConnectedState:NO];
             break;
         case Connected:
-            stateText = @"Connected";
+//            stateText = @"Connected";
+            [_appDelegate.oadFile setConnectedState:NO];
+            name = [[_appDelegate.floReaderManager nfcService].activePeripheral name];
+            stateText = [NSString stringWithFormat:@"Connected %@ ",name];
             break;
         case Services:
-            stateText = @"Connected w/ Services";
+//            stateText = @"Connected w/ Services";
+            [_appDelegate.oadFile setConnectedState:YES];
+            name = [[_appDelegate.floReaderManager nfcService].activePeripheral name];
+            stateText = [NSString stringWithFormat:@"Connected w/ Services %@ ",name];
             break;
         case Badanamu:
-            stateText = @"Connected w/ Badanamu";
+//            stateText = @"Connected w/ Badanamu";
+            [_appDelegate.oadFile setConnectedState:YES];
+            name = [[_appDelegate.floReaderManager nfcService].activePeripheral name];
+            stateText = [NSString stringWithFormat:@"Connected w/ Services %@ ",name];
             gref = YES;
             break;
         default:

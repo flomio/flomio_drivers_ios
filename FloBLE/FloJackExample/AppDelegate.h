@@ -9,14 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "FLOReaderManager.h"
+#import "OadFile.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, FLOReaderManagerDelegate, OadFileDelegate>
+{
+    OadFile * oadFile;
+}
 
 @property (strong, nonatomic) UIWindow          *window;
 @property (strong, nonatomic) FLOReaderManager      *floReaderManager;
+@property (strong, nonatomic) OadFile * oadFile;
+
 //@property (strong, nonatomic) NSSound * scanSound;
 
 - (void)playTagReadSound;
+- (void)updateButtonPress;
+- (void)connectionLostNotification;
 
 @end
