@@ -106,11 +106,11 @@
     
     if(state == CLRegionStateInside)
     {
-        notification.alertBody = @"Welcome to McDonalds";
+        notification.alertBody = @"FloBLE is in range";
     }
     else if(state == CLRegionStateOutside)
     {
-        notification.alertBody = @"Thanks for visiting McDonalds";
+        notification.alertBody = @"FloBLE is out of range";
     }
     else
     {
@@ -159,7 +159,7 @@
 - (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didScanTag:(FJNFCTag *)theNfcTag {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.alertBody = [NSString stringWithFormat:@"Welcome to McDonald's: %@",[theNfcTag.uid fj_asHexString]];
+    notification.alertBody = [NSString stringWithFormat:@"Tag detected: %@",[theNfcTag.uid fj_asHexString]];
     
     //    [_fjAudioPlayer playSoundWithPath:_scanSoundPath];visibleViewController
     
