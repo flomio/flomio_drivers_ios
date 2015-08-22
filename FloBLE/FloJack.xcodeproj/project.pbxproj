@@ -58,11 +58,6 @@
 		B7C5C8141A3F8111000ED368 /* NDEFRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C80C1A3F8111000ED368 /* NDEFRecord.m */; };
 		EF38A7E717B82A7900684263 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7DF17B82A7900684263 /* Icon-72.png */; };
 		EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E017B82A7900684263 /* Icon-72@2x.png */; };
-		EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E117B82A7900684263 /* Icon-Small-50.png */; };
-		EF38A7EA17B82A7900684263 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */; };
-		EF38A7EB17B82A7900684263 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E317B82A7900684263 /* Icon-Small.png */; };
-		EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E417B82A7900684263 /* Icon-Small@2x.png */; };
-		EF38A7ED17B82A7900684263 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E517B82A7900684263 /* Icon.png */; };
 		EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF38A7E617B82A7900684263 /* Icon@2x.png */; };
 		EFCB082F1AB18AF800EEDCA8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCB082E1AB18AF800EEDCA8 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -161,11 +156,6 @@
 		B7C5C80C1A3F8111000ED368 /* NDEFRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDEFRecord.m; sourceTree = "<group>"; };
 		EF38A7DF17B82A7900684263 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		EF38A7E017B82A7900684263 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
-		EF38A7E117B82A7900684263 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
-		EF38A7E317B82A7900684263 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		EF38A7E417B82A7900684263 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		EF38A7E517B82A7900684263 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		EF38A7E617B82A7900684263 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		EFCB082E1AB18AF800EEDCA8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -391,11 +381,6 @@
 			children = (
 				EF38A7DF17B82A7900684263 /* Icon-72.png */,
 				EF38A7E017B82A7900684263 /* Icon-72@2x.png */,
-				EF38A7E117B82A7900684263 /* Icon-Small-50.png */,
-				EF38A7E217B82A7900684263 /* Icon-Small-50@2x.png */,
-				EF38A7E317B82A7900684263 /* Icon-Small.png */,
-				EF38A7E417B82A7900684263 /* Icon-Small@2x.png */,
-				EF38A7E517B82A7900684263 /* Icon.png */,
 				EF38A7E617B82A7900684263 /* Icon@2x.png */,
 			);
 			name = Icons;
@@ -504,11 +489,6 @@
 				158EEF9F16B9E50500574748 /* scan_sound.mp3 in Resources */,
 				EF38A7E717B82A7900684263 /* Icon-72.png in Resources */,
 				EF38A7E817B82A7900684263 /* Icon-72@2x.png in Resources */,
-				EF38A7E917B82A7900684263 /* Icon-Small-50.png in Resources */,
-				EF38A7EA17B82A7900684263 /* Icon-Small-50@2x.png in Resources */,
-				EF38A7EB17B82A7900684263 /* Icon-Small.png in Resources */,
-				EF38A7EC17B82A7900684263 /* Icon-Small@2x.png in Resources */,
-				EF38A7ED17B82A7900684263 /* Icon.png in Resources */,
 				EF38A7EE17B82A7900684263 /* Icon@2x.png in Resources */,
 				B7974AF51AB4CE8B00C3529E /* OadScreenViewController.xib in Resources */,
 			);

@@ -63,7 +63,9 @@ Installation
 
 6. Add "AudioToolbox.framework to Link Binary With Libraries.
 
+7. #import <AudioJack/AudioJack.h> into your app controller's header file.
 
+8. Add -lc++ to Linker Flags
 
 History
 -------
