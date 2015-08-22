@@ -176,10 +176,10 @@ NSString * updateButtonTitleIsUpdate;
     
     NSString * fileName = [self FileName].text;
     NSLog(@"fileName %@",fileName);
-    NSRange theRange = [fileName rangeOfString:@".bin" options:NSBackwardsSearch];
+    NSRange theRange = [fileName rangeOfString:@".hex" options:NSBackwardsSearch];
     if (theRange.location == NSNotFound)
     {
-        [self showAlertWithTitle:@"Error in file..." andMessage:@"File must be of type -.bin"];
+        [self showAlertWithTitle:@"Error in file..." andMessage:@"File must be of type -.hex"];
         return;
     }
     else
@@ -191,13 +191,13 @@ NSString * updateButtonTitleIsUpdate;
    dispatch_async(dispatch_get_main_queue(), ^{
         NSError * errorPtr;
        NSData * theData = [NSData dataWithContentsOfURL:[NSURL URLWithString: fileName] options:NSDataReadingUncached error:&errorPtr];
-        [_appDelegate.oadFile setOadData:theData];
+//        [_appDelegate.oadFile setOadData:theData];
 //        oadFile.oadData = [theData copy];
 
         NSLog(@"Error %@",errorPtr);
         if(!errorPtr)
         {
-            [oadFile extractImageHeader];
+            [oadFile extractImageHeader:theData];
             //        [UpdateButtonIBOutlet setEnabled:YES];
             [_appDelegate.oadFile setHasValidFile:YES];
             [self updateUpdateButton];
@@ -212,7 +212,7 @@ NSString * updateButtonTitleIsUpdate;
             NSLog(@"Error opening file... %@",[errorPtr localizedFailureReason]);
             [self showAlertWithTitle:@"Error opening file..." andMessage:[errorPtr localizedFailureReason]];
         }
-        if([oadFile isConnected]) [oadFile requestCurrentImageType];
+//        if([oadFile isConnected]) [oadFile requestCurrentImageType];
         [oadFile.oadFileName setString:fileName];
         [oadFile setBytesSent:0];
         [self updateFileName:[oadFile oadFileName]]; //[self updateFileName:fileName];
@@ -236,7 +236,7 @@ NSString * updateButtonTitleIsUpdate;
 {
     oadFile = theOadFile;
     //    NSLog(@"setOadFile");
-    if([oadFile isConnected]) [oadFile requestCurrentImageType];
+//    if([oadFile isConnected]) [oadFile requestCurrentImageType];
     [oadFile resetOadUploadAttributes];
     
     [self updateAllFields];
