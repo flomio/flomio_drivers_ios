@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MacTypes.h>
 
+#define OAD_IMG_METADATA_SIZE 18
 
 #define HAL_FLASH_WORD_SIZE 4
 #define OAD_IMG_ID_SIZE       4 // Image Identification size
@@ -39,10 +40,23 @@ typedef struct {
     UInt8  res[4];     // Reserved space for future use.
 } oad_img_hdr_t;       // definition of header block in OAD image
 
+typedef struct {
+    UInt16 crc0;       // CRC must not be 0x0000 or 0xFFFF.
+    UInt16 crc1;       // CRC-shadow must be 0xFFFF.
+    // User-defined Image Version Number - default logic uses simple a '!=' comparison to start an OAD.
+    UInt16 ver;
+    UInt16 len;        // Image length in 4-byte blocks (i.e. HAL_FLASH_WORD_SIZE blocks).
+    UInt8  uid[4];     // User-defined Image Identification bytes.
+    UInt8  startAddress[4];     // The start address in the on-chip flash memory the downloaded image is to be           copied to. The actual start address will be 4 x Start Address, where Start Address is multiple of 4 for 16-byte alignment.
+    UInt8   imageType;  // 1: Application or Application+Stack 2: Stack  3: Network Processor
+    UInt8   state;  //0xFF: Image should be copied to on-chip flash 0x80: Image has already been copied.
+} oad_img_metadata_t;       // definition of header block in 2650 Externla Flash OAD image
+
 typedef NS_ENUM(NSUInteger, imageType)
 {
     imageAtype = 0,
     imageBtype = 1,
+    imageEtype = 2,  // 2650 OAD image type for external FLASH
     undefinedType
 };
 
@@ -53,20 +67,21 @@ typedef NS_ENUM(NSUInteger, imageType)
 @optional
 - (void)endOfUploadNotification;
 - (void)cancelationOfUploadNotification;
-- (void)connectionLostNotification;
 @end
 
 @interface OadFile : NSObject
 {
     imageType currentImageType;
     NSString * currentFirmwareVersion;
+    NSString * imageVersion;
 
     imageType oadImageType;
     NSMutableString * oadFileName;
+    NSData * oadHexFile;
     NSData * oadData;
     NSInteger oadDataLength;
     oad_img_hdr_t oadImageHeader;
-    BOOL isUploadInProgress;
+//    oad_img_metadata_t oadImageMetaData;
     BOOL canceled;
     BOOL uploadComplete;
     BOOL hasValidFile;
@@ -79,12 +94,15 @@ typedef NS_ENUM(NSUInteger, imageType)
     NSInteger blocksSent;
 }
 @property (strong, nonatomic) NSString * currentFirmwareVersion;
+@property (strong, nonatomic) NSString * imageVersion;
 @property (strong, nonatomic) NSMutableString * oadFileName;
+@property (strong, nonatomic) NSData * oadHexFile;
 @property (strong, nonatomic) NSData * oadData;
 @property (assign, nonatomic) NSInteger oadDataLength;
 @property (assign, nonatomic) imageType currentImageType;
 @property (assign, nonatomic) imageType oadImageType;
 @property (assign, nonatomic) oad_img_hdr_t oadImageHeader;
+@property (assign, nonatomic) oad_img_metadata_t oadImageMetaData;
 @property (assign, nonatomic) BOOL isUploadInProgress;
 @property (assign, nonatomic) BOOL canceled;
 @property (assign, nonatomic) BOOL uploadComplete;;
@@ -104,6 +122,7 @@ typedef NS_ENUM(NSUInteger, imageType)
 - (id)init;
 - (id)initWithDelegate:(id<OadFileDelegate>)oadFileDelegate;
 - (void)extractImageHeader;
+- (void)extractImageHeader:(NSData *)hexFile;
 - (void)clearImageHeader;
 - (NSData*)getOadHeaderBlock;
 - (NSData*)getOadDataBlockAtIndex:(NSInteger)index;
