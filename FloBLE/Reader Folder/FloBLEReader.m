@@ -220,7 +220,7 @@ NSInteger  nDiscoveredChars;
  //   [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader floBLEserviceUUID]];
 //    [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader oadServiceUUID]];
 //    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader floBLEserviceUUID_11],[FloBLEReader floBLEserviceUUID_12],[FloBLEReader floBLEserviceUUID_13],[FloBLEReader floBLEserviceUUID_14],[FloBLEReader floBLEserviceUUID_19],[FloBLEReader floBLEserviceUUID_20],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
-    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID_03],[FloBLEReader floBLEserviceUUID_04],[FloBLEReader oadServiceUUID],[FloBLEReader floBLEserviceUUID_08],[FloBLEReader deviceInformationServiceUUID], nil];
+    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
 
     [self discoverServicesForCBUUID:peripheral withCBUUIDs:uuidArray];
         //    NSLog(@"starting discoverServicesForUUIDString %@",uuid);
@@ -583,7 +583,7 @@ NSInteger  nDiscoveredChars;
     //        [self startScanningForCBUUID:[FloBLEReader oadServiceUUID]];
     //        [self startScanningForCBUUID:[FloBLEReader arcBootServiceUUID]];
 //    NSArray * uuidArray = [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader floBLEserviceUUID_11],[FloBLEReader floBLEserviceUUID_12],[FloBLEReader floBLEserviceUUID_13],[FloBLEReader floBLEserviceUUID_14],[FloBLEReader floBLEserviceUUID_19],[FloBLEReader floBLEserviceUUID_20],[FloBLEReader oadServiceUUID],[FloBLEReader arcBootServiceUUID], nil];
-    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID_03],[FloBLEReader floBLEserviceUUID_04],[FloBLEReader floBLEserviceUUID_08],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
+    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
     [self startScanningForCBUUIDs:uuidArray];
     //          [self startScanningForCBUUIDs:nil];
     //        [myCentralManager scanForPeripheralsWithServices:nil options:nil];
