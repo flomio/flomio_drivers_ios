@@ -81,6 +81,15 @@ extern NSString * const floReaderConnectionStatusChangeNotification;
 - (protocolType_t)protocolType;
 
 + (CBUUID *) floBLEserviceUUID;
++ (CBUUID *) floBLEserviceUUID_03;
++ (CBUUID *) floBLEserviceUUID_04;
++ (CBUUID *) floBLEserviceUUID_08;
++ (CBUUID *) floBLEserviceUUID_11;
++ (CBUUID *) floBLEserviceUUID_12;
++ (CBUUID *) floBLEserviceUUID_13;
++ (CBUUID *) floBLEserviceUUID_14;
++ (CBUUID *) floBLEserviceUUID_19;
++ (CBUUID *) floBLEserviceUUID_20;
 + (CBUUID *) f2HcharacteristicUUID;
 + (CBUUID *) h2FhcharacteristicUUID;
 + (CBUUID *) f2HBlockcharacteristicUUID;
