@@ -272,6 +272,7 @@
     } else if ([cell.reuseIdentifier isEqualToString:@"AuthenticateReader"]) {
 
         // Authenticate the reader.
+        NSLog(@"%@",_masterKey);
         [_bluetoothReader authenticateWithMasterKey:_masterKey];
 
     } else if ([cell.reuseIdentifier isEqualToString:@"GetBatteryLevel"]) {
