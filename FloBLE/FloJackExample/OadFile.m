@@ -89,7 +89,7 @@
     
 #define ON_CHIP_FLASH_START 0x0000
 #define ON_CHIP_APP_START   0x1000
-#define ON_CHIP_APP_END     0xBFFF
+#define ON_CHIP_APP_END     0xDFFF //0xBFFF
 
 #define DATA_START_OFFSET 9
 #define END_CRC_LEN 2
