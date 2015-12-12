@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5602356A1AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 560235691AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m */; };
+		5623B1E41B1807A7000E8A83 /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */; };
+		564CEE101AF07F4600475157 /* ABDTxPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564CEE0F1AF07F4600475157 /* ABDTxPowerViewController.m */; };
+		56AFE5F8192C441C0029B7F8 /* ABDHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5F7192C441C0029B7F8 /* ABDHex.m */; };
+		56AFE5FD192CA3E10029B7F8 /* ABDReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5FC192CA3E10029B7F8 /* ABDReaderViewController.m */; };
+		56AFE600192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5FF192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m */; };
+		56E532A9192B534C003E061E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532A8192B534C003E061E /* Foundation.framework */; };
+		56E532AB192B534C003E061E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532AA192B534C003E061E /* CoreGraphics.framework */; };
+		56E532AD192B534D003E061E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532AC192B534D003E061E /* UIKit.framework */; };
+		56E532B3192B534D003E061E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56E532B1192B534D003E061E /* InfoPlist.strings */; };
+		56E532B5192B534D003E061E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E532B4192B534D003E061E /* main.m */; };
+		56E532B9192B534D003E061E /* ABDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E532B8192B534D003E061E /* ABDAppDelegate.m */; };
+		56E532BC192B534D003E061E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56E532BA192B534D003E061E /* Main.storyboard */; };
+		56E532BF192B534D003E061E /* ABDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E532BE192B534D003E061E /* ABDViewController.m */; };
+		56E532C1192B534D003E061E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56E532C0192B534D003E061E /* Images.xcassets */; };
+		56E532C8192B534D003E061E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532C7192B534D003E061E /* XCTest.framework */; };
+		56E532C9192B534D003E061E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532A8192B534C003E061E /* Foundation.framework */; };
+		56E532CA192B534D003E061E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56E532AC192B534D003E061E /* UIKit.framework */; };
+		56E532D2192B534D003E061E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56E532D0192B534D003E061E /* InfoPlist.strings */; };
+		56E532D4192B534D003E061E /* BTDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E532D3192B534D003E061E /* BTDemoTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		56E532CB192B534D003E061E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56E5329D192B534C003E061E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 56E532A4192B534C003E061E;
+			remoteInfo = BTDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		560235691AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+IOS8DetailCellFix.m"; sourceTree = "<group>"; };
+		5623B1DD1B1807A7000E8A83 /* ABTAcr1255uj1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr1255uj1Reader.h; sourceTree = "<group>"; };
+		5623B1DE1B1807A7000E8A83 /* ABTAcr3901us1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr3901us1Reader.h; sourceTree = "<group>"; };
+		5623B1DF1B1807A7000E8A83 /* ABTBluetoothReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReader.h; sourceTree = "<group>"; };
+		5623B1E01B1807A7000E8A83 /* ABTBluetoothReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReaderManager.h; sourceTree = "<group>"; };
+		5623B1E11B1807A7000E8A83 /* ABTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTError.h; sourceTree = "<group>"; };
+		5623B1E21B1807A7000E8A83 /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
+		5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
+		564CEE0E1AF07F4600475157 /* ABDTxPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDTxPowerViewController.h; sourceTree = "<group>"; };
+		564CEE0F1AF07F4600475157 /* ABDTxPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDTxPowerViewController.m; sourceTree = "<group>"; };
+		56AFE5F6192C441C0029B7F8 /* ABDHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDHex.h; sourceTree = "<group>"; };
+		56AFE5F7192C441C0029B7F8 /* ABDHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDHex.m; sourceTree = "<group>"; };
+		56AFE5FB192CA3E10029B7F8 /* ABDReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDReaderViewController.h; sourceTree = "<group>"; };
+		56AFE5FC192CA3E10029B7F8 /* ABDReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDReaderViewController.m; sourceTree = "<group>"; };
+		56AFE5FE192CA3FC0029B7F8 /* ABDDeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDDeviceInfoViewController.h; sourceTree = "<group>"; };
+		56AFE5FF192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDDeviceInfoViewController.m; sourceTree = "<group>"; };
+		56E532A5192B534C003E061E /* BTDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		56E532A8192B534C003E061E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		56E532AA192B534C003E061E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		56E532AC192B534D003E061E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		56E532B0192B534D003E061E /* BTDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BTDemo-Info.plist"; sourceTree = "<group>"; };
+		56E532B2192B534D003E061E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		56E532B4192B534D003E061E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		56E532B6192B534D003E061E /* BTDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BTDemo-Prefix.pch"; sourceTree = "<group>"; };
+		56E532B7192B534D003E061E /* ABDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABDAppDelegate.h; sourceTree = "<group>"; };
+		56E532B8192B534D003E061E /* ABDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ABDAppDelegate.m; sourceTree = "<group>"; };
+		56E532BB192B534D003E061E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		56E532BD192B534D003E061E /* ABDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABDViewController.h; sourceTree = "<group>"; };
+		56E532BE192B534D003E061E /* ABDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ABDViewController.m; sourceTree = "<group>"; };
+		56E532C0192B534D003E061E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		56E532C6192B534D003E061E /* BTDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		56E532C7192B534D003E061E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		56E532CF192B534D003E061E /* BTDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BTDemoTests-Info.plist"; sourceTree = "<group>"; };
+		56E532D1192B534D003E061E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		56E532D3192B534D003E061E /* BTDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTDemoTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56E532A2192B534C003E061E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5623B1E41B1807A7000E8A83 /* libACSBluetooth.a in Frameworks */,
+				56E532AB192B534C003E061E /* CoreGraphics.framework in Frameworks */,
+				56E532AD192B534D003E061E /* UIKit.framework in Frameworks */,
+				56E532A9192B534C003E061E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56E532C3192B534D003E061E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E532C8192B534D003E061E /* XCTest.framework in Frameworks */,
+				56E532CA192B534D003E061E /* UIKit.framework in Frameworks */,
+				56E532C9192B534D003E061E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5623B1DC1B1807A7000E8A83 /* ACSBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				5623B1DD1B1807A7000E8A83 /* ABTAcr1255uj1Reader.h */,
+				5623B1DE1B1807A7000E8A83 /* ABTAcr3901us1Reader.h */,
+				5623B1DF1B1807A7000E8A83 /* ABTBluetoothReader.h */,
+				5623B1E01B1807A7000E8A83 /* ABTBluetoothReaderManager.h */,
+				5623B1E11B1807A7000E8A83 /* ABTError.h */,
+				5623B1E21B1807A7000E8A83 /* ACSBluetooth.h */,
+				5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */,
+			);
+			path = ACSBluetooth;
+			sourceTree = "<group>";
+		};
+		56E5329C192B534C003E061E = {
+			isa = PBXGroup;
+			children = (
+				5623B1DC1B1807A7000E8A83 /* ACSBluetooth */,
+				56E532AE192B534D003E061E /* BTDemo */,
+				56E532CD192B534D003E061E /* BTDemoTests */,
+				56E532A7192B534C003E061E /* Frameworks */,
+				56E532A6192B534C003E061E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		56E532A6192B534C003E061E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				56E532A5192B534C003E061E /* BTDemo.app */,
+				56E532C6192B534D003E061E /* BTDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		56E532A7192B534C003E061E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				56E532A8192B534C003E061E /* Foundation.framework */,
+				56E532AA192B534C003E061E /* CoreGraphics.framework */,
+				56E532AC192B534D003E061E /* UIKit.framework */,
+				56E532C7192B534D003E061E /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		56E532AE192B534D003E061E /* BTDemo */ = {
+			isa = PBXGroup;
+			children = (
+				56E532B7192B534D003E061E /* ABDAppDelegate.h */,
+				56E532B8192B534D003E061E /* ABDAppDelegate.m */,
+				56AFE5FE192CA3FC0029B7F8 /* ABDDeviceInfoViewController.h */,
+				56AFE5FF192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m */,
+				56AFE5F6192C441C0029B7F8 /* ABDHex.h */,
+				56AFE5F7192C441C0029B7F8 /* ABDHex.m */,
+				56AFE5FB192CA3E10029B7F8 /* ABDReaderViewController.h */,
+				56AFE5FC192CA3E10029B7F8 /* ABDReaderViewController.m */,
+				564CEE0E1AF07F4600475157 /* ABDTxPowerViewController.h */,
+				564CEE0F1AF07F4600475157 /* ABDTxPowerViewController.m */,
+				56E532BD192B534D003E061E /* ABDViewController.h */,
+				56E532BE192B534D003E061E /* ABDViewController.m */,
+				56E532C0192B534D003E061E /* Images.xcassets */,
+				56E532BA192B534D003E061E /* Main.storyboard */,
+				56E532AF192B534D003E061E /* Supporting Files */,
+				560235691AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m */,
+			);
+			path = BTDemo;
+			sourceTree = "<group>";
+		};
+		56E532AF192B534D003E061E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				56E532B0192B534D003E061E /* BTDemo-Info.plist */,
+				56E532B1192B534D003E061E /* InfoPlist.strings */,
+				56E532B4192B534D003E061E /* main.m */,
+				56E532B6192B534D003E061E /* BTDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		56E532CD192B534D003E061E /* BTDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				56E532D3192B534D003E061E /* BTDemoTests.m */,
+				56E532CE192B534D003E061E /* Supporting Files */,
+			);
+			path = BTDemoTests;
+			sourceTree = "<group>";
+		};
+		56E532CE192B534D003E061E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				56E532CF192B534D003E061E /* BTDemoTests-Info.plist */,
+				56E532D0192B534D003E061E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		56E532A4192B534C003E061E /* BTDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56E532D7192B534D003E061E /* Build configuration list for PBXNativeTarget "BTDemo" */;
+			buildPhases = (
+				56E532A1192B534C003E061E /* Sources */,
+				56E532A2192B534C003E061E /* Frameworks */,
+				56E532A3192B534C003E061E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BTDemo;
+			productName = BTDemo;
+			productReference = 56E532A5192B534C003E061E /* BTDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		56E532C5192B534D003E061E /* BTDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56E532DA192B534D003E061E /* Build configuration list for PBXNativeTarget "BTDemoTests" */;
+			buildPhases = (
+				56E532C2192B534D003E061E /* Sources */,
+				56E532C3192B534D003E061E /* Frameworks */,
+				56E532C4192B534D003E061E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				56E532CC192B534D003E061E /* PBXTargetDependency */,
+			);
+			name = BTDemoTests;
+			productName = BTDemoTests;
+			productReference = 56E532C6192B534D003E061E /* BTDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		56E5329D192B534C003E061E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ABD;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Advanced Card Systems Ltd.";
+				TargetAttributes = {
+					56E532C5192B534D003E061E = {
+						TestTargetID = 56E532A4192B534C003E061E;
+					};
+				};
+			};
+			buildConfigurationList = 56E532A0192B534C003E061E /* Build configuration list for PBXProject "BTDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 56E5329C192B534C003E061E;
+			productRefGroup = 56E532A6192B534C003E061E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				56E532A4192B534C003E061E /* BTDemo */,
+				56E532C5192B534D003E061E /* BTDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		56E532A3192B534C003E061E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E532C1192B534D003E061E /* Images.xcassets in Resources */,
+				56E532B3192B534D003E061E /* InfoPlist.strings in Resources */,
+				56E532BC192B534D003E061E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56E532C4192B534D003E061E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E532D2192B534D003E061E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		56E532A1192B534C003E061E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56AFE600192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m in Sources */,
+				56E532B9192B534D003E061E /* ABDAppDelegate.m in Sources */,
+				56AFE5FD192CA3E10029B7F8 /* ABDReaderViewController.m in Sources */,
+				5602356A1AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m in Sources */,
+				564CEE101AF07F4600475157 /* ABDTxPowerViewController.m in Sources */,
+				56E532BF192B534D003E061E /* ABDViewController.m in Sources */,
+				56E532B5192B534D003E061E /* main.m in Sources */,
+				56AFE5F8192C441C0029B7F8 /* ABDHex.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56E532C2192B534D003E061E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E532D4192B534D003E061E /* BTDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		56E532CC192B534D003E061E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 56E532A4192B534C003E061E /* BTDemo */;
+			targetProxy = 56E532CB192B534D003E061E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		56E532B1192B534D003E061E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56E532B2192B534D003E061E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		56E532BA192B534D003E061E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56E532BB192B534D003E061E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		56E532D0192B534D003E061E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				56E532D1192B534D003E061E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		56E532D5192B534D003E061E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		56E532D6192B534D003E061E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		56E532D8192B534D003E061E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "BTDemo/BTDemo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ACSBluetooth",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		56E532D9192B534D003E061E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "BTDemo/BTDemo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ACSBluetooth",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		56E532DB192B534D003E061E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BTDemo.app/BTDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BTDemoTests/BTDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		56E532DC192B534D003E061E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BTDemo.app/BTDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
+				INFOPLIST_FILE = "BTDemoTests/BTDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		56E532A0192B534C003E061E /* Build configuration list for PBXProject "BTDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E532D5192B534D003E061E /* Debug */,
+				56E532D6192B534D003E061E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56E532D7192B534D003E061E /* Build configuration list for PBXNativeTarget "BTDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E532D8192B534D003E061E /* Debug */,
+				56E532D9192B534D003E061E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56E532DA192B534D003E061E /* Build configuration list for PBXNativeTarget "BTDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56E532DB192B534D003E061E /* Debug */,
+				56E532DC192B534D003E061E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 56E5329D192B534C003E061E /* Project object */;
+}

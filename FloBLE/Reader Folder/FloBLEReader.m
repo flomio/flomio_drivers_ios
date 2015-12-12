@@ -51,6 +51,42 @@ NSInteger  nDiscoveredChars;
     return [CBUUID UUIDWithString:@"6e400001-b5a3-f393-e0a9-e50e24dcca9e"];
 }
 
++ (CBUUID *) floBLEserviceUUID_03 {
+    return [CBUUID UUIDWithString:@"6e400003-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_04 {
+    return [CBUUID UUIDWithString:@"6e400004-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_08 {
+    return [CBUUID UUIDWithString:@"6e400008-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_11 {
+    return [CBUUID UUIDWithString:@"6e400011-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_12 {
+    return [CBUUID UUIDWithString:@"6e400012-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_13 {
+    return [CBUUID UUIDWithString:@"6e400013-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_14 {
+    return [CBUUID UUIDWithString:@"6e400014-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_19 {
+    return [CBUUID UUIDWithString:@"6e400019-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
++ (CBUUID *) floBLEserviceUUID_20 {
+    return [CBUUID UUIDWithString:@"6e400020-b5a3-f393-e0a9-e50e24dcca9e"];
+}
+
 + (CBUUID *) f2HcharacteristicUUID
 {
     return [CBUUID UUIDWithString:@"6e400002-b5a3-f393-e0a9-e50e24dcca9e"];
@@ -183,7 +219,9 @@ NSInteger  nDiscoveredChars;
 //    [peripheral discoverServices:nil];
  //   [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader floBLEserviceUUID]];
 //    [self discoverServicesForCBUUID:peripheral cbuuid:[FloBLEReader oadServiceUUID]];
+//    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader floBLEserviceUUID_11],[FloBLEReader floBLEserviceUUID_12],[FloBLEReader floBLEserviceUUID_13],[FloBLEReader floBLEserviceUUID_14],[FloBLEReader floBLEserviceUUID_19],[FloBLEReader floBLEserviceUUID_20],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
     NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
+
     [self discoverServicesForCBUUID:peripheral withCBUUIDs:uuidArray];
         //    NSLog(@"starting discoverServicesForUUIDString %@",uuid);
         //    NSArray			*uuidArray	= [NSArray arrayWithObjects:uuid, nil];
@@ -544,7 +582,8 @@ NSInteger  nDiscoveredChars;
     //        [self startScanningForCBUUID:[FloBLEReader floBLEserviceUUID]];
     //        [self startScanningForCBUUID:[FloBLEReader oadServiceUUID]];
     //        [self startScanningForCBUUID:[FloBLEReader arcBootServiceUUID]];
-    NSArray * uuidArray = [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader oadServiceUUID],[FloBLEReader arcBootServiceUUID], nil];
+//    NSArray * uuidArray = [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader floBLEserviceUUID_11],[FloBLEReader floBLEserviceUUID_12],[FloBLEReader floBLEserviceUUID_13],[FloBLEReader floBLEserviceUUID_14],[FloBLEReader floBLEserviceUUID_19],[FloBLEReader floBLEserviceUUID_20],[FloBLEReader oadServiceUUID],[FloBLEReader arcBootServiceUUID], nil];
+    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBLEserviceUUID],[FloBLEReader oadServiceUUID],[FloBLEReader deviceInformationServiceUUID], nil];
     [self startScanningForCBUUIDs:uuidArray];
     //          [self startScanningForCBUUIDs:nil];
     //        [myCentralManager scanForPeripheralsWithServices:nil options:nil];
