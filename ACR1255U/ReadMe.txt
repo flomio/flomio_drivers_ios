@@ -17,8 +17,8 @@ To install the library to your development environment, see the section
 Release Notes
 -------------
 
-Version:      1.0.0 Preview 5
-Release Date: 29/5/2015
+Version:      1.0.0 Preview 6
+Release Date: 28/1/2016
 
 This preview library is subject to change. It may or may not work with your iOS
 device or Mac.
@@ -33,7 +33,7 @@ System Requirements
 
 Development Environment
 
-- Xcode 6.3.2 or above.
+- Xcode 7.2 or above.
 
 Supported Readers
 
@@ -60,6 +60,11 @@ History
 -------
 
 Library
+
+v1.0.0 Preview 6 (28/1/2016)
+- Update to recommended settings in Xcode 7.2.
+- Enable ABTBluetoothReaderDeviceInfoSerialNumberString in
+  getDeviceInfoWithType: of ABTAcr1255uj1Reader class.
 
 v1.0.0 Preview 5 (29/5/2015)
 - Require ACR3901U-S1 v1.04 or above.
@@ -106,6 +111,10 @@ v1.0.0 Preview 1 (30/5/2014)
 
 
 Demo (iOS)
+
+v1.0.0 Preview 5 (28/1/2016)
+- Update to recommended settings in Xcode 7.2.
+- Update the build to 5.
 
 v1.0.0 Preview 4 (29/5/2015)
 - Set the row height to 44 if it is less than zero (iOS 8.0) in
@@ -154,6 +163,10 @@ v1.0.0 Preview 1 (30/5/2014)
 
 
 Demo (Mac OS X)
+
+v1.0.0 Preview 4 (28/1/2016)
+- Update to recommended settings in Xcode 7.2.
+- Update the build to 4.
 
 v1.0.0 Preview 3 (29/5/2015)
 - Rename BTDemoMacOSX.xcodeproj to BTDemo.xcodeproj.
@@ -231,7 +244,7 @@ Fax: +852 2796 1286
 
 
 -------------------------------------------------------------------------------
-Copyright (C) 2014-2015 Advanced Card Systems Ltd. All Rights Reserved.
+Copyright (C) 2014-2016 Advanced Card Systems Ltd. All Rights Reserved.
 
 No part of this reference manual may be reproduced or transmitted in any from
 without the expressed, written permission of ACS.

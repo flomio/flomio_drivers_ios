@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5602356A1AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 560235691AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m */; };
-		5623B1E41B1807A7000E8A83 /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */; };
 		564CEE101AF07F4600475157 /* ABDTxPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 564CEE0F1AF07F4600475157 /* ABDTxPowerViewController.m */; };
+		565B8AAE1C59FFF2007E3F7E /* libACSBluetooth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 565B8AAD1C59FFF2007E3F7E /* libACSBluetooth.a */; };
 		56AFE5F8192C441C0029B7F8 /* ABDHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5F7192C441C0029B7F8 /* ABDHex.m */; };
 		56AFE5FD192CA3E10029B7F8 /* ABDReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5FC192CA3E10029B7F8 /* ABDReaderViewController.m */; };
 		56AFE600192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AFE5FF192CA3FC0029B7F8 /* ABDDeviceInfoViewController.m */; };
@@ -41,15 +41,15 @@
 
 /* Begin PBXFileReference section */
 		560235691AA84770005BE766 /* UITableViewCell+IOS8DetailCellFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+IOS8DetailCellFix.m"; sourceTree = "<group>"; };
-		5623B1DD1B1807A7000E8A83 /* ABTAcr1255uj1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr1255uj1Reader.h; sourceTree = "<group>"; };
-		5623B1DE1B1807A7000E8A83 /* ABTAcr3901us1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr3901us1Reader.h; sourceTree = "<group>"; };
-		5623B1DF1B1807A7000E8A83 /* ABTBluetoothReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReader.h; sourceTree = "<group>"; };
-		5623B1E01B1807A7000E8A83 /* ABTBluetoothReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReaderManager.h; sourceTree = "<group>"; };
-		5623B1E11B1807A7000E8A83 /* ABTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTError.h; sourceTree = "<group>"; };
-		5623B1E21B1807A7000E8A83 /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
-		5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
 		564CEE0E1AF07F4600475157 /* ABDTxPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDTxPowerViewController.h; sourceTree = "<group>"; };
 		564CEE0F1AF07F4600475157 /* ABDTxPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDTxPowerViewController.m; sourceTree = "<group>"; };
+		565B8AA71C59FFF2007E3F7E /* ABTAcr1255uj1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr1255uj1Reader.h; sourceTree = "<group>"; };
+		565B8AA81C59FFF2007E3F7E /* ABTAcr3901us1Reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTAcr3901us1Reader.h; sourceTree = "<group>"; };
+		565B8AA91C59FFF2007E3F7E /* ABTBluetoothReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReader.h; sourceTree = "<group>"; };
+		565B8AAA1C59FFF2007E3F7E /* ABTBluetoothReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTBluetoothReaderManager.h; sourceTree = "<group>"; };
+		565B8AAB1C59FFF2007E3F7E /* ABTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTError.h; sourceTree = "<group>"; };
+		565B8AAC1C59FFF2007E3F7E /* ACSBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSBluetooth.h; sourceTree = "<group>"; };
+		565B8AAD1C59FFF2007E3F7E /* libACSBluetooth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libACSBluetooth.a; sourceTree = "<group>"; };
 		56AFE5F6192C441C0029B7F8 /* ABDHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDHex.h; sourceTree = "<group>"; };
 		56AFE5F7192C441C0029B7F8 /* ABDHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABDHex.m; sourceTree = "<group>"; };
 		56AFE5FB192CA3E10029B7F8 /* ABDReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABDReaderViewController.h; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5623B1E41B1807A7000E8A83 /* libACSBluetooth.a in Frameworks */,
+				565B8AAE1C59FFF2007E3F7E /* libACSBluetooth.a in Frameworks */,
 				56E532AB192B534C003E061E /* CoreGraphics.framework in Frameworks */,
 				56E532AD192B534D003E061E /* UIKit.framework in Frameworks */,
 				56E532A9192B534C003E061E /* Foundation.framework in Frameworks */,
@@ -102,16 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5623B1DC1B1807A7000E8A83 /* ACSBluetooth */ = {
+		565B8AA61C59FFF2007E3F7E /* ACSBluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				5623B1DD1B1807A7000E8A83 /* ABTAcr1255uj1Reader.h */,
-				5623B1DE1B1807A7000E8A83 /* ABTAcr3901us1Reader.h */,
-				5623B1DF1B1807A7000E8A83 /* ABTBluetoothReader.h */,
-				5623B1E01B1807A7000E8A83 /* ABTBluetoothReaderManager.h */,
-				5623B1E11B1807A7000E8A83 /* ABTError.h */,
-				5623B1E21B1807A7000E8A83 /* ACSBluetooth.h */,
-				5623B1E31B1807A7000E8A83 /* libACSBluetooth.a */,
+				565B8AA71C59FFF2007E3F7E /* ABTAcr1255uj1Reader.h */,
+				565B8AA81C59FFF2007E3F7E /* ABTAcr3901us1Reader.h */,
+				565B8AA91C59FFF2007E3F7E /* ABTBluetoothReader.h */,
+				565B8AAA1C59FFF2007E3F7E /* ABTBluetoothReaderManager.h */,
+				565B8AAB1C59FFF2007E3F7E /* ABTError.h */,
+				565B8AAC1C59FFF2007E3F7E /* ACSBluetooth.h */,
+				565B8AAD1C59FFF2007E3F7E /* libACSBluetooth.a */,
 			);
 			path = ACSBluetooth;
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 		56E5329C192B534C003E061E = {
 			isa = PBXGroup;
 			children = (
-				5623B1DC1B1807A7000E8A83 /* ACSBluetooth */,
+				565B8AA61C59FFF2007E3F7E /* ACSBluetooth */,
 				56E532AE192B534D003E061E /* BTDemo */,
 				56E532CD192B534D003E061E /* BTDemoTests */,
 				56E532A7192B534C003E061E /* Frameworks */,
@@ -244,7 +244,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ABD;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Advanced Card Systems Ltd.";
 				TargetAttributes = {
 					56E532C5192B534D003E061E = {
@@ -372,6 +372,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -429,20 +430,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "BTDemo/BTDemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ACSBluetooth",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -453,20 +450,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "BTDemo/BTDemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ACSBluetooth",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -488,6 +481,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "BTDemoTests/BTDemoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -506,6 +500,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTDemo/BTDemo-Prefix.pch";
 				INFOPLIST_FILE = "BTDemoTests/BTDemoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.acs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
