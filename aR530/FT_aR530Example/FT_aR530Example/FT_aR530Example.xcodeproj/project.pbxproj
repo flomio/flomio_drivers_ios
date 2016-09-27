@@ -255,6 +255,11 @@
 				CLASSPREFIX = FT;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = FTSafe;
+				TargetAttributes = {
+					EA849D62194956B600A92B65 = {
+						DevelopmentTeam = Q338UYGFZ8;
+					};
+				};
 			};
 			buildConfigurationList = EA849D5E194956B600A92B65 /* Build configuration list for PBXProject "FT_aR530Example" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -427,6 +432,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FT_aR530Example/FT_aR530Example-Prefix.pch";
 				INFOPLIST_FILE = "FT_aR530Example/FT_aR530Example-Info.plist";
@@ -440,6 +448,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -456,6 +465,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FT_aR530Example/FT_aR530Example-Prefix.pch";
 				INFOPLIST_FILE = "FT_aR530Example/FT_aR530Example-Info.plist";
@@ -469,6 +481,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
