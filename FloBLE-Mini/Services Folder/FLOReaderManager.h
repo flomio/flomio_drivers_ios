@@ -68,6 +68,7 @@
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveHardwareVersion:(NSString *)theVersionNumber;
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferThresh:(NSString *)theSnifferValue;
   - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveSnifferCalib:(NSString *)theCalibValues;
+  - (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveWristbandState:(NSString *)theState;
   - (void)didReceiveServiceFirmwareVersion:(NSString *)theVersionNumber;
   - (void)didReceivedImageBlockTransferCharacteristic:(NSData*)imageBlockCharacteristic;
   - (void)didReceivedImageIdentifyCharacteristic:(NSData*)imageBlockCharacteristic;

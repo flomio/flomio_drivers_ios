@@ -60,7 +60,8 @@ typedef enum
     FLOMIO_BLOCK_READ_WRITE_OP,         // 15
     FLOMIO_TAG_WRITE_OP,				// 16
     FLOMIO_SNIFFER_CONFIG_OP,           // 17
-    FLOMIO_DISCONNECT_OP                // 18
+    FLOMIO_DISCONNECT_OP,               // 18
+    FLOMIO_WRISTBAND_OP                 // 19
 } flomio_opcode_t;
 
 // FLOMIO_TAG_READ_OP sub opcode indicating tag type (most significant nibble)
@@ -242,6 +243,18 @@ typedef enum {
     LED_TAG_ERROR,
     LED_OFF
 } ledStatus_t;
+
+// FloBLE Wristband States
+typedef enum {
+    WRISTBAND_HAPTIC_EVT,
+    WRISTBAND_SW1_EVT,
+    WRISTBAND_SW2_EVT,
+    WRISTBAND_SW3_EVT,
+    WRISTBAND_SW4_EVT,
+    WRISTBAND_ORIENTATION_EVT,
+    WRISTBAND_MOTION_EVT,
+    WRISTBAND_WIRELESS_CHARGING_EVT,
+} wristbandStatus_t;
 
 // FloJack protocol messages {opcode, length, data[] } - Used for messages that don't have 
 const static UInt8 status_hw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};

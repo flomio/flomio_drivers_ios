@@ -295,7 +295,23 @@
                 case FLOMIO_DISCONNECT_OP:
                     _name = @"FLOMIO_DISCONNECT";
                     break;
-
+                case FLOMIO_WRISTBAND_OP:
+                    switch (_subOpcode) {
+                        case WRISTBAND_SW1_EVT:
+                             break;
+                        case WRISTBAND_SW2_EVT:
+                             break;
+                        case WRISTBAND_SW3_EVT:
+                             break;
+                        case WRISTBAND_SW4_EVT:
+                             break;
+                        case WRISTBAND_ORIENTATION_EVT:
+                             break;
+                        case WRISTBAND_MOTION_EVT:
+                             break;
+                        case WRISTBAND_WIRELESS_CHARGING_EVT:
+                             break;
+                    }
             }
         } else {
             _opcode = nil;
@@ -349,7 +365,8 @@
             floMessageOpcode == FLOMIO_PING_OP ||
             floMessageOpcode == FLOMIO_OPERATION_MODE_OP ||
             floMessageOpcode == FLOMIO_BLOCK_READ_WRITE_OP ||
-            floMessageOpcode == FLOMIO_TAG_WRITE_OP)
+            floMessageOpcode == FLOMIO_TAG_WRITE_OP ||
+            floMessageOpcode == FLOMIO_WRISTBAND_OP)
     {
         UInt8 floMessageSubOpcode = 0;
         [theMessage getBytes:&floMessageSubOpcode range:NSMakeRange(FLO_MESSAGE_SUB_OPCODE_POSITION,

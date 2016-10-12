@@ -511,7 +511,7 @@ NSInteger  nDiscoveredChars;
 
     BOOL parityGood = YES;
    
-#define maxTxBlockSize 20 // we have to break up long messages due to issue with TI BLE stack
+#define maxTxBlockSize 16 // we have to break up long messages due to issue with TI BLE stack
     int ptr = 0;
     while (len)
     {

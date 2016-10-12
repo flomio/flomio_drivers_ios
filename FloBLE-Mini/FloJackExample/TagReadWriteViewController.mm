@@ -448,6 +448,11 @@
     [self updateLogTextViewWithString:textUpdate];
 }
 
+- (void)floReaderManager:(FLOReaderManager *)floReaderManager didReceiveWristbandState:(NSString *)theState; {
+    NSString *textUpdate = [NSString stringWithFormat:@":::FloBLE Wristband State %@", theState];
+    [self updateLogTextViewWithString:textUpdate];
+}
+
 - (bool)textFieldShouldReturn:(UITextField *)textField {
     if ([textField isEqual:_urlInputField]) {
         [_appDelegate.floReaderManager setModeWriteTagWithNdefMessage:[NDEFMessage createURIWithString:_urlInputField.text]];

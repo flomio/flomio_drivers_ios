@@ -230,6 +230,10 @@
 
 }
 
+- (void)floReaderManager:(FLOReaderManager *)theFloReaderManager didReceiveWristbandState:(NSString*)theState; {
+    [self.tagReadWriteViewController floReaderManager:theFloReaderManager didReceiveWristbandState:theState];
+}
+
 #pragma mark - OadScreenViewController delegate
 
 - (void)updateButtonPress
