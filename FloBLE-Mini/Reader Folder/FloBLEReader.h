@@ -30,6 +30,7 @@ extern NSString * const floReaderConnectionStatusChangeNotification;
 {
     CBCentralManager * myCentralManager;
     CBPeripheral *activePeripheral;
+    CBCharacteristic * batteryLevelCharacteristic;
     CBCharacteristic * serialF2hPortBlockCharacteristic;
     CBCharacteristic * serialH2fPortBlockCharacteristic;
     CBCharacteristic * oadServiceCharacteristic;
@@ -46,6 +47,7 @@ extern NSString * const floReaderConnectionStatusChangeNotification;
 @property (assign) BOOL isConnected;
 @property (strong, nonatomic) CBCentralManager * myCentralManager;
 @property (strong, nonatomic) CBPeripheral *activePeripheral;
+@property (strong, nonatomic) CBCharacteristic * batteryLevelCharacteristic;
 @property (strong, nonatomic) CBCharacteristic * serialF2hPortBlockCharacteristic;
 @property (strong, nonatomic) CBCharacteristic * serialH2fPortBlockCharacteristic;
 @property (strong, nonatomic) CBCharacteristic * oadServiceCharacteristic;
@@ -77,6 +79,8 @@ extern NSString * const floReaderConnectionStatusChangeNotification;
 - (protocolType_t)protocolType;
 
 + (CBUUID *) deviceInformationServiceUuid16bit;
++ (CBUUID *) batteryServiceUuid16bit;
++ (CBUUID *) batteryLevelCharacteristicUuid128bit;
 + (CBUUID *) oadServiceUuid16bit;
 + (CBUUID *) oadServiceUuid128bit;
 + (CBUUID *) floBleServiceUuid16bit;

@@ -28,6 +28,7 @@ NSInteger  nDiscoveredChars;
 @synthesize myCentralManager;
 @synthesize activePeripheral;
 @synthesize rfUid;
+@synthesize batteryLevelCharacteristic;
 @synthesize serialF2hPortBlockCharacteristic;
 @synthesize serialH2fPortBlockCharacteristic;
 @synthesize oadServiceCharacteristic;
@@ -46,6 +47,16 @@ NSInteger  nDiscoveredChars;
 + (CBUUID *) deviceInformationServiceUuid16bit
 {
     return [CBUUID UUIDWithString:@"180A"];
+}
+
++ (CBUUID *) batteryServiceUuid16bit
+{
+    return [CBUUID UUIDWithString:@"180F"];
+}
+
++ (CBUUID *) batteryLevelCharacteristicUuid128bit
+{
+    return [CBUUID UUIDWithString:@"00002A19-0000-1000-8000-00805F9B34FB"];
 }
 
 + (CBUUID *) oadServiceUuid16bit
@@ -153,7 +164,7 @@ NSInteger  nDiscoveredChars;
 {
     NSLog(@"::didConnectPeripheral peripheral %@",[peripheral name]);
     peripheral.delegate = self;
-    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBleServiceUuid128bit],[FloBLEReader oadServiceUuid128bit],[FloBLEReader deviceInformationServiceUuid16bit], nil];
+    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBleServiceUuid128bit],[FloBLEReader oadServiceUuid128bit],[FloBLEReader deviceInformationServiceUuid16bit], [FloBLEReader batteryServiceUuid16bit], nil];
 
     NSLog(@"starting discoverServicesForUUIDArray %@",uuidArray);
     [peripheral discoverServices:uuidArray];
@@ -187,7 +198,19 @@ NSInteger  nDiscoveredChars;
 
 - (void)peripheral:(CBPeripheral *)central didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    CBUUID* myCharacteristicCUUID = [FloBLEReader f2hBlockCharacteristicUuid128bit];
+    CBUUID* myCharacteristicCUUID = [FloBLEReader batteryLevelCharacteristicUuid128bit];
+    for (CBCharacteristic *characteristic in service.characteristics)
+    {
+        if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Battery Monitor
+            NSLog(@"::Discovered batteryLevelCharacteristic %@",[characteristic UUID]);
+            batteryLevelCharacteristic = characteristic;
+            [activePeripheral setNotifyValue:YES forCharacteristic:batteryLevelCharacteristic];
+            nDiscoveredChars |= 2;
+            break;
+        }
+    }
+    
+    myCharacteristicCUUID = [FloBLEReader f2hBlockCharacteristicUuid128bit];
     for (CBCharacteristic *characteristic in service.characteristics)
     {
         if ([[characteristic UUID] isEqual:myCharacteristicCUUID]) { // Serial Port
@@ -233,7 +256,7 @@ NSInteger  nDiscoveredChars;
             break;
         }
     }
-    
+   
     if (nDiscoveredChars == 0x7F)
     {
         NSLog(@"::setDeviceState:Services %ld",(long)nDiscoveredChars);
@@ -251,7 +274,18 @@ NSInteger  nDiscoveredChars;
     //    NSLog(@"Characteristic isBroadcasted %hhd,",[characteristic isBroadcasted]);
     //    NSLog(@"Characteristic isNotifying %hhd,",[characteristic isNotifying]);
     
-    if([characteristic isEqual:serialF2hPortBlockCharacteristic])
+    if([characteristic isEqual:batteryLevelCharacteristic])
+    {
+        if (myData == nil)
+        {
+            NSLog(@":: Notification with NULL value batteryLevelCharacteristic");
+            [self setDeviceState:Badanamu]; // going to do this here as a hack to retrieve uid on initial connection.
+        }
+        else
+        {
+            NSLog(@"::Notified batteryLevelCharacteristic %@", myData);
+        }
+    } else if([characteristic isEqual:serialF2hPortBlockCharacteristic])
     {
         if (myData == nil)
         {
@@ -305,7 +339,7 @@ NSInteger  nDiscoveredChars;
         NSLog(@"Error writing characteristic %@",[error localizedDescription]);
     }else
     {
-        NSLog(@"Writed value for characteristic %@",[characteristic value]);
+        NSLog(@"Wrote value for characteristic %@",[characteristic value]);
     }
 }
 
@@ -315,7 +349,17 @@ NSInteger  nDiscoveredChars;
 {
     NSData *myData = [characteristic value];
     
-    if([characteristic isEqual:serialF2hPortBlockCharacteristic] && myData)
+    if([characteristic isEqual:batteryLevelCharacteristic] && myData)
+    {
+        if (myData == nil)
+        {
+            NSLog(@":: Update with NULL value for batteryLevelCharacteristic");
+        }
+        else
+        {
+            NSLog(@"::batteryLevelCharacteristic %d",((const char *)myData.bytes)[0]);
+        }
+    } else if([characteristic isEqual:serialF2hPortBlockCharacteristic] && myData)
     {
         if (myData == nil)
         {
@@ -382,6 +426,7 @@ NSInteger  nDiscoveredChars;
 {
     NSLog(@"Disconnected peripheral %@",[peripheral name]);
     
+    batteryLevelCharacteristic = nil;
     serialF2hPortBlockCharacteristic = nil;
     serialH2fPortBlockCharacteristic = nil;
     oadServiceCharacteristic = nil;
@@ -398,7 +443,7 @@ NSInteger  nDiscoveredChars;
 
 - (void)startScan
 {
-    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBleServiceUuid16bit],[FloBLEReader oadServiceUuid16bit],[FloBLEReader deviceInformationServiceUuid16bit], nil];
+    NSArray *uuidArray	= [NSArray arrayWithObjects:[FloBLEReader floBleServiceUuid16bit],[FloBLEReader oadServiceUuid16bit],[FloBLEReader deviceInformationServiceUuid16bit], [FloBLEReader batteryServiceUuid16bit],nil];
     [self startScanningForCBUUIDs:uuidArray];
     NSLog(@"cc - starting scan\n");
     [self setDeviceState:Scanning];
