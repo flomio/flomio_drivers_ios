@@ -17,8 +17,8 @@ To install the library to your development environment, see the section
 Release Notes
 -------------
 
-Version:      1.0.0 Preview 6
-Release Date: 28/1/2016
+Version:      1.0.0 Preview 7
+Release Date: 25/4/2016
 
 This preview library is subject to change. It may or may not work with your iOS
 device or Mac.
@@ -33,7 +33,7 @@ System Requirements
 
 Development Environment
 
-- Xcode 7.2 or above.
+- Xcode 7.3 or above.
 
 Supported Readers
 
@@ -60,6 +60,10 @@ History
 -------
 
 Library
+
+v1.0.0 Preview 7 (25/4/2016)
+- Handle sleep notification from ACR1255U-J1 reader.
+- Embed Bitcode to the library.
 
 v1.0.0 Preview 6 (28/1/2016)
 - Update to recommended settings in Xcode 7.2.
