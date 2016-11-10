@@ -1,0 +1,58 @@
+/* 
+  Localizable.strings
+  bR500Sample
+
+  Created by ftsafe on 16/4/8.
+  Copyright (C)2016-2020 Feitian Technologies Co. ,Ltd. All rights reserved.
+ */
+
+ /**
+ * Copyright(C) Feitian Technologies Co., Ltd. All rights reserved.
+ * FileName:        Localizable.strings
+ * FileIdentify:    Localizable.strings
+ * Description:     Dispaly text
+ * Version:         1.9.3
+ * Created by:      shanshan
+ * FinishDate:      2016-04-08
+ * Revision1:
+ **/
+
+/**
+ return message
+ */
+"connectError" = "Connect Card Error.";
+"cardGetAttribError" = "SCardGetAttrib error:";
+"connectSuccess" = "Connect Card Success.";
+"disconnectError" = "disConnect Connect Error.";
+"powerOffError" = "PowerOff Error.";
+"PowerOff Success" = "PowerOff Success.";
+"Invalid APDU" = "Invalid APDU.\n";
+"send" = "Send:";
+"Rec:" = "Rec:";
+"seed is nil" = "seed is nil.\n";
+"the format of seed data error" = "the format of seed data error.(0~9 a~f A~F)";
+"writeUID ERROR" = "writeUID ERROR.\n";
+"writeUID Successful" = "writeUID Successful.\n";
+"readUID Error" = "readUID Error.\n";
+"eraseUID Error" = "eraseUID Error.\n";
+"eraseUID Successful" = "eraseUID Successful.\n";
+"flash data is nil" = "flash data is nil.\n";
+"writeFlash ERROR" = "writeFlash ERROR.\n";
+"writeFlash Successful" = "writeFlash Successful.\n";
+"readFlash Error" = "readFlash Error.\n";
+"SCardStatus return Error" = "SCardStatus return Error:";
+"Get device HID ERROR" = "Get device HID ERROR.\n";
+
+/**
+ subview's title
+ */
+"connectCardButtonTitle" = "ConnectCard";
+"disconnectCardButtonTitle" = "DisConnectCard";
+"sendButtonTitle" = "Send";
+"writeUIDButtonTitle" = "WriteUID";
+"readUIDButtonTitle" = "ReadUID";
+"eraseUIDButtonTitle" = "EraseUID";
+"writeFlashButtonTitle" = "WriteFlash";
+"readFlashButtonTitle" = "ReadFlash";
+"cardStatusButtonTitle" = "CardStatus";
+"getSerialNumButtonTitle" = "GetSerialNum";

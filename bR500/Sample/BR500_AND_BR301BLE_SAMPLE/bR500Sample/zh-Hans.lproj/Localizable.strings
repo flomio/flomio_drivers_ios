@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  bR500Sample
+
+  Created by ftsafe on 16/4/8.
+  Copyright (C)2016-2020 Feitian Technologies Co. ,Ltd. All rights reserved.
+*/
+
+
+/**
+ * Copyright(C) Feitian Technologies Co., Ltd. All rights reserved.
+ * FileName:        Localizable.strings
+ * FileIdentify:    Localizable.strings
+ * Description:     Dispaly text
+ * Version:         1.9.3
+ * Created by:      shanshan
+ * FinishDate:      2016-04-08
+ * Revision1:
+ **/
+
+/**
+ 返回信息
+ */
+"connectError" = "连接智能卡失败.";
+"cardGetAttribError" = "ATR获取失败:";
+"connectSuccess" = "智能卡连接成功.";
+"disconnectError" = "智能卡断开连接失败.";
+"powerOffError" = "智能卡断开连接失败.";
+"PowerOff Success" = "智能卡断开连接成功.";
+"Invalid APDU" = "无效的APDU.\n";
+"send" = "发送数据:";
+"Rec:"="返回数据:";
+"seed is nil" = "种子码是空.\n";
+"the format of seed data error" = "种子码的数据格式错误.(0~9 a~f A~F)";
+"writeUID ERROR" = "UID写入错误.\n";
+"writeUID Successful" = "UID写入成功.\n";
+"readUID Error" = "UID读取错误.\n";
+"eraseUID Error" = "UID擦除失败.\n";
+"eraseUID Successful" = "UID擦除成功.\n";
+"flash data is nil" = "flash为空.\n";
+"writeFlash ERROR" = "Flash写入失败.\n";
+"writeFlash Successful" = "Flash写入成功.\n";
+"readFlash Error" = "Flash读取失败.\n";
+"SCardStatus return Error" = "获取卡片状态错误:";
+"Get device HID ERROR" = "HID获取错误.\n";
+
+/**
+ 控件title
+ */
+"connectCardButtonTitle" = "连接智能卡";
+"disconnectCardButtonTitle" = "断开智能卡连接";
+"sendButtonTitle" = "发送";
+"writeUIDButtonTitle" = "写UID";
+"readUIDButtonTitle" = "读UID";
+"eraseUIDButtonTitle" = "擦除UID";
+"writeFlashButtonTitle" = "写Flash";
+"readFlashButtonTitle" = "读Flash";
+"cardStatusButtonTitle" = "获取卡槽状态";
+"getSerialNumButtonTitle" = "获取序列号";

@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4pH-el-0wL"; */
+"4pH-el-0wL.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7eA-t7-MfI"; */
+"7eA-t7-MfI.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ConnectCard"; ObjectID = "CEu-8Z-fzQ"; */
+"CEu-8Z-fzQ.normalTitle" = "ConnectCard";
+
+/* Class = "UILabel"; text = "APDU:"; ObjectID = "IIk-ik-9hM"; */
+"IIk-ik-9hM.text" = "APDU:";
+
+/* Class = "UIButton"; normalTitle = "GetSerialNum"; ObjectID = "Lob-Pk-JOY"; */
+"Lob-Pk-JOY.normalTitle" = "GetSerialNum";
+
+/* Class = "UIButton"; normalTitle = "DisConnectCard"; ObjectID = "PVo-Zc-s2X"; */
+"PVo-Zc-s2X.normalTitle" = "DisConnectCard";
+
+/* Class = "UIButton"; normalTitle = "WriteUID"; ObjectID = "QdM-EK-eWS"; */
+"QdM-EK-eWS.normalTitle" = "WriteUID";
+
+/* Class = "UIButton"; normalTitle = "WriteFlash"; ObjectID = "VjS-AK-if8"; */
+"VjS-AK-if8.normalTitle" = "WriteFlash";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "Vve-a2-TCn"; */
+"Vve-a2-TCn.normalTitle" = "Send";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bPT-yt-eEc"; */
+"bPT-yt-eEc.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "bR500"; ObjectID = "bin-FC-TCu"; */
+"bin-FC-TCu.title" = "bR500";
+
+/* Class = "UIButton"; normalTitle = "ReadFlash"; ObjectID = "j4K-kE-xhP"; */
+"j4K-kE-xhP.normalTitle" = "ReadFlash";
+
+/* Class = "UIButton"; normalTitle = "ReadUID"; ObjectID = "jaj-RT-4Yj"; */
+"jaj-RT-4Yj.normalTitle" = "ReadUID";
+
+/* Class = "UIButton"; normalTitle = "EraseUID"; ObjectID = "kXJ-Qq-GU1"; */
+"kXJ-Qq-GU1.normalTitle" = "EraseUID";
+
+/* Class = "UIButton"; normalTitle = "CardStatus"; ObjectID = "ofy-d5-nac"; */
+"ofy-d5-nac.normalTitle" = "CardStatus";
