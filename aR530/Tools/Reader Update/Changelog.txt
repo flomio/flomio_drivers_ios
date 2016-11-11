@@ -1,0 +1,10 @@
+1.34
+	1. Add a API allow user send command to reader directly, for example, get UID, user need send FFCA000000 through NFC_Card_No_Head_Transmit API. 
+	   For example: Send get random number, it should be like below(NAD and PCB please keep 0x00):
+	          NAD+PCB+APDU's LENGTH+APDU
+                  00+00+05+0084000008
+        2. Add get all contactless CPU card UID using FFCA000000 command
+1.3.0
+	Add windows 10 support	
+1.2.1
+	Add read UID function in firmware,now customer can through Android and iOS SDK to read UID
