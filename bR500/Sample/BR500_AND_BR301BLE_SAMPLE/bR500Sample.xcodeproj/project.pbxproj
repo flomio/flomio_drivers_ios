@@ -30,8 +30,8 @@
 		33A429821C8FE9A2000463CC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33A4297F1C8FE9A2000463CC /* Default@2x.png */; };
 		33EB72691C50E0A300255790 /* hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EB72661C50E0A300255790 /* hex.m */; };
 		33EB726A1C50E0A300255790 /* indicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33EB72681C50E0A300255790 /* indicate.m */; };
-		B52DE36A1CAD4F6C0014B01E /* BR301BLE_AND_BR500_DEBUG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B52DE3681CAD4F6C0014B01E /* BR301BLE_AND_BR500_DEBUG.a */; };
-		B52DE36B1CAD4F6C0014B01E /* BR301BLE_AND_BR500_RELEASE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B52DE3691CAD4F6C0014B01E /* BR301BLE_AND_BR500_RELEASE.a */; };
+		EF5782751DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_DEBUG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5782731DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_DEBUG.a */; };
+		EF5782761DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_RELEASE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5782741DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_RELEASE.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,12 +86,13 @@
 		33EB72661C50E0A300255790 /* hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hex.m; sourceTree = "<group>"; };
 		33EB72671C50E0A300255790 /* indicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = indicate.h; sourceTree = "<group>"; };
 		33EB72681C50E0A300255790 /* indicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = indicate.m; sourceTree = "<group>"; };
-		B52DE3631CAD4F6C0014B01E /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft301u.h; sourceTree = "<group>"; };
-		B52DE3641CAD4F6C0014B01E /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderInterface.h; sourceTree = "<group>"; };
-		B52DE3651CAD4F6C0014B01E /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winscard.h; sourceTree = "<group>"; };
-		B52DE3661CAD4F6C0014B01E /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
-		B52DE3681CAD4F6C0014B01E /* BR301BLE_AND_BR500_DEBUG.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = BR301BLE_AND_BR500_DEBUG.a; sourceTree = "<group>"; };
-		B52DE3691CAD4F6C0014B01E /* BR301BLE_AND_BR500_RELEASE.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = BR301BLE_AND_BR500_RELEASE.a; sourceTree = "<group>"; };
+		EF57826D1DD4F1C50032DD60 /* ft301u.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft301u.h; sourceTree = "<group>"; };
+		EF57826E1DD4F1C50032DD60 /* FtBleReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FtBleReader.h; sourceTree = "<group>"; };
+		EF57826F1DD4F1C50032DD60 /* ReaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderInterface.h; sourceTree = "<group>"; };
+		EF5782701DD4F1C50032DD60 /* winscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winscard.h; sourceTree = "<group>"; };
+		EF5782711DD4F1C50032DD60 /* wintypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wintypes.h; sourceTree = "<group>"; };
+		EF5782731DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_DEBUG.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBR500_AND_BR301BLE_V3.4.9_DEBUG.a; sourceTree = "<group>"; };
+		EF5782741DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_RELEASE.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBR500_AND_BR301BLE_V3.4.9_RELEASE.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B52DE36B1CAD4F6C0014B01E /* BR301BLE_AND_BR500_RELEASE.a in Frameworks */,
-				B52DE36A1CAD4F6C0014B01E /* BR301BLE_AND_BR500_DEBUG.a in Frameworks */,
+				EF5782751DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_DEBUG.a in Frameworks */,
 				336358D41C4F735E0029B123 /* CoreBluetooth.framework in Frameworks */,
+				EF5782761DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_RELEASE.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +126,7 @@
 		336358851C4F6D0C0029B123 = {
 			isa = PBXGroup;
 			children = (
-				B52DE3611CAD4F6C0014B01E /* Libs */,
+				EF57826B1DD4F1C50032DD60 /* Libs */,
 				336358D31C4F735E0029B123 /* CoreBluetooth.framework */,
 				336358901C4F6D0C0029B123 /* bR500Sample */,
 				336358AA1C4F6D0D0029B123 /* bR500SampleTests */,
@@ -219,32 +220,32 @@
 			path = item;
 			sourceTree = "<group>";
 		};
-		B52DE3611CAD4F6C0014B01E /* Libs */ = {
+		EF57826B1DD4F1C50032DD60 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				B52DE3621CAD4F6C0014B01E /* include */,
-				B52DE3671CAD4F6C0014B01E /* lib */,
+				EF57826C1DD4F1C50032DD60 /* include */,
+				EF5782721DD4F1C50032DD60 /* lib */,
 			);
-			name = Libs;
-			path = ../../Libs;
+			path = Libs;
 			sourceTree = "<group>";
 		};
-		B52DE3621CAD4F6C0014B01E /* include */ = {
+		EF57826C1DD4F1C50032DD60 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				B52DE3631CAD4F6C0014B01E /* ft301u.h */,
-				B52DE3641CAD4F6C0014B01E /* ReaderInterface.h */,
-				B52DE3651CAD4F6C0014B01E /* winscard.h */,
-				B52DE3661CAD4F6C0014B01E /* wintypes.h */,
+				EF57826D1DD4F1C50032DD60 /* ft301u.h */,
+				EF57826E1DD4F1C50032DD60 /* FtBleReader.h */,
+				EF57826F1DD4F1C50032DD60 /* ReaderInterface.h */,
+				EF5782701DD4F1C50032DD60 /* winscard.h */,
+				EF5782711DD4F1C50032DD60 /* wintypes.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
 		};
-		B52DE3671CAD4F6C0014B01E /* lib */ = {
+		EF5782721DD4F1C50032DD60 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				B52DE3681CAD4F6C0014B01E /* BR301BLE_AND_BR500_DEBUG.a */,
-				B52DE3691CAD4F6C0014B01E /* BR301BLE_AND_BR500_RELEASE.a */,
+				EF5782731DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_DEBUG.a */,
+				EF5782741DD4F1C50032DD60 /* libBR500_AND_BR301BLE_V3.4.9_RELEASE.a */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -316,6 +317,7 @@
 				TargetAttributes = {
 					3363588D1C4F6D0C0029B123 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = Q338UYGFZ8;
 					};
 					336358A61C4F6D0D0029B123 = {
 						CreatedOnToolsVersion = 7.1;
@@ -535,12 +537,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q338UYGFZ8;
 				INFOPLIST_FILE = bR500Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../libs/SDK/lib\"",
+					"$(PROJECT_DIR)/Libs/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ftsafe.bR500Sample;
@@ -554,12 +558,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q338UYGFZ8;
 				INFOPLIST_FILE = bR500Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../libs/SDK/lib\"",
+					"$(PROJECT_DIR)/Libs/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ftsafe.bR500Sample;

@@ -109,7 +109,6 @@ SCARDCONTEXT gContxtHandle;
             [self hidIndicateView];
         });
     }
-
 }
 
 -(void)cardInterfaceDidDetach:(BOOL)attached

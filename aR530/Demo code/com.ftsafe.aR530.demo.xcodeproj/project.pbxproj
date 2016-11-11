@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		895B81FD1ADF9B7400C12BA9 /* iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 895B81FC1ADF9B7400C12BA9 /* iphone.storyboard */; };
+		89773C2C1A5E6550005B9B45 /* NFCMifareCardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89773C2B1A5E6550005B9B45 /* NFCMifareCardViewController.mm */; };
+		89773C301A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89773C2F1A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.mm */; };
+		898E354E1A5A6B7E006AE9DD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E354D1A5A6B7E006AE9DD /* MediaPlayer.framework */; };
+		898E35501A5A6B8B006AE9DD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E354F1A5A6B8B006AE9DD /* AudioToolbox.framework */; };
+		898E35581A5A6BC6006AE9DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E35571A5A6BC6006AE9DD /* Foundation.framework */; };
+		898E355A1A5A6BD6006AE9DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E35591A5A6BD6006AE9DD /* CoreGraphics.framework */; };
+		898E355C1A5A6BE0006AE9DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E355B1A5A6BE0006AE9DD /* UIKit.framework */; };
+		898E355F1A5A70F5006AE9DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CC20A31A496AAC004944F3 /* AppDelegate.m */; };
+		898E356D1A5A713E006AE9DD /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898E355D1A5A70B9006AE9DD /* utils.cpp */; };
+		898E356E1A5A7146006AE9DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CC20A01A496AAC004944F3 /* main.m */; };
+		898E356F1A5A7154006AE9DD /* NFCGeneralCardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89CC4DE31A4D0AEF00B50CD7 /* NFCGeneralCardViewController.mm */; };
+		898E35701A5A7154006AE9DD /* NotfoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CC4DE51A4D0AEF00B50CD7 /* NotfoundViewController.m */; };
+		898E35711A5A7154006AE9DD /* PropertyTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89CC4DE71A4D0AEF00B50CD7 /* PropertyTableViewController.mm */; };
+		898E35741A5A71E6006AE9DD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898E35731A5A71E6006AE9DD /* AVFoundation.framework */; };
+		898E9EDA1A63C0E60027B06F /* AutocompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E9ED91A63C0E60027B06F /* AutocompletionTableView.m */; };
+		89CC20AC1A496AAC004944F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89CC20AB1A496AAC004944F3 /* Images.xcassets */; };
+		89CC20AF1A496AAC004944F3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89CC20AD1A496AAC004944F3 /* LaunchScreen.xib */; };
+		89CC20D51A4975A5004944F3 /* Warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CC20D41A4975A5004944F3 /* Warning.png */; };
+		89CEED4E1A5FCC2E00906286 /* ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89CEED4D1A5FCC2E00906286 /* ipad.storyboard */; };
+		89DCD0A91A4A9E6E009AF1CF /* blackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DCD0A81A4A9E6E009AF1CF /* blackground.png */; };
+		B50D04141BB3FC0200B1EDB3 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04081BB3FC0200B1EDB3 /* Icon-Small-50.png */; };
+		B50D04151BB3FC0200B1EDB3 /* 152.Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04091BB3FC0200B1EDB3 /* 152.Icon-76@2x.png */; };
+		B50D04161BB3FC0200B1EDB3 /* 1024.1024.iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040A1BB3FC0200B1EDB3 /* 1024.1024.iTunesArtwork@2x.png */; };
+		B50D04171BB3FC0200B1EDB3 /* 512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040B1BB3FC0200B1EDB3 /* 512x512.png */; };
+		B50D04181BB3FC0200B1EDB3 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040C1BB3FC0200B1EDB3 /* Icon-Small@2x.png */; };
+		B50D04191BB3FC0200B1EDB3 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040D1BB3FC0200B1EDB3 /* Icon-Small.png */; };
+		B50D041A1BB3FC0300B1EDB3 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040E1BB3FC0200B1EDB3 /* Icon-76.png */; };
+		B50D041B1BB3FC0300B1EDB3 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D040F1BB3FC0200B1EDB3 /* Icon-60@3x.png */; };
+		B50D041C1BB3FC0300B1EDB3 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04101BB3FC0200B1EDB3 /* Icon-72.png */; };
+		B50D041D1BB3FC0300B1EDB3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04111BB3FC0200B1EDB3 /* Icon@2x.png */; };
+		B50D041E1BB3FC0300B1EDB3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04121BB3FC0200B1EDB3 /* Icon.png */; };
+		B50D041F1BB3FC0300B1EDB3 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04131BB3FC0200B1EDB3 /* Icon-60@2x.png */; };
+		B50D04211BB3FC3200B1EDB3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50D04201BB3FC3200B1EDB3 /* ExternalAccessory.framework */; };
+		B50D04251BB402BF00B1EDB3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B50D04241BB402BF00B1EDB3 /* Default-568h@2x.png */; };
+		B512B3A61C577F59005C42BC /* FTaR530_all.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B512B3A51C577F59005C42BC /* FTaR530_all.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		895B81FC1ADF9B7400C12BA9 /* iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iphone.storyboard; sourceTree = "<group>"; };
+		89773C2A1A5E6550005B9B45 /* NFCMifareCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCMifareCardViewController.h; sourceTree = "<group>"; };
+		89773C2B1A5E6550005B9B45 /* NFCMifareCardViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NFCMifareCardViewController.mm; sourceTree = "<group>"; };
+		89773C2E1A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCMifareCardValueBlockViewController.h; sourceTree = "<group>"; };
+		89773C2F1A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NFCMifareCardValueBlockViewController.mm; sourceTree = "<group>"; };
+		898E35411A5A5F8C006AE9DD /* DUKPT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DUKPT.h; sourceTree = "<group>"; };
+		898E35421A5A5F8C006AE9DD /* FTaR530.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTaR530.h; sourceTree = "<group>"; };
+		898E35431A5A5F8C006AE9DD /* FTType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTType.h; sourceTree = "<group>"; };
+		898E35451A5A5F8C006AE9DD /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		898E354D1A5A6B7E006AE9DD /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		898E354F1A5A6B8B006AE9DD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		898E35531A5A6BA9006AE9DD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		898E35551A5A6BB8006AE9DD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		898E35571A5A6BC6006AE9DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		898E35591A5A6BD6006AE9DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		898E355B1A5A6BE0006AE9DD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		898E355D1A5A70B9006AE9DD /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		898E35731A5A71E6006AE9DD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		898E9ED81A63C0E60027B06F /* AutocompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompletionTableView.h; sourceTree = "<group>"; };
+		898E9ED91A63C0E60027B06F /* AutocompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompletionTableView.m; sourceTree = "<group>"; };
+		89CC209B1A496AAC004944F3 /* aR530.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aR530.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89CC209F1A496AAC004944F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89CC20A01A496AAC004944F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		89CC20A21A496AAC004944F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		89CC20A31A496AAC004944F3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		89CC20AB1A496AAC004944F3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		89CC20AE1A496AAC004944F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		89CC20D41A4975A5004944F3 /* Warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Warning.png; sourceTree = "<group>"; };
+		89CC4DE21A4D0AEF00B50CD7 /* NFCGeneralCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCGeneralCardViewController.h; sourceTree = "<group>"; };
+		89CC4DE31A4D0AEF00B50CD7 /* NFCGeneralCardViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NFCGeneralCardViewController.mm; sourceTree = "<group>"; };
+		89CC4DE41A4D0AEF00B50CD7 /* NotfoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotfoundViewController.h; sourceTree = "<group>"; };
+		89CC4DE51A4D0AEF00B50CD7 /* NotfoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotfoundViewController.m; sourceTree = "<group>"; };
+		89CC4DE61A4D0AEF00B50CD7 /* PropertyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyTableViewController.h; sourceTree = "<group>"; };
+		89CC4DE71A4D0AEF00B50CD7 /* PropertyTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PropertyTableViewController.mm; sourceTree = "<group>"; };
+		89CEED4D1A5FCC2E00906286 /* ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ipad.storyboard; sourceTree = "<group>"; };
+		89DCD0A81A4A9E6E009AF1CF /* blackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackground.png; sourceTree = "<group>"; };
+		B50D04051BB3EDB600B1EDB3 /* aR530.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = aR530.entitlements; sourceTree = "<group>"; };
+		B50D04081BB3FC0200B1EDB3 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		B50D04091BB3FC0200B1EDB3 /* 152.Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152.Icon-76@2x.png"; sourceTree = "<group>"; };
+		B50D040A1BB3FC0200B1EDB3 /* 1024.1024.iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1024.1024.iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		B50D040B1BB3FC0200B1EDB3 /* 512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512x512.png; sourceTree = "<group>"; };
+		B50D040C1BB3FC0200B1EDB3 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		B50D040D1BB3FC0200B1EDB3 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		B50D040E1BB3FC0200B1EDB3 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		B50D040F1BB3FC0200B1EDB3 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		B50D04101BB3FC0200B1EDB3 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		B50D04111BB3FC0200B1EDB3 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		B50D04121BB3FC0200B1EDB3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B50D04131BB3FC0200B1EDB3 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		B50D04201BB3FC3200B1EDB3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		B50D04241BB402BF00B1EDB3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B512B3A51C577F59005C42BC /* FTaR530_all.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FTaR530_all.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89CC20981A496AAC004944F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50D04211BB3FC3200B1EDB3 /* ExternalAccessory.framework in Frameworks */,
+				B512B3A61C577F59005C42BC /* FTaR530_all.a in Frameworks */,
+				898E35741A5A71E6006AE9DD /* AVFoundation.framework in Frameworks */,
+				898E355C1A5A6BE0006AE9DD /* UIKit.framework in Frameworks */,
+				898E355A1A5A6BD6006AE9DD /* CoreGraphics.framework in Frameworks */,
+				898E35581A5A6BC6006AE9DD /* Foundation.framework in Frameworks */,
+				898E35501A5A6B8B006AE9DD /* AudioToolbox.framework in Frameworks */,
+				898E354E1A5A6B7E006AE9DD /* MediaPlayer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		89773C291A5E6550005B9B45 /* Mitare */ = {
+			isa = PBXGroup;
+			children = (
+				89773C2A1A5E6550005B9B45 /* NFCMifareCardViewController.h */,
+				89773C2B1A5E6550005B9B45 /* NFCMifareCardViewController.mm */,
+				89773C2E1A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.h */,
+				89773C2F1A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.mm */,
+			);
+			path = Mitare;
+			sourceTree = "<group>";
+		};
+		89773C2D1A5E656C005B9B45 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				B512B3A51C577F59005C42BC /* FTaR530_all.a */,
+				B50D04201BB3FC3200B1EDB3 /* ExternalAccessory.framework */,
+				898E35731A5A71E6006AE9DD /* AVFoundation.framework */,
+				898E355B1A5A6BE0006AE9DD /* UIKit.framework */,
+				898E35591A5A6BD6006AE9DD /* CoreGraphics.framework */,
+				898E35571A5A6BC6006AE9DD /* Foundation.framework */,
+				898E35551A5A6BB8006AE9DD /* CoreAudio.framework */,
+				898E35531A5A6BA9006AE9DD /* CoreMedia.framework */,
+				898E354F1A5A6B8B006AE9DD /* AudioToolbox.framework */,
+				898E354D1A5A6B7E006AE9DD /* MediaPlayer.framework */,
+			);
+			name = framework;
+			sourceTree = "<group>";
+		};
+		898E35401A5A5F8C006AE9DD /* include */ = {
+			isa = PBXGroup;
+			children = (
+				898E35411A5A5F8C006AE9DD /* DUKPT.h */,
+				898E35421A5A5F8C006AE9DD /* FTaR530.h */,
+				898E35431A5A5F8C006AE9DD /* FTType.h */,
+				898E355D1A5A70B9006AE9DD /* utils.cpp */,
+				898E35451A5A5F8C006AE9DD /* utils.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		898E9ED71A63C0E60027B06F /* AutoCompletionTableView */ = {
+			isa = PBXGroup;
+			children = (
+				898E9ED81A63C0E60027B06F /* AutocompletionTableView.h */,
+				898E9ED91A63C0E60027B06F /* AutocompletionTableView.m */,
+			);
+			path = AutoCompletionTableView;
+			sourceTree = "<group>";
+		};
+		89CC20921A496AAC004944F3 = {
+			isa = PBXGroup;
+			children = (
+				89CC209D1A496AAC004944F3 /* com.ftsafe.aR530.demo */,
+				89773C2D1A5E656C005B9B45 /* framework */,
+				89CC209C1A496AAC004944F3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89CC209C1A496AAC004944F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89CC209B1A496AAC004944F3 /* aR530.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89CC209D1A496AAC004944F3 /* com.ftsafe.aR530.demo */ = {
+			isa = PBXGroup;
+			children = (
+				B50D04051BB3EDB600B1EDB3 /* aR530.entitlements */,
+				89CC20C81A496F7E004944F3 /* image */,
+				89CEED4D1A5FCC2E00906286 /* ipad.storyboard */,
+				895B81FC1ADF9B7400C12BA9 /* iphone.storyboard */,
+				89CC20AB1A496AAC004944F3 /* Images.xcassets */,
+				89CC20AD1A496AAC004944F3 /* LaunchScreen.xib */,
+				898E35401A5A5F8C006AE9DD /* include */,
+				89CC209E1A496AAC004944F3 /* Supporting Files */,
+				89CC20D01A497226004944F3 /* Supporting */,
+				898E9ED71A63C0E60027B06F /* AutoCompletionTableView */,
+			);
+			path = com.ftsafe.aR530.demo;
+			sourceTree = "<group>";
+		};
+		89CC209E1A496AAC004944F3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89CC209F1A496AAC004944F3 /* Info.plist */,
+				89CC20A01A496AAC004944F3 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89CC20C81A496F7E004944F3 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				B50D04241BB402BF00B1EDB3 /* Default-568h@2x.png */,
+				89CC20D41A4975A5004944F3 /* Warning.png */,
+				B50D04081BB3FC0200B1EDB3 /* Icon-Small-50.png */,
+				B50D04091BB3FC0200B1EDB3 /* 152.Icon-76@2x.png */,
+				B50D040A1BB3FC0200B1EDB3 /* 1024.1024.iTunesArtwork@2x.png */,
+				B50D040B1BB3FC0200B1EDB3 /* 512x512.png */,
+				B50D040C1BB3FC0200B1EDB3 /* Icon-Small@2x.png */,
+				B50D040D1BB3FC0200B1EDB3 /* Icon-Small.png */,
+				B50D040E1BB3FC0200B1EDB3 /* Icon-76.png */,
+				B50D040F1BB3FC0200B1EDB3 /* Icon-60@3x.png */,
+				B50D04101BB3FC0200B1EDB3 /* Icon-72.png */,
+				B50D04111BB3FC0200B1EDB3 /* Icon@2x.png */,
+				B50D04121BB3FC0200B1EDB3 /* Icon.png */,
+				B50D04131BB3FC0200B1EDB3 /* Icon-60@2x.png */,
+				89DCD0A81A4A9E6E009AF1CF /* blackground.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		89CC20D01A497226004944F3 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				89773C291A5E6550005B9B45 /* Mitare */,
+				89CC4DE21A4D0AEF00B50CD7 /* NFCGeneralCardViewController.h */,
+				89CC4DE31A4D0AEF00B50CD7 /* NFCGeneralCardViewController.mm */,
+				89CC4DE41A4D0AEF00B50CD7 /* NotfoundViewController.h */,
+				89CC4DE51A4D0AEF00B50CD7 /* NotfoundViewController.m */,
+				89CC4DE61A4D0AEF00B50CD7 /* PropertyTableViewController.h */,
+				89CC4DE71A4D0AEF00B50CD7 /* PropertyTableViewController.mm */,
+				89CC20A21A496AAC004944F3 /* AppDelegate.h */,
+				89CC20A31A496AAC004944F3 /* AppDelegate.m */,
+			);
+			name = Supporting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89CC209A1A496AAC004944F3 /* com.ftsafe.aR530.demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89CC20BE1A496AAC004944F3 /* Build configuration list for PBXNativeTarget "com.ftsafe.aR530.demo" */;
+			buildPhases = (
+				89CC20971A496AAC004944F3 /* Sources */,
+				89CC20981A496AAC004944F3 /* Frameworks */,
+				89CC20991A496AAC004944F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = com.ftsafe.aR530.demo;
+			productName = com.ftsafe.aR530.demo;
+			productReference = 89CC209B1A496AAC004944F3 /* aR530.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89CC20931A496AAC004944F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "李亚林";
+				TargetAttributes = {
+					89CC209A1A496AAC004944F3 = {
+						CreatedOnToolsVersion = 6.1.1;
+						SystemCapabilities = {
+							com.apple.WAC = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 89CC20961A496AAC004944F3 /* Build configuration list for PBXProject "com.ftsafe.aR530.demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89CC20921A496AAC004944F3;
+			productRefGroup = 89CC209C1A496AAC004944F3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89CC209A1A496AAC004944F3 /* com.ftsafe.aR530.demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89CC20991A496AAC004944F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50D041E1BB3FC0300B1EDB3 /* Icon.png in Resources */,
+				B50D04151BB3FC0200B1EDB3 /* 152.Icon-76@2x.png in Resources */,
+				B50D041D1BB3FC0300B1EDB3 /* Icon@2x.png in Resources */,
+				B50D041A1BB3FC0300B1EDB3 /* Icon-76.png in Resources */,
+				89CC20D51A4975A5004944F3 /* Warning.png in Resources */,
+				B50D041F1BB3FC0300B1EDB3 /* Icon-60@2x.png in Resources */,
+				B50D04141BB3FC0200B1EDB3 /* Icon-Small-50.png in Resources */,
+				B50D041B1BB3FC0300B1EDB3 /* Icon-60@3x.png in Resources */,
+				89DCD0A91A4A9E6E009AF1CF /* blackground.png in Resources */,
+				89CC20AF1A496AAC004944F3 /* LaunchScreen.xib in Resources */,
+				89CC20AC1A496AAC004944F3 /* Images.xcassets in Resources */,
+				B50D04171BB3FC0200B1EDB3 /* 512x512.png in Resources */,
+				B50D04251BB402BF00B1EDB3 /* Default-568h@2x.png in Resources */,
+				B50D04161BB3FC0200B1EDB3 /* 1024.1024.iTunesArtwork@2x.png in Resources */,
+				B50D04191BB3FC0200B1EDB3 /* Icon-Small.png in Resources */,
+				B50D041C1BB3FC0300B1EDB3 /* Icon-72.png in Resources */,
+				89CEED4E1A5FCC2E00906286 /* ipad.storyboard in Resources */,
+				895B81FD1ADF9B7400C12BA9 /* iphone.storyboard in Resources */,
+				B50D04181BB3FC0200B1EDB3 /* Icon-Small@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89CC20971A496AAC004944F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89773C301A5E6654005B9B45 /* NFCMifareCardValueBlockViewController.mm in Sources */,
+				898E356F1A5A7154006AE9DD /* NFCGeneralCardViewController.mm in Sources */,
+				898E9EDA1A63C0E60027B06F /* AutocompletionTableView.m in Sources */,
+				89773C2C1A5E6550005B9B45 /* NFCMifareCardViewController.mm in Sources */,
+				898E35701A5A7154006AE9DD /* NotfoundViewController.m in Sources */,
+				898E35711A5A7154006AE9DD /* PropertyTableViewController.mm in Sources */,
+				898E356E1A5A7146006AE9DD /* main.m in Sources */,
+				898E356D1A5A713E006AE9DD /* utils.cpp in Sources */,
+				898E355F1A5A70F5006AE9DD /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		89CC20AD1A496AAC004944F3 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89CC20AE1A496AAC004944F3 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		89CC20BC1A496AAC004944F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGETED_DEVICE_FAMILY = 2;
+				VALID_ARCHS = "armv7 arm64 armv7s";
+			};
+			name = Debug;
+		};
+		89CC20BD1A496AAC004944F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 arm64 armv7s";
+			};
+			name = Release;
+		};
+		89CC20BF1A496AAC004944F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = com.ftsafe.aR530.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ftsafe.aR520;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
+				PRODUCT_NAME = aR530;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7s armv7 arm64";
+			};
+			name = Debug;
+		};
+		89CC20C01A496AAC004944F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = com.ftsafe.aR530.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/com.ftsafe.aR530.demo",
+					"$(PROJECT_DIR)",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ftsafe.aR520;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME)";
+				PRODUCT_NAME = aR530;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7s armv7 arm64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89CC20961A496AAC004944F3 /* Build configuration list for PBXProject "com.ftsafe.aR530.demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89CC20BC1A496AAC004944F3 /* Debug */,
+				89CC20BD1A496AAC004944F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89CC20BE1A496AAC004944F3 /* Build configuration list for PBXNativeTarget "com.ftsafe.aR530.demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89CC20BF1A496AAC004944F3 /* Debug */,
+				89CC20C01A496AAC004944F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89CC20931A496AAC004944F3 /* Project object */;
+}
