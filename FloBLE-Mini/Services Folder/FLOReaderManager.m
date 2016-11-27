@@ -290,6 +290,59 @@
         case FLOMIO_DUMP_LOG_OP: {
             break;
         }
+        case FLOMIO_WRISTBAND_OP: {
+            switch (floMessageSubOpcode) {
+                case WRISTBAND_SW1_EVT: {
+                    LogInfo(@"WRISTBAND_SW1_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_SW1_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_SW2_EVT: {
+                    LogInfo(@"WRISTBAND_SW2_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_SW2_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_SW3_EVT: {
+                    LogInfo(@"WRISTBAND_SW3_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_SW3_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_SW4_EVT: {
+                    LogInfo(@"WRISTBAND_SW4_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_SW4_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_ORIENTATION_EVT: {
+                    LogInfo(@"WRISTBAND_ORIENTATION_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_ORIENTATION_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_MOTION_EVT: {
+                    LogInfo(@"WRISTBAND_MOTION_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_MOTION_EVT]];
+                    }
+                    break;
+                }
+                case WRISTBAND_WIRELESS_CHARGING_EVT: {
+                    LogInfo(@"WRISTBAND_WIRELESS_CHARGING_EVT ");
+                    if ([_delegate respondsToSelector:@selector(floReaderManager: didReceiveWristbandState:)]) {
+                        [_delegate floReaderManager:self didReceiveWristbandState:[NSString stringWithFormat:@"%2.2x",WRISTBAND_WIRELESS_CHARGING_EVT]];
+                    }
+                    break;
+                }
+            }
+        }
     }
 }
 
@@ -567,10 +620,17 @@
  */
 - (void)setLedMode:(UInt16)ledMode
 {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_LED_CONTROL_OP
-                                                                andSubOpcode:(unsigned char)ledMode
+    if (ledMode == 0) {
+        FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_WRISTBAND_OP
+                                                                andSubOpcode:(unsigned char)WRISTBAND_HAPTIC_EVT
                                                                      andData:nil];
-    [self sendMessageDataToHost:floMessage.bytes];
+        [self sendMessageDataToHost:floMessage.bytes];
+    } else {
+        FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_LED_CONTROL_OP
+                                                                    andSubOpcode:(unsigned char)ledMode-1
+                                                                         andData:nil];
+        [self sendMessageDataToHost:floMessage.bytes];
+    }
 }
 
 /**
