@@ -10,7 +10,7 @@
 #import <sys/utsname.h>
 
 #import <Foundation/Foundation.h>
-#import "NFCMessage.h"
+#import "FlomioComm.h"
 #import "NSData+FJStringDisplay.h"
 #import "Logging.h"
 

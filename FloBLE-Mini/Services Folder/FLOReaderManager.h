@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NFCMessage.h"
+#import "FlomioComm.h"
 #import "FLOReader.h"
 #import "FLOTag.h"
 #import "Logging.h"

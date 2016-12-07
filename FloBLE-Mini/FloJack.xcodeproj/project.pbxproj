@@ -51,7 +51,7 @@
 		B7C5C80D1A3F8111000ED368 /* FloBLEReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7F91A3F8111000ED368 /* FloBLEReader.m */; };
 		B7C5C80E1A3F8111000ED368 /* FLOReader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C7FB1A3F8111000ED368 /* FLOReader.m */; };
 		B7C5C80F1A3F8111000ED368 /* FLOReaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */; };
-		B7C5C8101A3F8111000ED368 /* NFCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8031A3F8111000ED368 /* NFCMessage.m */; };
+		B7C5C8101A3F8111000ED368 /* FlomioComm.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8031A3F8111000ED368 /* FlomioComm.m */; };
 		B7C5C8111A3F8111000ED368 /* NSData+FJStringDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */; };
 		B7C5C8121A3F8111000ED368 /* FLOTag.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C8081A3F8111000ED368 /* FLOTag.m */; };
 		B7C5C8131A3F8111000ED368 /* NDEFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C5C80A1A3F8111000ED368 /* NDEFMessage.m */; };
@@ -144,8 +144,8 @@
 		B7C5C7FF1A3F8111000ED368 /* FLOReaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOReaderManager.h; sourceTree = "<group>"; };
 		B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLOReaderManager.m; sourceTree = "<group>"; };
 		B7C5C8011A3F8111000ED368 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
-		B7C5C8021A3F8111000ED368 /* NFCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFCMessage.h; sourceTree = "<group>"; };
-		B7C5C8031A3F8111000ED368 /* NFCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFCMessage.m; sourceTree = "<group>"; };
+		B7C5C8021A3F8111000ED368 /* FlomioComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlomioComm.h; sourceTree = "<group>"; };
+		B7C5C8031A3F8111000ED368 /* FlomioComm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlomioComm.m; sourceTree = "<group>"; };
 		B7C5C8041A3F8111000ED368 /* NSData+FJStringDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FJStringDisplay.h"; sourceTree = "<group>"; };
 		B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FJStringDisplay.m"; sourceTree = "<group>"; };
 		B7C5C8071A3F8111000ED368 /* FLOTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLOTag.h; sourceTree = "<group>"; };
@@ -355,8 +355,8 @@
 				B7C5C7FF1A3F8111000ED368 /* FLOReaderManager.h */,
 				B7C5C8001A3F8111000ED368 /* FLOReaderManager.m */,
 				B7C5C8011A3F8111000ED368 /* Logging.h */,
-				B7C5C8021A3F8111000ED368 /* NFCMessage.h */,
-				B7C5C8031A3F8111000ED368 /* NFCMessage.m */,
+				B7C5C8021A3F8111000ED368 /* FlomioComm.h */,
+				B7C5C8031A3F8111000ED368 /* FlomioComm.m */,
 				B7C5C8041A3F8111000ED368 /* NSData+FJStringDisplay.h */,
 				B7C5C8051A3F8111000ED368 /* NSData+FJStringDisplay.m */,
 			);
@@ -545,7 +545,7 @@
 				B7C5C8111A3F8111000ED368 /* NSData+FJStringDisplay.m in Sources */,
 				B7C5C8131A3F8111000ED368 /* NDEFMessage.m in Sources */,
 				B7C5C80D1A3F8111000ED368 /* FloBLEReader.m in Sources */,
-				B7C5C8101A3F8111000ED368 /* NFCMessage.m in Sources */,
+				B7C5C8101A3F8111000ED368 /* FlomioComm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

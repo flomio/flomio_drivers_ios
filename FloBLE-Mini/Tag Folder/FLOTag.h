@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NFCMessage.h"
+#import "FlomioComm.h"
 #import "NDEFMessage.h"
 #import "NDEFRecord.h"
 #import "Logging.h"

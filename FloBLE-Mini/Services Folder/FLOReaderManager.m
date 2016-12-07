@@ -154,9 +154,6 @@
                     }
                     break;
                 }
-                case FLOMIO_STATUS_ALL: {
-                    break;
-                }
                 case FLOMIO_STATUS_BATTERY: {
                     break;
                 }
