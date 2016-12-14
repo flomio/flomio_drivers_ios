@@ -1,0 +1,335 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF69A9581E00CAB5003C2342 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF69A9571E00CAB5003C2342 /* main.m */; };
+		EF69A95B1E00CAB5003C2342 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF69A95A1E00CAB5003C2342 /* AppDelegate.m */; };
+		EF69A95E1E00CAB5003C2342 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF69A95D1E00CAB5003C2342 /* ViewController.m */; };
+		EF69A9611E00CAB5003C2342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF69A95F1E00CAB5003C2342 /* Main.storyboard */; };
+		EF69A9631E00CAB5003C2342 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF69A9621E00CAB5003C2342 /* Assets.xcassets */; };
+		EF69A9661E00CAB5003C2342 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF69A9641E00CAB5003C2342 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EF69A9531E00CAB5003C2342 /* FloBleMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloBleMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF69A9571E00CAB5003C2342 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EF69A9591E00CAB5003C2342 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EF69A95A1E00CAB5003C2342 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EF69A95C1E00CAB5003C2342 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EF69A95D1E00CAB5003C2342 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EF69A9601E00CAB5003C2342 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EF69A9621E00CAB5003C2342 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF69A9651E00CAB5003C2342 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF69A9671E00CAB5003C2342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF69A96E1E00CBCA003C2342 /* FlomioBtReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlomioBtReader.h; sourceTree = "<group>"; };
+		EF69A96F1E00CBDA003C2342 /* FlomioBtReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlomioBtReader.m; sourceTree = "<group>"; };
+		EF69A9701E00CBF9003C2342 /* FlomioComm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlomioComm.h; sourceTree = "<group>"; };
+		EF69A9711E00CBF9003C2342 /* FlomioComm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlomioComm.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF69A9501E00CAB5003C2342 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF69A94A1E00CAB5003C2342 = {
+			isa = PBXGroup;
+			children = (
+				EF69A9551E00CAB5003C2342 /* FloBleMini */,
+				EF69A96D1E00CB1B003C2342 /* SdkClasses */,
+				EF69A9541E00CAB5003C2342 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF69A9541E00CAB5003C2342 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF69A9531E00CAB5003C2342 /* FloBleMini.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF69A9551E00CAB5003C2342 /* FloBleMini */ = {
+			isa = PBXGroup;
+			children = (
+				EF69A9591E00CAB5003C2342 /* AppDelegate.h */,
+				EF69A95A1E00CAB5003C2342 /* AppDelegate.m */,
+				EF69A95C1E00CAB5003C2342 /* ViewController.h */,
+				EF69A95D1E00CAB5003C2342 /* ViewController.m */,
+				EF69A95F1E00CAB5003C2342 /* Main.storyboard */,
+				EF69A9621E00CAB5003C2342 /* Assets.xcassets */,
+				EF69A9641E00CAB5003C2342 /* LaunchScreen.storyboard */,
+				EF69A9671E00CAB5003C2342 /* Info.plist */,
+				EF69A9561E00CAB5003C2342 /* Supporting Files */,
+			);
+			path = FloBleMini;
+			sourceTree = "<group>";
+		};
+		EF69A9561E00CAB5003C2342 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF69A9571E00CAB5003C2342 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF69A96D1E00CB1B003C2342 /* SdkClasses */ = {
+			isa = PBXGroup;
+			children = (
+				EF69A9701E00CBF9003C2342 /* FlomioComm.h */,
+				EF69A9711E00CBF9003C2342 /* FlomioComm.m */,
+				EF69A96F1E00CBDA003C2342 /* FlomioBtReader.m */,
+				EF69A96E1E00CBCA003C2342 /* FlomioBtReader.h */,
+			);
+			path = SdkClasses;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF69A9521E00CAB5003C2342 /* FloBleMini */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF69A96A1E00CAB5003C2342 /* Build configuration list for PBXNativeTarget "FloBleMini" */;
+			buildPhases = (
+				EF69A94F1E00CAB5003C2342 /* Sources */,
+				EF69A9501E00CAB5003C2342 /* Frameworks */,
+				EF69A9511E00CAB5003C2342 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FloBleMini;
+			productName = FloBleMini;
+			productReference = EF69A9531E00CAB5003C2342 /* FloBleMini.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF69A94B1E00CAB5003C2342 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Richard Grundy";
+				TargetAttributes = {
+					EF69A9521E00CAB5003C2342 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = Q338UYGFZ8;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = EF69A94E1E00CAB5003C2342 /* Build configuration list for PBXProject "FloBleMini" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EF69A94A1E00CAB5003C2342;
+			productRefGroup = EF69A9541E00CAB5003C2342 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF69A9521E00CAB5003C2342 /* FloBleMini */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF69A9511E00CAB5003C2342 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF69A9661E00CAB5003C2342 /* LaunchScreen.storyboard in Resources */,
+				EF69A9631E00CAB5003C2342 /* Assets.xcassets in Resources */,
+				EF69A9611E00CAB5003C2342 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF69A94F1E00CAB5003C2342 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF69A95E1E00CAB5003C2342 /* ViewController.m in Sources */,
+				EF69A95B1E00CAB5003C2342 /* AppDelegate.m in Sources */,
+				EF69A9581E00CAB5003C2342 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EF69A95F1E00CAB5003C2342 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF69A9601E00CAB5003C2342 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EF69A9641E00CAB5003C2342 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF69A9651E00CAB5003C2342 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EF69A9681E00CAB5003C2342 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF69A9691E00CAB5003C2342 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EF69A96B1E00CAB5003C2342 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q338UYGFZ8;
+				INFOPLIST_FILE = FloBleMini/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.flomio.ios.SDK.FloBleMini;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EF69A96C1E00CAB5003C2342 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q338UYGFZ8;
+				INFOPLIST_FILE = FloBleMini/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.flomio.ios.SDK.FloBleMini;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF69A94E1E00CAB5003C2342 /* Build configuration list for PBXProject "FloBleMini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF69A9681E00CAB5003C2342 /* Debug */,
+				EF69A9691E00CAB5003C2342 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF69A96A1E00CAB5003C2342 /* Build configuration list for PBXNativeTarget "FloBleMini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF69A96B1E00CAB5003C2342 /* Debug */,
+				EF69A96C1E00CAB5003C2342 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF69A94B1E00CAB5003C2342 /* Project object */;
+}

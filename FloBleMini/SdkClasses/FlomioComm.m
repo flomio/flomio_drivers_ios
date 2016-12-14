@@ -1,30 +1,28 @@
 //
-//  NfcMessage.m
+//  FlomioComm.m
+//  SDK
 //
-//
-//  Created by Richard Grundy on 9/21/12.
+//  Created by Richard Grundy on 12/12/16.
 //  Copyright (c) 2012 Flomio Inc. All rights reserved.
 //
+#ifdef DEBUG
+#    define DLog(...) NSLog(__VA_ARGS__)
+#else
+#    define DLog(...) /* */
+#endif
+#define ALog(...) NSLog(__VA_ARGS__)
 
 #import "FlomioComm.h"
 #import "NSData+FJStringDisplay.h"
 
-@implementation FJMessage 
-
-@synthesize bytes           = _bytes;
-@synthesize opcode          = _opcode;
-@synthesize length          = _length;
-@synthesize subOpcode       = _subOpcode;
-@synthesize subOpcodeMSN    = _subOpcodeMSN;
-@synthesize subOpcodeLSN    = _subOpcodeLSN;
-@synthesize enable          = _enable;
-@synthesize offset          = _offset;
-@synthesize data            = _data;
-@synthesize crc             = _crc;
-@synthesize name            = _name;
-
+@implementation FlomioComm
 
 - (id)init; {
+    //*_bytes;
+    //_opcode;
+    //_subOpcode;
+    //_length;
+    //*_data;
     return [self initWithData:nil];        
 }
 
