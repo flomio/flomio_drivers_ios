@@ -149,12 +149,12 @@
     _messageCRC ^= byte;
     
     // Have we received the message length yet ?
-    if (_messageReceiveBuffer.length == 2) {
+    if (_messageReceiveBuffer.length == 3) {
         UInt8 length = 0;
         [_messageReceiveBuffer getBytes:&length
                                       range:NSMakeRange(FLO_MESSAGE_LENGTH_POSITION,
                                                         FLO_MESSAGE_LENGTH_LENGTH)];
-        _messageLength = length;
+        _messageLength = length+MIN_MESSAGE_LENGTH;
         if (_messageLength < MIN_MESSAGE_LENGTH || _messageLength > MAX_MESSAGE_LENGTH)
         {
  //           LogError(@"Invalid message length, ignoring current message.");
@@ -165,30 +165,21 @@
     
     // Is the message complete?
     if (_messageReceiveBuffer.length == _messageLength
-        && _messageReceiveBuffer.length > MIN_MESSAGE_LENGTH)        
+        && _messageReceiveBuffer.length >= MIN_MESSAGE_LENGTH)
     {
-        // Check CRC
-        if (_messageCRC == CORRECT_CRC_VALUE) {
-            // Well formed message received, pass it to the delegate
+        // Well formed message received, pass it to the delegate
 //            LogInfo(@"FLOReader: Complete message, send to delegate.");
-            NSLog(@"FLOReader: Complete message, send to delegate.");
-            
-            if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
-                NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
-                dispatch_async(_backgroundQueue, ^(void) {
-                    [_delegate nfcService:self didReceiveMessage:dataCopy];
-                });
-            }
-            
-            [self markCurrentMessageValidAtTime:timestamp];
-            [self clearMessageBuffer];            
+        NSLog(@"FLOReader: Complete message, send to delegate.");
+        
+        if([_delegate respondsToSelector:@selector(nfcService: didReceiveMessage:)]) {
+            NSData *dataCopy = [[NSData alloc] initWithData:_messageReceiveBuffer];
+            dispatch_async(_backgroundQueue, ^(void) {
+                [_delegate nfcService:self didReceiveMessage:dataCopy];
+            });
         }
-        else {
-            //TODO: plumb this through to delegate
-//            LogError(@"Bad CRC, ignoring current message.");
-            NSLog(@"Bad CRC, ignoring current message.");
-           [self markCurrentMessageCorruptAndClearBufferAtTime:timestamp];
-        }
+        
+        [self markCurrentMessageValidAtTime:timestamp];
+        [self clearMessageBuffer];            
     }
 }
 

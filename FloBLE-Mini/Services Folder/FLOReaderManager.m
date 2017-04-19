@@ -55,7 +55,7 @@
  @return void
  */
 - (void)getFirmwareVersion {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_INFO_OP
                                                                 andSubOpcode:FLOMIO_STATUS_SW_REV
                                                                 andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
@@ -68,7 +68,7 @@
  @return void
  */
 - (void)getHardwareVersion {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_INFO_OP
                                                                 andSubOpcode:FLOMIO_STATUS_HW_REV
                                                                 andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
@@ -80,7 +80,7 @@
  @return void
  */
 - (void)getSnifferThresh {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_INFO_OP
                                                                 andSubOpcode:FLOMIO_STATUS_SNIFFTHRESH
                                                                      andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
@@ -93,7 +93,7 @@
  @return void
 */
 - (void)getSnifferCalib {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STATUS_OP
+    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_INFO_OP
                                                                 andSubOpcode:FLOMIO_STATUS_SNIFFCALIB
                                                                 andData:nil];
     [self sendMessageDataToHost:floMessage.bytes];
@@ -116,7 +116,7 @@
     UInt8 floMessageLen = floMessage.length;
     
     switch (floMessageOpcode) {
-        case FLOMIO_STATUS_OP: {
+        case FLOMIO_INFO_OP: {
             switch (floMessageSubOpcode) {
                 case FLOMIO_STATUS_HW_REV: {
                     LogInfo(@"FLOMIO_STATUS_HW_REV ");
@@ -154,9 +154,6 @@
                     }
                     break;
                 }
-                case FLOMIO_STATUS_ALL: {
-                    break;
-                }
                 case FLOMIO_STATUS_BATTERY: {
                     break;
                 }
@@ -166,131 +163,7 @@
             }
             break;
         }
-        case FLOMIO_PING_OP: {
-            NSInteger statusCode;
-            switch (floMessage.subOpcodeLSN) {
-                case FLOMIO_PONG:
-                    statusCode = FLOMIO_STATUS_PING_RECIEVED;
-                    break;
-                case FLOMIO_PONG_LOW_POWER_ERROR:
-                    statusCode = FLOMIO_STATUS_PING_LOW_POWER_ERROR;
-                    break;
-                case FLOMIO_PONG_CALIBRATION_ERROR:
-                    statusCode = FLOMIO_STATUS_PING_CALIBRATION_ERROR;
-                    break;
-                default:
-                    statusCode = FLOMIO_STATUS_PING_RECIEVED;
-                    break;
-            }
-            
-            if ([_delegate respondsToSelector:@selector(floReaderManager: didHaveStatus:)]) {
-                [_delegate floReaderManager:self didHaveStatus:statusCode];
-            }
-            
-            LogInfo(@"FLOMIO_PING_OP ");
-            LogInfo(@"(TX) FLOMIO_PONG_OP ");
-            FJMessage *pongMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_PING_OP
-                                                                     andSubOpcode:FLOMIO_PONG
-                                                                          andData:nil];
-            [self sendMessageToHost:pongMessage];
-            break;
-        }
-        case FLOMIO_ACK_ENABLE_OP:
-            switch (floMessageSubOpcode) {
-                case FLOMIO_ACK_BAD:
-                    if ([_delegate respondsToSelector:@selector(floReaderManager: didHaveStatus:)]) {
-                        NSInteger statusCode = FLOMIO_STATUS_NACK_ERROR;
-                        [_delegate floReaderManager:self didHaveStatus:statusCode];
-                    }
-                    LogInfo(@"FLOMIO_ACK_BAD ");
-                    LogInfo(@"(TX) resendLastMessageSent ");
-                    NSLog(@"FLOMIO_ACK_BAD ");
-
-                    [self resendLastMessageSent];
-                    break;
-                case FLOMIO_ACK_GOOD:
-                    LogInfo(@"FLOMIO_ACK_GOOD ");
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case FLOMIO_TAG_READ_OP: {
-            LogInfo(@"(FLOMIO_TAG_READ_OP) Tag UID Received %@", [message fj_asHexString]);
-            if (floMessage.subOpcodeLSN == FLOMIO_UID_ONLY) {
-                // Tag UID Only
-                //NSLog(@"Tag UID Only");
-
-                if ([_delegate respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:[floMessage.data copy] andData:nil andType:floMessage.subOpcodeMSN];
-                    [_delegate floReaderManager:self didScanTag:tag];
-                }
-            }
-            else {
-                // Tag all Memory
-                int tagUidLen = 0;
-                switch (floMessage.subOpcodeLSN) {
-                    case FLOMIO_ALL_MEM_UID_LEN_FOUR:
-                        tagUidLen = 4;
-                        break;
-                    case FLOMIO_ALL_MEM_UID_LEN_SEVEN:
-                        tagUidLen = 7;
-                        break;
-                    case FLOMIO_ALL_MEM_UID_LEN_EIGHT:
-                        tagUidLen = 8;
-                        break;
-                    case FLOMIO_ALL_MEM_UID_LEN_TEN:
-                        tagUidLen = 10;
-                        break;
-                    default:
-                        tagUidLen = 7;
-                        break;
-                }                
-                NSRange tagUidRange = NSMakeRange(0, tagUidLen);
-                NSData *tagUid = [[NSData alloc] initWithData:[floMessage.data subdataWithRange:tagUidRange]];
-                NSLog(@"Tag w/ UID and Data - UID:: %@",tagUid);
-//                if((floMessageLen - tagUidLen)>0)
-//                {
-//                    NSRange tagDataRange = NSMakeRange(tagUidLen,floMessageLen - tagUidLen);
-//                    NSData *tagData = [[NSData alloc] initWithData:[floMessage.data subdataWithRange:tagDataRange]];
-//                    NSLog(@"Tag w/ UID and Data - DATA:: %@",tagData);
-//                }
-               
-                if ([_delegate respondsToSelector:@selector(floReaderManager: didScanTag:)]) {
-                    FJNFCTag *tag = [[FJNFCTag alloc] initWithUid:tagUid andData:[floMessage.data copy] andType:floMessage.subOpcodeMSN];
-                    [_delegate floReaderManager:self didScanTag:tag];
-                }
-            }
-            break;
-        }
-        case FLOMIO_TAG_WRITE_OP: {
-            LogInfo(@"%@", floMessage.name);
-            if ([_delegate respondsToSelector:@selector(floReaderManager: didWriteTagAndStatusWas:)]) {
-                NSInteger writeStatus = floMessage.subOpcode;
-                [_delegate floReaderManager:self didWriteTagAndStatusWas:writeStatus];
-            }
-        }
-        case FLOMIO_PROTO_ENABLE_OP: {
-            break;
-        }
-        case FLOMIO_POLLING_ENABLE_OP: {
-            // TODO Need to implement the response to delegate to notify app that Reader changed polling config
-            break;
-        }
-        case FLOMIO_POLLING_RATE_OP: {
-            break;
-        }
-        case FLOMIO_STANDALONE_OP: {
-            // TODO Need to implement the response to delegate to notify app that Reader changed standalone mode
-            break;
-        }
-        case FLOMIO_STANDALONE_TIMEOUT_OP: {
-            break;
-        }
-        case FLOMIO_DUMP_LOG_OP: {
-            break;
-        }
-        case FLOMIO_WRISTBAND_OP: {
+        case FLOMIO_MISC_OP: {
             switch (floMessageSubOpcode) {
                 case WRISTBAND_SW1_EVT: {
                     LogInfo(@"WRISTBAND_SW1_EVT ");
@@ -396,11 +269,7 @@
  @return void
  */
 - (void)setModeReadTagUID {
-    UInt8 redundantReads = 1;
-    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                               andSubOpcode:FLOMIO_OP_MODE_READ_UID
-                                                                    andData:[NSData dataWithBytes:&redundantReads length:1]];
-    [self sendMessageDataToHost:setModeMessage.bytes];
+
 }
 
 /**
@@ -410,10 +279,7 @@
  @return void
  */
 - (void)setModeReadTagUIDAndNDEF {
-    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_READ_UID_NDEF
-                                                                     andData:nil];
-    [self sendMessageDataToHost:setModeMessage.bytes];
+
 }
 
 /**
@@ -424,10 +290,7 @@
  @return void
  */
 - (void)setModeReadTagData {
-    FJMessage *setModeMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_READ_ALL_MEMORY
-                                                                     andData:nil];
-    [self sendMessageDataToHost:setModeMessage.bytes];
+
 }
 
 /**
@@ -438,15 +301,6 @@
  */
 - (void)setModeWriteTagWithNdefMessage:(NDEFMessage *)theNDEFMessage {
     
-    NSData *ndefMessageData = theNDEFMessage.asByteBuffer;
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_CURRENT
-                                                                     andData:ndefMessageData];
-    NSLog(@"write FJMessage: %@", [floMessage.bytes fj_asHexString]);
-    [self sendMessageDataToHost:[floMessage.bytes copy]];
-    
-    int i =0;
-    i++;
 }
 
 /**
@@ -455,11 +309,7 @@
  @return void
  */
 - (void)setModeWriteTagWithPreviousNdefMessage; {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_OPERATION_MODE_OP
-                                                                andSubOpcode:FLOMIO_OP_MODE_WRITE_PREVIOUS
-                                                                     andData:nil];
-    NSLog(@"write FJMessage: %@", [floMessage.bytes fj_asHexString]);
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /**
@@ -480,10 +330,7 @@
  @return void
  */
 - (void)setPolling:(BOOL)enablePolling forProtocol:(flomio_proto_opcodes_t)protocol {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_PROTO_ENABLE_OP
-                                                                andSubOpcode:protocol
-                                                                     andData:[NSData dataWithBytes:&enablePolling length:1]];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -528,11 +375,7 @@
  @return void
  */
 - (void)setStandaloneMode:(BOOL)standaloneMode {
-    _standaloneMode = standaloneMode;
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_STANDALONE_OP
-                                                                andSubOpcode:_standaloneMode
-                                                                andData:nil];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -542,21 +385,7 @@
  @return void
  */
 - (void)setPollPeriod:(NSInteger)pollPeriod {
-    if (pollPeriod < 0) {
-        pollPeriod = 0;
-    }
-    else if(pollPeriod > 6375) {
-        pollPeriod = 6375;        
-    }
-    
-    // Resolution is 25ms increments
-    pollPeriod -= (pollPeriod % 25);    
-    _pollPeriod = pollPeriod;
-    
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_POLLING_RATE_OP
-                                                                andSubOpcode:(pollPeriod / 25)
-                                                                     andData:nil];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /* 
@@ -567,10 +396,7 @@
  @return void
 */
 - (void)setIncrementSnifferThreshold:(UInt16)incrementAmount {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
-                                                                andSubOpcode:FLOMIO_INCREMENT_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&incrementAmount length:2]];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -581,10 +407,7 @@
  @return void
  */
 - (void)setDecrementSnifferThreshold:(UInt16)decrementAmount {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
-                                                                andSubOpcode:FLOMIO_DECREMENT_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&decrementAmount length:2]];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -594,10 +417,7 @@
  @return void
  */
 - (void)sendResetSnifferThreshold {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
-                                                                andSubOpcode:FLOMIO_RESET_THRESHOLD
-                                                                     andData:nil];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -608,10 +428,7 @@
  @return void
  */
 - (void)setMaxSnifferThreshold:(UInt16)maxThreshold {
-    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_SNIFFER_CONFIG_OP
-                                                                andSubOpcode:FLOMIO_SET_MAX_THRESHOLD
-                                                                     andData:[NSData dataWithBytes:&maxThreshold length:2]];
-    [self sendMessageDataToHost:floMessage.bytes];
+
 }
 
 /*
@@ -620,17 +437,11 @@
  */
 - (void)setLedMode:(UInt16)ledMode
 {
-    if (ledMode == 0) {
-        FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_WRISTBAND_OP
-                                                                andSubOpcode:(unsigned char)WRISTBAND_HAPTIC_EVT
-                                                                     andData:nil];
-        [self sendMessageDataToHost:floMessage.bytes];
-    } else {
-        FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_LED_CONTROL_OP
-                                                                    andSubOpcode:(unsigned char)ledMode-1
-                                                                         andData:nil];
-        [self sendMessageDataToHost:floMessage.bytes];
-    }
+    NSData *data = [NSData dataWithBytes: &ledMode length: sizeof(ledMode)];
+    FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_MISC_OP
+                                                            andSubOpcode:(unsigned char)WRISTBAND_HAPTIC_EVT
+                                                                 andData:data];
+    [self sendMessageDataToHost:floMessage.bytes];
 }
 
 /**
@@ -641,17 +452,7 @@
 - (void)disconnectDevice
 {
     
-     FJMessage *floMessage = [[FJMessage alloc] initWithMessageParameters:FLOMIO_DISCONNECT_OP
-     andSubOpcode:0
-     andData:nil];
-     [self sendMessageDataToHost:floMessage.bytes];
-    
 
-    if([self->_nfcService activePeripheral])
-    {
-        [self->_nfcService disconnectPeripheral:[self->_nfcService activePeripheral]];
-    }
-    NSLog(@"disconnectPeripheral:activePeripheral");
 
 }
 

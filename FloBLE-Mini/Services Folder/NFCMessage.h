@@ -16,8 +16,8 @@
 
 // Message Protocol
 #define FLO_MESSAGE_OPCODE_POSITION          0
-#define FLO_MESSAGE_LENGTH_POSITION          1
-#define FLO_MESSAGE_SUB_OPCODE_POSITION      2
+#define FLO_MESSAGE_SUB_OPCODE_POSITION      1
+#define FLO_MESSAGE_LENGTH_POSITION          2
 #define FLO_MESSAGE_ENABLE_POSITION          3
 
 #define FLO_TAG_UID_DATA_POS                 3
@@ -43,25 +43,10 @@
 //Flomio Accessory-Client Message Opcodes
 typedef enum
 {
-    FLOMIO_STATUS_OP = 1,               // 1
-    FLOMIO_PROTO_ENABLE_OP,             // 2
-    FLOMIO_POLLING_ENABLE_OP,           // 3
-    FLOMIO_POLLING_RATE_OP,             // 4
-    FLOMIO_TAG_READ_OP,                 // 5
-    FLOMIO_ACK_ENABLE_OP,               // 6
-    FLOMIO_STANDALONE_OP,               // 7
-    FLOMIO_STANDALONE_TIMEOUT_OP,       // 8  TODO: Timeout needs to be implemented
-    FLOMIO_DUMP_LOG_OP,                 // 9  TODO: Dump log needs to be implemented
-    FLOMIO_LED_CONTROL_OP,              // 10 
-    FLOMIO_TI_HOST_COMMAND_OP,          // 11
-    FLOMIO_COMMUNICATION_CONFIG_OP,     // 12
-    FLOMIO_PING_OP,                     // 13
-    FLOMIO_OPERATION_MODE_OP,           // 14
-    FLOMIO_BLOCK_READ_WRITE_OP,         // 15
-    FLOMIO_TAG_WRITE_OP,				// 16
-    FLOMIO_SNIFFER_CONFIG_OP,           // 17
-    FLOMIO_DISCONNECT_OP,               // 18
-    FLOMIO_WRISTBAND_OP                 // 19
+    FLOMIO_INFO_OP = 0xFB,           // 251
+    FLOMIO_MISC_OP = 0xFC,           // 252
+    FLOMIO_BLE_OP = 0xFD,            // 253
+    FLOMIO_NFC_OP = 0xFE             // 254
 } flomio_opcode_t;
 
 // FLOMIO_TAG_READ_OP sub opcode indicating tag type (most significant nibble)
@@ -90,13 +75,12 @@ typedef enum
 //Flomio Status Sub-Opcode
 typedef enum
 {
-    FLOMIO_STATUS_ALL = 0,
-    FLOMIO_STATUS_HW_REV,
+    FLOMIO_STATUS_HW_REV=0,
     FLOMIO_STATUS_SW_REV,
     FLOMIO_STATUS_BATTERY,
     FLOMIO_STATUS_SNIFFTHRESH,
     FLOMIO_STATUS_SNIFFCALIB
-} flomio_status_opcodes_t;
+} flomio_info_opcodes_t;
 
 //Battery Status
 typedef enum
@@ -257,10 +241,10 @@ typedef enum {
 } wristbandStatus_t;
 
 // FloJack protocol messages {opcode, length, data[] } - Used for messages that don't have 
-const static UInt8 status_hw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};
-const static UInt8 status_sw_rev_msg[] =         {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SW_REV,0x07};
-const static UInt8 status_sniffthresh_msg[] =    {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SNIFFTHRESH,0x01};
-const static UInt8 status_sniffcalib_msg[] =     {FLOMIO_STATUS_OP,0x04,FLOMIO_STATUS_SNIFFCALIB,0x01};
+const static UInt8 status_hw_rev_msg[] =         {FLOMIO_INFO_OP,0x04,FLOMIO_STATUS_HW_REV,0x04};
+const static UInt8 status_sw_rev_msg[] =         {FLOMIO_INFO_OP,0x04,FLOMIO_STATUS_SW_REV,0x07};
+const static UInt8 status_sniffthresh_msg[] =    {FLOMIO_INFO_OP,0x04,FLOMIO_STATUS_SNIFFTHRESH,0x01};
+const static UInt8 status_sniffcalib_msg[] =     {FLOMIO_INFO_OP,0x04,FLOMIO_STATUS_SNIFFCALIB,0x01};
 
 
 @interface FJMessage : NSObject

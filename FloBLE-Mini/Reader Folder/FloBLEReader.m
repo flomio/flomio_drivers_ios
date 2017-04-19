@@ -482,6 +482,7 @@ NSInteger  nDiscoveredChars;
 {
     if(serialH2fPortBlockCharacteristic)
     {
+        NSLog(@"Value %2.2x",dataToWrite[0]);
         NSData * value = [NSData dataWithBytes:(void*)dataToWrite length:len];
         [activePeripheral writeValue:value forCharacteristic:[self serialH2fPortBlockCharacteristic] type:CBCharacteristicWriteWithoutResponse];
     }
